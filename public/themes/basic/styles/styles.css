@@ -1,0 +1,67 @@
+body {
+	max-width: 55em;
+	margin: 0 auto;
+	line-height:1.6;
+	padding: 60px 10px;
+	font-family: Georgia, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 1em;
+	margin: 0.75em 0;
+}
+
+#footer {
+	border-top: 1px solid #ccc;
+	clear:both;
+}
+
+#footer ul {
+	padding-left: 0;
+	list-style: none;
+}
+
+#footer li {
+	float: left;
+}
+
+#footer li a {
+	margin-right: 0.5em;
+}
+
+#header {
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	position:fixed;
+	left:0;
+	right: 0;
+	top: 0;
+	padding: 0 inherit;
+	line-height: 40px;
+
+}
+
+#header * {
+	margin: inherit;
+}
+
+.diagnostics {
+	color: #aaa;
+}
+
+.float-left {
+	float:left;
+}
+
+.float-right {
+	float:right;
+}
+
+.one-third {
+	width: 33%;
+}
+
+.two-thirds {
+	width: 63%;
+}
+
+
