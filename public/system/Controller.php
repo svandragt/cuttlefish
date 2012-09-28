@@ -18,7 +18,7 @@ class Controller {
 
 		$item = $actions[2];
 		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::MARKDOWN_EXT);
-		$content =  (file_exists($filename)) ? Model::load_data($filename) : "Sorry, this page does not exists (404).";
+		$content =  (file_exists($filename)) ? Model::load_data($filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/error/404.md.";
 		View::template($content, 'single.php');
 	}
 
