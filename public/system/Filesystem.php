@@ -16,7 +16,7 @@ class Filesystem {
 				$file_path = $dir . DIRECTORY_SEPARATOR . $file;
 				if (is_dir($file_path)) {
 					$dir_files = self::list_files($file_path, $filter);
-					if (count($dir_files) > 0) $files = $dir_files;
+					if (count($dir_files) > 0) $files = array_merge($files,$dir_files);
 				}
 				elseif ((is_null($filter)) || pathinfo($file_path, PATHINFO_EXTENSION) == $filter) $files[] = $file_path;
 			}
