@@ -9,7 +9,7 @@ class Model {
 		} else {
 			$contents =  file_get_contents ( $filename);
 			if ($contents) {
-				if (class_exists ( 'MarkdownExtra_Parser', false)){
+				if (Ext::class_loaded( 'MarkdownExtra_Parser')){
 					$c = new MarkdownExtra_Parser;
 					$contents =  $c->transform($contents);
 				}
