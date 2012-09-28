@@ -13,7 +13,7 @@ _It should be considered early alpha._
 
 ## Installation
 
-Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows.
+Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows. It probably works fine under Apache / Linux.
 
 1. Check out this repository and point your webserver to the public folder.
 2. Open Configuration.php and override any constants from Defaults.php.
