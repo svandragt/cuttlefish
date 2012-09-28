@@ -3,8 +3,8 @@ Carbon is a hackable performant static blogging system.
 
 _It should be considered early alpha._
 
-A [screenshot of the default theme](http://i.imm.io/FV21.png):
-![Screenshot of the defaul theme](http://i.imm.io/FV21.png)
+A [screenshot of the default theme](http://i.imm.io/FV6p.png):
+![Screenshot of the defaul theme](http://i.imm.io/FV6p.png)
 
 
 ## Aims
