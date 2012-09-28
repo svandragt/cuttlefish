@@ -20,8 +20,14 @@ Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows. I
 
 1. Check out this repository and point your webserver to the public folder.
 2. Open Configuration.php and override any constants from Defaults.php.
-3. Open the site in your browser. A `cache` and `logs` folder outside `public` will be created, as well as a `public/content` folder.
+3. Open the site in your browser. A `cache` and `logs` folder outside `public` will be created, as well as a `public/content` folder sub subfolders.
 
+
+## How to use
+
+* Create your first page: `/content/pages/index.md`. In the _basic_ theme, pages are linked from the footer.
+* Create your first post: `/content/posts/2012/09/first-post.md`. Posts are listed in the index page.
+* Create a 404: `/content/error/404.md`. Now non-existing links will point here.
 
 ## Externals
 
