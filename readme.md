@@ -1,15 +1,17 @@
-#Carbon
+# Carbon
 Carbon is a hackable performant PHP based static blogging system. 
 
 _It should be considered early alpha._
 
-##Aims
+
+## Aims
 
 * Easy to learn
 * Easy to hack & extend
 * Performant
 
-##Installation
+
+## Installation
 
 Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows.
 
@@ -18,4 +20,15 @@ Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows.
 3. Open the site in your browser. A `cache` and `logs` folder outside `public` will be created, as well as a `public/content` folder.
 
 
-Any feedback use the tools.
+## External plugins
+
+Carbon will support third-party plugins (externals). Simply drop a [PHP autoloader](http://php.net/manual/en/language.oop5.autoload.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes.
+
+
+
+## External plugin: Markdown
+
+Carbon is tested with [PHP Markdown Extra](http://michelf.ca/projects/php-markdown/) as an external. To install:
+
+1. Unzip the archove in `system/Ext`.
+2. Rename the php file so that you have a `system/Ext/Markdownextra/MarkdownExtra_Parser.php`. (PHP autoloading requires class-name equals file-name). The folder can be called anything as Carbon will scan for externals on page load (not when serving cached pages).
