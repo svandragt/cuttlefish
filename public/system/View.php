@@ -2,15 +2,23 @@
 
 class View {
 	
-		static function template($content , $layout = 'layout.php') {
+	static function template($articles , $layout = 'layout.php') {
+
+		$articles = (is_array($articles)) ? $articles : array($articles);
+
 		$as = array(
         // 'title' => Configuration::SITE_TITLE,
 		);
-		if (!is_null($content)) {
+		if (!is_null($articles)) {
 			$template = new Template(
 	            $layout, 
 	            array_merge(array(
-	                'content' => $content,
+	                'articles' => new Template(
+	                	'articles.php',
+	                    array_merge(array(
+	                    	'articles' => $articles
+	                    ),$as)
+	            	),
 	                'head' => new Template(
 	                	'head.php',
 	                    array_merge(array(),$as)

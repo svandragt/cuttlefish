@@ -24,9 +24,9 @@ class Controller {
 
 
 	static function index() {
-		$content = '';
+		$content = array();
 		foreach (Filesystem::list_files( Filesystem::url_to_path('/content/posts'), 'md') as $key => $value) {
-			$content .= Model::load_data($value);
+			$content[] = Model::load_data($value);
 		}
 		View::template($content);
 	}
