@@ -32,8 +32,7 @@ class Carbon {
 			$path_info = Http::server('PATH_INFO');
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
-				echo('Location: ' . Theming::root() . substr($path_info, 0, -1));
-				// header('Location: ' . Theming::root() . substr($path_info, 0, -1));
+				header('Location: ' . Theming::root() . substr($path_info, 0, -1));
 				exit();
 			}
 		}
