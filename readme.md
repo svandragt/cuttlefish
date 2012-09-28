@@ -31,5 +31,5 @@ Carbon will register any externals and autoload them.
 
 Carbon is tested with [PHP Markdown Extra](http://michelf.ca/projects/php-markdown/) as an external. To install:
 
-1. Unzip the archove in `system/Ext`.
+1. Unzip the archive in `system/Ext`.
 2. Rename the php file so that you have a `system/Ext/Markdownextra/MarkdownExtra_Parser.php`. (PHP autoloading requires class-name equals file-name). 
