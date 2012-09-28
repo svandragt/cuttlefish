@@ -22,7 +22,7 @@ Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows.
 
 ## External plugins
 
-Carbon will support third-party plugins (externals). Simply drop a [PHP autoloader](http://php.net/manual/en/language.oop5.autoload.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes.
+Carbon will support third-party plugins (externals). Simply drop a [PHP autoloader](http://php.net/manual/en/language.oop5.autoload.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes. (Feel free to organise classes using folders, with no naming requirements)
 
 
 
