@@ -6,7 +6,7 @@ class Defaults {
 	const SITE_MOTTO     = 'Something clever for the internets';
 	const HOME_PAGE      = '/index';
 
-	const CACHE_FOLDER   = '../_cache';
+	const CACHE_FOLDER   = '../cache';
 	const CONTENT_FOLDER = 'content';
 	const LOGS_FOLDER    = '../logs';
 	const THEMES_FOLDER  = 'themes';
