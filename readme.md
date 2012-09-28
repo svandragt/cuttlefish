@@ -22,8 +22,9 @@ Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows.
 
 ## External plugins
 
-Carbon will support third-party plugins (externals). Simply drop a [PHP autoloader](http://php.net/manual/en/language.oop5.autoload.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes. (Feel free to organise classes using folders, with no naming requirements)
+Carbon will support third-party plugins (externals). Simply drop a [PHP autoloader](http://php.net/manual/en/language.oop5.autoload.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes. Feel free to organise classes using folders, with no naming requirements.
 
+Carbon will register any externals and autoload them.
 
 
 ## External plugin: Markdown
@@ -31,4 +32,4 @@ Carbon will support third-party plugins (externals). Simply drop a [PHP autoload
 Carbon is tested with [PHP Markdown Extra](http://michelf.ca/projects/php-markdown/) as an external. To install:
 
 1. Unzip the archove in `system/Ext`.
-2. Rename the php file so that you have a `system/Ext/Markdownextra/MarkdownExtra_Parser.php`. (PHP autoloading requires class-name equals file-name). The folder can be called anything as Carbon will scan for externals on page load (not when serving cached pages).
+2. Rename the php file so that you have a `system/Ext/Markdownextra/MarkdownExtra_Parser.php`. (PHP autoloading requires class-name equals file-name). 
