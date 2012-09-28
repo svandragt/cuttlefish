@@ -27,6 +27,6 @@ class Filesystem {
 
 	static function url_to_path($url) {
 		// takes /content/pages/index and returns path
-		return BASE_DIR . str_replace('/', DIRECTORY_SEPARATOR, $url);
+		return BASEPATH . str_replace('/', DIRECTORY_SEPARATOR, $url);
 	} 
 }

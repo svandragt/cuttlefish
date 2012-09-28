@@ -30,7 +30,7 @@ class Cache {
 	}
 
 	static function clear() {
-		$glob_dir =  BASE_DIR . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER) . DIRECTORY_SEPARATOR . '*';
+		$glob_dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER) . DIRECTORY_SEPARATOR . '*';
 		printf("Removing %s<br>", $glob_dir);
 		$files = glob( $glob_dir); 
 		foreach($files as $file) if(is_file($file)) {
