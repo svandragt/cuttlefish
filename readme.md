@@ -1,5 +1,7 @@
 #Carbon
-Carbon is a hackable performant PHP based static blogging system. It should be considered early alpha.
+Carbon is a hackable performant PHP based static blogging system. 
+
+_It should be considered early alpha._
 
 ##Aims
 
