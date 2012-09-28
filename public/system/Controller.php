@@ -13,7 +13,6 @@ class Controller {
 	}
 
 	static function error($actions) {
-		// ob_end_clean();
 		header("HTTP/1.0 404 Not Found");
 
 		$item = $actions[2];
