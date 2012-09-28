@@ -43,6 +43,7 @@ class Controller {
 	static function posts($actions) {
 		$item = $actions;
 		$item[0] = $item[1] = null;
+		$item = implode('/', $item);
 		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::CONTENT_EXT);
 		$content = Model::load_data($filename);
 		View::template($content);
