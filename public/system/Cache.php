@@ -9,7 +9,6 @@ class Cache {
 	static function end() {
 		if ( self::has_cacheable_page_request() ) {
 			$fp = fopen(self::cache_file(), 'w'); 
-			// save the contents of output buffer to the file
 			fwrite($fp, ob_get_contents()); 
 			fclose($fp); 
 			ob_end_flush();
@@ -33,11 +32,10 @@ class Cache {
 	static function clear() {
 		$glob_dir =  BASE_DIR . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER) . DIRECTORY_SEPARATOR . '*';
 		printf("Removing %s<br>", $glob_dir);
-		$files = glob( $glob_dir); // get all file names
-		foreach($files as $file){ // iterate files
+		$files = glob( $glob_dir); 
+		foreach($files as $file) if(is_file($file)) {
 			echo "Deleted: $file" . "<br>";
-		  if(is_file($file))
-		    unlink($file); // delete file
+		    unlink($file); 
 		}	
 	}
 
