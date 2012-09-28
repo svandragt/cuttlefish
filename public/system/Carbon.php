@@ -27,8 +27,7 @@ class Carbon {
 	
 	static function page_path() {
 		if (is_null(Http::server('PATH_INFO') ) || Http::server('PATH_INFO') == '/' ) {
-			header('Location: ' . Theming::root() . Configuration::HOME_PAGE);
-			exit();
+			$path_info = Configuration::HOME_PAGE;
 		} else {
 			$path_info = Http::server('PATH_INFO');
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
@@ -37,10 +36,8 @@ class Carbon {
 				// header('Location: ' . Theming::root() . substr($path_info, 0, -1));
 				exit();
 			}
-			else{ 
-				return $path_info;
-			}
 		}
+		return $path_info;
 	}
 
 	static function index_page() {
