@@ -13,6 +13,6 @@ class Defaults {
 	const THEME          = 'basic';
 	
 	const CACHE_ENABLED  = false;
-	const MARKDOWN_EXT   = 'md';
+	const CONTENT_EXT   = 'md';
 
 }

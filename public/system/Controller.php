@@ -17,7 +17,7 @@ class Controller {
 		header("HTTP/1.0 404 Not Found");
 
 		$item = $actions[2];
-		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::MARKDOWN_EXT);
+		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::CONTENT_EXT);
 		$content =  (file_exists($filename)) ? Model::load_data($filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/error/404.md.";
 		View::template($content, 'single.php');
 	}
@@ -35,7 +35,7 @@ class Controller {
 
 	static function pages($actions) {
 		$item = $actions[2];
-		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::MARKDOWN_EXT);
+		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::CONTENT_EXT);
 		$content = Model::load_data($filename);
 		View::template($content);
 	}
@@ -43,7 +43,7 @@ class Controller {
 	static function posts($actions) {
 		$item = $actions;
 		$item[0] = $item[1] = null;
-		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::MARKDOWN_EXT);
+		$filename = Filesystem::url_to_path('/content/'. __FUNCTION__ ."/$item." . Configuration::CONTENT_EXT);
 		$content = Model::load_data($filename);
 		View::template($content);
 	}

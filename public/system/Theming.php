@@ -15,7 +15,7 @@ class Theming {
 
 	static function pages() {
 		$output = '';
-		foreach (Filesystem::list_files( Filesystem::url_to_path('/content/pages'), Configuration::MARKDOWN_EXT) as $key => $value) {
+		foreach (Filesystem::list_files( Filesystem::url_to_path('/content/pages'), Configuration::CONTENT_EXT) as $key => $value) {
 			$filename =  pathinfo($value, PATHINFO_FILENAME  );
 			$output .= sprintf("<li><a href='%s/pages/%s'>%s</a></li>",Theming::root(), $filename, ucwords($filename));
 		}
