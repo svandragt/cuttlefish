@@ -10,7 +10,7 @@ class Theming {
 	}
 
 	static function root() {
-		return "http://" . Http::server('HTTP_HOST') . Http::server('SCRIPT_NAME');
+		return "http://" . Http::server('HTTP_HOST') .  Carbon::index_page();
 	}
 
 	static function pages() {

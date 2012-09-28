@@ -25,23 +25,28 @@ class Carbon {
 	}
 
 	
-
-
-
 	static function page_path() {
-		if (is_null(Http::server('PATH_INFO'))) {
+		if (is_null(Http::server('PATH_INFO') ) || Http::server('PATH_INFO') == '/' ) {
 			header('Location: ' . Theming::root() . Configuration::HOME_PAGE);
 			exit();
 		} else {
 			$path_info = Http::server('PATH_INFO');
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
-				header('Location: ' . Theming::root() . substr($path_info, 0, -1));
+				echo('Location: ' . Theming::root() . substr($path_info, 0, -1));
+				// header('Location: ' . Theming::root() . substr($path_info, 0, -1));
 				exit();
 			}
 			else{ 
 				return $path_info;
 			}
 		}
+	}
+
+	static function index_page() {
+		$index = str_replace('/index.php', Configuration::INDEX_PAGE, Http::server('SCRIPT_NAME'));
+		$index = str_replace('//', '', $index);
+		return $index;
+
 	}
 }
