@@ -1,5 +1,5 @@
 # Carbon
-Carbon is a hackable performant static blogging system. 
+Carbon is a hackable performant (semi) static blogging system. 
 
 _It should be considered early alpha._
 
