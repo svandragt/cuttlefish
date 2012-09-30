@@ -41,9 +41,9 @@ class Model {
 			$segments = preg_split( '/\R\R/',  trim(file_get_contents($filename)), self::TOTAL_SECTIONS);
 
 			$model = new stdClass();
-			if (isset($segments[self::METADATA])) if (Ext::class_loaded( 'Yaml')){
-				$c = new Yaml;
-				$model->meta_data =  $c->parse_string($segments[self::METADATA]);
+			if (isset($segments[self::METADATA])) if (Ext::class_loaded( 'Spyc')){
+				$c = new Spyc;
+				$model->meta_data =  $c->YAMLLoadString($segments[self::METADATA]);
 			}
 			if (isset($segments[self::CONTENT])) {
 				if (Ext::class_loaded( 'MarkdownExtra_Parser')){
