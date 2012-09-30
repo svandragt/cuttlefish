@@ -19,12 +19,12 @@ class Carbon {
 			header('Location: ' . Theming::root() . '/error/404');
 			exit();
 		}
-		Cache::end();
-		
+
+		Cache::end();		
 		Setup::environment_end();
 	}
 
-	
+
 	static function page_path() {
 		if (is_null(Http::server('PATH_INFO') ) || Http::server('PATH_INFO') == '/' ) {
 			$path_info = Configuration::HOME_PAGE;
@@ -41,7 +41,8 @@ class Carbon {
 
 	static function index_page() {
 		$index = str_replace('/index.php', Configuration::INDEX_PAGE, Http::server('SCRIPT_NAME'));
-		$index = str_replace('//', '', $index);
+		$index = str_replace('//', '/', $index);
+		echo $index;
 		return $index;
 
 	}
