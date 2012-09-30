@@ -10,6 +10,7 @@ class Carbon {
 		Setup::environment_start();
 		Cache::start();
 
+		// Route to controller
 		$path_paths = explode("/", self::path_info());
 		$function = $path_paths[1];
 		if ( is_callable ( "Controller::$function")) {
