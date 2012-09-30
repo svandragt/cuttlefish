@@ -46,6 +46,7 @@ class Controller {
 	}
 
 	static function posts($actions) {
+		$function = __FUNCTION__;
 		$actions = array_slice($actions, 2);
 		$item = implode('/', $actions);
 		$filename = Filesystem::url_to_path("/content/$function/$item." . Configuration::CONTENT_EXT);
