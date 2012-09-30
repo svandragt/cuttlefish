@@ -26,10 +26,10 @@ class Carbon {
 
 
 	static function page_path() {
-		if (is_null(Http::server('PATH_INFO') ) || Http::server('PATH_INFO') == '/' ) {
+		$path_info = Http::server('PATH_INFO'); 
+		if (is_null($path_info ) || $path_info == '/' ) {
 			$path_info = Configuration::HOME_PAGE;
 		} else {
-			$path_info = Http::server('PATH_INFO');
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
 				header('Location: ' . Theming::root() . substr($path_info, 0, -1));
