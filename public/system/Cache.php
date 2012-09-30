@@ -16,7 +16,7 @@ class Cache {
 	}
 
 	static function has_cacheable_page_request() {
-		return (!is_null(Http::server('PATH_INFO')) && !ob_get_level() == 0 && is_null(error_get_last()));
+		return (!is_null(Carbon::path_info()) && !ob_get_level() == 0 && is_null(error_get_last()));
 	}
 
 
