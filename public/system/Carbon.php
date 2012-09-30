@@ -42,8 +42,6 @@ class Carbon {
 	static function index_page() {
 		$index = str_replace('/index.php', Configuration::INDEX_PAGE, Http::server('SCRIPT_NAME'));
 		$index = str_replace('//', '/', $index);
-		echo $index;
 		return $index;
-
 	}
 }
