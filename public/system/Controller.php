@@ -5,7 +5,7 @@ class Controller {
 	static function admin($actions) {
 		ob_end_clean();
 		switch ($actions[2]) {
-			case "cache_clear":
+			case 'cache':
 				Cache::clear();
 			break;
 		}
@@ -17,10 +17,14 @@ class Controller {
 		$function = __FUNCTION__;
 		$item = $actions[2];
 
-		$filename = Filesystem::url_to_path("/content/$function/$item." . Configuration::CONTENT_EXT);
-		$data =  (file_exists($filename)) ? call_user_func ("Model::$function",$filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/error/404.md.";
-		View::template($data, 'single.php');
-	}
+		switch ($item) {
+			case '404':
+				$filename = Filesystem::url_to_path("/content/$function/$item." . Configuration::CONTENT_EXT);
+				$data =  (file_exists($filename)) ? call_user_func ("Model::$function",$filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/error/404.md.";
+				View::template($data, 'single.php');
+			break;
+		}
+ 	}
 
 
 	static function index() {
@@ -30,7 +34,6 @@ class Controller {
 		}
 		View::template($data);
 	}
-
 
 
 	static function pages($actions) {
