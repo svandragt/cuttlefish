@@ -164,6 +164,5 @@ pip-log.txt
 
 # Carbon
 public/content/
-public/system/Ext/
 cache/
 logs/
