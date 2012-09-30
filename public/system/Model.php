@@ -5,6 +5,10 @@ class Model {
 	const CONTENT = 1;
 	const TOTAL_SECTIONS = 2;
 
+	static function error($filename) {
+		return self::pages($filename);
+	}
+
 	static function pages($filename) {
 		if (is_null($filename)) return null;
 		if (!file_exists ($filename )) {
