@@ -2,9 +2,15 @@
 
 class View {
 	
-	static function template($articles , $layout = 'layout.php') {
+	static function template($data , $layout = 'layout.php') {
+		$data = (is_array($data)) ? $data : array($data);
 
-		$articles = (is_array($articles)) ? $articles : array($articles);
+		$articles = array();
+		foreach ($data as $data_item) {
+			$articles[] = $data_item->content;
+		}
+
+
 
 		$as = array(
         // 'title' => Configuration::SITE_TITLE,
