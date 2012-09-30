@@ -5,22 +5,22 @@ class View {
 	static function template($data , $layout = 'layout.php') {
 		$data = (is_array($data)) ? $data : array($data);
 
-		$articles = array();
+		$content = array();
 		foreach ($data as $data_item) {
-			$articles[] = $data_item->content;
+			$content[] = $data_item->content;
 		}
 
 		$as = array(
         // 'title' => Configuration::SITE_TITLE,
 		);
-		if (!is_null($articles)) {
+		if (!is_null($content)) {
 			$template = new Template(
 	            $layout, 
 	            array_merge(array(
-	                'articles' => new Template(
-	                	'articles.php',
+	                'content' => new Template(
+	                	'content.php',
 	                    array_merge(array(
-	                    	'articles' => $articles
+	                    	'content' => $content
 	                    ),$as)
 	            	),
 	                'head' => new Template(
