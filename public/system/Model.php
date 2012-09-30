@@ -3,6 +3,7 @@
 class Model {
 	const METADATA = 0;
 	const CONTENT = 1;
+	const TOTAL_SECTIONS = 2;
 
 	static function pages($filename) {
 		if (is_null($filename)) return null;
@@ -32,14 +33,13 @@ class Model {
 			Log::info("'$filename' cannot be found.");
 			header('Location: ' . Theming::root() . '/error/404');
 		} else {
-			$segments = preg_split( '/\R\R/',  trim(file_get_contents($filename)), 2);
+
+			$segments = preg_split( '/\R\R/',  trim(file_get_contents($filename)), self::TOTAL_SECTIONS);
 
 			$model = new stdClass();
-			if (isset($segments[self::METADATA])) {
-				if (Ext::class_loaded( 'Yaml')){
-					$c = new Yaml;
-					$model->meta_data =  $c->parse_string($segments[self::METADATA]);
-				}
+			if (isset($segments[self::METADATA])) if (Ext::class_loaded( 'Yaml')){
+				$c = new Yaml;
+				$model->meta_data =  $c->parse_string($segments[self::METADATA]);
 			}
 			if (isset($segments[self::CONTENT])) {
 				if (Ext::class_loaded( 'MarkdownExtra_Parser')){
@@ -50,6 +50,7 @@ class Model {
 					$model->content =  $segments[self::CONTENT];
 				}
 			}
+
 			return $model;
 		}
 	}
