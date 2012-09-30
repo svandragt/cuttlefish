@@ -10,8 +10,6 @@ class View {
 			$articles[] = $data_item->content;
 		}
 
-
-
 		$as = array(
         // 'title' => Configuration::SITE_TITLE,
 		);

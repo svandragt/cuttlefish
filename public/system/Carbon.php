@@ -10,12 +10,12 @@ class Carbon {
 		Setup::environment_start();
 		Cache::start();
 
-		$actions = explode("/", Carbon::page_path());
-		$function = $actions[1];
+		$path_paths = explode("/", self::path_info());
+		$function = $path_paths[1];
 		if ( is_callable ( "Controller::$function")) {
-			call_user_func ( "Controller::$function",$actions);
+			call_user_func ( "Controller::$function",$path_paths);
 		} else {
-			Log::info("not callable '$function' or missing parameter.");
+			Log::info("Not callable 'Controller::$function' or missing parameter.");
 			header('Location: ' . Theming::root() . '/error/404');
 			exit();
 		}
@@ -25,10 +25,10 @@ class Carbon {
 	}
 
 
-	static function page_path() {
+	static function path_info() {
 		$path_info = Http::server('PATH_INFO'); 
-		if (is_null($path_info ) || $path_info == '/' ) {
-			$path_info = Configuration::HOME_PAGE;
+		$no_specified_path = is_null($path_info ) || $path_info == '/';
+		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
 		} else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
