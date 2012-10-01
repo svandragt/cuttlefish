@@ -19,6 +19,7 @@ class Model {
 		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
 			$model = new Datamodel($args, self::$page_model);
+			$model->model = __FUNCTION__;
 
 			return $model;
 		} else {
@@ -33,6 +34,7 @@ class Model {
 		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
 			$model = new Datamodel($args, self::$post_model);
+			$model->model = __FUNCTION__;
 
 			return $model;
 		} else {

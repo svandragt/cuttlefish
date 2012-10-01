@@ -27,7 +27,7 @@ if ( count($this->models) > 1) {
 }else {
 	$model = $this->models[0];
 
-	switch ($model->model['function']) {
+	switch ($model->model) {
 		case 'pages':
 			printf("<article>
 				<h2>%s</h2>

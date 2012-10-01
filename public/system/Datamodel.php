@@ -12,8 +12,6 @@ class Datamodel {
 
         // Call the Model constructor
 		$this->link      = Theming::content_url($this->file_path);
-		list(, $this->model) = debug_backtrace(false);
-
 		$this->sections = preg_split( '/\R\R/',  trim(file_get_contents($this->file_path)), 2);
 		$section_keys   = array_keys($section_types);
 		$section_values = array_values($section_types);
