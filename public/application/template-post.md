@@ -1,0 +1,5 @@
+Published: %s
+
+Example
+=======
+Placeholder.

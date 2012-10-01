@@ -17,7 +17,7 @@ class Carbon {
 			call_user_func ( "Controller::$function",$path_parts);
 		} else {
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
-			header('Location: ' . Theming::root() . '/error/404');
+			header('Location: ' . Theming::root() . '/errors/404');
 			exit();
 		}
 
@@ -46,14 +46,13 @@ class Carbon {
 		return $index;
 	}
 
-	static function template() {
+	static function template($template_type) {
 		$now = date("Y-m-d h:i:sa"); 
-		$contents = "Published: $now
-
-Example
-=======
-Placeholder.
-";
+		$ext = Configuration::CONTENT_EXT;
+		$application_folder =  Configuration::APPLICATION_FOLDER;
+		$filepath_template = Filesystem::url_to_path("/$application_folder/template-$template_type.$ext");
+		$contents = trim(file_get_contents($filepath_template));
+		$contents = sprintf($contents, $now);
 		Http::download_string($contents);
 	}
 }
