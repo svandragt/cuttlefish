@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0.75em 0;
 }
 
-h2 a {
+#header a, h2 a {
 	text-decoration: none;
 	-webkit-transition: opacity 0.25s ease-in-out;
 	-moz-transition   : opacity 0.25s ease-in-out;
@@ -27,10 +27,10 @@ h2 a {
 
 }
 
-
-h2 a:hover {
+#header a:hover, h2 a:hover {
 	opacity: 0.8;
 }
+
 
 
 #footer {
