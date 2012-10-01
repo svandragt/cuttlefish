@@ -34,13 +34,17 @@ class Controller {
 
 	static function index() {
 		$data = array();
+		$i = 0;
+		$max = Configuration::POSTS_HOMEPAGE;
 		foreach (Filesystem::list_files( Filesystem::url_to_path('/content/posts'), 'md') as $key => $value) {
 			$data[] = call_user_func ("Model::posts",$value);	
+			if (++$i == $max) break;
 		}
+		usort ( $data, "Carbon::compare_published");
 		View::template($data);
 	}
 
-
+	
 	static function pages($path_parts) {
 		$function = __FUNCTION__;
 		$item     = $path_parts[2];

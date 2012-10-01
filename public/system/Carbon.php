@@ -2,6 +2,30 @@
 
 class Carbon {
 
+	static function compare_published($a,$b) {
+    	return strcmp($b->metadata['Published'], $a->metadata['Published']);
+	}
+
+	static function index_page() {
+		$index = str_replace('/index.php', Configuration::INDEX_PAGE, Http::server('SCRIPT_NAME'));
+		$index = str_replace('//', '/', $index);
+		return $index;
+	}
+
+	static function path_info() {
+		$path_info = Http::server('PATH_INFO'); 
+		$no_specified_path = is_null($path_info ) || $path_info == '/';
+		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
+		else {
+			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
+			if ($ends_with_slash) {
+				header('Location: ' . Theming::root() . substr($path_info, 0, -1));
+				exit();
+			}
+		}
+		return $path_info;
+	}
+
 	static function router() {
 		if (Cache::has_cache()) {
 			include(Cache::cache_file()); 
@@ -26,30 +50,10 @@ class Carbon {
 	}
 
 
-	static function path_info() {
-		$path_info = Http::server('PATH_INFO'); 
-		$no_specified_path = is_null($path_info ) || $path_info == '/';
-		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
-		else {
-			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
-			if ($ends_with_slash) {
-				header('Location: ' . Theming::root() . substr($path_info, 0, -1));
-				exit();
-			}
-		}
-		return $path_info;
-	}
-
-	static function index_page() {
-		$index = str_replace('/index.php', Configuration::INDEX_PAGE, Http::server('SCRIPT_NAME'));
-		$index = str_replace('//', '/', $index);
-		return $index;
-	}
-
 	static function template($template_type) {
     	if (is_null($template_type)) throw new Exception('Template type cannot be null.');
     	
-		$now = date("Y-m-d h:i:sa"); 
+		$now = date("Y-m-d H:i:s"); 
 		$ext = Configuration::CONTENT_EXT;
 		$application_folder =  Configuration::APPLICATION_FOLDER;
 		$filepath_template = Filesystem::url_to_path("/$application_folder/template-$template_type.$ext");
