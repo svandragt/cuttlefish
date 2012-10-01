@@ -11,7 +11,7 @@ class Model {
 		'markdown|html' => 'content',
 	);
 
-	static function error($file_path) {
+	static function errors($file_path) {
 		return self::pages($file_path);
 	}
 
@@ -20,7 +20,7 @@ class Model {
 			$model = new Datamodel($file_path, self::$page_model);
 			return $model;
 		} else {
-			header('Location: ' . Theming::root() . '/error/404');
+			header('Location: ' . Theming::root() . '/errors/404');
 			exit();
 		}
 	}
@@ -32,7 +32,7 @@ class Model {
 			$model = new Datamodel($file_path, self::$post_model);
 			return $model;
 		} else {
-			header('Location: ' . Theming::root() . '/error/404');
+			header('Location: ' . Theming::root() . '/errors/404');
 			exit();
 		}		
 	}

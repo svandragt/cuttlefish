@@ -17,7 +17,7 @@ class Controller {
 		printf("<a href='%s'>Return</a><br>",Theming::root());
 	}
 
-	static function error($path_parts) {
+	static function errors($path_parts) {
 		header("HTTP/1.0 404 Not Found");
 		$function = __FUNCTION__;
 		$error_type = $path_parts[2];
@@ -25,7 +25,7 @@ class Controller {
 		switch ($error_type) {
 			case '404':
 				$filename = Filesystem::url_to_path("/content/$function/$error_type." . Configuration::CONTENT_EXT);
-				$data =  (file_exists($filename)) ? call_user_func ("Model::$function",$filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/error/404.md.";
+				$data =  (file_exists($filename)) ? call_user_func ("Model::$function",$filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/errors/404.md.";
 				View::template($data, 'single.php');
 			break;
 		}
