@@ -17,24 +17,24 @@ class Datamodel {
 
 		$mdep = null;
 		$spyc = null;
-		if (Ext::class_loaded( 'MarkdownExtra_Parser')) $mdep = new MarkdownExtra_Parser;
-		if (Ext::class_loaded( 'Spyc')) $spyc = new Spyc;
+		if (Ext::class_loaded('MarkdownExtra_Parser')) $mdep = new MarkdownExtra_Parser;
+		if (Ext::class_loaded('Spyc'))                 $spyc = new Spyc;
 
 		for ($i = 0; $i < count($section_types); $i++) { 
 			$section_key   = $section_keys[$i];
 			$section_value = $section_values[$i];
 			switch ($section_key) {
 				case 'yaml':
-					if ($spyc) $this->$section_value =  $spyc->YAMLLoadString($this->sections[$i]);
-					else $this->$section_value =  $this->sections[$i];
+					if ($spyc) $this->$section_value = $spyc->YAMLLoadString($this->sections[$i]);
+					else       $this->$section_value = $this->sections[$i];
 					break;
 				case 'markdown|html':
-					$content_sections = preg_split( '/=\R/',  trim($this->sections[$i]), 2);	
-					$title_sections   = preg_split( '/\R/',  trim($content_sections[0]), 2);	
+					$content_sections = preg_split( '/=\R/', trim($this->sections[$i]), 2);	
+					$title_sections   = preg_split( '/\R/' , trim($content_sections[0]), 2);	
 					$this->title      = $title_sections[0];
 
-					if ($mdep) $this->$section_value =  $mdep->transform($content_sections[1]);
-					else $this->$section_value =  $content_sections[1];
+					if ($mdep) $this->$section_value = $mdep->transform($content_sections[1]);
+					else       $this->$section_value = $content_sections[1];
 					break;
 				
 				default:
