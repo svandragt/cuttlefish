@@ -1,7 +1,8 @@
 <?php
 
 class Datamodel {
-		function __construct($file_path, $section_types) {
+	
+	function __construct($file_path, $section_types) {
 
     	if (array_unique ($section_types) !== $section_types) throw new Exception('Array values not unique');
 
@@ -44,5 +45,7 @@ class Datamodel {
 			}
 			# code...
 		}
+
+
     }
 }
