@@ -9,6 +9,16 @@ class Filesystem {
 		}
 	}
 
+	static function is_found($file_path) {
+		if (is_null($file_path)) throw new Exception('$file_path cannot be null.');
+		if (!file_exists ($file_path )) {
+			Log::info("'$file_path' cannot be found.");
+			return false;
+		} else {
+			return  true;
+		}
+	}
+
 	static function list_files($dir = ".", $filter = null) { 
 		$files = array();
 	   	if ($handle = opendir($dir)) while (false !== ($file = readdir($handle))) {
