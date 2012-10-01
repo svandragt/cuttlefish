@@ -11,7 +11,7 @@ class Controller {
 				Cache::clear();
 				break;
 			case 'new':
-				Carbon::template();
+				Carbon::template('post');
 				break;
 		}
 		printf("<a href='%s'>Return</a><br>",Theming::root());

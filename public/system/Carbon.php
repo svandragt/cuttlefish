@@ -47,11 +47,13 @@ class Carbon {
 	}
 
 	static function template($template_type) {
+    	if (is_null($template_type)) throw new Exception('Template type cannot be null.');
+    	
 		$now = date("Y-m-d h:i:sa"); 
 		$ext = Configuration::CONTENT_EXT;
 		$application_folder =  Configuration::APPLICATION_FOLDER;
 		$filepath_template = Filesystem::url_to_path("/$application_folder/template-$template_type.$ext");
-		$contents = trim(file_get_contents($filepath_template));
+		$contents = (file_exists($filepath_template)) ? trim(file_get_contents($filepath_template)) : "Create '$filepath_template' for your $template_type template.";
 		$contents = sprintf($contents, $now);
 		Http::download_string($contents);
 	}
