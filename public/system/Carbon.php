@@ -11,10 +11,10 @@ class Carbon {
 		Cache::start();
 
 		// Route to controller
-		$path_paths = explode("/", self::path_info());
-		$function = $path_paths[1];
+		$path_parts = explode("/", self::path_info());
+		$function = $path_parts[1];
 		if ( is_callable ( "Controller::$function")) {
-			call_user_func ( "Controller::$function",$path_paths);
+			call_user_func ( "Controller::$function",$path_parts);
 		} else {
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
 			header('Location: ' . Theming::root() . '/error/404');

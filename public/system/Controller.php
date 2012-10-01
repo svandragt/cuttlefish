@@ -2,9 +2,11 @@
 
 class Controller {
 
-	static function admin($actions) {
+	static function admin($path_parts) {
 		ob_end_clean();
-		switch ($actions[2]) {
+		$action = $path_parts[2];
+
+		switch ($action) {
 			case 'cache':
 				Cache::clear();
 			break;
@@ -12,14 +14,14 @@ class Controller {
 		printf("<a href='%s'>Return</a><br>",Theming::root());
 	}
 
-	static function error($actions) {
+	static function error($path_parts) {
 		header("HTTP/1.0 404 Not Found");
 		$function = __FUNCTION__;
-		$item = $actions[2];
+		$error_type = $path_parts[2];
 
-		switch ($item) {
+		switch ($error_type) {
 			case '404':
-				$filename = Filesystem::url_to_path("/content/$function/$item." . Configuration::CONTENT_EXT);
+				$filename = Filesystem::url_to_path("/content/$function/$error_type." . Configuration::CONTENT_EXT);
 				$data =  (file_exists($filename)) ? call_user_func ("Model::$function",$filename) : "Sorry, this page does not exists (404). Customise this page by adding a /content/error/404.md.";
 				View::template($data, 'single.php');
 			break;
@@ -36,21 +38,22 @@ class Controller {
 	}
 
 
-	static function pages($actions) {
+	static function pages($path_parts) {
 		$function = __FUNCTION__;
-		$item = $actions[2];
+		$item     = $path_parts[2];
 		$filename = Filesystem::url_to_path("/content/$function/$item." . Configuration::CONTENT_EXT);
-		$data = call_user_func ("Model::$function",$filename);	
+		$data     = call_user_func ("Model::$function",$filename);	
 
 		View::template($data);
 	}
 
-	static function posts($actions) {
+	static function posts($path_parts) {
 		$function = __FUNCTION__;
-		$actions = array_slice($actions, 2);
-		$item = implode('/', $actions);
+		$path_parts  = array_slice($path_parts, 2);
+		$item     = implode('/', $path_parts);
 		$filename = Filesystem::url_to_path("/content/$function/$item." . Configuration::CONTENT_EXT);
-		$data = call_user_func ("Model::$function",$filename);	
+		$data     = call_user_func ("Model::$function",$filename);	
+
 		View::template($data);
 	}
 }
