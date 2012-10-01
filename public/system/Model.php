@@ -31,21 +31,20 @@ class Model {
 
 		
 
-	static function posts($filename) {
-		if (is_null($filename)) return null;
-		if (!file_exists ($filename )) {
-			Log::info("'$filename' cannot be found.");
+	static function posts($file_path) {
+		if (is_null($file_path)) return null;
+		if (!file_exists ($file_path )) {
+			Log::info("'$file_path' cannot be found.");
 			header('Location: ' . Theming::root() . '/error/404');
 		} else {
-			$model = new stdClass();
-			$model->filename = $filename;
-			$model->link     = Theming::content_url($filename);
+			$model            = new stdClass();
+			$model->file_path = $file_path;
+			$model->link      = Theming::content_url($file_path);
 
-			$segments = preg_split( '/\R\R/',  trim(file_get_contents($model->filename)), self::TOTAL_SECTIONS);
-
+			$segments         = preg_split( '/\R\R/',  trim(file_get_contents($model->file_path)), self::TOTAL_SECTIONS);
 			$content_segments = preg_split( '/=\R/',  trim($segments[self::CONTENT]), 2);	
-			$title_segments = preg_split( '/\R/',  trim($segments[self::CONTENT]), 2);	
-			$model->title = $title_segments[0];
+			$title_segments   = preg_split( '/\R/',  trim($segments[self::CONTENT]), 2);	
+			$model->title     = $title_segments[0];
 
 			if (isset($segments[self::METADATA])) if (Ext::class_loaded( 'Spyc')){
 				$c = new Spyc;
