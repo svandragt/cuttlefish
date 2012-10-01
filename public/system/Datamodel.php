@@ -1,8 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
 class Datamodel {
+
+	public $metadata = null;
 	
 	function __construct($file_path, $section_types) {
+		$this->metadata = new StdClass();
 
     	if (array_unique ($section_types) !== $section_types) throw new Exception('Array values not unique');
 
@@ -27,8 +30,11 @@ class Datamodel {
 			$section_value = $section_values[$i];
 			switch ($section_key) {
 				case 'yaml':
-					if ($spyc) $this->$section_value = $spyc->YAMLLoadString($this->sections[$i]);
-					else       $this->$section_value = $this->sections[$i];
+					if ($spyc) $yaml = $spyc->YAMLLoadString($this->sections[$i]);
+					else       $yaml = $this->sections[$i];
+
+					foreach ($yaml as $key => $value) $this->$section_value->$key = $value;
+
 					break;
 				case 'markdown|html':
 					$content_sections = preg_split( '/=\R/', trim($this->sections[$i]), 2);	
