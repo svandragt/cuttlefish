@@ -10,6 +10,7 @@ if ( count($this->models) > 1) foreach ($this->models as $model) {
 	$model = $this->models[0];
 	printf("<article>
 		<h2>%s</h2>
+		<small>%s</small>
 		%s
-		</article>", $model->title,$model->content);
+		</article>", $model->title, $model->metadata['Published'], $model->content);
 }
