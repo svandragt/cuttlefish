@@ -1,7 +1,7 @@
 <?php
 $then = microtime();
-include 'system/__autoload.php';
 define('BASEPATH', __DIR__);
+include 'system/__autoload.php';
 Carbon::router();
 
 $now = microtime();

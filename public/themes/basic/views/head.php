@@ -1,4 +1,4 @@
-<?php  if ( ! defined('THEME_DIR')) exit('No direct script access allowed'); ?>
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <head>
 	<title><?= Configuration::SITE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

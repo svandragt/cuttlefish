@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 // PHP 5 - http://stackoverflow.com/questions/62617/whats-the-best-way-to-separate-php-code-and-html
 class Template {
     private $args;

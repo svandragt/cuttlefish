@@ -1,4 +1,5 @@
-<?php  if ( ! defined('THEME_DIR')) exit('No direct script access allowed'); 
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 echo PHP_EOL;
 if ( count($this->models) > 1) foreach ($this->models as $model) {
 	printf("<article>

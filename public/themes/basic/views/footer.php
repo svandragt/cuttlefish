@@ -1,4 +1,4 @@
-<?php  if ( ! defined('THEME_DIR')) exit('No direct script access allowed'); ?>
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 <ul>
 	<li><a href="<?= Theming::root() ?>">Home</a></li>

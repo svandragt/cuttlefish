@@ -1,4 +1,4 @@
-<?php  if ( ! defined('THEME_DIR')) exit('No direct script access allowed'); 
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 $body_class = preg_replace("/[^\w]/","-", str_replace ( '.php' , '' , $_SERVER['PHP_SELF']) ); 
 ?><!DOCTYPE html>
 <html>
