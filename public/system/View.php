@@ -8,7 +8,7 @@ class View {
 		$content = array();
 
 		$as = array(
-        // 'title' => Configuration::SITE_TITLE,
+         'layout' => $layout,
 		);
 		if (!is_null($content)) {
 			$template = new Template(
