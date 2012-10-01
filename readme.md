@@ -23,10 +23,17 @@ Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows. I
 3. Open the site in your browser. A `cache` and `logs` folder outside `public` will be created, as well as a `public/content` folder with subfolders.
 
 
-## How to use
+## Concepts
 
-* Create your first page: `/content/pages/index.md`. In the _basic_ theme, pages are linked from the footer. Pages just contain markdown content.
-* Create your first post: `/content/posts/2012/09/first-post.md`. Posts are listed in the index page. Pages contain a section (paragraph) of YAML followed by Markdown.
+Posts are listed in the index page. Pages contain a section of YAML followed by Markdown, by default.
+Pages just contain markdown content, by default. In the _basic_ theme, pages are linked from the footer. 
+Configuration settings override the defaults.
+Manage your content types and theming logic using the classes in the `/application` folder.
+
+## Getting started
+
+* Create your first page: `/content/pages/index.md`. 
+* Create your first post: Navigate to `http://localhost/admin/new` to download a template and save it in `/content/posts/2012/09/first-post.md`. 
 * Create a 404: `/content/errors/404.md`. Now non-existing links will point here. Error pages follow the `page` data model.
 * Enable caching: open `/Configuration.php`.  set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted.
 
