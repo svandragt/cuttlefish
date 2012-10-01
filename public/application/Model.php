@@ -11,13 +11,15 @@ class Model {
 		'markdown|html' => 'content',
 	);
 
-	static function errors($file_path) {
-		return self::pages($file_path);
+	static function errors($args) {
+		return self::pages($args);
 	}
 
-	static function pages($file_path) {
+	static function pages($args) {
+		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
-			$model = new Datamodel($file_path, self::$page_model);
+			$model = new Datamodel($args, self::$page_model);
+
 			return $model;
 		} else {
 			header('Location: ' . Theming::root() . '/errors/404');
@@ -27,9 +29,11 @@ class Model {
 
 		
 
-	static function posts($file_path) {
+	static function posts($args) {
+		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
-			$model = new Datamodel($file_path, self::$post_model);
+			$model = new Datamodel($args, self::$post_model);
+
 			return $model;
 		} else {
 			header('Location: ' . Theming::root() . '/errors/404');

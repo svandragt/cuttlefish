@@ -3,5 +3,6 @@
 <ul>
 	<li><a href="<?= Theming::root() ?>">Home</a></li>
 	<?= Theming::pages() ?>
+	<li><a href="<?= Theming::root() ?>/archive">Archive</a></li>
 	<li><a href="<?= Theming::root() ?>/admin/cache">Clear Cache</a></li>
 </ul>

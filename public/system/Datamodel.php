@@ -4,15 +4,15 @@ class Datamodel {
 
 	public $metadata = null;
 	
-	function __construct($file_path, $section_types) {
+	function __construct( $args, $section_types) {
 		$this->metadata = new StdClass();
+		foreach ($args as $key => $value) $this->$key = $value;
 
     	if (array_unique ($section_types) !== $section_types) throw new Exception('Array values not unique');
 
         // Call the Model constructor
-   		$this->file_path = $file_path;
-		$this->link      = Theming::content_url($file_path);
-		list(, $this->caller) = debug_backtrace(false);
+		$this->link      = Theming::content_url($this->file_path);
+		list(, $this->model) = debug_backtrace(false);
 
 		$this->sections = preg_split( '/\R\R/',  trim(file_get_contents($this->file_path)), 2);
 		$section_keys   = array_keys($section_types);

@@ -2,41 +2,38 @@
 
 class View {
 	
-	static function template($models , $layout = 'layout.php') {
+	static function template($models , $shared) {
 		$models = (is_array($models)) ? $models : array($models);
 
 		$content = array();
 
-		$as = array(
-         'layout' => $layout,
-		);
 		if (!is_null($content)) {
 			$template = new Template(
-	            $layout, 
+	            $shared['layout'], 
 	            array_merge(array(
 	                'content' => new Template(
 	                	'content.php',
 	                    array_merge(array(
 	                    	'models' => $models
-	                    ),$as)
+	                    ),$shared)
 	            	),
 	                'head' => new Template(
 	                	'head.php',
-	                    array_merge(array(),$as)
+	                    array_merge(array(),$shared)
 	            	),
 	                'header' => new Template(
 	                	'header.php',
-	                    array_merge(array(),$as)
+	                    array_merge(array(),$shared)
 	            	),
 	            	'footer' => new Template(
 	                	'footer.php',
-	                    array_merge(array(),$as)
+	                    array_merge(array(),$shared)
 	                ),
 	           		'sidebar' => new Template(
 	              		'sidebar.php',
-	                    array_merge(array(),$as)
+	                    array_merge(array(),$shared)
 	            	)
-	            ), $as)
+	            ), $shared)
 	        );
 			$template->render();				
 		}
