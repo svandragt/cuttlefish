@@ -3,7 +3,7 @@
 class Carbon {
 
 	static function compare_published($a,$b) {
-    	return strcmp($b->metadata['Published'], $a->metadata['Published']);
+    	return strcmp($b->metadata->Published, $a->metadata->Published);
 	}
 
 	static function index_page() {
