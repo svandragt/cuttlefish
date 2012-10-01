@@ -9,7 +9,10 @@ class Controller {
 		switch ($action) {
 			case 'cache':
 				Cache::clear();
-			break;
+				break;
+			case 'new':
+				Carbon::template();
+				break;
 		}
 		printf("<a href='%s'>Return</a><br>",Theming::root());
 	}

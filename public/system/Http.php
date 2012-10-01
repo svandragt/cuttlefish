@@ -11,4 +11,12 @@ class Http {
 
 		return (isset($_SERVER[$key])) ? htmlspecialchars($_SERVER[$key]) : null;
 	}
+
+	static function download_string($contents) {
+	    $filename = sprintf("cbn_%s.%s",  date("Y-m-d_H-i",time()), Configuration::CONTENT_EXT);
+	    header ("Content-Type: text/plain");
+	    header ("Content-disposition: attachment; filename=$filename");
+	    print $contents;
+	    exit();
+	}
 }

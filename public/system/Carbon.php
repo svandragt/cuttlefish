@@ -45,4 +45,15 @@ class Carbon {
 		$index = str_replace('//', '/', $index);
 		return $index;
 	}
+
+	static function template() {
+		$now = date("Y-m-d h:i:sa"); 
+		$contents = "Published: $now
+
+Example
+=======
+Placeholder.
+";
+		Http::download_string($contents);
+	}
 }
