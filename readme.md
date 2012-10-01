@@ -28,7 +28,7 @@ Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows. I
 __Posts__ are listed in the index page. Pages contain a section of YAML followed by Markdown, by default.<br>
 __Pages__ just contain markdown content, by default. In the _basic_ theme, pages are linked from the footer. <br>
 __Configuration__ settings override the defaults.<br>
-Manage your _content types_ and _theming logic_ using the classes in the `/application` folder.<br>
+Manage your __data models and theming logic__ using the MVC classes in the `/application` folder.<br>
 
 ## Getting started
 
