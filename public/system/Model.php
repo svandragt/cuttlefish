@@ -37,10 +37,16 @@ class Model {
 			Log::info("'$filename' cannot be found.");
 			header('Location: ' . Theming::root() . '/error/404');
 		} else {
-
-			$segments = preg_split( '/\R\R/',  trim(file_get_contents($filename)), self::TOTAL_SECTIONS);
-
 			$model = new stdClass();
+			$model->filename = $filename;
+			$model->link     = Theming::content_url($filename);
+
+			$segments = preg_split( '/\R\R/',  trim(file_get_contents($model->filename)), self::TOTAL_SECTIONS);
+
+			$content_segments = preg_split( '/=\R/',  trim($segments[self::CONTENT]), 2);	
+			$title_segments = preg_split( '/\R/',  trim($segments[self::CONTENT]), 2);	
+			$model->title = $title_segments[0];
+
 			if (isset($segments[self::METADATA])) if (Ext::class_loaded( 'Spyc')){
 				$c = new Spyc;
 				$model->meta_data =  $c->YAMLLoadString($segments[self::METADATA]);
@@ -48,10 +54,11 @@ class Model {
 			if (isset($segments[self::CONTENT])) {
 				if (Ext::class_loaded( 'MarkdownExtra_Parser')){
 					$c = new MarkdownExtra_Parser;
-					$model->content =  $c->transform($segments[self::CONTENT]);
+					$model->content =  $c->transform($content_segments[1]);
 				}
 				else {
-					$model->content =  $segments[self::CONTENT];
+					// fallback
+					$model->content =  $content_segments[1];
 				}
 			}
 

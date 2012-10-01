@@ -2,13 +2,10 @@
 
 class View {
 	
-	static function template($data , $layout = 'layout.php') {
-		$data = (is_array($data)) ? $data : array($data);
+	static function template($models , $layout = 'layout.php') {
+		$models = (is_array($models)) ? $models : array($models);
 
 		$content = array();
-		foreach ($data as $data_item) {
-			$content[] = $data_item->content;
-		}
 
 		$as = array(
         // 'title' => Configuration::SITE_TITLE,
@@ -20,7 +17,7 @@ class View {
 	                'content' => new Template(
 	                	'content.php',
 	                    array_merge(array(
-	                    	'content' => $content
+	                    	'models' => $models
 	                    ),$as)
 	            	),
 	                'head' => new Template(
