@@ -28,7 +28,7 @@ class Datamodel {
 					if ($spyc) $this->$section_value =  $spyc->YAMLLoadString($this->sections[$i]);
 					else $this->$section_value =  $this->sections[$i];
 					break;
-				case 'markdown':
+				case 'markdown|html':
 					$content_sections = preg_split( '/=\R/',  trim($this->sections[$i]), 2);	
 					$title_sections   = preg_split( '/\R/',  trim($content_sections[0]), 2);	
 					$this->title      = $title_sections[0];

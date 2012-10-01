@@ -9,7 +9,7 @@ class Model {
 	static function pages($file_path) {
 		if (Filesystem::is_found($file_path)) {
 			$model = new Datamodel($file_path, array(
-				'markdown' => 'content',
+				'markdown|html' => 'content',
 			));
 			return $model;
 		} else {
@@ -24,7 +24,7 @@ class Model {
 		if (Filesystem::is_found($file_path)) {
 			$model = new Datamodel($file_path, array(
 				'yaml' => 'metadata',
-				'markdown' => 'content',
+				'markdown|html' => 'content',
 			));
 			return $model;
 		} else {
