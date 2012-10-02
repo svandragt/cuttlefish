@@ -12,4 +12,9 @@ class Log {
 		error_log($message, 3, Configuration::LOGS_FOLDER . '/mdblog.log');
 	}
 
+	static function warn( $message ) {
+		$message = sprintf("[%s] (%s) WARN %s", date('d/M/Y:H:i:s'), pathinfo(Http::server('PHP_SELF'), PATHINFO_FILENAME), $message . PHP_EOL);
+		error_log($message, 3, Configuration::LOGS_FOLDER . '/mdblog.log');
+	}
+
 }
