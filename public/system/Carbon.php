@@ -19,7 +19,7 @@ class Carbon {
 		else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
-				header('Location: ' . Theming::root() . substr($path_info, 0, -1));
+				header('Location: ' . Theming::root() . Theming::content_url(substr($path_info, 0, -1)));
 				exit();
 			}
 		}
@@ -41,7 +41,7 @@ class Carbon {
 			call_user_func ( "Controller::$function",$path_parts);
 		} else {
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
-			header('Location: ' . Theming::root() . '/errors/404');
+			header('Location: ' . Theming::root() . Theming::content_url('/errors/404'));
 			exit();
 		}
 

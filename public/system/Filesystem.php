@@ -52,4 +52,17 @@ class Filesystem {
 	    rmdir($dir);
 	}
 
+	static function copy_files($source_files, $destination_files) {
+		$i = 0;
+		foreach ($source_files as $key => $value) {
+			$destination_file = $destination_files[$i];
+
+			$dirname = pathinfo ($destination_file, PATHINFO_DIRNAME);
+			if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
+			copy ( $value , $destination_file );
+			echo $destination_file . "<br>";
+			$i++;
+		}
+	}
+
 }

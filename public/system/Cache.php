@@ -48,4 +48,46 @@ class Cache {
 		FileSystem::remove_files($dir,true);
 		Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );			
 	}
+
+	static function generate_site() {
+		echo "<br>Generating site:<br>". PHP_EOL;
+		$content = Configuration::CONTENT_FOLDER;
+		$ext     = Configuration::CONTENT_EXT;
+		$c       = new Curl;
+		$files   = array();
+		$files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
+		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
+			$files[] = $value;
+		}
+		foreach ($files as $key => $value) {
+			echo "$key: $value<br>";
+			$url = Theming::root() . Theming::content_url($value);
+			echo "$url<br>" . PHP_EOL;
+			$c->url_contents($url); 
+		}
+		$c->close();
+
+		self::copy_themefiles(array('css', 'js'));
+	}
+
+	static function copy_themefiles($file_types) {
+		$files  = array();
+		$theme_dir = Theming::theme_dir();
+		$theme_dir = str_replace(Theming::root(), '', $theme_dir);
+		$theme_dir = rtrim($theme_dir, '/');
+
+		echo "Copying files from theme: <br><br>";
+
+
+		foreach ($file_types as $file_type) {
+			$source_files = Filesystem::list_files( Filesystem::url_to_path("$theme_dir"), $file_type);
+			$destination_files = array();
+			foreach ($source_files as $key => $value) {
+				echo "$key: $value<br>";
+				$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
+				$destination_files[] = str_replace('public', $cache, $value);
+			}
+			Filesystem::copy_files($source_files, $destination_files);
+		}
+	}
 }

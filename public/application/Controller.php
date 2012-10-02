@@ -11,6 +11,13 @@ class Controller {
 			case 'cache':
 				Cache::clear();
 				break;
+
+			case 'static':
+				Cache::clear();
+				Cache::generate_site();
+				break;
+
+
 			case 'new':
 				Carbon::template('post');
 				break;

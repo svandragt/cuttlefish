@@ -19,7 +19,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Theming::root() . '/errors/404');
+			header('Location: ' . Theming::root() . Theming::content_url('/errors/404'));
 			exit();
 		}
 	}
@@ -34,7 +34,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Theming::root() . '/errors/404');
+			header('Location: ' . Theming::root() . Theming::content_url('/errors/404'));
 			exit();
 		}		
 	}
