@@ -11,10 +11,6 @@ class Model {
 		'markdown|html' => 'content',
 	);
 
-	static function errors($args) {
-		return self::pages($args);
-	}
-
 	static function pages($args) {
 		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
