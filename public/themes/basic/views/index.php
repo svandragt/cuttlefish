@@ -6,3 +6,4 @@ foreach ($this->models as $model) {
 		%s
 		</article>", $model->link, $model->title, $model->content);
 } 
+echo "<p><a href='" . Theming::root() . "/archive'>&#171; Older articles</a></p>";
