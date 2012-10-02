@@ -2,14 +2,22 @@
 
 class Cache {
 
+	static function abort() {
+		while (ob_get_level() > 0) {
+			ob_end_clean();
+		}
+	}
+
+
 	static function start() {
-		if (!ob_get_level()) ob_start();
+		ob_start();
 	}
 
 	static function end() {
 		if ( self::has_cacheable_page_request() ) {
 			$fp = fopen(self::cache_file(), 'w'); 
-			fwrite($fp, ob_get_contents()); 
+			$contents = ob_get_contents();
+			fwrite($fp, $contents); 
 			fclose($fp); 
 			ob_end_flush();
 		}
@@ -26,7 +34,10 @@ class Cache {
 
 
 	static function cache_file() {
-		return sprintf( "%s/%s.html", Configuration::CACHE_FOLDER, str_replace("/", "_", substr(Http::server('PATH_INFO'), 1)));
+		$filename = str_replace("/", "_", substr(Http::server('PATH_INFO'), 1));
+		$filename = ($filename) ? $filename : 'index';
+		$o = sprintf( "%s/%s.html", Configuration::CACHE_FOLDER, $filename);
+		return $o;
 	}
 
 	static function clear() {

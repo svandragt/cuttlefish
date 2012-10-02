@@ -3,7 +3,7 @@
 class Controller {
 
 	static function admin($path_parts) {
-		ob_end_clean();
+		Cache::abort();
 		$action = $path_parts[2];
 
 		switch ($action) {
