@@ -1,13 +1,22 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-echo PHP_EOL;
-
 printf("<div class='%s %s'>", $this->controller, $this->model);
 
-if ( count($this->models) > 1) {
-	include __DIR__ . DIRECTORY_SEPARATOR . $this->controller . ".php";
-} else {
-	include __DIR__ . DIRECTORY_SEPARATOR . $this->model . ".php";
+switch (count($this->models)) {
+	case 0:
+		// no content - new installation
+		printf("<p> Please <a href='/admin/new'>add content</a> to /%s/%s.</p>", Configuration::CONTENT_FOLDER, $this->model);
+		break;
+	
+	case 1:
+		// single piece of content (ie individual page/post)
+		include __DIR__ . DIRECTORY_SEPARATOR . $this->model . ".php";
+		break;
+	
+	default:
+		// 2 or more pieces of content (loop - ie. index/archive)
+		include __DIR__ . DIRECTORY_SEPARATOR . $this->controller . ".php";
+		break;
 }
 
 print("</div>");
