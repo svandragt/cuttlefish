@@ -5,7 +5,7 @@ printf("<div class='%s %s'>", $this->controller, $this->model);
 switch (count($this->models)) {
 	case 0:
 		// no content - new installation
-		printf("<p> Please <a href='/admin/new'>add content</a> to /%s/%s.</p>", Configuration::CONTENT_FOLDER, $this->model);
+		printf("<p> Please <a href='%s'>add content</a> to /%s/%s.</p>", Theming::content_url('/admin/new'), Configuration::CONTENT_FOLDER, $this->model);
 		break;
 	
 	case 1:

@@ -8,7 +8,7 @@ class Defaults {
 
 	const CACHE_ENABLED  = false;
 	const CONTENT_EXT    = 'md';
-	const INDEX_PAGE     = 'index.php';
+	const INDEX_PAGE     = '/index.php';
 	const POSTS_HOMEPAGE = 10;
 
 	const HOME_PAGE          = '/index';
