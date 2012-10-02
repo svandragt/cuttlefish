@@ -4,7 +4,7 @@ class Controller {
 
 	static function admin($path_parts) {
 		Cache::abort();
-		$action = $path_parts[2];
+		$action = (isset($path_parts[2])) ? $path_parts[2] : null;
 		print('<pre>');
 
 		switch ($action) {
@@ -20,6 +20,14 @@ class Controller {
 
 			case 'new':
 				Carbon::template('post');
+				break;
+
+			case 'logout':
+				Security::logout();
+				break;
+
+			default:
+				Security::login();
 				break;
 		}
 		printf("<a href='%s'>Return</a><br>",Theming::content_url('/'));

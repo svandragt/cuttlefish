@@ -18,4 +18,5 @@ class Defaults {
 	const LOGS_FOLDER        = '../logs';
 	const THEMES_FOLDER      = 'themes';
 
+	const ADMIN_PASSWORD = null;
 }

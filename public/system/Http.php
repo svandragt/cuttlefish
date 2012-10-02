@@ -7,9 +7,19 @@ class Http {
 		return (isset($_GET[$key])) ? htmlspecialchars($_GET[$key]) : null;
 	}
 
+	static function post($key) {
+
+		return (isset($_POST[$key])) ? htmlspecialchars($_POST[$key]) : null;
+	}
+
 	static function server($key) {
 
 		return (isset($_SERVER[$key])) ? htmlspecialchars($_SERVER[$key]) : null;
+	}
+
+	static function session($key) {
+
+		return (isset($_SESSION[$key])) ? htmlspecialchars($_SESSION[$key]) : null;
 	}
 
 
@@ -20,4 +30,11 @@ class Http {
 	    print $contents;
 	    exit();
 	}
+
+	static function set_session($values) {
+		foreach ($values as $key => $value) {
+			$_SESSION[$key] = $value;
+		}
+	}
+
 }

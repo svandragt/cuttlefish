@@ -15,6 +15,7 @@ class Setup {
 		}
 
 		Ext::environment_start();
+		session_start();
 	}
 
 	static public function environment_end() {
