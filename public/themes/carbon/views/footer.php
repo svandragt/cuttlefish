@@ -4,9 +4,8 @@
 	<li><a href="<?= Theming::content_url('/') ?>">Home</a></li>
 	<li><a href="<?= Theming::content_url('/archive') ?>">Archive</a></li>
 	<?= Theming::pages() ?>
-	<? if (Security::is_admin()) { ?>
-	<li><a href="<?= Theming::content_url('/admin/cache') ?>">Clear Cache</a></li>
-	<li><a href="<?= Theming::content_url('/admin/logout') ?>">Logout</a></li>
+	<? if (Security::is_loggedin()) { ?>
+	<li><a href="<?= Theming::content_url('/admin') ?>">Admin</a></li>
 	<? }?>
 
 </ul>

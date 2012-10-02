@@ -43,7 +43,7 @@ class Cache {
 	}
 
 	static function clear() {
-		Security::admin_redirect();
+		Security::login_redirect();
 		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
 		printf("Removing  all files in %s<br>", $dir);
 		FileSystem::remove_files($dir,true);
@@ -51,7 +51,7 @@ class Cache {
 	}
 
 	static function generate_site() {
-		Security::admin_redirect();
+		Security::login_redirect();
 		echo "<br>Generating site:<br>". PHP_EOL;
 		$content = Configuration::CONTENT_FOLDER;
 		$ext     = Configuration::CONTENT_EXT;

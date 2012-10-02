@@ -2,13 +2,13 @@
 
 class Security {
 
-	static function admin_redirect() {
-		if (!self::is_admin()) {
+	static function login_redirect() {
+		if (!self::is_loggedin()) {
 			header('Location: ' . Theming::root() . Theming::content_url('/admin'));
 		};
 	}
 
-	static function is_admin() {
+	static function is_loggedin() {
 		return !is_null(Http::session('admin'));
 	}
 
@@ -20,7 +20,6 @@ class Security {
 		} else {
 			$password = HTTP::post('password');
 			if (is_null($password)) {
-				self::logout();
 				echo "<form method='post'><input type='password' name='password'><input type='submit'></form>";
 			} elseif ($password == Configuration::ADMIN_PASSWORD) {
 				Http::set_session(array(

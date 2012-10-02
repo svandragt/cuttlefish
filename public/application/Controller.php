@@ -5,7 +5,7 @@ class Controller {
 	static function admin($path_parts) {
 		Cache::abort();
 		$action = (isset($path_parts[2])) ? $path_parts[2] : null;
-		print('<pre>');
+		if ($action != 'new') print('<pre>');
 
 		switch ($action) {
 			case 'cache':
@@ -27,7 +27,20 @@ class Controller {
 				break;
 
 			default:
-				Security::login();
+				if (! Security::is_loggedin()) Security::login();
+				else {
+					$methods = array(
+						'new' => 'New post template',
+						'cache' => 'Clear cache', 
+						'static' => 'Generate static site', 
+						'logout' => 'Logout');
+					echo "<ul>tasks:";
+					foreach ($methods as $key => $value) {
+						printf('<li><a href="%s">%s</a></li>',Theming::content_url("/admin/$key"), $value);						
+					}
+					echo "</ul>";
+
+				}
 				break;
 		}
 		printf("<a href='%s'>Return</a><br>",Theming::content_url('/'));
