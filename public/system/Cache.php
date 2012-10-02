@@ -18,7 +18,7 @@ class Cache {
 			$url = self::cache_file();
 			$path = Filesystem::url_to_path("/$url");
 			$dirname = pathinfo ($path, PATHINFO_DIRNAME);
-			@mkdir ($dirname, 0777, true);
+			if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
 			$fp = fopen($path, 'w'); 
 			fwrite($fp, ob_get_contents()); 
 			fclose($fp); 
@@ -38,8 +38,8 @@ class Cache {
 
 	static function cache_file() {
 		$filename = substr(Http::server('PATH_INFO'), 1);
-		$filename = ($filename) ? $filename : 'index';
-		return sprintf( "%s/%s", Configuration::CACHE_FOLDER, $filename);
+		$filename = ($filename) ? $filename . '/' : '';
+		return sprintf( "%s/%sindex.html", Configuration::CACHE_FOLDER, $filename);
 	}
 
 	static function clear() {

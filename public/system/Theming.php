@@ -12,11 +12,11 @@ class Theming {
 		$script_url     = substr(strrchr(Http::server('SCRIPT_NAME'), "/"), 0);
 		$path_to_script = str_replace($script_url, '',Http::server('URL'));
 		$theme_dir_url  = str_replace("\\","/",THEME_DIR);
-		return "http://" . Http::server('HTTP_HOST') . $path_to_script . $theme_dir_url ;
+		return self::root() . $path_to_script . $theme_dir_url ;
 	}
 
 	static function root() {
-		return "http://" . Http::server('HTTP_HOST') .  Carbon::index_page();
+		return Carbon::index_page();
 	}
 
 	static function pages() {
