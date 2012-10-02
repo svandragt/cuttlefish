@@ -5,6 +5,7 @@ class Controller {
 	static function admin($path_parts) {
 		Cache::abort();
 		$action = $path_parts[2];
+		print('<pre>');
 
 		switch ($action) {
 			case 'cache':
@@ -15,6 +16,8 @@ class Controller {
 				break;
 		}
 		printf("<a href='%s'>Return</a><br>",Theming::root());
+		print('</pre>');
+
 	}
 
 	static function errors($path_parts) {

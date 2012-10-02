@@ -15,9 +15,12 @@ class Cache {
 
 	static function end() {
 		if ( self::has_cacheable_page_request() ) {
-			$fp = fopen(self::cache_file(), 'w'); 
-			$contents = ob_get_contents();
-			fwrite($fp, $contents); 
+			$url = self::cache_file();
+			$path = Filesystem::url_to_path("/$url");
+			$dirname = pathinfo ($path, PATHINFO_DIRNAME);
+			@mkdir ($dirname, 0777, true);
+			$fp = fopen($path, 'w'); 
+			fwrite($fp, ob_get_contents()); 
 			fclose($fp); 
 			ob_end_flush();
 		}
@@ -34,20 +37,15 @@ class Cache {
 
 
 	static function cache_file() {
-		$filename = str_replace("/", "_", substr(Http::server('PATH_INFO'), 1));
+		$filename = substr(Http::server('PATH_INFO'), 1);
 		$filename = ($filename) ? $filename : 'index';
-		$o = sprintf( "%s/%s.html", Configuration::CACHE_FOLDER, $filename);
-		return $o;
+		return sprintf( "%s/%s", Configuration::CACHE_FOLDER, $filename);
 	}
 
 	static function clear() {
-		$glob_dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER) . DIRECTORY_SEPARATOR . '*';
-		printf("Removing %s<br>", $glob_dir);
-		$files = glob( $glob_dir); 
-		foreach($files as $file) if(is_file($file)) {
-			echo "Deleted: $file" . "<br>";
-		    unlink($file); 
-		}	
+		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
+		printf("Removing  all files in %s<br>", $dir);
+		FileSystem::remove_files($dir,true);
+		Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );			
 	}
-
 }

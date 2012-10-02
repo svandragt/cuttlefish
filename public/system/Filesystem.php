@@ -39,4 +39,17 @@ class Filesystem {
 		// takes /content/pages/index and returns path
 		return BASEPATH . str_replace('/', DIRECTORY_SEPARATOR, $url);
 	} 
+
+	static function remove_files($dir, $is_recursive=false) {
+	    foreach(glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
+	        if(is_dir($file) && $is_recursive)
+	            self::remove_files($file, $is_recursive);
+	        else {
+	        	echo "Deleted: $file" . "<br>";
+	            unlink($file);
+	        }
+	    }
+	    rmdir($dir);
+	}
+
 }
