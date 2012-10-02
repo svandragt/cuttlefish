@@ -15,7 +15,7 @@ class Controller {
 				Carbon::template('post');
 				break;
 		}
-		printf("<a href='%s'>Return</a><br>",Theming::root());
+		printf("<a href='%s'>Return</a><br>",Theming::content_url('/'));
 		print('</pre>');
 
 	}
