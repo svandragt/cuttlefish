@@ -4,8 +4,8 @@ $body_class = preg_replace("/[^\w]/","-", str_replace ( '.php' , '' , $_SERVER['
 <html>
 <?= $this->head->render(); ?>
 <body id="body<?=$body_class ?>">
-	<div id="header"><?= $this->header->render(); ?></div>
-	<div id="content"><?= $this->content->render() ?></div>
-	<div id="footer"><?= $this->footer->render(); ?></div>
+<div id="header"><?= $this->header->render(); ?></div>
+<div id="content"><?= $this->content->render() ?></div>
+<div id="footer"><?= $this->footer->render(); ?></div>
 </body>
 </html>
