@@ -1,8 +1,8 @@
 <?php
-echo '<h2>Archive</h2><ul>';
+echo '<h2>Archive</h2><dl>';
 
 foreach ($this->models as $model) {
-	printf("<li><a href='%s'>%s</a></h2></li>", $model->link, $model->title);
+	printf("<dt>%s</dt><dd><a href='%s'>%s</a></h2></dd>", $model->metadata->Published, $model->link, $model->title);
 } 
 
-echo '</ul>';
+echo '</dl>';
