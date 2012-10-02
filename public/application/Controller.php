@@ -18,19 +18,22 @@ class Controller {
 	}
 
 	static function errors($path_parts) {
+		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
-		$model = 'pages';
+		$ext        = Configuration::CONTENT_EXT;
+		$layout     = 'single.php';
+		$model      = 'pages';
 
 		header("HTTP/1.0 404 Not Found");
-		$error_type = $path_parts[2];
-		switch ($error_type) {
+		$item = $path_parts[2];
+		switch ($item) {
 			case '404':
-				$file_path = Filesystem::url_to_path("/content/$controller/$error_type." . Configuration::CONTENT_EXT);
-				$data =  (file_exists($file_path)) ? call_user_func ("Model::$model",array(
+				$file_path = Filesystem::url_to_path("/$content/$controller/$item.$ext");
+				$data      =  (file_exists($file_path)) ? call_user_func ("Model::$model",array(
 					'file_path' => $file_path,
-				)) : "Sorry, this page does not exists (404). Customise this page by adding a /content/errors/404.md.";
+				)) : "Sorry, this page does not exists (404). Customise this page by adding a /$content/$controller/$item.$ext.";
 				View::template($data, array(
-						'layout'     => 'single.php',
+						'layout'     => $layout,
 						'controller' => $controller,
 						'model'      => $model,
 				));
@@ -40,13 +43,16 @@ class Controller {
 
 
 	static function index() {
+		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
-		$model = 'posts';
+		$ext        = Configuration::CONTENT_EXT;
+		$layout     = 'layout.php';
+		$model      = 'posts';
 
 		$data = array();
-		$i = 0;
-		$max = Configuration::POSTS_HOMEPAGE;
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/content/$model"), 'md') as $key => $value) {
+		$i    = 0;
+		$max  = Configuration::POSTS_HOMEPAGE;
+		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
 			$data[] = call_user_func ("Model::$model",array(
 				'file_path' => $value, 
 			));	
@@ -54,63 +60,72 @@ class Controller {
 		}
 		usort ( $data, "Carbon::compare_published");
 		View::template($data, array(
-			'layout'     => 'layout.php',
+			'layout'     => $layout,
 			'controller' => $controller,
 			'model'      => $model,
 		));
 	}
 
 	static function archive() {
+		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
-		$model = 'posts';
+		$ext        = Configuration::CONTENT_EXT;
+		$layout     = 'single.php';
+		$model      = 'posts';
 
 		$data = array();
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/content/$model"), 'md') as $key => $value) {
+		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
 			$data[] = call_user_func ("Model::$model",array(
 				'file_path' => $value, 
 			));	
 		}
 		usort ( $data, "Carbon::compare_published");
 		View::template($data, array(
-			'layout'     => 'layout.php',
+			'layout'     => $layout,
 			'controller' => $controller,
-			'model'      => 'model'
+			'model'      => $model,
 		));
 	}
 
 	
 	static function pages($path_parts) {
+		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
-		$model = $controller;
+		$ext        = Configuration::CONTENT_EXT;
+		$layout     = 'layout.php';
+		$model      = $controller;
 
-		$item     = $path_parts[2];
-		$file_path = Filesystem::url_to_path("/content/$model/$item." . Configuration::CONTENT_EXT);
-		$data     = call_user_func ("Model::$model",array(
+		$item      = $path_parts[2];
+		$file_path = Filesystem::url_to_path("/$content/$model/$item.$ext");
+		$data      = call_user_func ("Model::$model",array(
 				'file_path' => $file_path, 
 		));	
 
 		View::template($data, array(
-			'layout'     => 'layout.php',
+			'layout'     => $layout,
 			'controller' => $controller,
 			'model'      => $model,
 		));
 	}
 
 	static function posts($path_parts) {
+		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
-		$model = $controller;
+		$ext        = Configuration::CONTENT_EXT;
+		$layout     = 'layout.php';
+		$model      = $controller;
 
-		$path_parts  = array_slice($path_parts, 2);
-		$item     = implode('/', $path_parts);
-		$file_path = Filesystem::url_to_path("/content/$model/$item." . Configuration::CONTENT_EXT);
-		$data     = call_user_func ("Model::$model",array(
+		$path_parts = array_slice($path_parts, 2);
+		$item       = implode('/', $path_parts);
+		$file_path  = Filesystem::url_to_path("/$content/$model/$item.$ext");
+		$data       = call_user_func ("Model::$model",array(
 				'file_path' => $file_path, 
 		));	
 
 		View::template($data, array(
-			'layout' => 'layout.php',
+			'layout'     => $layout,
 			'controller' => $controller,
-			'model' => $model,
+			'model'      => $model,
 		));
 	}
 }
