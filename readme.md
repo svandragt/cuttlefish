@@ -30,13 +30,26 @@ __Pages__ just contain markdown content, by default. In the _basic_ theme, pages
 __Configuration__ settings override the defaults.<br>
 Manage your __data models and theming logic__ using the MVC classes in the `/application` folder.<br>
 
+
+## Basic configuration options
+
+open `/Configuration.php` to:
+
+* Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";`
+* Pretty URLs: set `const INDEX_PAGE = '';` (Apache requires mod_rewrite, IIS requires URL Rewrite)
+* To enable caching: set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted.
+
+
 ## Getting started
 
 * Create your first page: `/content/pages/index.md`. 
-* Create your first post: Navigate to `http://localhost/admin/new` to download a template and save it in `/content/posts/2012/09/first-post.md`. 
+* Create your first post: Navigate to `http://localhost/index.php/admin/new` to download a template and save it in `/content/posts/2012/09/first-post.md`. 
 * Create a 404: `/content/errors/404.md`. Now non-existing links will point here. Error pages follow the `page` data model.
-* Enable caching: open `/Configuration.php`.  set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted.
 
+
+## Static site generation
+
+Navigate to `http://localhost/index.php/admin/static`. The `cache` folder now contains a full static site.
 
 ## Externals
 
