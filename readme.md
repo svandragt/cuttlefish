@@ -33,11 +33,11 @@ Manage your __data models and theming logic__ using the MVC classes in the `/app
 
 ## Basic configuration options
 
-open `/Configuration.php` to:
+open `public/Configuration.php` to:
 
-* Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";`
-* Pretty URLs: set `const INDEX_PAGE = '';` (Apache requires mod_rewrite, IIS requires URL Rewrite)
-* To enable caching: set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted.
+* Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";` then visit `http://localhost/index.php/admin`.
+* Pretty URLs: set `const INDEX_PAGE = '';` (Apache requires mod_rewrite, IIS requires URL Rewrite). This removes `/index.php` from all urls (eg: `http://localhost/index.php/admin/new` becomes `http://localhost/admin/new`);
+* To enable caching: set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through `http://localhost/index.php/admin/cache`.
 
 
 ## Getting started
@@ -53,6 +53,6 @@ Navigate to `http://localhost/index.php/admin/static`. The `cache` folder now co
 
 ## Externals
 
-Carbon will support third-party plugins (externals). Simply drop a [PHP autoloader](http://php.net/manual/en/language.oop5.autoload.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes. Feel free to organise classes using folders, with no naming requirements.
+Carbon will support third-party plugins (externals). Simply drop a [spl_autoload_register](http://www.php.net/manual/en/function.spl-autoload-register.php) compatible class into the `system/Ext` folder and call the class in the code. See the php manual page for more info on autoloading classes. Feel free to organise classes using custom folders.
 
 Carbon will register any externals and autoload them. It comes with markdown and yaml support courtesy of [PHP Markdown Extra](http://michelf.ca/projects/php-markdown/) and [Spyc](https://github.com/mustangostang/spyc/).
