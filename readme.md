@@ -35,25 +35,25 @@ Manage your __data models and theming logic__ using the MVC classes in the _publ
 
 open `public/Configuration.php` to:
 
-* Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";` then visit http://localhost/index.php/admin to login.
-* Pretty URLs: set `const INDEX_PAGE = '';` (Apache requires mod_rewrite, IIS requires URL Rewrite). This removes `/index.php` from all urls (eg: http://localhost/index.php/admin/new becomes http://localhost/admin/new);
+* Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";` then visit [/admin](http://localhost/index.php/admin) to login.
+* Pretty URLs: set `const INDEX_PAGE = '';` (Apache requires mod_rewrite, IIS requires URL Rewrite). This removes `/index.php` from all urls (eg: [/index.php/admin/new](http://localhost/index.php/admin/new) becomes [/admin/new](http://localhost/admin/new));
 
 
 ## Getting started
 
 * Create your first page: `/content/pages/index.md`. 
-* Create your first post: Navigate to _Admin > Create post template_ to download a _post_ template and save it in `/content/posts/2012/09/first-post.md`. 
+* Create your first post: Navigate to __Admin > Create post template__ to download a _post_ template and save it in `/content/posts/2012/09/first-post.md`. 
 * Create a 404: `/content/errors/404.md`. Now non-existing links will point here. Error pages follow the _page_ data model.
 
 
 ## Caching
 
-To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through _Admin > Clear Cache_.
+To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through __Admin > Clear Cache__.
 
 
 ## Full static site generation
 
-Navigate to _Admin > Generate static site_. The `cache` folder now contains a full static site.
+Navigate to __Admin > Generate static site__. The `cache` folder now contains a full static site.
 
 ## Externals
 
