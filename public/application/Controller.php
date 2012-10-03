@@ -72,6 +72,28 @@ class Controller {
 		}
  	}
 
+ 	static function feed() {
+		$content    = Configuration::CONTENT_FOLDER;
+		$controller = __FUNCTION__;
+		$ext        = Configuration::CONTENT_EXT;
+		$model      = 'posts';
+
+		$data = array();
+		$i    = 0;
+		$max  = Configuration::POSTS_HOMEPAGE;
+		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
+			$data[] = call_user_func ("Model::$model",array(
+				'file_path' => $value, 
+			));	
+			if (++$i == $max) break;
+		}
+		usort ( $data, "Carbon::compare_published");
+		View::feed($data, array(
+			'filename' => $controller,
+		));
+	
+ 	}
+
 
 	static function index() {
 		$content    = Configuration::CONTENT_FOLDER;
