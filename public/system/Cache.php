@@ -39,7 +39,8 @@ class Cache {
 	static function cache_file() {
 		$filename = substr(Http::server('PATH_INFO'), 1);
 		$filename = ($filename) ? $filename . '/' : '';
-		return sprintf( "%s/%sindex.html", Configuration::CACHE_FOLDER, $filename);
+		$ext = (strrpos($filename, 'feed') === false) ? 'html' : 'xml';
+		return sprintf( "%s/%sindex.%s", Configuration::CACHE_FOLDER, $filename, $ext);
 	}
 
 	static function clear() {
