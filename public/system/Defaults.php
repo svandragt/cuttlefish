@@ -4,7 +4,7 @@ class Defaults {
 
 	const SITE_MOTTO     = 'Something clever for the internets';
 	const SITE_TITLE     = 'Your site';
-	const THEME          = 'carbon';
+	const THEME          = 'basic';
 
 	const CACHE_ENABLED  = false;
 	const CONTENT_EXT    = 'md';
