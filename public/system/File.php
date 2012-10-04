@@ -5,7 +5,6 @@ class File {
 	function __construct($file_path)
 	{
 		if (! file_exists($file_path)) die("$file_path not found");
-		// if (! file_exists($file_path)) header('Location: ' . Url::root() . Url::content_url('/errors/404'));
 		if (! is_readable($file_path)) throw new Exception("$file_path is unreadable!");
 		$this->path = $file_path; 
 		$this->ext = pathinfo ( $file_path , PATHINFO_EXTENSION);

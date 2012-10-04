@@ -15,8 +15,8 @@ class Url {
 		return $path_to_script . $theme_dir_url ;
 	}
 
-	static function root() {
-		return "http://" . Http::server('HTTP_HOST') .  Carbon::index_page();
+	static function root( $url = '') {
+		return "http://" . Http::server('HTTP_HOST') .  Carbon::index_page() . $url;
 	}
 
 	static function pages() {
@@ -35,7 +35,7 @@ class Url {
 		$root_url  = str_replace($root_path,"",$file_path);
 		$root_url  = '/' . str_replace("\\","/",$root_url);
 		$url = str_replace(Configuration::CONTENT_FOLDER.'/', '',$root_url);
-		return self::root() . $url;
+		return self::root( $url );
 	}
 
 }

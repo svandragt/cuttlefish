@@ -19,7 +19,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Url::root() . Url::content_url('/errors/404'));
+			header('Location: ' . Url::root(Url::content_url('/errors/404')));
 			exit();
 		}
 	}
@@ -34,7 +34,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Url::root() . Url::content_url('/errors/404'));
+			header('Location: ' . Url::root(Url::content_url('/errors/404')));
 			exit();
 		}		
 	}
