@@ -12,7 +12,7 @@ class Datamodel {
 
         // Call the Model constructor
 		$this->link     = Url::content_url($this->file_path);
-		$this->sections = preg_split( '/\R\R/',  trim(file_get_contents($this->file_path)), 2);
+		$this->sections = preg_split( '/\R\R\R/',  trim(file_get_contents($this->file_path)), 2);
 		$section_keys   = array_keys($section_types);
 		$section_values = array_values($section_types);
 
