@@ -4,7 +4,7 @@ class Security {
 
 	static function login_redirect() {
 		if (!self::is_loggedin()) {
-			header('Location: ' . Theming::root() . Theming::content_url('/admin'));
+			header('Location: ' . Url::root() . Url::content_url('/admin'));
 		};
 	}
 

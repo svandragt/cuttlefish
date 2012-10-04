@@ -76,7 +76,7 @@ class Cache {
 		}
 		foreach ($files as $key => $value) {
 			echo "$key: $value<br>";
-			$url = Theming::root() . Theming::content_url($value);
+			$url = Url::root() . Url::content_url($value);
 			echo "$url<br>" . PHP_EOL;
 			$c->url_contents($url); 
 		}
@@ -89,8 +89,8 @@ class Cache {
 
 	static function copy_themefiles($file_types) {
 		$files  = array();
-		$theme_dir = Theming::theme_dir();
-		$theme_dir = str_replace(Theming::root(), '', $theme_dir);
+		$theme_dir = Url::theme_dir();
+		$theme_dir = str_replace(Url::root(), '', $theme_dir);
 		$theme_dir = rtrim($theme_dir, '/');
 
 		echo "Copying files from theme: <br><br>";

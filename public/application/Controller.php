@@ -36,14 +36,14 @@ class Controller {
 						'logout' => 'Logout');
 					echo "<ul>tasks:";
 					foreach ($methods as $key => $value) {
-						printf('<li><a href="%s">%s</a></li>',Theming::content_url("/admin/$key"), $value);						
+						printf('<li><a href="%s">%s</a></li>',Url::content_url("/admin/$key"), $value);						
 					}
 					echo "</ul>";
 
 				}
 				break;
 		}
-		printf("<a href='%s'>Return</a><br>",Theming::content_url('/'));
+		printf("<a href='%s'>Return</a><br>",Url::content_url('/'));
 		print('</pre>');
 
 	}
@@ -101,7 +101,7 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$item       = implode('/', $path_parts);
 
-		$url = Theming::content_url("/$controller/$item");
+		$url = Url::content_url("/$controller/$item");
 		$file = Filesystem::url_to_path($url);
 
 
@@ -117,7 +117,7 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$item       = implode('/', $path_parts);
 
-		$url = Theming::content_url("/$content/$controller/$item");
+		$url = Url::content_url("/$content/$controller/$item");
 		$file = Filesystem::url_to_path($url);
 
 

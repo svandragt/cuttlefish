@@ -3,6 +3,6 @@
 	<title><?= Configuration::SITE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
-	<link type="text/css" rel="stylesheet" href="<?= Theming::theme_dir() ?>styles/styles.css">
-	<link rel="alternate" type="application/rss+xml" title="RSS" href="<?= Theming::content_url('/feed') ?>">
+	<link type="text/css" rel="stylesheet" href="<?= Url::theme_dir() ?>styles/styles.css">
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="<?= Url::content_url('/feed') ?>">
 </head>

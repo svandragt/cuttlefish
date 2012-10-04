@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Theming {
+class Url {
 	
 	static function content_url($file_path) {
 		$filepath_base = str_replace('.' . Configuration::CONTENT_EXT, '', $file_path);
@@ -25,7 +25,7 @@ class Theming {
 		foreach (Filesystem::list_files( Filesystem::url_to_path($pages_path), Configuration::CONTENT_EXT) as $key => $value) {
 			$filename =  pathinfo($value, PATHINFO_FILENAME  );
 			$title = ucwords(str_replace("-"," ",$filename));
-			$output .= sprintf("<li><a href='%s'>%s</a></li>",Theming::content_url("/pages/$filename"), $title);
+			$output .= sprintf("<li><a href='%s'>%s</a></li>",Url::content_url("/pages/$filename"), $title);
 		}
 		return $output;
 	}
