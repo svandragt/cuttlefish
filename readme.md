@@ -22,7 +22,7 @@ A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 
 ## Installation
 
-Carbon requires PHP 5.3+ and has only been tested so far on IIS 6.1 / Windows. I'll soon test it under Apache / Ubuntu.
+Carbon requires PHP 5.3+ and is tested on IIS 6.1 / Windows & Apache / Ubuntu.
 
 1. Check out this repository and point your webserver to the public folder.
 2. Open `public/Configuration.php` and override any constants from `public/system/Defaults.php`.
