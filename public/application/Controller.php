@@ -4,7 +4,7 @@ class Controller {
 
 	static function admin($path_parts) {
 		Cache::abort();
-		$action = (isset($path_parts[2])) ? $path_parts[2] : null;
+		$action = (isset($path_parts[0])) ? $path_parts[0] : null;
 		if ($action != 'new') print('<pre>');
 
 		switch ($action) {
@@ -56,7 +56,7 @@ class Controller {
 		$model      = 'pages';
 
 		header("HTTP/1.0 404 Not Found");
-		$item = $path_parts[2];
+		$item = $path_parts[0];
 		switch ($item) {
 			case '404':
 				$file_path = Filesystem::url_to_path("/$content/$controller/$item.$ext");
@@ -88,11 +88,29 @@ class Controller {
 			if (++$i == $max) break;
 		}
 		usort ( $data, "Carbon::compare_published");
+
 		View::feed($data, array(
 			'filename' => $controller,
 		));
 	
  	}
+
+	static function images($path_parts) {
+		$content    = Configuration::CONTENT_FOLDER;
+		$controller = __FUNCTION__;
+		$ext        = Configuration::CONTENT_EXT;
+		$item       = implode('/', $path_parts);
+
+		$url = Theming::content_url("/$content/$controller/$item");
+		$file = Filesystem::url_to_path($url);
+
+
+		View::image($file, array(
+			'controller' => $controller,
+		));
+
+		
+ 	} 	
 
 
 	static function index() {
@@ -148,7 +166,7 @@ class Controller {
 		$layout     = 'layout.php';
 		$model      = $controller;
 
-		$item      = $path_parts[2];
+		$item      = $path_parts[0];
 		$file_path = Filesystem::url_to_path("/$content/$model/$item.$ext");
 		$data      = call_user_func ("Model::$model",array(
 				'file_path' => $file_path, 
@@ -168,7 +186,6 @@ class Controller {
 		$layout     = 'layout.php';
 		$model      = $controller;
 
-		$path_parts = array_slice($path_parts, 2);
 		$item       = implode('/', $path_parts);
 		$file_path  = Filesystem::url_to_path("/$content/$model/$item.$ext");
 		$data       = call_user_func ("Model::$model",array(
