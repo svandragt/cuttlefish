@@ -13,7 +13,6 @@ A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 3. [Generate a static site](http://screencast.com/t/KqP1GRhNTf)
 
 
-
 ## Aims
 
 * Easy to learn
