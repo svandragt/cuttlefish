@@ -28,8 +28,7 @@ class Carbon {
 
 	static function router() {
 		if (Cache::has_cache()) {
-			include(Cache::cache_file()); 
-			exit();
+			exit(readfile(Cache::cache_file()));
 		} 
 		Setup::environment_start();
 		Cache::start();
