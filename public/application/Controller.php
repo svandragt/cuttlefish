@@ -96,6 +96,7 @@ class Controller {
  	}
 
 	static function themes($path_parts) {
+		die('unused');
 		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
 		$ext        = Configuration::CONTENT_EXT;
