@@ -79,28 +79,5 @@ class Cache {
 			$c->url_contents($url); 
 		}
 		$c->close();
-
-		self::copy_themefiles(array('css', 'js'));
-	}
-
-	static function copy_themefiles($file_types) {
-		$files  = array();
-		$theme_dir = Theming::theme_dir();
-		$theme_dir = str_replace(Theming::root(), '', $theme_dir);
-		$theme_dir = rtrim($theme_dir, '/');
-
-		echo "Copying files from theme: <br><br>";
-
-
-		foreach ($file_types as $file_type) {
-			$source_files = Filesystem::list_files( Filesystem::url_to_path("$theme_dir"), $file_type);
-			$destination_files = array();
-			foreach ($source_files as $key => $value) {
-				echo "$key: $value<br>";
-				$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
-				$destination_files[] = str_replace('public', $cache, $value);
-			}
-			Filesystem::copy_files($source_files, $destination_files);
-		}
 	}
 }
