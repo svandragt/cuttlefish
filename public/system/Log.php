@@ -4,6 +4,7 @@ class Log {
 
 	static function error( $message ) {
 		error_log($message,0);
+		echo($message. "<br>");
 	}
 
 
