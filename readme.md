@@ -6,7 +6,7 @@ _It should be considered early alpha._
 A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 ![Screenshot of the defaul theme](http://i.imm.io/FV6p.png)
 
-**Screencasts**
+## Screencasts
 
 1. [Installing Carbon in developer mode on a shared host](http://screencast.com/t/QgDYtKUFpG)
 2. [Enable caching for production use](http://screencast.com/t/bRs6taeYUEQl)
