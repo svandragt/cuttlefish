@@ -95,6 +95,22 @@ class Controller {
 	
  	}
 
+	static function themes($path_parts) {
+		$content    = Configuration::CONTENT_FOLDER;
+		$controller = __FUNCTION__;
+		$ext        = Configuration::CONTENT_EXT;
+		$item       = implode('/', $path_parts);
+
+		$url = Theming::content_url("/$controller/$item");
+		$file = Filesystem::url_to_path($url);
+
+
+		View::file($file, array(
+			'controller' => $controller,
+		));
+ 	} 	
+
+
 	static function images($path_parts) {
 		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
@@ -105,12 +121,12 @@ class Controller {
 		$file = Filesystem::url_to_path($url);
 
 
-		View::image($file, array(
+		View::file($file, array(
 			'controller' => $controller,
 		));
-
-		
  	} 	
+
+
 
 
 	static function index() {
