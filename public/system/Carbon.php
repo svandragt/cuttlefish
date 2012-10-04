@@ -38,7 +38,7 @@ class Carbon {
 		$path_parts = explode("/", self::path_info());
 		$function = $path_parts[1];
 		if ( is_callable ( "Controller::$function")) {
-			call_user_func ( "Controller::$function",$path_parts);
+			call_user_func ( "Controller::$function",array_slice($path_parts, 2));
 		} else {
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
 			header('Location: ' . Theming::root() . Theming::content_url('/errors/404'));
