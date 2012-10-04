@@ -2,10 +2,14 @@
 
 class View {
 
-    static function feed($models, $args)
-    {
+    static function feed($models, $args) {
         $feed = new Feed($models, $args);
         $feed->output();
+    }
+
+    static function image($file, $args) {
+        $image = new Image($file);
+        $image->output();
     }
 
 	static function template($models , $shared) {
