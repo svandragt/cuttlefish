@@ -4,7 +4,7 @@ class Filesystem {
 
 	static function ensure_folder_exists( $folder ) {
 		if ( !is_dir( $folder )) {
-			if ( !mkdir( $folder, 0777, true) ) Log::error( "Can't create $folder" );
+			if ( !mkdir( $folder, 0777, true) ) Log::error( "Please manually create <code>$folder</code>" );
 			else Log::info("Created $folder");
 		}
 	}
