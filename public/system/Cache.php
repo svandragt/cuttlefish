@@ -84,15 +84,13 @@ class Cache {
 
 		Setup::webserver();
 		self::copy_themefiles(array('css', 'js'));
+		self::copy_images();
 
 	}
 
 	static function copy_themefiles($file_types) {
 		$files  = array();
-		$theme_dir = Url::theme_dir();
-		$theme_dir = str_replace(Url::root(), '', $theme_dir);
-		$theme_dir = rtrim($theme_dir, '/');
-
+		$theme_dir = rtrim(Url::theme_dir(), '/');
 		echo "Copying files from theme: <br><br>";
 
 
@@ -106,6 +104,22 @@ class Cache {
 			}
 			Filesystem::copy_files($source_files, $destination_files);
 		}
+	}
+
+
+	static function copy_images() {
+		$files  = array();
+		$path = Filesystem::url_to_path("/content/images");
+		echo "<br>Copying images: <br><br>";
+
+		$source_files = Filesystem::list_files( $path);
+		$destination_files = array();
+		foreach ($source_files as $key => $value) {
+			echo "$key: $value<br>";
+			$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
+			$destination_files[] = str_replace('public' . DIRECTORY_SEPARATOR . 'content', $cache, $value);
+		}
+		Filesystem::copy_files($source_files, $destination_files);
 	}
 
 }
