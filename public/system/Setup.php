@@ -35,6 +35,7 @@ class Setup {
 		$path = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
 		$fp = fopen($path, 'w'); 
 		fwrite($fp, "DirectoryIndex  $directory_index"); 
+		fwrite($fp, "ErrorDocument 404 /errors/404/"); 
 		fclose($fp); 
 
 

@@ -1,4 +1,5 @@
 DirectoryIndex  index.php index.html index.htm index.xml
+ErrorDocument 404 /index.php/errors/404 
 
 RewriteEngine on
 RewriteCond $1 !^(index\.php|favicon\.ico|robots\.txt)
