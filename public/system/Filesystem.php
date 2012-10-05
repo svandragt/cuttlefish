@@ -40,16 +40,16 @@ class Filesystem {
 		return BASEPATH . str_replace('/', DIRECTORY_SEPARATOR, $url);
 	} 
 
-	static function remove_files($dir, $is_recursive=false) {
+	static function remove_files($dir, $is_recursive=false, $is_directory_removable = false) {
 	    foreach(glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
 	        if(is_dir($file) && $is_recursive)
-	            self::remove_files($file, $is_recursive);
+	            self::remove_files($file, $is_recursive, true);
 	        else {
 	        	echo "Deleted: $file" . "<br>";
 	            unlink($file);
 	        }
 	    }
-	    rmdir($dir);
+	    if ($is_directory_removable) rmdir($dir);
 	}
 
 	static function copy_files($source_files, $destination_files) {
