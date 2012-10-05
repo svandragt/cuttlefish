@@ -109,7 +109,8 @@ class Cache {
 
 	static function copy_images() {
 		$files  = array();
-		$path = Filesystem::url_to_path("/content/images");
+		$content = Configuration::CONTENT_FOLDER;
+		$path = Filesystem::url_to_path("/$content/images");
 		echo "<br>Copying images: <br><br>";
 
 		$source_files = Filesystem::list_files( $path);

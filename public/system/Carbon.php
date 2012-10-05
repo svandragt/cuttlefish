@@ -6,12 +6,6 @@ class Carbon {
     	return strcmp($b->metadata->Published, $a->metadata->Published);
 	}
 
-	static function index_page() {
-		$index = str_replace('/index.php', Configuration::INDEX_PAGE, Http::server('SCRIPT_NAME'));
-		$index = str_replace('//', '/', $index);
-		return $index;
-	}
-
 	static function path_info() {
 		$path_info = Http::server('PATH_INFO'); 
 		$no_specified_path = is_null($path_info ) || $path_info == '/';

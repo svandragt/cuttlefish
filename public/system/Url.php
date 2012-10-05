@@ -3,9 +3,10 @@
 class Url {
 	
 	static function content_url($file_path) {
+		// only suitable for calls to inside the content folder
 		$filepath_base = str_replace('.' . Configuration::CONTENT_EXT, '', $file_path);
-		$root_file_path = str_replace(Filesystem::url_to_path('/' . Configuration::CONTENT_FOLDER),"", $filepath_base);
-		$root_url = str_replace("\\","/",$root_file_path);
+		$root_file_path = Configuration::INDEX_PAGE . str_replace(Filesystem::url_to_path('/' . Configuration::CONTENT_FOLDER),"", $filepath_base);
+		$root_url =  str_replace( DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR,"/",$root_file_path);
 		return $root_url;
 	}
 	static function theme_dir() {
@@ -16,7 +17,7 @@ class Url {
 	}
 
 	static function root( $url = '') {
-		return "http://" . Http::server('HTTP_HOST') .  Carbon::index_page() . $url;
+		return "http://" . Http::server('HTTP_HOST') . $url;
 	}
 
 	static function pages() {
