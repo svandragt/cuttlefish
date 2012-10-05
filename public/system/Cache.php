@@ -27,12 +27,12 @@ class Cache {
 	}
 
 	static function has_cacheable_page_request() {
-		return (!is_null(Carbon::path_info()) && !ob_get_level() == 0 && is_null(error_get_last()));
+		return (!is_null(Carbon::path_info()) && !ob_get_level() == 0 && is_null(error_get_last()) && self::has_cache());
 	}
 
 
 	static function has_cache() {
-		return file_exists(Cache::cache_file()) && Configuration::CACHE_ENABLED;
+		return file_exists(self::cache_file()) && Configuration::CACHE_ENABLED;
 	}
 
 
