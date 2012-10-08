@@ -38,7 +38,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Url::abs(Url::file_path_to_url('/errors/404')));
+			header('Location: ' . Url::abs(Url::index('/errors/404')));
 			exit();
 		}		
 	}
