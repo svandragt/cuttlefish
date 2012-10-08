@@ -64,7 +64,10 @@ To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED 
 
 ## Full static site generation
 
-Navigate to __Admin > Generate static site__. The `cache` folder now contains a full static site.
+Navigate to __Admin > Generate static site__. The `cache` folder now contains a full static site. 
+
+To deploy the static site, open a Powershell and run `.\carbon.ps1 deploy`. The script will ask for a keyword (for example: live), after which you can redeploy quickly by recalling the settings: in this case using `.\carbon.ps1 deploy live`. Currently the script only supports sftp connections. It requires [WinSCP](http://winscp.net/eng/download.php) and the WinSCP .NET  Assembly / COM library**.
+
 
 ## Externals
 
