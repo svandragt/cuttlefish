@@ -26,7 +26,7 @@ Carbon requires PHP 5.3+ and is tested on IIS 6.1 / Windows & Apache / Ubuntu.
 
 1. Check out this repository and point your webserver to the public folder.
 2. Open `public/Configuration.php` and override any constants from `public/system/Defaults.php`.
-3. Open the site in your browser. A _cache_ and _logs_ folder outside _public_ will be created, as well as a _public/content_ folder with subfolders for your content.
+3. Open the site in your browser. A _cache_ and _logs_ folder outside _public_ will be created, and example content loaded from _public/content_.
 
 
 ## Concepts
@@ -42,8 +42,9 @@ Manage your __data models and theming logic__ using the MVC classes in the _publ
 open `public/Configuration.php` to:
 
 * Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";` then visit [/admin](http://localhost/index.php/admin) to login.
-* Pretty URLs: set `const INDEX_PAGE = '';` (Apache requires mod_rewrite, IIS requires URL Rewrite). This removes `/index.php` from all urls (eg: [/index.php/admin/new](http://localhost/index.php/admin/new) becomes [/admin/new](http://localhost/admin/new));
-
+* Change your site title and motto.
+* Set the default number of posts shown on the frontpage.
+* Change common folder locations (Please submit issues if you find hardcoded locations).
 
 ## Getting started
 
@@ -51,10 +52,14 @@ open `public/Configuration.php` to:
 * Create your first post: Navigate to __Admin > Create post template__ to download a _post_ template and save it in `/content/posts/2012/09/first-post.md`. 
 * Create a 404: `/content/errors/404.md`. Now non-existing links will point here. Error pages follow the _page_ data model.
 
+## Turn off Pretty Urls
+
+By default Carbon uses Apache's mod_rewrite and IIS'es URL rewrite to keep urls nice. You can disable this behaviour by opening `public/Configuration.php`: set `const INDEX_PAGE = '/index.php';`. This adds `/index.php` to all urls (eg: [/index.php/admin/new](http://localhost/index.php/admin/new) instead of [/admin/new](http://localhost/admin/new));
+
 
 ## Caching
 
-To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through __Admin > Clear Cache__.
+To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through __Admin > Clear Cache__. Caching is required if you want to generate a static site.
 
 
 ## Full static site generation
