@@ -15,13 +15,7 @@ class Cache {
 
 	static function end() {
 		if ( self::has_cacheable_page_request() ) {
-			$url = self::cache_file();
-			$path = Filesystem::url_to_path("/$url");
-			$dirname = pathinfo ($path, PATHINFO_DIRNAME);
-			if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
-			$fp = fopen($path, 'w'); 
-			fwrite($fp, ob_get_contents()); 
-			fclose($fp); 
+			$path = self::write_cache_to_disk( self::cache_file(), ob_get_contents() );
 			ob_end_flush();
 		}
 	}
@@ -36,11 +30,16 @@ class Cache {
 	}
 
 
-	static function cache_file() {
-		$file_path = substr($_SERVER['PATH_INFO'], 1);
-		$filename =  pathinfo ( $file_path , PATHINFO_DIRNAME  ) .'/'. pathinfo ( $file_path , PATHINFO_FILENAME );
-		$ext = pathinfo ( $file_path , PATHINFO_EXTENSION);
-		if (strrpos($file_path, '.') === false) {
+	static function cache_file($path_info = null) {
+		if ( is_null( $path_info) ) {
+			$path_info = substr($_SERVER['PATH_INFO'], 1);
+		}
+		$path_info = ltrim($path_info, '/');
+		$filename =  pathinfo ( $path_info , PATHINFO_DIRNAME  ) .'/'. pathinfo ( $path_info , PATHINFO_FILENAME );
+		$filename = ltrim($filename, '.');
+
+		$ext = pathinfo ( $path_info , PATHINFO_EXTENSION);
+		if (strrpos($path_info, '.') === false) {
 			$filename = rtrim($filename,'/'). '/index';
 			$ext = 'html';
 
@@ -74,11 +73,19 @@ class Cache {
 		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
 			$files[] = $value;
 		}
-		foreach ($files as $key => $value) {
-			echo "$key: $value<br>";
-			$url = Url::abs(Url::index(Url::file_path_to_url($value)));
-			echo "$url<br>" . PHP_EOL;
-			$c->url_contents($url); 
+		foreach ($files as $index => $file_path) {
+			echo "$index: $file_path<br>";
+			$path_info = Url::file_path_to_url($file_path);
+			$url = Url::abs(Url::index( $path_info ));
+			echo "url: $url<br>";
+			$contents = $c->url_contents($url); 
+
+			if (Configuration::CACHE_ENABLED == false) {
+				$path = self::write_cache_to_disk($path_info, $contents);
+				echo "written: $path<br>". PHP_EOL;		
+			}
+
+
 		}
 		$c->close();
 
@@ -86,6 +93,18 @@ class Cache {
 		self::copy_themefiles(array('css', 'js'));
 		self::copy_images();
 
+	}
+
+	static function write_cache_to_disk($path_info, $contents) {
+		$cache_url = self::cache_file($path_info);
+		$path = Filesystem::url_to_path("/$cache_url");
+		$dirname = pathinfo ($path, PATHINFO_DIRNAME);
+
+		if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
+		$fp = fopen($path, 'w'); 
+		fwrite($fp, $contents); 
+		fclose($fp); 
+		return $path;
 	}
 
 	static function copy_themefiles($file_types) {
