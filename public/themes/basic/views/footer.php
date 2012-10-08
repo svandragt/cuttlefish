@@ -4,8 +4,8 @@
 	<li><a href="<?= Url::index('/') ?>">Home</a></li>
 	<li><a href="<?= Url::index('/archive') ?>">Archive</a></li>
 	<?= Url::pages() ?>
-	<? if (Security::is_loggedin()) { ?>
+	<? if (Security::is_loggedin()): ?>
 	<li><a href="<?= Url::index('/admin') ?>">Admin</a></li>
-	<? }?>
+	<? endif; ?>
 
 </ul>
