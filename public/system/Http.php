@@ -12,11 +12,6 @@ class Http {
 		return (isset($_POST[$key])) ? htmlspecialchars($_POST[$key]) : null;
 	}
 
-	static function server($key) {
-
-		return (isset($_SERVER[$key])) ? htmlspecialchars($_SERVER[$key]) : null;
-	}
-
 	static function session($key) {
 
 		return (isset($_SESSION[$key])) ? htmlspecialchars($_SESSION[$key]) : null;
