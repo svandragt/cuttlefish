@@ -4,8 +4,14 @@ class File {
 	
 	function __construct($file_path)
 	{
-		if (! file_exists($file_path)) die("$file_path not found");
-		if (! is_readable($file_path)) throw new Exception("$file_path is unreadable!");
+		try {
+			if (! file_exists($file_path)) throw new Exception("$file_path not found");
+			if (! is_readable($file_path)) throw new Exception("$file_path is unreadable!");
+		} catch (Exception $e) {
+			Log::debug($e->getMessage());		
+			Log::error($e->getMessage());		
+			exit();			
+		}
 		$this->path = $file_path; 
 		$this->ext = pathinfo ( $file_path , PATHINFO_EXTENSION);
 		$this->mime = $this->mime();

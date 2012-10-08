@@ -4,6 +4,8 @@ class Controller {
 
 	static function admin($path_parts) {
 		Cache::abort();
+		Log::debug(__FUNCTION__ . " called.");
+
 		$action = (isset($path_parts[0])) ? $path_parts[0] : null;
 		if ($action != 'new') print('<pre>');
 
@@ -36,14 +38,14 @@ class Controller {
 						'logout' => 'Logout');
 					echo "<ul>tasks:";
 					foreach ($methods as $key => $value) {
-						printf('<li><a href="%s">%s</a></li>',Url::content_url("/admin/$key"), $value);						
+						printf('<li><a href="%s">%s</a></li>',Url::index("/admin/$key"), $value);						
 					}
 					echo "</ul>";
 
 				}
 				break;
 		}
-		printf("<a href='%s'>Return</a><br>",Url::content_url('/'));
+		printf("<a href='%s'>Return</a><br>",Url::index('/'));
 		print('</pre>');
 
 	}
@@ -54,6 +56,8 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$layout     = 'single.php';
 		$model      = 'pages';
+		Log::debug(__FUNCTION__ . " called.");
+
 
 		header("HTTP/1.0 404 Not Found");
 		$item = $path_parts[0];
@@ -77,6 +81,8 @@ class Controller {
 		$controller = __FUNCTION__;
 		$ext        = Configuration::CONTENT_EXT;
 		$model      = 'posts';
+		Log::debug("$controller called.");
+
 
 		$data = array();
 		$i    = 0;
@@ -101,8 +107,10 @@ class Controller {
 		$controller = __FUNCTION__;
 		$ext        = Configuration::CONTENT_EXT;
 		$item       = implode('/', $path_parts);
+		Log::debug(__FUNCTION__ . " called.");
 
-		$url = Url::content_url("/$controller/$item");
+
+		$url = Url::index("/$controller/$item");
 		$file = Filesystem::url_to_path($url);
 
 
@@ -117,8 +125,12 @@ class Controller {
 		$controller = __FUNCTION__;
 		$ext        = Configuration::CONTENT_EXT;
 		$item       = implode('/', $path_parts);
+		Log::debug(__FUNCTION__ . " called.");
 
-		$url = Url::content_url("/$content/$controller/$item");
+
+		$url = "/$content/$controller/$item";
+		Log::debug(__FUNCTION__ . " url: $url");
+		// die();
 		$file = Filesystem::url_to_path($url);
 
 
@@ -136,11 +148,15 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$layout     = 'layout.php';
 		$model      = 'posts';
+		Log::debug(__FUNCTION__ . " called.");
 
 		$data = array();
 		$i    = 0;
 		$max  = Configuration::POSTS_HOMEPAGE;
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
+		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
+		Log::debug("Found following files: " . print_r($list_files,true));
+
+		foreach ($list_files as $key => $value) {
 			$data[] = call_user_func ("Model::$model",array(
 				'file_path' => $value, 
 			));	
@@ -160,6 +176,8 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$layout     = 'single.php';
 		$model      = 'posts';
+		Log::debug(__FUNCTION__ . " called.");
+
 
 		$data = array();
 		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
@@ -182,6 +200,8 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$layout     = 'layout.php';
 		$model      = $controller;
+		Log::debug(__FUNCTION__ . " called.");
+
 
 		$item      = $path_parts[0];
 		$file_path = Filesystem::url_to_path("/$content/$model/$item.$ext");
@@ -202,6 +222,8 @@ class Controller {
 		$ext        = Configuration::CONTENT_EXT;
 		$layout     = 'layout.php';
 		$model      = $controller;
+		Log::debug(__FUNCTION__ . " called.");
+
 
 		$item       = implode('/', $path_parts);
 		$file_path  = Filesystem::url_to_path("/$content/$model/$item.$ext");

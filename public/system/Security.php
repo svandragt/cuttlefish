@@ -4,7 +4,7 @@ class Security {
 
 	static function login_redirect() {
 		if (!self::is_loggedin()) {
-			header('Location: ' . Url::root( Url::content_url('/admin') ));
+			header('Location: ' . Url::abs( Url::index('/admin') ));
 		};
 	}
 
@@ -13,7 +13,7 @@ class Security {
 	}
 
 	static function login() {
-		Log::info(sprintf("Login attempt from %s", Http::server('REMOTE_ADDR')));
+		Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
 
 		if (is_null(Configuration::ADMIN_PASSWORD)) {
 			echo "Please set an admin password under Configuration::ADMIN_PASSWORD.<br>";

@@ -12,6 +12,8 @@ class Model {
 	);
 
 	static function pages($args) {
+		Log::debug(__FUNCTION__ . " called.");
+
 		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
 			$model = new Datamodel($args, self::$page_model);
@@ -19,7 +21,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Url::root(Url::content_url('/errors/404')));
+			header('Location: ' . Url::root(Url::index('/errors/404')));
 			exit();
 		}
 	}
@@ -27,6 +29,8 @@ class Model {
 		
 
 	static function posts($args) {
+		Log::debug(__FUNCTION__ . " called.");
+		
 		$file_path = $args['file_path'];
 		if (Filesystem::is_found($file_path)) {
 			$model = new Datamodel($args, self::$post_model);
@@ -34,7 +38,7 @@ class Model {
 
 			return $model;
 		} else {
-			header('Location: ' . Url::root(Url::content_url('/errors/404')));
+			header('Location: ' . Url::root(Url::file_path_to_url('/errors/404')));
 			exit();
 		}		
 	}

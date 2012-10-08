@@ -7,13 +7,14 @@ class Carbon {
 	}
 
 	static function path_info() {
-		$path_info = Http::server('PATH_INFO'); 
+		Log::debug(__FUNCTION__ . " called.");
+		$path_info = $_SERVER['PATH_INFO']; 
 		$no_specified_path = is_null($path_info ) || $path_info == '/';
 		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
 		else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
-				header('Location: ' . Url::root( Url::content_url(substr($path_info, 0, -1)) ));
+				header('Location: ' . Url::root( Url::file_path_to_url(substr($path_info, 0, -1)) ));
 				exit();
 			}
 		}
@@ -24,6 +25,7 @@ class Carbon {
 		if (Cache::has_cache()) {
 			exit(readfile(Cache::cache_file()));
 		} 
+		Log::debug(__FUNCTION__ . " called.");
 		Setup::environment_start();
 		Cache::start();
 
@@ -34,7 +36,7 @@ class Carbon {
 			call_user_func ( "Controller::$function",array_slice($path_parts, 2));
 		} else {
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
-			header('Location: ' . Url::root( Url::content_url('/errors/404') ));
+			header('Location: ' . Url::root( Url::file_path_to_url('/errors/404') ));
 			exit();
 		}
 
@@ -44,6 +46,8 @@ class Carbon {
 
 
 	static function template($template_type) {
+		Log::debug(__FUNCTION__ . " called.");
+		
     	if (is_null($template_type)) throw new Exception('Template type cannot be null.');
     	
 		$now = date("Y-m-d H:i:s"); 

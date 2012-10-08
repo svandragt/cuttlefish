@@ -37,7 +37,7 @@ class Cache {
 
 
 	static function cache_file() {
-		$file_path = substr(Http::server('PATH_INFO'), 1);
+		$file_path = substr($_SERVER['PATH_INFO'], 1);
 		$filename =  pathinfo ( $file_path , PATHINFO_DIRNAME  ) .'/'. pathinfo ( $file_path , PATHINFO_FILENAME );
 		$ext = pathinfo ( $file_path , PATHINFO_EXTENSION);
 		if (strrpos($file_path, '.') === false) {
@@ -76,7 +76,7 @@ class Cache {
 		}
 		foreach ($files as $key => $value) {
 			echo "$key: $value<br>";
-			$url = Url::root(Url::content_url($value));
+			$url = Url::root(Url::file_path_to_url($value));
 			echo "$url<br>" . PHP_EOL;
 			$c->url_contents($url); 
 		}
