@@ -6,4 +6,4 @@ foreach ($this->models as $model) {
 		%s
 		</article>", $model->link, $model->title, $model->content);
 } 
-echo "<p><a href='" . Url::content_url('/archive') . "'>&#171; Older articles</a></p>";
+echo "<p><a href='" . Url::index('/archive') . "'>&#171; Older articles</a></p>";
