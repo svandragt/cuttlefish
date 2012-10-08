@@ -26,7 +26,7 @@ class Url {
 		return self::protocol() . $_SERVER['HTTP_HOST'] . $url;
 	}
 
-	function protocol() {
+	static function protocol() {
 		// http://stackoverflow.com/questions/4503135/php-get-site-url-protocol-http-vs-https
     	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     	return $protocol;

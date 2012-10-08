@@ -14,7 +14,7 @@ class Carbon {
 		else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
-				header('Location: ' . Url::root( Url::file_path_to_url(substr($path_info, 0, -1)) ));
+				header('Location: ' . Url::abs( Url::index(substr($path_info, 0, -1)) ));
 				exit();
 			}
 		}
@@ -36,7 +36,7 @@ class Carbon {
 			call_user_func ( "Controller::$function",array_slice($path_parts, 2));
 		} else {
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
-			header('Location: ' . Url::root( Url::file_path_to_url('/errors/404') ));
+			header('Location: ' . Url::abs( Url::index('/errors/404') ));
 			exit();
 		}
 

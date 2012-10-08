@@ -76,7 +76,7 @@ class Cache {
 		}
 		foreach ($files as $key => $value) {
 			echo "$key: $value<br>";
-			$url = Url::root(Url::file_path_to_url($value));
+			$url = Url::abs(Url::file_path_to_url($value));
 			echo "$url<br>" . PHP_EOL;
 			$c->url_contents($url); 
 		}
