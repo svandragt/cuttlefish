@@ -15,7 +15,6 @@ class Controller {
 				break;
 
 			case 'static':
-				Cache::clear();
 				Cache::generate_site();
 				break;
 

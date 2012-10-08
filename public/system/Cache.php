@@ -62,6 +62,11 @@ class Cache {
 
 	static function generate_site() {
 		Security::login_redirect();
+		if (Configuration::INDEX_PAGE !== '' ) {
+			die('Currently, generating a static site requires enabling Pretty Urls (see readme.md for instructions).');
+		}
+		Cache::clear();
+
 		echo "<br>Generating site:<br>". PHP_EOL;
 		$content = Configuration::CONTENT_FOLDER;
 		$ext     = Configuration::CONTENT_EXT;
