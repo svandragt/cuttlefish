@@ -13,7 +13,6 @@ class View {
     }
 
 	static function template($models , $shared) {
-		// $models = (is_array($models)) ? $models : array($models);
 		$template = new Template(
             $shared['layout'], 
             array_merge(array(

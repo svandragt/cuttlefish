@@ -14,7 +14,8 @@ class Carbon {
 		else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
-				header('Location: ' . Url::abs( Url::index(substr($path_info, 0, -1)) ));
+				$slashless_request = substr($path_info, 0, -1);
+				header('Location: ' . Url::abs( Url::index( $slashless_request) ));
 				exit();
 			}
 		}
@@ -45,7 +46,7 @@ class Carbon {
 	}
 
 
-	static function template($template_type) {
+	static function template_download($template_type) {
 		Log::debug(__FUNCTION__ . " called.");
 		
     	if (is_null($template_type)) throw new Exception('Template type cannot be null.');

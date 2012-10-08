@@ -18,9 +18,8 @@ class Controller {
 				Cache::generate_site();
 				break;
 
-
 			case 'new':
-				Carbon::template('post');
+				Carbon::template_download('post');
 				break;
 
 			case 'logout':
@@ -31,16 +30,16 @@ class Controller {
 				if (! Security::is_loggedin()) Security::login();
 				else {
 					$methods = array(
-						'new' => 'New post template',
-						'cache' => 'Clear cache', 
+						'new'    => 'New post template',
+						'cache'  => 'Clear cache', 
 						'static' => 'Generate static site', 
-						'logout' => 'Logout');
+						'logout' => 'Logout',
+					);
 					echo "<ul>tasks:";
 					foreach ($methods as $key => $value) {
 						printf('<li><a href="%s">%s</a></li>',Url::index("/admin/$key"), $value);						
 					}
 					echo "</ul>";
-
 				}
 				break;
 		}
@@ -63,9 +62,12 @@ class Controller {
 		switch ($item) {
 			case '404':
 				$file_path = Filesystem::url_to_path("/$content/$controller/$item.$ext");
-				$data      =  (file_exists($file_path)) ? call_user_func ("Model::$model",array(
+				$data      =  (file_exists($file_path)) ? call_user_func ("Model::$model", 
+					array(
 					'file_path' => $file_path,
-				)) : "Sorry, this page does not exists (404). Customise this page by adding a /$content/$controller/$item.$ext.";
+					)) : "Sorry, this page does not exists (404). 
+				Customise this page by adding a /$content/$controller/$item.$ext.";
+				
 				View::template($data, array(
 						'layout'     => $layout,
 						'controller' => $controller,
@@ -86,9 +88,9 @@ class Controller {
 		$data = array();
 		$i    = 0;
 		$max  = Configuration::POSTS_HOMEPAGE;
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
-			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $value, 
+		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $file_path) {
+			$data[] = call_user_func ("Model::$model", array(
+				'file_path' => $file_path, 
 			));	
 			if (++$i == $max) break;
 		}
@@ -126,19 +128,13 @@ class Controller {
 		$item       = implode('/', $path_parts);
 		Log::debug(__FUNCTION__ . " called.");
 
-
 		$url = "/$content/$controller/$item";
-		Log::debug(__FUNCTION__ . " url: $url");
-		// die();
 		$file = Filesystem::url_to_path($url);
-
 
 		View::file($file, array(
 			'controller' => $controller,
 		));
  	} 	
-
-
 
 
 	static function index() {
@@ -153,15 +149,15 @@ class Controller {
 		$i    = 0;
 		$max  = Configuration::POSTS_HOMEPAGE;
 		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
-		Log::debug("Found following files: " . print_r($list_files,true));
 
-		foreach ($list_files as $key => $value) {
+		foreach ($list_files as $key => $file_path) {
 			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $value, 
+				'file_path' => $file_path, 
 			));	
 			if (++$i == $max) break;
 		}
 		usort ( $data, "Carbon::compare_published");
+
 		View::template($data, array(
 			'layout'     => $layout,
 			'controller' => $controller,
@@ -179,12 +175,13 @@ class Controller {
 
 
 		$data = array();
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $value) {
+		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $file_path) {
 			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $value, 
+				'file_path' => $file_path, 
 			));	
 		}
 		usort ( $data, "Carbon::compare_published");
+
 		View::template($data, array(
 			'layout'     => $layout,
 			'controller' => $controller,
@@ -226,7 +223,7 @@ class Controller {
 
 		$item       = implode('/', $path_parts);
 		$file_path  = Filesystem::url_to_path("/$content/$model/$item.$ext");
-		$data       = call_user_func ("Model::$model",array(
+		$data       = call_user_func ("Model::$model", array(
 				'file_path' => $file_path, 
 		));	
 
