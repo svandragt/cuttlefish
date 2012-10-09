@@ -20,15 +20,16 @@ h1, h2, h3, h4, h5, h6 {
 
 #header a, h2 a {
 	text-decoration: none;
-	-webkit-transition: opacity 0.25s ease-in-out;
-	-moz-transition   : opacity 0.25s ease-in-out;
-	-o-transition     : opacity 0.25s ease-in-out;
-	transition        : opacity 0.25s ease-in-out;
+	-webkit-transition: opacity 0.25s ease-out;
+	-moz-transition   : opacity 0.25s ease-out;
+	-o-transition     : opacity 0.25s ease-out;
+	transition        : opacity 0.25s ease-out;
+	color: #000;
 
 }
 
 #header a:hover, h2 a:hover {
-	opacity: 0.8;
+	opacity: 0.5;
 }
 
 
@@ -66,6 +67,14 @@ h1, h2, h3, h4, h5, h6 {
 
 #header * {
 	margin: inherit;
+}
+
+a {
+	color: #008;
+}
+
+a:hover {
+	color: #04b;
 }
 
 .diagnostics {
