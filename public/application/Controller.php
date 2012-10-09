@@ -89,16 +89,20 @@ class Controller {
 		Log::debug("$controller called.");
 
 
+		// todo: seperate this - see index
 		$data = array();
-		$i    = 0;
-		$max  = Configuration::POSTS_HOMEPAGE;
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $file_path) {
-			$data[] = call_user_func ("Model::$model", array(
+		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
+		rsort($list_files);
+
+		$i = 0; $max  = Configuration::POSTS_HOMEPAGE;
+		$list_files = array_slice($list_files, 0, $max+5); 
+		foreach ($list_files as $key => $file_path) {
+			$data[] = call_user_func ("Model::$model",array(
 				'file_path' => $file_path, 
 			));	
-			if (++$i == $max) break;
 		}
 		usort ( $data, "Carbon::compare_published");
+		$data = array_slice($data, 0,$max); 
 
 		View::feed($data, array(
 			'filename' => $controller,
@@ -149,12 +153,13 @@ class Controller {
 		$model      = 'posts';
 		Log::debug(__FUNCTION__ . " called.");
 
+		// todo: seperate this - see feed Content::loop
 		$data = array();
-		$i    = 0;
-		$max  = Configuration::POSTS_HOMEPAGE;
 		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
 		rsort($list_files);
-		$list_files = array_slice($list_files, 0,$max+5); 
+
+		$i = 0; $max  = Configuration::POSTS_HOMEPAGE;
+		$list_files = array_slice($list_files, 0, $max+5); 
 		foreach ($list_files as $key => $file_path) {
 			$data[] = call_user_func ("Model::$model",array(
 				'file_path' => $file_path, 
