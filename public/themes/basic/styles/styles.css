@@ -20,10 +20,10 @@ h1, h2, h3, h4, h5, h6 {
 
 #header a, h2 a {
 	text-decoration: none;
-	-webkit-transition: opacity 0.25s ease-out;
-	-moz-transition   : opacity 0.25s ease-out;
-	-o-transition     : opacity 0.25s ease-out;
-	transition        : opacity 0.25s ease-out;
+	-webkit-transition: opacity 0.25s ease-in-out;
+	-moz-transition   : opacity 0.25s ease-in-out;
+	-o-transition     : opacity 0.25s ease-in-out;
+	transition        : opacity 0.25s ease-in-out;
 	color: #000;
 
 }
