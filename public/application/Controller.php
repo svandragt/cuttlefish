@@ -149,6 +149,8 @@ class Controller {
 		$i    = 0;
 		$max  = Configuration::POSTS_HOMEPAGE;
 		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
+		rsort($list_files);
+		$list_files = array_slice($list_files, 0,$max+5); 
 		foreach ($list_files as $key => $file_path) {
 			$data[] = call_user_func ("Model::$model",array(
 				'file_path' => $file_path, 
