@@ -9,6 +9,8 @@ class Controller {
 		$action = (isset($path_parts[0])) ? $path_parts[0] : null;
 		if ($action != 'new') print('<pre>');
 
+		$return_url = Url::index('/');
+
 		switch ($action) {
 			case 'cache':
 				Cache::clear();
@@ -27,7 +29,10 @@ class Controller {
 				break;
 
 			default:
-				if (! Security::is_loggedin()) Security::login();
+				if (! Security::is_loggedin()) {
+					Security::login();
+					$return_url = Url::index('/admin');
+				}
 				else {
 					$methods = array(
 						'new'    => 'New post template',
@@ -37,14 +42,13 @@ class Controller {
 					);
 					echo "<ul>tasks:";
 					foreach ($methods as $key => $value) {
-						printf('<li><a href="%s">%s</a></li>',Url::index("/admin/$key"), $value);						
+						printf('<li><a href="%s">%s</a></li>', Url::index("/admin/$key"), $value);
 					}
 					echo "</ul>";
 				}
 				break;
 		}
-		printf("<a href='%s'>Return</a><br>",Url::index('/'));
-		print('</pre>');
+		printf("<a href='%s'>Return</a></pre>",$return_url);
 
 	}
 
