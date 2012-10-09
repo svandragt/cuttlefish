@@ -32,12 +32,13 @@ class Carbon {
 
 		// Route to controller
 		$path_parts = explode("/", self::path_info());
-		$function = $path_parts[1];
+		$function   = $path_parts[1];
 		if ( is_callable ( "Controller::$function")) {
 			call_user_func ( "Controller::$function",array_slice($path_parts, 2));
 		} else {
+			$url = Url::abs( Url::index('/errors/404'));
 			Log::info("Not callable 'Controller::$function' or missing parameter.");
-			header('Location: ' . Url::abs( Url::index('/errors/404') ));
+			header("Location: $url");
 			exit();
 		}
 
@@ -51,12 +52,14 @@ class Carbon {
 		
     	if (is_null($template_type)) throw new Exception('Template type cannot be null.');
     	
-		$now = date("Y-m-d H:i:s"); 
-		$ext = Configuration::CONTENT_EXT;
-		$application_folder =  Configuration::APPLICATION_FOLDER;
-		$filepath_template = Filesystem::url_to_path("/$application_folder/template-$template_type.$ext");
+		$ext                = Configuration::CONTENT_EXT;
+		$application_folder = Configuration::APPLICATION_FOLDER;
+		$filepath_template  = Filesystem::url_to_path("/$application_folder/template-$template_type.$ext");
+		$now                = date("Y-m-d H:i:s"); 
+
 		$contents = (file_exists($filepath_template)) ? trim(file_get_contents($filepath_template)) : "Create '$filepath_template' for your $template_type template.";
 		$contents = sprintf($contents, $now);
 		Http::download_string($contents);
+		exit();
 	}
 }
