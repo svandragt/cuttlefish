@@ -44,8 +44,8 @@ class Cache {
 			$path_info = substr($_SERVER['PATH_INFO'], 1);
 		}
 		$path_info = ltrim($path_info, '/');
-		$filename =  pathinfo ( $path_info , PATHINFO_DIRNAME  ) .'/'. pathinfo ( $path_info , PATHINFO_FILENAME );
-		$filename = ltrim($filename, '.');
+		$filename  = pathinfo ( $path_info , PATHINFO_DIRNAME  ) .'/'. pathinfo ( $path_info , PATHINFO_FILENAME );
+		$filename  = ltrim($filename, '.');
 
 		$ext = pathinfo ( $path_info , PATHINFO_EXTENSION);
 		if (strrpos($path_info, '.') === false) {
