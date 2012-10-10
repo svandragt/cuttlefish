@@ -18,7 +18,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function test_cache_file_from_url_path_info() {
-		$path = self::cache_file_from_url('/index');
+		$path = Cache::cache_file_from_url('/index');
 		$this->assertEquals(true, $path);
 	}
 
