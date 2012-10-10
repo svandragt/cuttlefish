@@ -1,11 +1,7 @@
 <?php
 
-class CarbonTest extends PHPUnit_Framework_TestCase {
-	
-	public function test_path_info() {
-		$empty = Carbon::path_info();
-		$this->assertEquals('/index', $empty);
-	}
+class CacheTest extends PHPUnit_Framework_TestCase {
+
 
 	public function test_has_cacheable_page_request_no_cache() {
 		$this->assertEquals(false, Cache::has_cacheable_page_request());
@@ -22,9 +18,8 @@ class CarbonTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function test_cache_file_from_url_path_info() {
-		$path = self::cache_file_from_url(Carbon::path_info());
+		$path = self::cache_file_from_url('/index');
 		$this->assertEquals(true, $path);
 	}
 
-
-}  
+}
