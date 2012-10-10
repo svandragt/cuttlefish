@@ -91,7 +91,7 @@ class Cache {
 			$path_info = Url::file_path_to_url($file_path);
 			$url = Url::abs(Url::index( $path_info ));
 			echo "url: $url<br>";
-			$c->url_contents($url); 
+			$contents = $c->url_contents($url); 
 
 			if (Configuration::CACHE_ENABLED == false) {
 				$path = self::write_cache_to_disk($path_info, $contents);
