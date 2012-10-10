@@ -6,4 +6,4 @@ class CarbonTest extends PHPUnit_Framework_TestCase {
 		$empty = Carbon::path_info();
 		$this->assertEquals('/index', $empty);
 	}
-}
+}  
