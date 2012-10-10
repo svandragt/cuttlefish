@@ -29,7 +29,6 @@ Function save_settings($settings, $settings_file) {
 
 
 Function deploy ($a) {
-    Import-Module SSH-Sessions
     $settings = $null
 
     if ($a[1] -ne $null)  {
@@ -65,10 +64,6 @@ Function deploy ($a) {
         Write-host $settings_file
         save_settings $settings $settings_file
     }
-
-
-        # "./projects/carbon.vandragt.com/public_html"
-        #"ssh-rsa 2048 86:ab:6d:00:c0:f6:5f:39:01:45:32:27:17:e9:aa:5c"
 
 
     try
@@ -131,15 +126,6 @@ Function deploy ($a) {
         Write-Host "ERROR : " + $_.Exception.Message
         exit 1
     }
-
-
-
-    # New-SshSession -ComputerName $server -Username $username
-    # Invoke-SshCommand -InvokeOnAll -command 'ls'
-    # $path = Read-Host "Enter path"
-    # Invoke-SshCommand -InvokeOnAll -command "cd $path && ls"
-    # Remove-SshSession -RemoveAll
-
 }
 
 
