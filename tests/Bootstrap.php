@@ -7,6 +7,6 @@ defined('BASEPATH') OR define('BASEPATH', realpath($dir.'/../public'));
 
 isset($_SERVER['PATH_INFO']) OR $_SERVER['PATH_INFO'] = '/';
 
-set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASEPATH.'/system'));
+set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASEPATH));
 
 include BASEPATH .'/system/__autoload.php';
