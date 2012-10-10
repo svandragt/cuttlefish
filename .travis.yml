@@ -4,3 +4,8 @@ php:
   - "5.3"
 
 script: phpunit --configuration tests/phpunit.xml --coverage-text
+
+notifications:
+  irc:
+    channels:
+     - "irc.freenode.org#carbonframework"
