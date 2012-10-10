@@ -23,8 +23,8 @@ class Carbon {
 	}
 
 	static function router() {
-		if (Cache::has_cache()) {
-			exit(readfile(Cache::cache_file()));
+		if (Cache::has_existing_cachefile()) {
+			exit(readfile(Cache::cache_file_from_url()));
 		} 
 		Log::debug(__FUNCTION__ . " called.");
 		Setup::environment_start();

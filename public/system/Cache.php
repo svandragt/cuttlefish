@@ -15,22 +15,31 @@ class Cache {
 
 	static function end() {
 		if ( self::has_cacheable_page_request() ) {
-			$path = self::write_cache_to_disk( self::cache_file(), ob_get_contents() );
+			$path = self::write_cache_to_disk( null, ob_get_contents() );
 			ob_end_flush();
 		}
 	}
 
 	static function has_cacheable_page_request() {
-		return (!is_null(Carbon::path_info()) && !ob_get_level() == 0 && is_null(error_get_last()) && self::has_cache());
+		$has_path     = !is_null(Carbon::path_info());
+		$is_caching   = !ob_get_level() == 0;
+		$has_noerrors = is_null(error_get_last());
+		$has_cacheable_page_request = ($has_path && $is_caching && $has_noerrors);
+		return $has_cacheable_page_request;
 	}
 
 
-	static function has_cache() {
-		return file_exists(self::cache_file()) && Configuration::CACHE_ENABLED;
+	static function has_existing_cachefile() {
+		$cache_file          = self::cache_file_from_url();
+		$has_cache_file      = file_exists($cache_file);
+		$has_caching_enabled = Configuration::CACHE_ENABLED;
+
+		return ( $has_cache_file && $has_caching_enabled );
 	}
 
 
-	static function cache_file($path_info = null) {
+	static function cache_file_from_url($path_info = null) {
+		$ds = DIRECTORY_SEPARATOR;
 		if ( is_null( $path_info) ) {
 			$path_info = substr($_SERVER['PATH_INFO'], 1);
 		}
@@ -45,11 +54,10 @@ class Cache {
 
 			if (!strrpos($filename, 'feed') === false) $ext = 'xml';
 		} 
+		$cache_file = sprintf( "%s/%s.%s", Configuration::CACHE_FOLDER, ltrim($filename, '/'), $ext);
+		$cache_file = str_replace('/', $ds, $cache_file);
 
-
-
-
-		return sprintf( "%s/%s.%s", Configuration::CACHE_FOLDER, ltrim($filename, '/'), $ext);
+		return $cache_file;
 	}
 
 	static function clear() {
@@ -83,14 +91,12 @@ class Cache {
 			$path_info = Url::file_path_to_url($file_path);
 			$url = Url::abs(Url::index( $path_info ));
 			echo "url: $url<br>";
-			$contents = $c->url_contents($url); 
+			$c->url_contents($url); 
 
 			if (Configuration::CACHE_ENABLED == false) {
 				$path = self::write_cache_to_disk($path_info, $contents);
 				echo "written: $path<br>". PHP_EOL;		
 			}
-
-
 		}
 		$c->close();
 
@@ -101,8 +107,8 @@ class Cache {
 	}
 
 	static function write_cache_to_disk($path_info, $contents) {
-		$cache_url = self::cache_file($path_info);
-		$path = Filesystem::url_to_path("/$cache_url");
+		$path = self::cache_file_from_url($path_info);
+
 		$dirname = pathinfo ($path, PATHINFO_DIRNAME);
 
 		if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
