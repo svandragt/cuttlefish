@@ -144,38 +144,6 @@ class Controller {
 		));
  	} 	
 
-
-	static function index() {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$layout     = 'layout.php';
-		$model      = 'posts';
-		Log::debug(__FUNCTION__ . " called.");
-
-		// todo: seperate this - see feed Content::loop
-		$data = array();
-		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
-		rsort($list_files);
-
-		$i = 0; $max  = Configuration::POSTS_HOMEPAGE;
-		$list_files = array_slice($list_files, 0, $max+5); 
-		foreach ($list_files as $key => $file_path) {
-			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $file_path, 
-			));	
-		}
-		usort ( $data, "Carbon::compare_published");
-		$data = array_slice($data, 0,$max); 
-
-
-		View::template($data, array(
-			'layout'     => $layout,
-			'controller' => $controller,
-			'model'      => $model,
-		));
-	}
-
 	static function archive() {
 		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;

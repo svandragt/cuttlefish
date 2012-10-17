@@ -2,25 +2,32 @@
 
 class Cache {
 
-	static function abort() {
+	protected $cwd;
+
+	public function __construct() {
+		$this->cwd = getcwd();
+	}
+
+	public function __destruct() {
+		chdir($this->cwd); // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
+		if ( $this->has_cacheable_page_request() ) {
+			$path = $this->write_cache_to_disk( null, ob_get_contents() );
+			ob_end_flush();
+		}
+	}
+
+	function abort() {
 		while (ob_get_level() > 0) {
 			ob_end_clean();
 		}
 	}
 
 
-	static function start() {
+	function start() {
 		ob_start();
 	}
 
-	static function end() {
-		if ( self::has_cacheable_page_request() ) {
-			$path = self::write_cache_to_disk( null, ob_get_contents() );
-			ob_end_flush();
-		}
-	}
-
-	static function has_cacheable_page_request() {
+	function has_cacheable_page_request() {
 		$is_caching   = !ob_get_level() == 0;
 		$has_noerrors = is_null(error_get_last());
 		$has_cacheable_page_request = ($is_caching && $has_noerrors);
@@ -28,8 +35,8 @@ class Cache {
 	}
 
 
-	static function has_existing_cachefile() {
-		$cache_file          = self::cache_file_from_url();
+	function has_existing_cachefile() {
+		$cache_file          = $this->cache_file_from_url();
 		$has_cache_file      = file_exists($cache_file);
 		$has_caching_enabled = Configuration::CACHE_ENABLED;
 
@@ -37,7 +44,7 @@ class Cache {
 	}
 
 
-	static function cache_file_from_url($path_info = null) {
+	function cache_file_from_url($path_info = null) {
 		$ds = DIRECTORY_SEPARATOR;
 		if ( is_null( $path_info) ) {
 			$path_info = substr($_SERVER['PATH_INFO'], 1);
@@ -59,7 +66,7 @@ class Cache {
 		return $cache_file;
 	}
 
-	static function clear() {
+	function clear() {
 		Security::login_redirect();
 		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
 		printf("Removing  all files in %s<br>", $dir);
@@ -67,12 +74,12 @@ class Cache {
 		Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );			
 	}
 
-	static function generate_site() {
+	function generate_site() {
 		Security::login_redirect();
 		if (Configuration::INDEX_PAGE !== '' ) {
-			die('Currently, generating a static site requires enabling Pretty Urls (see readme.md for instructions).');
+			die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
 		}
-		Cache::clear();
+		$this->clear();
 
 		echo "<br>Generating site:<br>". PHP_EOL;
 		$content = Configuration::CONTENT_FOLDER;
@@ -93,20 +100,20 @@ class Cache {
 			$contents = $c->url_contents($url); 
 
 			if (Configuration::CACHE_ENABLED == false) {
-				$path = self::write_cache_to_disk($path_info, $contents);
+				$path = $this->write_cache_to_disk($path_info, $contents);
 				echo "written: $path<br>". PHP_EOL;		
 			}
 		}
 		$c->close();
 
 		Setup::webserver();
-		self::copy_themefiles(array('css', 'js'));
-		self::copy_images();
+		$this->copy_themefiles(array('css', 'js'));
+		$this->copy_images();
 
 	}
 
-	static function write_cache_to_disk($path_info, $contents) {
-		$path = self::cache_file_from_url($path_info);
+	function write_cache_to_disk($path_info, $contents) {
+		$path = $this->cache_file_from_url($path_info);
 
 		$dirname = pathinfo ($path, PATHINFO_DIRNAME);
 
@@ -117,7 +124,7 @@ class Cache {
 		return $path;
 	}
 
-	static function copy_themefiles($file_types) {
+	function copy_themefiles($file_types) {
 		$files  = array();
 		$theme_dir = rtrim(Url::theme_dir(), '/');
 		echo "Copying files from theme: <br><br>";
@@ -136,7 +143,7 @@ class Cache {
 	}
 
 
-	static function copy_images() {
+	function copy_images() {
 		$files  = array();
 		$content = Configuration::CONTENT_FOLDER;
 		$path = Filesystem::url_to_path("/$content/images");

@@ -12,7 +12,7 @@ class Defaults {
 	const INDEX_PAGE     = '';
 	const POSTS_HOMEPAGE = 10;
 
-	const HOME_PAGE          = '/index';
+	const HOME_PAGE          = '/home';
 	const APPLICATION_FOLDER = 'application';
 	const CACHE_FOLDER       = '../cache';
 	const CONTENT_FOLDER     = 'content';

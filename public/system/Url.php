@@ -2,6 +2,8 @@
 
 class Url {
 
+	private $url;
+
 	// all url functions relative, except root
 	
 	// static function content_file_to_url($file_path) {
@@ -13,7 +15,7 @@ class Url {
 	// 	return $root_url;
 	// }
 
-	static function theme_dir() {
+	function theme_dir() {
 		Log::debug(__FUNCTION__ . " called.");
 		$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
 		$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
@@ -21,18 +23,18 @@ class Url {
 		return $path_to_script . $theme_dir_url ;
 	}
 
-	static function abs( $url = '') {
+	function abs() {
 		// make a relative url absolute
-		return self::protocol() . $_SERVER['HTTP_HOST'] . $url;
+		return self::protocol() . $_SERVER['HTTP_HOST'] . $this->url;
 	}
 
-	static function protocol() {
+	function protocol() {
 		// http://stackoverflow.com/questions/4503135/php-get-site-url-protocol-http-vs-https
     	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     	return $protocol;
 	}
 
-	static function pages() {
+	function pages() {
 		Log::debug(__FUNCTION__ . " called.");
 
 		$output = '';
@@ -46,7 +48,7 @@ class Url {
 	}
 
 
-	static function file_path_to_url($file_path) {
+	function file_path_to_url($file_path) {
 		// convert a link to a file (content or otherwise)
 		// make sure to call Url::index($url) after
 
@@ -66,10 +68,10 @@ class Url {
 		return $relative_url;
 	}
 
-	static function index($url) {
+	function index($url) {
 		// makes sure links work index_page independent		
-		$url = Configuration::INDEX_PAGE . $url;
-		return $url;
+		$this->url = Configuration::INDEX_PAGE . $url;
+		return $this;
 	}
 
 }
