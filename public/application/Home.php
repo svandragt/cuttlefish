@@ -4,9 +4,6 @@ class Home extends Controller {
 
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
-		
-		$this->controller = __FUNCTION__;
-		$this->model      = 'posts';
 		$this->content_dir = sprintf("/%s/%s",$this->content, $this->model);
 	}
 
@@ -15,10 +12,17 @@ class Home extends Controller {
 		echo 'test';
 		$limit = Configuration::POSTS_HOMEPAGE;
     	$this->Records->limit($limit + 5);
-    	print_r($this->Records);
-		// $sort = array(__CLASS__,'sortby_published');
-// ->sort_by_function($sort)->limit($limit)
 	}
+
+	static function sortby_published($a,$b) {
+    	return strcmp($b->metadata->Published, $a->metadata->Published);
+	}
+
+}
+
+// print_r($this->Records);
+// $sort = array(__CLASS__,'sortby_published');
+// ->sort_by_function($sort)->limit($limit)
 
 // -
 // -		$i = 0; $max  = Configuration::POSTS_HOMEPAGE;
@@ -37,10 +41,3 @@ class Home extends Controller {
 // -			'controller' => $controller,
 // -			'model'      => $model,
 // -		));
-	
-
-	static function sortby_published($a,$b) {
-    	return strcmp($b->metadata->Published, $a->metadata->Published);
-	}
-
-}

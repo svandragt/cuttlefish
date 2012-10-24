@@ -6,22 +6,24 @@ class Controller extends Extension {
 		parent::__construct($parent, $args);
 
 		$this->content    = Configuration::CONTENT_FOLDER;
-		$this->controller = __FUNCTION__;
+		$this->controller = get_class($this);
 		$this->ext        = Configuration::CONTENT_EXT;
 		$this->layout     = 'layout.php';
-		$this->model      = 'posts';
+		$this->model      = 'Posts';
 		$this->content_dir = sprintf("/%s/%s",$this->content, $this->model);
 		Log::debug(__FUNCTION__ . " called.");
 		echo get_class($this);
 
 	}
 
+	function class_not_callable($model_class) {
+		die('Model class $model_class not callable.');
+	}
+
 	public function init() {
 		parent::init();
  		$this->load_records();
- 		// $this->load_model();
- 		
-
+ 		$this->load_model();
 
 		// // todo: seperate this - see feed Content::loop
 		// $data = array();
@@ -43,15 +45,19 @@ class Controller extends Extension {
 	}
 
 	public function load_model() {
-		foreach ($this->Records as $key => $file_path) {
-			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $file_path, 
-			));	
-		}
+		$model_class = $this->model;
+		print_r($model_class);
+
+		if ( class_exists ( $model_class, true )) {
+			$this->_parent->model = new $model_class( $this );
+			$this->_parent->model->init();
+		} else $this->class_not_callable($controller_class);
 		// usort ( $data, "Carbon::compare_published");
 		// $data = array_slice($data, 0,$max); 
 
 	}
+
+
 
 
 }

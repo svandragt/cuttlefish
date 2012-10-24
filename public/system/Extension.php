@@ -4,7 +4,7 @@ class Extension {
 
 	protected $parent;
 
-	function __construct($parent, $args) {
+	function __construct($parent) {
 		$this->_parent = $parent;
 	}
 
