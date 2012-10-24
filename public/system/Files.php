@@ -12,11 +12,10 @@ class Files {
 
 
 
-	// function limit($max) {
-	// 	$this->list = array_slice($this->list, 0, $max); 
-	// 	return $this;
-	// }
-		
+	function limit($max) {
+		$this->collection = array_slice($this->collection, 0, $max); 
+		return $this;
+	}	
 
 
 
@@ -54,5 +53,10 @@ class Files {
 	    }
 	    if ($is_directory_removable) rmdir($dir);
 	}	
+
+	function sort_by_function($function) {
+		usort ( $this->collection, $function);
+
+	}
 
 }

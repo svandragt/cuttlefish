@@ -11,4 +11,7 @@ class Extension {
 	function set_parent($parent) {
     	$this->_parent = $parent;
     }
+
+    function init() {
+    }
 }

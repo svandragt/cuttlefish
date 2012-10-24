@@ -12,19 +12,16 @@ class Controller extends Extension {
 		$this->model      = 'posts';
 		$this->content_dir = sprintf("/%s/%s",$this->content, $this->model);
 		Log::debug(__FUNCTION__ . " called.");
-
+		echo get_class($this);
 
 	}
 
 	public function init() {
-		print_r($this->load_records($this->content_dir));	
-	}
+		parent::init();
+ 		$this->load_records();
+ 		// $this->load_model();
+ 		
 
-	public function load_records($content_dir) {
- 		return new Records($content_dir, $this->ext);		
-		// $recordlist_url = sprintf("/%s/%s",$this->content, $this->model);
-		// $records = new Records($recordlist_url);	
-		// $this->_parent->Records = $records;
 
 		// // todo: seperate this - see feed Content::loop
 		// $data = array();
@@ -39,6 +36,21 @@ class Controller extends Extension {
 		// }
 		// usort ( $data, "Carbon::compare_published");
 		// $data = array_slice($data, 0,$max); 
+	}
+
+	public function load_records() {
+ 		$this->Records = new Records($this->content_dir, $this->ext);
+	}
+
+	public function load_model() {
+		foreach ($this->Records as $key => $file_path) {
+			$data[] = call_user_func ("Model::$model",array(
+				'file_path' => $file_path, 
+			));	
+		}
+		// usort ( $data, "Carbon::compare_published");
+		// $data = array_slice($data, 0,$max); 
+
 	}
 
 

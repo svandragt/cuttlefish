@@ -32,10 +32,6 @@ class Request {
 	}
 
 
-	function compare_published($a,$b) {
-    	return strcmp($b->metadata->Published, $a->metadata->Published);
-	}
-
 	function redirect($args) {
 		$url = new Url();
 		$defaults = array (

@@ -15,6 +15,8 @@ class Url {
 	// 	return $root_url;
 	// }
 
+	function __construct() { }
+
 	function theme_dir() {
 		Log::debug(__FUNCTION__ . " called.");
 		$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);

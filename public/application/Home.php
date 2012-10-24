@@ -8,15 +8,18 @@ class Home extends Controller {
 		$this->controller = __FUNCTION__;
 		$this->model      = 'posts';
 		$this->content_dir = sprintf("/%s/%s",$this->content, $this->model);
+	}
 
+	function load_records() {
+		parent::load_records();
+		echo 'test';
+		$limit = Configuration::POSTS_HOMEPAGE;
+    	$this->Records->limit($limit + 5);
+    	print_r($this->Records);
+		// $sort = array(__CLASS__,'sortby_published');
+// ->sort_by_function($sort)->limit($limit)
+	}
 
-
-
-// -
-// -		// todo: seperate this - see feed Content::loop
-// -		$data = array();
-// -		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
-// -		rsort($list_files);
 // -
 // -		$i = 0; $max  = Configuration::POSTS_HOMEPAGE;
 // -		$list_files = array_slice($list_files, 0, $max+5); 
@@ -34,7 +37,10 @@ class Home extends Controller {
 // -			'controller' => $controller,
 // -			'model'      => $model,
 // -		));
+	
 
+	static function sortby_published($a,$b) {
+    	return strcmp($b->metadata->Published, $a->metadata->Published);
 	}
 
 }
