@@ -11,7 +11,7 @@ class Controller extends Extension {
 		$this->layout      = 'layout.php';
 		$this->model       = 'Posts';
 		$this->view        = 'Html';
-		$this->content_dir = sprintf("/%s/%s",$this->content, $this->model);
+		$this->content_dir = strtolower(sprintf("/%s/%s",$this->content, $this->model));
 		Log::debug(__FUNCTION__ . " called.");
 	}
 

@@ -55,7 +55,6 @@ class Model extends Extension {
 			Log::error($e->getMessage());		
 		}
 
-		// print_r($url->file_path_to_url($file)->index());
 		$content->link     = $url->file_path_to_url($file)->index()->abs()->url;
 
 
