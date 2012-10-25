@@ -1,10 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Home extends Controller {
+class ControllerHome extends Controller {
 
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
 		$this->content_dir = strtolower(sprintf("/%s/%s",$this->content, $this->model));
+		$this->controller = 'Home';
 	}
 
 	function load_records() {

@@ -35,21 +35,6 @@ class Url {
     	return $protocol;
 	}
 
-	function pages() {
-		// todo
-		Log::debug(__FUNCTION__ . " called.");
-
-		$output = '';
-		$pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
-		foreach (Filesystem::list_files( Filesystem::url_to_path($pages_path), Configuration::CONTENT_EXT) as $key => $value) {
-			$filename =  pathinfo($value, PATHINFO_FILENAME  );
-			$title = ucwords(str_replace("-"," ",$filename));
-			$output .= sprintf("<li><a href='%s'>%s</a></li>",Url::index("/pages/$filename"), $title);
-		}
-		return $output;
-	}
-
-
 	function file_path_to_url($file) {
 		// convert a link to a file (content or otherwise)
 		// make sure to call Url::index($url) after

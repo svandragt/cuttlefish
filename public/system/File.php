@@ -1,8 +1,9 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
 class File {
 
 	public $is_relative;
+	public $path;
 	
 	function __construct($file_path)
 	{
@@ -30,7 +31,6 @@ class File {
 
 	function render() {
 		$mime = $this->mime;
-		// header('Cache-Control: public'); 
 		header("Content-Type: $mime");
 		readfile($this->path);
 	}

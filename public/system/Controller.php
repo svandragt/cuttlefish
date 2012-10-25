@@ -16,7 +16,7 @@ class Controller extends Extension {
 	}
 
 	function class_not_callable($named_class) {
-		die('class $named_class not callable.');
+		die("class $named_class not callable.");
 	}
 
 	public function init() {
@@ -27,11 +27,11 @@ class Controller extends Extension {
 	}
 
 	public function load_records() {
- 		$this->Records = new Records($this->content_dir, $this->ext);
+ 		$this->Records = new Files($this->content_dir, $this->ext);
 	}
 
 	public function load_model() {
-		$model_class = $this->model;
+		$model_class = 'Model' . $this->model;
 
 		if ( class_exists ( $model_class, true )) {
 			$this->_parent->model = new $model_class( $this );
@@ -45,16 +45,12 @@ class Controller extends Extension {
 		$view_class = $this->view;
 
 		if ( class_exists ( $view_class, true )) {
-			new $view_class( $this->_parent->model->contents, array(
+			$this->_parent->view = new $view_class( $this->_parent->model->contents, array(
 				'layout'     => $this->layout,
 				'controller' => $this->controller,
 				'model'      => $this->model,
 			) ) ;
 		} else $this->class_not_callable($view_class);
 	}
-
-
-
-
 }
 	

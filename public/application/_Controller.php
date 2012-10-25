@@ -52,34 +52,6 @@ class Controller {
 
 	}
 
-	static function errors($path_parts) {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$layout     = 'single.php';
-		$model      = 'pages';
-		Log::debug(__FUNCTION__ . " called.");
-
-
-		header("HTTP/1.0 404 Not Found");
-		$item = $path_parts[0];
-		switch ($item) {
-			case '404':
-				$file_path = Filesystem::url_to_path("/$content/$controller/$item.$ext");
-				$data      =  (file_exists($file_path)) ? call_user_func ("Model::$model", 
-					array(
-					'file_path' => $file_path,
-					)) : "Sorry, this page does not exists (404). 
-				Customise this page by adding a /$content/$controller/$item.$ext.";
-				
-				View::template($data, array(
-						'layout'     => $layout,
-						'controller' => $controller,
-						'model'      => $model,
-				));
-			break;
-		}
- 	}
 
  	static function feed() {
 		$content    = Configuration::CONTENT_FOLDER;
@@ -128,21 +100,6 @@ class Controller {
 		));
  	} 	
 
-
-	static function images($path_parts) {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$item       = implode('/', $path_parts);
-		Log::debug(__FUNCTION__ . " called.");
-
-		$url = "/$content/$controller/$item";
-		$file = Filesystem::url_to_path($url);
-
-		View::file($file, array(
-			'controller' => $controller,
-		));
- 	} 	
 
 	static function archive() {
 		$content    = Configuration::CONTENT_FOLDER;

@@ -14,7 +14,7 @@ class Request {
 
 		// Route to controller
 		$path_parts           = explode("/", $this->path_info());
-		$controller_class     = $path_parts[1];
+		$controller_class     = 'Controller' . ucfirst($path_parts[1]);
 		$controller_arguments = array_slice($path_parts, 2);
 		if ( class_exists ( $controller_class, true )) {
 			$this->controller = new $controller_class( $this, $controller_arguments );
@@ -39,8 +39,9 @@ class Request {
 			'url' => $url->index('/errors/404')->abs(),
 		);
 		$args = array_merge($defaults, $args);
+		print_r($args);
 		Log::info($args['logmessage']);
-		header("Location: " . $args['url']);
+		echo("Location: " . $args['url']->url);
 		exit($args['logmessage']);
 	}
 
