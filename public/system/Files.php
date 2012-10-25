@@ -36,11 +36,6 @@ class Files {
 		return $files;
 	}
 
-	function file_path_make_relative($absolute_file_path) {
-		$root_path = Filesystem::url_to_path('/');
-		return str_replace($root_path,"",$absolute_file_path);
-	}
-
 	function remove_files($dir, $is_recursive=false, $is_directory_removable = false) {
 		Log::debug(__FUNCTION__ . " called.");
 	    foreach(glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {

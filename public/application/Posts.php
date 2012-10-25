@@ -2,13 +2,20 @@
 
 class Posts extends Model {
 
-	public static $model = array(
+	public $model = array(
 		'yaml' => 'metadata',
 		'markdown|html' => 'content',
 	);
 
-	function __construct($parent) {
-		parent::__construct($parent);	
+	public function sort($a, $b) {
+		return strcmp($b->metadata->Published, $a->metadata->Published);
 	}
+
+	function load_contents() {
+		parent::load_contents();
+		$limit = Configuration::POSTS_HOMEPAGE;
+    	$this->limit($limit);
+	}
+	
 
 }

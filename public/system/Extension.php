@@ -6,6 +6,7 @@ class Extension {
 
 	function __construct($parent) {
 		$this->_parent = $parent;
+		// echo get_class($this);
 	}
 
 	function set_parent($parent) {

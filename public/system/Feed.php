@@ -27,7 +27,7 @@ class Feed {
         $this->xml = $xml;
 	}
 
-	function output() {
+	function render() {
         header('Content-type: application/xml');
 		echo $this->xml->asXML();
 	}

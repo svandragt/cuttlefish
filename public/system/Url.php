@@ -2,22 +2,17 @@
 
 class Url {
 
-	private $url;
+	public $url;
+	public $is_relative; // made absolute?
+	public $is_prefixed; // been through index function
 
 	// all url functions relative, except root
 	
-	// static function content_file_to_url($file_path) {
-	// 	// take a file_path inside the content folder and convert that to a relative url.
-	// 	return $file_path;
-	// 	// $filepath_base = str_replace('.' . Configuration::CONTENT_EXT, '', $file_path);
-	// 	// $root_file_path = str_replace(Filesystem::url_to_path('/' . Configuration::CONTENT_FOLDER),"", $filepath_base);
-	// 	// $root_url =  selffile_path_to_url($root_file_path);
-	// 	return $root_url;
-	// }
 
 	function __construct() { }
 
-	function theme_dir() {
+	static function theme_dir() {
+		// todo
 		Log::debug(__FUNCTION__ . " called.");
 		$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
 		$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
@@ -27,7 +22,11 @@ class Url {
 
 	function abs() {
 		// make a relative url absolute
-		return self::protocol() . $_SERVER['HTTP_HOST'] . $this->url;
+		if ($this->is_relative) {
+			$this->url = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url;
+			$this->is_relative = false;
+		}
+		return $this;
 	}
 
 	function protocol() {
@@ -37,6 +36,7 @@ class Url {
 	}
 
 	function pages() {
+		// todo
 		Log::debug(__FUNCTION__ . " called.");
 
 		$output = '';
@@ -50,15 +50,13 @@ class Url {
 	}
 
 
-	function file_path_to_url($file_path) {
+	function file_path_to_url($file) {
 		// convert a link to a file (content or otherwise)
 		// make sure to call Url::index($url) after
+		$file = $file->relative();
 
-		Log::debug(__FUNCTION__ . " called.");
-		$relative_file_path  = Filesystem::file_path_make_relative($file_path);
-		Log::debug(__FUNCTION__  . " relative_file_path: $relative_file_path");
 
-		$relative_url  = str_replace(DIRECTORY_SEPARATOR,"/",$relative_file_path);
+		$relative_url  = str_replace(DIRECTORY_SEPARATOR,"/",$file->path);
 		$relative_url = '/' . ltrim($relative_url, '/');
 		Log::debug(__FUNCTION__  . " relative_url: $relative_url");
 
@@ -67,12 +65,21 @@ class Url {
 			$relative_url = str_replace('.' . Configuration::CONTENT_EXT, '',$relative_url);
 		}
 
-		return $relative_url;
+		$this->url = $relative_url;
+		$this->is_relative = true;
+		$this->is_prefixed = false;
+
+
+		return $this;
 	}
 
-	function index($url) {
-		// makes sure links work index_page independent		
-		$this->url = Configuration::INDEX_PAGE . $url;
+	function index($url = null) {
+		// makes sure links work index_page independent	
+		if (!$this->is_prefixed) {
+			$this->url = (is_null($url)) ? $this->url : $url;
+			$this->url = Configuration::INDEX_PAGE . $this->url;
+			$this->is_prefixed = true;
+		}
 		return $this;
 	}
 
