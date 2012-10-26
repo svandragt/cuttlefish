@@ -6,15 +6,6 @@ class ModelPages extends Model {
 		'markdown|html' => 'content',
 	);
 
-	// public function sort($a, $b) {
-	// 	return strcmp($b->metadata->Published, $a->metadata->Published);
-	// }
-
-	function load_contents() {
-		parent::load_contents();
-	}
-	
-
 }
 
 		// header("HTTP/1.0 404 Not Found");

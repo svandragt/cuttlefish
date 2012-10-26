@@ -18,7 +18,6 @@ class Model extends Extension {
 			Log::error($e->getMessage());		
 		}
  		$this->load_contents();
-		usort ( $this->contents, array($this, 'sort'));
 
 	}
 

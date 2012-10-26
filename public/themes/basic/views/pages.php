@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$model = $this->models;
+$post = $this->contents[0]->content;
 
 printf("<article>
 	<h2>%s</h2>
 	%s
-	</article>", $model->title, $model->content);
+	</article>", $post->title, $post->main);

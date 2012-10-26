@@ -16,12 +16,4 @@ class ControllerPosts extends Controller {
     	$this->Records->limit($limit + 5);
 	}
 
-	function load_view() {
-		parent::load_view();
-		// test();
-		// feedLink();
-		// $view->init();
- 
-	}
-
 }

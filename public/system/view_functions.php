@@ -11,10 +11,13 @@ function pages() {
 
 	$output = '';
 	$pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
-	foreach (Filesystem::list_files( Filesystem::url_to_path($pages_path), Configuration::CONTENT_EXT) as $key => $value) {
-		$filename =  pathinfo($value, PATHINFO_FILENAME  );
+	// todo
+ 	$files = new Files($pages_path, Configuration::CONTENT_EXT);
+
+	foreach ($files as $key => $value) {
+		$filename =  pathinfo($value[0], PATHINFO_FILENAME  );
 		$title = ucwords(str_replace("-"," ",$filename));
-		$output .= sprintf("<li><a href='%s'>%s</a></li>",Url::index("/pages/$filename"), $title);
+		$output .= sprintf("<li><a href='%s'>%s</a></li>",href("/pages/$filename"), $title);
 	}
 	return $output;
 }

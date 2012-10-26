@@ -7,6 +7,11 @@ class ModelPosts extends Model {
 		'markdown|html' => 'content',
 	);
 
+	public function init() {
+		parent::init();
+		usort ( $this->contents, array($this, 'sort'));
+	}
+
 	public function sort($a, $b) {
 		return strcmp($b->metadata->Published, $a->metadata->Published);
 	}
