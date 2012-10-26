@@ -21,3 +21,11 @@ function pages() {
 	}
 	return $output;
 }
+
+function theme_dir() {
+		// todo
+		$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
+		$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
+		$theme_dir_url  = str_replace("\\","/",THEME_DIR);
+		return $path_to_script . $theme_dir_url ;
+}

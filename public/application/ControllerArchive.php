@@ -8,8 +8,4 @@ class ControllerArchive extends Controller {
 		$this->content_dir = strtolower(sprintf("/%s/%s",$this->content, $this->model));
 	}
 
-	function load_records() {
-		parent::load_records();
-	}
-
 }

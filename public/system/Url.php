@@ -11,15 +11,6 @@ class Url {
 
 	function __construct() { }
 
-	static function theme_dir() {
-		// todo
-		Log::debug(__FUNCTION__ . " called.");
-		$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
-		$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
-		$theme_dir_url  = str_replace("\\","/",THEME_DIR);
-		return $path_to_script . $theme_dir_url ;
-	}
-
 	function abs() {
 		// make a relative url absolute
 		if ($this->is_relative) {
