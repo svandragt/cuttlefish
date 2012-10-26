@@ -4,8 +4,8 @@ class ControllerHome extends Controller {
 
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
-		$this->content_dir = strtolower(sprintf("/%s/%s",$this->content, $this->model));
-		$this->controller = 'Home';
+		$this->controller = 'home';
+		$this->content_dir = sprintf("/%s/%s",$this->content, $this->model);
 	}
 
 	function load_records() {

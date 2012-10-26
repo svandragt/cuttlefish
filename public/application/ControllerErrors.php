@@ -5,7 +5,7 @@ class ControllerErrors extends Controller {
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
 		$this->layout     = 'single.php';
-		$this->model      = 'Pages';
-		$this->controller = 'Errors';
+		$this->model      = 'pages';
+		$this->controller = 'errors';
 	}
 }
