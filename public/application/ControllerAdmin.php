@@ -2,6 +2,15 @@
 
 class ControllerAdmin extends Controller {
 
+	public $allowed_methods = array(
+		'index'  => 'overview',
+		'draft'  => 'New post template',
+		'cache'  => 'Clear cache', 
+		'generate' => 'Generate static site', 
+		'logout' => 'Logout',
+	);
+
+
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
 		$this->layout     = 'single.php';
@@ -11,48 +20,61 @@ class ControllerAdmin extends Controller {
 
 	function init() {
 		$this->_parent->Cache->abort();
-		$action = (isset($this->args[0])) ? $this->args[0] : null;
-// 		if ($action != 'new') print('<pre>');
+		$action = (isset($this->args[0])) ? $this->args[0] : 'index';
 
-// 		$return_url = Url::index('/');
+		$url = new Url();
+		$this->return_url = $url->index('/');
+		
+		if ($this->is_allowed_method($action)) $this->$action();
+		else $this->is_allowed_method_fail($action);
 
-		switch ($action) {
-			case 'cache':
-				$this->_parent->Cache->clear();
-				break;
-
-			case 'static':
-				$this->_parent->Cache->generate_site();
-				break;
-
-			case 'new':
-				$this->_parent->template_download('post');
-				break;
-
-			case 'logout':
-				//  todo Security::logout();
-				break;
-
-			default:
-				// if (! Security::is_loggedin()) {
-				// 	Security::login();
-				// 	$return_url = Url::index('/admin');
-				// }
-				// else {
-				// 	$methods = array(
-				// 		'new'    => 'New post template',
-				// 		'cache'  => 'Clear cache', 
-				// 		'static' => 'Generate static site', 
-				// 		'logout' => 'Logout',
-				// 	);
-				// 	echo "<ul>tasks:";
-				// 	foreach ($methods as $key => $value) {
-				// 		printf('<li><a href="%s">%s</a></li>', Url::index("/admin/$key"), $value);
-				// 	}
-				// 	echo "</ul>";
-				// }
-				break;
-		}
-// 		printf("<a href='%s'>Return</a></pre>",$return_url);		
 	}
+
+	function is_allowed_method($action) {
+		return array_key_exists  ( $action, $this->allowed_methods);
+	}
+
+	function is_allowed_method_fail($action) {
+		exit("method $action not allowed");
+	}
+
+	function index() {
+		if (! $this->_parent->Security->is_loggedin()) {
+			$this->_parent->Security->login();
+			$url = new Url();
+			$this->return_url = $url->index('/admin');
+		}
+		else {
+		// 	echo "<ul>tasks:";
+		// 	foreach ($methods as $key => $value) {
+		// 		printf('<li><a href="%s">%s</a></li>', Url::index("/admin/$key"), $value);
+		// 	}
+		// 	echo "</ul>";
+		// }
+		}
+
+	}
+
+	function draft() {
+		$this->_parent->template_download('post');
+	}
+
+	function cache() {
+		$this->_parent->Cache->clear();
+	}
+
+	function generate() {
+		$this->_parent->Cache->generate_site();
+	}
+
+	function logout() {
+		$this->_parent->Security->logout();
+	}
+
+
+
+
+	
+// 		printf("<a href='%s'>Return</a></pre>",$return_url);		
+	
 }

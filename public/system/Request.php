@@ -9,7 +9,8 @@ class Request {
 		} 
 		Log::debug(__FUNCTION__ . " called.");
 
-		$this->Environment      = new Environment();
+		$this->Environment   = new Environment();
+		$this->Security      = new Security();
 		$this->Cache->start();
 
 		// Route to controller
