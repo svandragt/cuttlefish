@@ -63,8 +63,7 @@ class ControllerAdmin extends Controller {
 		foreach ($dirs as $dir) {
 			Filesystem::remove_dirs(realpath($dir.'/.'));
 		}
-		// $this->_parent->Environment->webserver_configuration();
-		// todo - remove emptyy directories but not the directory - http://stackoverflow.com/questions/1833518/remove-empty-subfolders-with-php
+		$this->_parent->Environment->webserver_configuration();
 	}
 
 	function generate() {
