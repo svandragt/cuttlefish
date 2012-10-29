@@ -20,7 +20,7 @@ class Environment {
 		}
 
 		// Externals environment
-		$flist = new Files('/system/Ext', 'php');
+		$flist = new Files(array('url' => '/system/Ext'), 'php');
 		foreach ($flist->collection as $key => $value) {
 			$this->register[pathinfo($value,PATHINFO_FILENAME)] = true;
 			$this->add_include_path(pathinfo($value,PATHINFO_DIRNAME));	

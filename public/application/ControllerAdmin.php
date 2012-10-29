@@ -3,9 +3,9 @@
 class ControllerAdmin extends Controller {
 
 	public $allowed_methods = array(
-		'index'  => 'overview',
+		'index'  => 'Overview',
 		'draft'  => 'New post template',
-		'cache'  => 'Clear cache', 
+		'clear_cache'  => 'Clear cache', 
 		'generate' => 'Generate static site', 
 		'logout' => 'Logout',
 	);
@@ -40,17 +40,20 @@ class ControllerAdmin extends Controller {
 
 	function index() {
 		if (! $this->_parent->Security->is_loggedin()) {
+		$url = new Url();
 			$this->_parent->Security->login();
-			$url = new Url();
 			$this->return_url = $url->index('/admin');
 		}
 		else {
-		// 	echo "<ul>tasks:";
-		// 	foreach ($methods as $key => $value) {
-		// 		printf('<li><a href="%s">%s</a></li>', Url::index("/admin/$key"), $value);
-		// 	}
-		// 	echo "</ul>";
-		// }
+			array_shift($this->allowed_methods);
+			$am = $this->allowed_methods;
+			echo "<ul>tasks:";
+			foreach ($am as $key => $value) {
+				$url = new Url();
+				printf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
+			}
+			echo "</ul>";
+		
 		}
 
 	}
@@ -59,8 +62,14 @@ class ControllerAdmin extends Controller {
 		$this->_parent->template_download('post');
 	}
 
-	function cache() {
-		$this->_parent->Cache->clear();
+	function clear_cache() {
+		$this->_parent->Security->login_redirect();
+		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
+		$dir = realpath($dir);
+		printf("Removing  all files in %s<br>", $dir);
+		$files = new Files(array('path' => $dir));
+		$files->remove_files();
+		// todo - remove emptyy directories but not the directory - http://stackoverflow.com/questions/1833518/remove-empty-subfolders-with-php
 	}
 
 	function generate() {

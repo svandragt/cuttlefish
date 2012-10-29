@@ -28,7 +28,7 @@ class Controller extends Extension {
 	}
 
 	public function load_records() {
- 		$this->Records = new Files($this->content_dir, $this->ext);
+ 		$this->Records = new Files(array('url'=> $this->content_dir), $this->ext);
 	}
 
 	public function load_model() {

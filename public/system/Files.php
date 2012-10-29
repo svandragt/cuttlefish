@@ -2,8 +2,13 @@
 
 class Files {
 
-	function __construct($content_dir, $ext) {
-		$this->collection = $this->list_files( Filesystem::url_to_path($content_dir), $ext);
+	function __construct($dir_or_path, $ext = null) {
+		if (isset($dir_or_path['url'])) {
+			$dir_or_path = Filesystem::url_to_path($dir_or_path['url']);
+		} elseif (isset($dir_or_path['path'])) {
+			$dir_or_path = $dir_or_path['path'];
+		}
+		$this->collection = $this->list_files( $dir_or_path, $ext);
 		rsort($this->collection);
 		return $this;
 	}
@@ -36,17 +41,15 @@ class Files {
 		return $files;
 	}
 
-	function remove_files($dir, $is_recursive=false, $is_directory_removable = false) {
+	function remove_files($is_directory_removable = false) {
 		Log::debug(__FUNCTION__ . " called.");
-	    foreach(glob($dir . DIRECTORY_SEPARATOR . '*') as $file) {
-	        if(is_dir($file) && $is_recursive)
-	            $this->remove_files($file, $is_recursive, true);
-	        else {
+	    foreach($this->collection as $file) {
+	    		$file = realpath($file);
 	        	echo "Deleted: $file" . "<br>";
 	            unlink($file);
-	        }
+	        
 	    }
-	    if ($is_directory_removable) rmdir($dir);
+	    // if ($is_directory_removable) rmdir($dir);
 	}	
 
 	function sort_by_function($function) {

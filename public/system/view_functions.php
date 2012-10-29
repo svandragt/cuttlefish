@@ -12,7 +12,7 @@ function pages() {
 	$output = '';
 	$pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
 	// todo
- 	$files = new Files($pages_path, Configuration::CONTENT_EXT);
+ 	$files = new Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
 
 	foreach ($files as $key => $value) {
 		$filename =  pathinfo($value[0], PATHINFO_FILENAME  );
@@ -23,9 +23,13 @@ function pages() {
 }
 
 function theme_dir() {
-		// todo
-		$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
-		$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
-		$theme_dir_url  = str_replace("\\","/",THEME_DIR);
-		return $path_to_script . $theme_dir_url ;
+	$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
+	$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
+	$theme_dir_url  = str_replace("\\","/",THEME_DIR);
+	return $path_to_script . $theme_dir_url ;
+}
+
+function is_loggedin() {
+	$sec = new Security();
+	return $sec->is_loggedin();
 }
