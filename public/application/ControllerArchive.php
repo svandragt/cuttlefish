@@ -6,6 +6,8 @@ class ControllerArchive extends Controller {
 		parent::__construct($parent, $args);
 		$this->controller = 'archive';
 		$this->model      = 'post';
+		$this->content_dir = strtolower(sprintf("/%s/%ss",$this->content, $this->model));
+		
 	}
 
 }
