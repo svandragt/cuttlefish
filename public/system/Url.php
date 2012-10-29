@@ -26,13 +26,13 @@ class Url {
     	return $protocol;
 	}
 
-	function file_path_to_url($file) {
+	function file_to_url($file_object) {
 		// convert a link to a file (content or otherwise)
 		// make sure to call Url::index($url) after
-		$file = $file->relative();
+		$file_object = $file_object->relative();
 
 
-		$relative_url  = str_replace(DIRECTORY_SEPARATOR,"/",$file->path);
+		$relative_url  = str_replace(DIRECTORY_SEPARATOR,"/",$file_object->path);
 		$relative_url = '/' . ltrim($relative_url, '/');
 		Log::debug(__FUNCTION__  . " relative_url: $relative_url");
 

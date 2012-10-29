@@ -54,16 +54,7 @@ class ControllerAdmin extends Controller {
 
 	function clear_cache() {
 		$this->_parent->Security->login_redirect();
-		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
-		$dir = realpath($dir);
-		printf("Removing  all files in %s<br>", $dir);
-		$files = new Files(array('path' => $dir));
-		$files->remove_files();
-		$dirs = Filesystem::subdirs(realpath($dir.'/.'), false);
-		foreach ($dirs as $dir) {
-			Filesystem::remove_dirs(realpath($dir.'/.'));
-		}
-		$this->_parent->Environment->webserver_configuration();
+		$this->_parent->Cache->clear();
 	}
 
 	function generate() {
@@ -71,15 +62,15 @@ class ControllerAdmin extends Controller {
 		$this->_parent->Cache->generate_site();
 	}
 
+	function logout() {
+		$this->_parent->Security->login_redirect();
+		$this->_parent->Security->logout();
+	}
+
 	function show_login() {
 		$this->_parent->Security->login();
 		$url = new Url();
 		$this->return_url = $url->index('/admin')->url;
-	}
-
-	function logout() {
-		$this->_parent->Security->login_redirect();
-		$this->_parent->Security->logout();
 	}
 
 	function show_tasks() {

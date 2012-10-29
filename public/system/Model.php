@@ -55,7 +55,7 @@ class Model extends Extension {
 			exit();	
 		}
 
-		$content->link     = $url->file_path_to_url($file)->index()->abs()->url;
+		$content->link     = $url->file_to_url($file)->index()->abs()->url;
 
 
 		for ($i = 0; $i < count($this->model); $i++) {

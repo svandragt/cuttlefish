@@ -1,10 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Cache {
+class Cache extends Extension{
 
 	protected $cwd;
 
-	public function __construct() {
+	public function __construct($parent) {
+		parent::__construct($parent);
 		$this->cwd = getcwd();
 	}
 
@@ -67,47 +68,48 @@ class Cache {
 	}
 
 	function clear() {
-		// todo
-		
-		// Security::login_redirect();
-		// $dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
-		// printf("Removing  all files in %s<br>", $dir);
-		// FileSystem::remove_files($dir,true);
-		// Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );			
+		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
+		$dir = realpath($dir);
+		printf("Removing  all files in %s<br>", $dir);
+		$files = new Files(array('path' => $dir));
+		$files->remove_files();
+		$dirs = Filesystem::subdirs(realpath($dir.'/.'), false);
+		foreach ($dirs as $dir) {
+			Filesystem::remove_dirs(realpath($dir.'/.'));
+		}
+		$this->_parent->Environment->webserver_configuration();
 	}
 
 	function generate_site() {
 		// todo
 
-		// Security::login_redirect();
-		// if (Configuration::INDEX_PAGE !== '' ) {
-		// 	die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
-		// }
-		// $this->clear();
+		if (Configuration::INDEX_PAGE !== '' ) {
+			die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
+		}
+		$this->clear();
 
-		// echo "<br>Generating site:<br>". PHP_EOL;
-		// $content = Configuration::CONTENT_FOLDER;
-		// $ext     = Configuration::CONTENT_EXT;
-		// $c       = new Curl;
-		// $files   = array();
-		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
-		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "feed";
-		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "archive";
-		// foreach (Filesystem::collect( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
-		// 	$files[] = $value;
-		// }
-		// foreach ($files as $index => $file_path) {
-		// 	echo "$index: $file_path<br>";
-		// 	$path_info = Url::file_path_to_url($file_path);
-		// 	$url = Url::abs(Url::index( $path_info ));
-		// 	echo "url: $url<br>";
-		// 	$contents = $c->url_contents($url); 
+		echo "<br>Generating site:<br>". PHP_EOL;
+		$content = Configuration::CONTENT_FOLDER;
+		$ext     = Configuration::CONTENT_EXT;
+		$c       = new Curl;
+		$fs = new Files( array('path' => Filesystem::url_to_path("/$content"), $ext));
+		$fs->collection[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
+		// todo: feeds and archive
+		// $fs->collection[] = Filesystem::url_to_path("/") . "feeds";
+		// $fs->collection[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "archive";
 
-		// 	if (Configuration::CACHE_ENABLED == false) {
-		// 		$path = $this->write_cache_to_disk($path_info, $contents);
-		// 		echo "written: $path<br>". PHP_EOL;		
-		// 	}
-		// }
+		foreach ($fs->collection as $index => $file_path) {
+			$file_obj = new File($file_path);
+			$url_obj = new Url();
+			$url = $url_obj->file_to_url($file_obj)->index()->url;
+			// echo "url: $url<br>" . PHP_EOL;
+			$contents = $c->url_contents($url); 
+
+			if (Configuration::CACHE_ENABLED == false) {
+				$path = $this->write_cache_to_disk($url, $contents);
+				echo "Written: $path<br>". PHP_EOL;		
+			}
+		}
 		// $c->close();
 
 		// Setup::webserver();
@@ -118,7 +120,6 @@ class Cache {
 
 	function write_cache_to_disk($path_info, $contents) {
 		$path = $this->cache_file_from_url($path_info);
-
 		$dirname = pathinfo ($path, PATHINFO_DIRNAME);
 
 		if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
