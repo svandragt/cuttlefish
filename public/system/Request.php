@@ -14,9 +14,9 @@ class Request {
 		$this->Cache->start();
 
 		// Route to controller
-		$path_parts           = explode("/", $this->path_info());
-		$controller_class     = 'Controller' . ucfirst($path_parts[1]);
-		$controller_arguments = array_slice($path_parts, 2);
+		$args                = explode("/", $this->path_info());
+		$controller_class     = 'Controller' . ucfirst($args[1]);
+		$controller_arguments = array_slice($args, 2);
 		if ( class_exists ( $controller_class, true )) {
 			$this->controller = new $controller_class( $this, $controller_arguments );
 			$this->controller->init();

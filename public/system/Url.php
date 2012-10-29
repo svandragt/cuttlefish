@@ -9,7 +9,9 @@ class Url {
 	// all url functions relative, except root
 	
 
-	function __construct() { }
+	function __construct() { 
+
+	}
 
 	function abs() {
 		// make a relative url absolute
@@ -55,6 +57,8 @@ class Url {
 			$this->url = (is_null($url)) ? $this->url : $url;
 			$this->url = Configuration::INDEX_PAGE . $this->url;
 			$this->is_prefixed = true;
+			$this->is_relative = true;
+
 		}
 		return $this;
 	}

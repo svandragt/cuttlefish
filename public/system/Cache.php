@@ -93,33 +93,41 @@ class Cache extends Extension{
 		$ext     = Configuration::CONTENT_EXT;
 		$c       = new Curl;
 		$fs = new Files( array('path' => Filesystem::url_to_path("/$content"), $ext));
-		$fs->collection[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
-		// todo: feeds and archive
-		// $fs->collection[] = Filesystem::url_to_path("/") . "feeds";
-		// $fs->collection[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "archive";
 
 		foreach ($fs->collection as $index => $file_path) {
 			$file_obj = new File($file_path);
 			$url_obj = new Url();
-			$url = $url_obj->file_to_url($file_obj)->index()->url;
-			// echo "url: $url<br>" . PHP_EOL;
-			$contents = $c->url_contents($url); 
+			$cache_urls[] = $url_obj->file_to_url($file_obj)->index();
+		}
+
+		$urls = array(
+			'/',
+			'/feeds/posts',
+			'/archive',
+		);
+		foreach ($urls as $key => $value) {
+			$url = new Url();
+			$cache_urls[] = $url->index($value);
+		}
+
+
+		foreach ($cache_urls as $url) {
+			$url2 = clone $url;
+			$contents = $c->url_contents($url2->abs()->url); 
 
 			if (Configuration::CACHE_ENABLED == false) {
 				$path = $this->write_cache_to_disk($url, $contents);
 				echo "Written: $path<br>". PHP_EOL;		
 			}
 		}
-		// $c->close();
+		$c->close();
 
-		// Setup::webserver();
-		// $this->copy_themefiles(array('css', 'js'));
-		// $this->copy_images();
+		$this->copy_themefiles(array('css', 'js'));
 
 	}
 
-	function write_cache_to_disk($path_info, $contents) {
-		$path = $this->cache_file_from_url($path_info);
+	function write_cache_to_disk($url_obj, $contents) {
+		$path = $this->cache_file_from_url($url_obj->url);
 		$dirname = pathinfo ($path, PATHINFO_DIRNAME);
 
 		if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
@@ -130,42 +138,27 @@ class Cache extends Extension{
 	}
 
 	function copy_themefiles($file_types) {
-		// todo 
+		include ('view_functions.php');
+
 		// $files  = array();
-		// $theme_dir = rtrim(Url::theme_dir(), '/');
-		// echo "Copying files from theme: <br><br>";
+		$theme_dir = rtrim(theme_dir(), '/');
+		echo "Copying files from theme: <br><br>";
 
 
-		// foreach ($file_types as $file_type) {
-		// 	$source_files = Filesystem::collect( Filesystem::url_to_path("$theme_dir"), $file_type);
-		// 	$destination_files = array();
-		// 	foreach ($source_files as $key => $value) {
-		// 		echo "$key: $value<br>";
-		// 		$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
-		// 		$destination_files[] = str_replace('public', $cache, $value);
-		// 	}
-		// 	Filesystem::copy_files($source_files, $destination_files);
-		// }
+		foreach ($file_types as $file_type) {
+			echo "filetype: $file_type<br>";
+			$fs = new Files( array('path' => Filesystem::url_to_path("$theme_dir")), $file_type);
+
+			$destination_files = array();
+			foreach ($fs->collection as $key => $value) {
+				echo "$key: $value<br>";
+				$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
+				$destination_files[] = str_replace('public', $cache, $value);
+			}
+			Filesystem::copy_files($fs->collection, $destination_files);
+		}
 	}
 
-
-	function copy_images() {
-		// todo
-		
-		// $files  = array();
-		// $content = Configuration::CONTENT_FOLDER;
-		// $path = Filesystem::url_to_path("/$content/images");
-		// echo "<br>Copying images: <br><br>";
-
-		// $source_files = Filesystem::collect( $path);
-		// $destination_files = array();
-		// foreach ($source_files as $key => $value) {
-		// 	echo "$key: $value<br>";
-		// 	$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
-		// 	$destination_files[] = str_replace('public' . DIRECTORY_SEPARATOR . 'content', $cache, $value);
-		// }
-		// Filesystem::copy_files($source_files, $destination_files);
-	}
 
 }
 

@@ -6,5 +6,5 @@ class Configuration extends Defaults {
 		const CACHE_ENABLED = false;
 
 		// const INDEX_PAGE     = '/index.php';		
-		// const ADMIN_PASSWORD = "carbon";
+		const ADMIN_PASSWORD = "carbon";
 }
