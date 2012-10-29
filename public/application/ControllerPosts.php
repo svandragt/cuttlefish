@@ -7,10 +7,10 @@ class ControllerPosts extends Controller {
 
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
-		$this->controller = 'posts';
 		$this->layout     = 'single.php';
-		$this->model      = 'posts';
-		$this->record_url = sprintf("/%s/%s/%s",$this->content, $this->controller, implode($args,"/"));
+		$this->controller = 'posts';
+		$this->model      = 'post';
+		$this->record_url = sprintf("/%s/%ss/%s",$this->content, $this->model, implode($args,"/"));
 	}
 
 

@@ -4,8 +4,8 @@ class ControllerImages extends Controller {
 
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
-		$this->model      = 'images';
 		$this->controller = 'images';
+		$this->model      = 'image';
 		$this->view       = 'file';
 	}
 

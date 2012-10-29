@@ -6,8 +6,8 @@ class ControllerPages extends Controller {
 		parent::__construct($parent, $args);
 		$this->controller = 'pages';	
 		$this->layout     = 'single.php';
-		$this->model      = 'pages';
-		$this->content_url = sprintf("/%s/%s/%s",$this->content, $this->controller, implode($args,"/"));
+		$this->model      = 'page';
+		$this->content_url = sprintf("/%s/%ss/%s",$this->content, $this->model, implode($args,"/"));
 	}
 
 	function load_records() {

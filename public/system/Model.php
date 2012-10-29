@@ -51,7 +51,8 @@ class Model extends Extension {
 		try {
 			if (count($content_sections) != count($section_keys)) throw new Exception('Model definition does not match number of content sections.');
 		} catch (Exception $e) {
-			Log::error($e->getMessage());		
+			Log::error($e->getMessage());	
+			exit();	
 		}
 
 		$content->link     = $url->file_path_to_url($file)->index()->abs()->url;

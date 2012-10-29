@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class ModelPages extends Model {
+class ModelPage extends Model {
 
 	public $model = array(
 		'markdown|html' => 'content',

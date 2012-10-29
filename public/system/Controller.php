@@ -9,9 +9,9 @@ class Controller extends Extension {
 		$this->controller  = get_class($this);
 		$this->ext         = Configuration::CONTENT_EXT;
 		$this->layout      = 'layout.php';
-		$this->model       = 'Posts';
+		$this->model       = 'page';
 		$this->view        = 'Html';
-		$this->content_dir = strtolower(sprintf("/%s/%s",$this->content, $this->model));
+		$this->content_dir = strtolower(sprintf("/%s/%ss",$this->content, $this->model));
 		$this->args = $args;
 		Log::debug(__FUNCTION__ . " called.");
 	}

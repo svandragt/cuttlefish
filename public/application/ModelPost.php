@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class ModelPosts extends Model {
+class ModelPost extends Model {
 
 	public $model = array(
 		'yaml' => 'metadata',

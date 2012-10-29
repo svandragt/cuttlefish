@@ -4,8 +4,8 @@ class ControllerFeeds extends Controller {
 
 	function __construct($parent, $args) {
 		parent::__construct($parent, $args);
-		$this->model      = 'feeds';
 		$this->controller = 'feeds';
+		$this->model      = 'feed';
 		$this->view       = 'feed';
 		$this->content_dir = sprintf("/%s/%s",$this->content, $this->args[0]);
 	}
