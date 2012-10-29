@@ -53,36 +53,7 @@ class Controller {
 	}
 
 
- 	static function feed() {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$model      = 'posts';
-		Log::debug("$controller called.");
-
-
-		// todo: seperate this - see index
-		$data = array();
-		$list_files = Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext);
-		rsort($list_files);
-
-		$i = 0; $max  = Configuration::POSTS_HOMEPAGE;
-		$list_files = array_slice($list_files, 0, $max+5); 
-		foreach ($list_files as $key => $file_path) {
-			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $file_path, 
-			));	
-		}
-		usort ( $data, "Carbon::compare_published");
-		$data = array_slice($data, 0,$max); 
-
-		View::feed($data, array(
-			'filename' => $controller,
-		));
-	
- 	}
-
-	static function themes($path_parts) {
+ 	static function themes($path_parts) {
 		die('unused');
 		$content    = Configuration::CONTENT_FOLDER;
 		$controller = __FUNCTION__;
@@ -101,72 +72,5 @@ class Controller {
  	} 	
 
 
-	static function archive() {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$layout     = 'single.php';
-		$model      = 'posts';
-		Log::debug(__FUNCTION__ . " called.");
 
-
-		$data = array();
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content/$model"), $ext) as $key => $file_path) {
-			$data[] = call_user_func ("Model::$model",array(
-				'file_path' => $file_path, 
-			));	
-		}
-		usort ( $data, "Carbon::compare_published");
-
-		View::template($data, array(
-			'layout'     => $layout,
-			'controller' => $controller,
-			'model'      => $model,
-		));
-	}
-
-	
-	static function pages($path_parts) {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$layout     = 'layout.php';
-		$model      = $controller;
-		Log::debug(__FUNCTION__ . " called.");
-
-
-		$item      = $path_parts[0];
-		$file_path = Filesystem::url_to_path("/$content/$model/$item.$ext");
-		$data      = call_user_func ("Model::$model",array(
-				'file_path' => $file_path, 
-		));	
-
-		View::template($data, array(
-			'layout'     => $layout,
-			'controller' => $controller,
-			'model'      => $model,
-		));
-	}
-
-	static function posts($path_parts) {
-		$content    = Configuration::CONTENT_FOLDER;
-		$controller = __FUNCTION__;
-		$ext        = Configuration::CONTENT_EXT;
-		$layout     = 'layout.php';
-		$model      = $controller;
-		Log::debug(__FUNCTION__ . " called.");
-
-
-		$item       = implode('/', $path_parts);
-		$file_path  = Filesystem::url_to_path("/$content/$model/$item.$ext");
-		$data       = call_user_func ("Model::$model", array(
-				'file_path' => $file_path, 
-		));	
-
-		View::template($data, array(
-			'layout'     => $layout,
-			'controller' => $controller,
-			'model'      => $model,
-		));
-	}
 }

@@ -67,48 +67,52 @@ class Cache {
 	}
 
 	function clear() {
-		Security::login_redirect();
-		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
-		printf("Removing  all files in %s<br>", $dir);
-		FileSystem::remove_files($dir,true);
-		Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );			
+		// todo
+		
+		// Security::login_redirect();
+		// $dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
+		// printf("Removing  all files in %s<br>", $dir);
+		// FileSystem::remove_files($dir,true);
+		// Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );			
 	}
 
 	function generate_site() {
-		Security::login_redirect();
-		if (Configuration::INDEX_PAGE !== '' ) {
-			die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
-		}
-		$this->clear();
+		// todo
 
-		echo "<br>Generating site:<br>". PHP_EOL;
-		$content = Configuration::CONTENT_FOLDER;
-		$ext     = Configuration::CONTENT_EXT;
-		$c       = new Curl;
-		$files   = array();
-		$files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
-		$files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "feed";
-		$files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "archive";
-		foreach (Filesystem::list_files( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
-			$files[] = $value;
-		}
-		foreach ($files as $index => $file_path) {
-			echo "$index: $file_path<br>";
-			$path_info = Url::file_path_to_url($file_path);
-			$url = Url::abs(Url::index( $path_info ));
-			echo "url: $url<br>";
-			$contents = $c->url_contents($url); 
+		// Security::login_redirect();
+		// if (Configuration::INDEX_PAGE !== '' ) {
+		// 	die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
+		// }
+		// $this->clear();
 
-			if (Configuration::CACHE_ENABLED == false) {
-				$path = $this->write_cache_to_disk($path_info, $contents);
-				echo "written: $path<br>". PHP_EOL;		
-			}
-		}
-		$c->close();
+		// echo "<br>Generating site:<br>". PHP_EOL;
+		// $content = Configuration::CONTENT_FOLDER;
+		// $ext     = Configuration::CONTENT_EXT;
+		// $c       = new Curl;
+		// $files   = array();
+		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
+		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "feed";
+		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "archive";
+		// foreach (Filesystem::list_files( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
+		// 	$files[] = $value;
+		// }
+		// foreach ($files as $index => $file_path) {
+		// 	echo "$index: $file_path<br>";
+		// 	$path_info = Url::file_path_to_url($file_path);
+		// 	$url = Url::abs(Url::index( $path_info ));
+		// 	echo "url: $url<br>";
+		// 	$contents = $c->url_contents($url); 
 
-		Setup::webserver();
-		$this->copy_themefiles(array('css', 'js'));
-		$this->copy_images();
+		// 	if (Configuration::CACHE_ENABLED == false) {
+		// 		$path = $this->write_cache_to_disk($path_info, $contents);
+		// 		echo "written: $path<br>". PHP_EOL;		
+		// 	}
+		// }
+		// $c->close();
+
+		// Setup::webserver();
+		// $this->copy_themefiles(array('css', 'js'));
+		// $this->copy_images();
 
 	}
 
@@ -125,38 +129,41 @@ class Cache {
 	}
 
 	function copy_themefiles($file_types) {
-		$files  = array();
-		$theme_dir = rtrim(Url::theme_dir(), '/');
-		echo "Copying files from theme: <br><br>";
+		// todo 
+		// $files  = array();
+		// $theme_dir = rtrim(Url::theme_dir(), '/');
+		// echo "Copying files from theme: <br><br>";
 
 
-		foreach ($file_types as $file_type) {
-			$source_files = Filesystem::list_files( Filesystem::url_to_path("$theme_dir"), $file_type);
-			$destination_files = array();
-			foreach ($source_files as $key => $value) {
-				echo "$key: $value<br>";
-				$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
-				$destination_files[] = str_replace('public', $cache, $value);
-			}
-			Filesystem::copy_files($source_files, $destination_files);
-		}
+		// foreach ($file_types as $file_type) {
+		// 	$source_files = Filesystem::list_files( Filesystem::url_to_path("$theme_dir"), $file_type);
+		// 	$destination_files = array();
+		// 	foreach ($source_files as $key => $value) {
+		// 		echo "$key: $value<br>";
+		// 		$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
+		// 		$destination_files[] = str_replace('public', $cache, $value);
+		// 	}
+		// 	Filesystem::copy_files($source_files, $destination_files);
+		// }
 	}
 
 
 	function copy_images() {
-		$files  = array();
-		$content = Configuration::CONTENT_FOLDER;
-		$path = Filesystem::url_to_path("/$content/images");
-		echo "<br>Copying images: <br><br>";
+		// todo
+		
+		// $files  = array();
+		// $content = Configuration::CONTENT_FOLDER;
+		// $path = Filesystem::url_to_path("/$content/images");
+		// echo "<br>Copying images: <br><br>";
 
-		$source_files = Filesystem::list_files( $path);
-		$destination_files = array();
-		foreach ($source_files as $key => $value) {
-			echo "$key: $value<br>";
-			$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
-			$destination_files[] = str_replace('public' . DIRECTORY_SEPARATOR . 'content', $cache, $value);
-		}
-		Filesystem::copy_files($source_files, $destination_files);
+		// $source_files = Filesystem::list_files( $path);
+		// $destination_files = array();
+		// foreach ($source_files as $key => $value) {
+		// 	echo "$key: $value<br>";
+		// 	$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
+		// 	$destination_files[] = str_replace('public' . DIRECTORY_SEPARATOR . 'content', $cache, $value);
+		// }
+		// Filesystem::copy_files($source_files, $destination_files);
 	}
 
 }
