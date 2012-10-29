@@ -127,7 +127,8 @@ class Cache extends Extension{
 	}
 
 	function write_cache_to_disk($url_obj, $contents) {
-		$path = $this->cache_file_from_url($url_obj->url);
+		$url = (is_object($url_obj)) ? $url_obj->url : $url_obj;
+		$path = $this->cache_file_from_url($url);
 		$dirname = pathinfo ($path, PATHINFO_DIRNAME);
 
 		if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
