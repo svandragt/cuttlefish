@@ -18,12 +18,16 @@ class ControllerAdmin extends Controller {
 		$this->controller = 'Admin';
 	}
 
+	function __destruct() {
+		echo sprintf("<a href='%s'>%s</a>", $this->return_url, "Return");
+	}
+
 	function init() {
 		$this->_parent->Cache->abort();
 		$action = (isset($this->args[0])) ? $this->args[0] : 'index';
 
 		$url = new Url();
-		$this->return_url = $url->index('/');
+		$this->return_url = $url->index('/')->url;
 		
 		if ($this->is_allowed_method($action)) $this->$action();
 		else $this->is_allowed_method_fail($action);
@@ -40,9 +44,9 @@ class ControllerAdmin extends Controller {
 
 	function index() {
 		if (! $this->_parent->Security->is_loggedin()) {
-		$url = new Url();
+			$url = new Url();
 			$this->_parent->Security->login();
-			$this->return_url = $url->index('/admin');
+			$this->return_url = $url->index('/admin')->url;
 		}
 		else {
 			array_shift($this->allowed_methods);
@@ -69,6 +73,11 @@ class ControllerAdmin extends Controller {
 		printf("Removing  all files in %s<br>", $dir);
 		$files = new Files(array('path' => $dir));
 		$files->remove_files();
+		$dirs = Filesystem::subdirs(realpath($dir.'/.'), false);
+		foreach ($dirs as $dir) {
+			Filesystem::remove_dirs(realpath($dir.'/.'));
+		}
+		// $this->_parent->Environment->webserver_configuration();
 		// todo - remove emptyy directories but not the directory - http://stackoverflow.com/questions/1833518/remove-empty-subfolders-with-php
 	}
 

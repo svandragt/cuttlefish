@@ -45,5 +45,24 @@ class Filesystem {
 		}
 	}
 
+	static function subdirs($path, $recursive = false) {
+		$dirs = array();
+		foreach (glob($path.DIRECTORY_SEPARATOR."*") as $file) {
+		 	if (is_dir($file)) {
+		 		$dirs[] = $file;
+		 		if ($recursive) self::remove_dirs($file, $recursive);
+		 	}
+		}
+		return $dirs;
+	}
+
+	static function remove_dirs($path) {
+		$empty=true;
+		foreach (glob($path.DIRECTORY_SEPARATOR."*") as $file) {
+		 $empty &= is_dir($file) && self::remove_dirs($file);
+		}
+		return $empty && rmdir($path);
+	}
+
 
 }

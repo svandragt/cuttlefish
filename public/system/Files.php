@@ -8,7 +8,7 @@ class Files {
 		} elseif (isset($dir_or_path['path'])) {
 			$dir_or_path = $dir_or_path['path'];
 		}
-		$this->collection = $this->list_files( $dir_or_path, $ext);
+		$this->collection = $this->collect( $dir_or_path, $ext);
 		rsort($this->collection);
 		return $this;
 	}
@@ -24,14 +24,14 @@ class Files {
 
 
 
-	function list_files($dir = ".", $filter = null) { 
+	function collect($dir = ".", $filter = null) { 
 		Log::debug(__FUNCTION__ . " called.");
 		$files = array();
 	   	if ($handle = opendir($dir)) while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
 				$file_path = $dir . DIRECTORY_SEPARATOR . $file;
 				if (is_dir($file_path)) {
-					$dir_files = $this->list_files($file_path, $filter);
+					$dir_files = $this->collect($file_path, $filter);
 					if (count($dir_files) > 0) $files = array_merge($files,$dir_files);
 				}
 				elseif ((is_null($filter)) || pathinfo($file_path, PATHINFO_EXTENSION) == $filter) $files[] = $file_path;

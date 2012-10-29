@@ -93,7 +93,7 @@ class Cache {
 		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/"); // hack to get index.php
 		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "feed";
 		// $files[] = Filesystem::url_to_path("/". Configuration::CONTENT_FOLDER . "/") . "archive";
-		// foreach (Filesystem::list_files( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
+		// foreach (Filesystem::collect( Filesystem::url_to_path("/$content"), $ext ) as $key => $value) {
 		// 	$files[] = $value;
 		// }
 		// foreach ($files as $index => $file_path) {
@@ -136,7 +136,7 @@ class Cache {
 
 
 		// foreach ($file_types as $file_type) {
-		// 	$source_files = Filesystem::list_files( Filesystem::url_to_path("$theme_dir"), $file_type);
+		// 	$source_files = Filesystem::collect( Filesystem::url_to_path("$theme_dir"), $file_type);
 		// 	$destination_files = array();
 		// 	foreach ($source_files as $key => $value) {
 		// 		echo "$key: $value<br>";
@@ -156,7 +156,7 @@ class Cache {
 		// $path = Filesystem::url_to_path("/$content/images");
 		// echo "<br>Copying images: <br><br>";
 
-		// $source_files = Filesystem::list_files( $path);
+		// $source_files = Filesystem::collect( $path);
 		// $destination_files = array();
 		// foreach ($source_files as $key => $value) {
 		// 	echo "$key: $value<br>";
