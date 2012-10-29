@@ -43,26 +43,12 @@ class ControllerAdmin extends Controller {
 	}
 
 	function index() {
-		if (! $this->_parent->Security->is_loggedin()) {
-			$url = new Url();
-			$this->_parent->Security->login();
-			$this->return_url = $url->index('/admin')->url;
-		}
-		else {
-			array_shift($this->allowed_methods);
-			$am = $this->allowed_methods;
-			echo "<ul>tasks:";
-			foreach ($am as $key => $value) {
-				$url = new Url();
-				printf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
-			}
-			echo "</ul>";
-		
-		}
-
+		if ($this->_parent->Security->is_loggedin()) $this->show_tasks();
+		else $this->show_login();
 	}
 
 	function draft() {
+		$this->_parent->Security->login_redirect();
 		$this->_parent->template_download('post');
 	}
 
@@ -82,11 +68,30 @@ class ControllerAdmin extends Controller {
 	}
 
 	function generate() {
+		$this->_parent->Security->login_redirect();
 		$this->_parent->Cache->generate_site();
 	}
 
+	function show_login() {
+		$this->_parent->Security->login();
+		$url = new Url();
+		$this->return_url = $url->index('/admin')->url;
+	}
+
 	function logout() {
+		$this->_parent->Security->login_redirect();
 		$this->_parent->Security->logout();
+	}
+
+	function show_tasks() {
+		array_shift($this->allowed_methods);
+		$am = $this->allowed_methods;
+		echo "<ul>tasks:";
+		foreach ($am as $key => $value) {
+			$url = new Url();
+			printf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
+		}
+		echo "</ul>";
 	}
 
 
