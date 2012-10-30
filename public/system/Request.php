@@ -7,7 +7,8 @@ class Request {
 		if ($this->Cache->has_existing_cachefile()) {
 			exit(readfile($this->Cache->cache_file_from_url()));
 		} 
-		Log::debug(__FUNCTION__ . " called.");
+		Log::debug('_______________');
+		Log::debug('BUILD CACHE');
 
 		$this->Environment   = new Environment();
 		$this->Security      = new Security();
@@ -21,6 +22,8 @@ class Request {
 			$this->controller = new $controller_class( $this, $controller_arguments );
 			$this->controller->init();
 		} else $this->class_not_callable($controller_class);
+		$this->Cache->end();
+
 	}
 
 	function class_not_callable($controller_class) {

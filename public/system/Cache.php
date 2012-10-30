@@ -9,7 +9,7 @@ class Cache extends Extension{
 		$this->cwd = getcwd();
 	}
 
-	public function __destruct() {
+	public function end() {
 		chdir($this->cwd); // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
 		if ( $this->has_cacheable_page_request() ) {
 			$path = $this->write_cache_to_disk( null, ob_get_contents() );
