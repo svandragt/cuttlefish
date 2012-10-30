@@ -23,12 +23,12 @@ class Controller extends Extension {
 	}
 
 	public function records() {
-		$this->Records = stdClass();
+		// implement $this->Records in your controller
 	}
 
 
 	public function model() {
-		$this->Model = stdClass();
+		// implement $this->Model in your controller
 	}
 
 	public function view() {

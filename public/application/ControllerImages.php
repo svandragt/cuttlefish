@@ -12,7 +12,7 @@ class ControllerImages extends Controller {
 	}
 
 	function model() {
-		$this->Model = new ModelImage( $this->Records->collection, $this->_parent->Environment);
+		$this->Model = new ModelFile( $this->Records->collection, $this->_parent->Environment);
 	}
 
 	function view() {
@@ -21,7 +21,7 @@ class ControllerImages extends Controller {
 		$this->View = new File( $this->Model->contents, array(
 			'layout'     => 'single.php',
 			'controller' => 'images',
-			'model'      => 'image',
+			'model'      => 'file',
 		) ) ;
 	}		
 
