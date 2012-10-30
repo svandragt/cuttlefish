@@ -7,9 +7,11 @@ class File {
 	
 	function __construct($file_path)
 	{
+
+		$file_path = (is_array($file_path)) ? implode($file_path, " ") : $file_path;
 		try {
-			if (! file_exists($file_path)) throw new Exception("$file_path not found");
-			if (! is_readable($file_path)) throw new Exception("$file_path is unreadable!");
+			if (! file_exists($file_path)) throw new Exception("'$file_path' not found");
+			if (! is_readable($file_path)) throw new Exception("'$file_path' is unreadable!");
 		} catch (Exception $e) {
 			Log::debug($e->getMessage());		
 			Log::error($e->getMessage());		
@@ -37,7 +39,7 @@ class File {
 
 	function mime() {
 		switch ($this->ext) {
-			case 'css':
+			case 'css': // php cannot detect css
 				return "text/css";
 				break;
 			

@@ -34,6 +34,8 @@ class Controller extends Extension {
 	public function view() {
 		include ('view_functions.php');
 		include ('functions.php');
+		// implement $this->View in your controller
+
 	}
 }
 	

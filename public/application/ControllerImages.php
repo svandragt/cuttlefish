@@ -22,7 +22,8 @@ class ControllerImages extends Controller {
 			'layout'     => 'single.php',
 			'controller' => 'images',
 			'model'      => 'file',
-		) ) ;
+		) );
+		$this->View->render();
 	}		
 
 }
