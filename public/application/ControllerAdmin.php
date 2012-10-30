@@ -12,27 +12,32 @@ class ControllerAdmin extends Controller {
 		'logout' => 'Logout',
 	);
 
+	function view() {
+		parent::view();
 
-	function __construct($parent, $args) {
-		parent::__construct($parent, $args);
-		$this->layout     = 'single.php';
-		$this->model      = 'page';
-		$this->controller = 'Admin';
-	}
+		$this->View = new Html( $this->contents, array(
+			'layout'     => 'single.php',
+			'controller' => 'admin',
+			'model'      => 'page',
+		) ) ;
+	}		
 
-	function __destruct() {
-		echo sprintf("<a href='%s'>%s</a>", $this->return_url, "Return");
-	}
+
+
+
+
+
 
 	function init() {
 		$this->_parent->Cache->abort();
-		$action = (isset($this->args[0])) ? $this->args[0] : 'index';
 
-		$url = new Url();
-		$this->return_url = $url->index('/')->url;
-		
-		if ($this->is_allowed_method($action)) $this->$action();
+		$action = (isset($this->args[0])) ? $this->args[0] : 'index';
+		if ($this->is_allowed_method($action)) $this->contents = $this->$action();
 		else $this->is_allowed_method_fail($action);
+
+
+		
+		parent::init();
 
 	}
 
@@ -45,8 +50,8 @@ class ControllerAdmin extends Controller {
 	}
 
 	function index() {
-		if ($this->_parent->Security->is_loggedin()) $this->show_tasks();
-		else $this->show_login();
+		if ($this->_parent->Security->is_loggedin()) return $this->show_tasks();
+		else return $this->show_login();
 	}
 
 	function draft() {
@@ -66,25 +71,24 @@ class ControllerAdmin extends Controller {
 
 	function logout() {
 		$this->_parent->Security->login_redirect();
-		$this->_parent->Security->logout();
+		return $this->_parent->Security->logout();
 	}
 
 	function show_login() {
-		$this->_parent->Security->login();
-		$url = new Url();
-		$this->return_url = $url->index('/admin')->url;
+		return $this->_parent->Security->login();
 	}
 
 	function show_tasks() {
-		array_shift($this->allowed_methods);
-		$am = $this->allowed_methods;
-		echo "<ul>tasks:";
-		foreach ($am as $key => $value) {
+		$output =  '<ul>';
+		foreach ($this->allowed_methods as $key => $value):
 			$url = new Url();
-			printf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
-		}
-		echo "</ul>";
+			$output .= sprintf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
+		endforeach; 
+
+		$output .='</ul>';
+		return $output;
 	}
+
 
 
 

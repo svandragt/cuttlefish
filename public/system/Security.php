@@ -16,27 +16,30 @@ class Security {
 	function login() {
 		Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
 
+		$output = "";
+
 		if (is_null(Configuration::ADMIN_PASSWORD)) {
-			echo "Please set an admin password under Configuration::ADMIN_PASSWORD.<br>";
+			$output .= "Please set an admin password under Configuration::ADMIN_PASSWORD.<br>";
 		} else {
 			$password = HTTP::post('password');
 			if (is_null($password)) {
-				echo "<form method='post'><input type='password' name='password'><input type='submit'></form>";
+				$output .= "<form method='post'><input type='password' name='password'><input type='submit'></form>";
 			} elseif ($password == Configuration::ADMIN_PASSWORD) {
 				Http::set_session(array(
 					'admin' => true,
 				));	
-				echo "logged in.<br>";
+				$output .= "logged in.<br>";
 				Log::info("Login attempt successful");
 			}
 			else {
 				Log::warn("Login attempt unsuccessful.");
 			}
 		}
+		return $output;
 	}
 
 	function logout() {
 		session_destroy();
-		echo "logged out.<br>";
+		return "logged out.<br>";
 	}
 }
