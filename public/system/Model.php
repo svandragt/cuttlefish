@@ -20,7 +20,7 @@ class Model {
 	}	
 
 	function contents($records, $Environment) {
-		$this->contents = array();
+		// implement $this->contents in your controller
 	}
 
 	function list_contents($record, $loaded_classes) {

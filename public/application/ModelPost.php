@@ -2,6 +2,8 @@
 
 class ModelPost extends Model {
 
+	// post model
+
 	public $model = array(
 		'yaml' => 'metadata',
 		'markdown|html' => 'content',
