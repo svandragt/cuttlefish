@@ -2,7 +2,7 @@
 
 class ControllerAdmin extends Controller {
 
-	// todo
+	// admin section does not use content files
 
 	public $allowed_methods = array(
 		'index'  => 'Overview',
@@ -11,6 +11,17 @@ class ControllerAdmin extends Controller {
 		'generate' => 'Generate static site', 
 		'logout' => 'Logout',
 	);
+
+	function init() {
+		$this->_parent->Cache->abort();
+
+		$action = (isset($this->args[0])) ? $this->args[0] : 'index';
+		if ($this->is_allowed_method($action)) $this->contents = $this->$action();
+		else $this->is_allowed_method_fail($action);	
+	
+		parent::init();
+
+	}
 
 	function view() {
 		parent::view();
@@ -23,23 +34,7 @@ class ControllerAdmin extends Controller {
 	}		
 
 
-
-
-
-
-
-	function init() {
-		$this->_parent->Cache->abort();
-
-		$action = (isset($this->args[0])) ? $this->args[0] : 'index';
-		if ($this->is_allowed_method($action)) $this->contents = $this->$action();
-		else $this->is_allowed_method_fail($action);
-
-
-		
-		parent::init();
-
-	}
+	/* admin functionality */
 
 	function is_allowed_method($action) {
 		return array_key_exists  ( $action, $this->allowed_methods);
@@ -90,12 +85,5 @@ class ControllerAdmin extends Controller {
 		$output .='</ul>';
 		return $output;
 	}
-
-
-
-
-
-	
-// 		printf("<a href='%s'>Return</a></pre>",$return_url);		
 	
 }

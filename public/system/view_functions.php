@@ -6,7 +6,6 @@ function href($url) {
 }
 
 function pages() {
-	// todo
 	Log::debug(__FUNCTION__ . " called.");
 
 	$output = '';

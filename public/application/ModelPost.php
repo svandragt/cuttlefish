@@ -27,5 +27,4 @@ class ModelPost extends Model {
     	$this->limit($limit);
 	}
 	
-
 }

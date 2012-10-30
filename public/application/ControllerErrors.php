@@ -2,7 +2,7 @@
 
 class ControllerErrors extends Controller {
 
-	// single page
+	// single errors page
 
 	function records() {
 		$this->Records = new StdClass();
