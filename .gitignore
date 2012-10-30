@@ -166,4 +166,5 @@ pip-log.txt
 public/content/
 source/
 cache/
+docs/
 logs/

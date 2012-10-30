@@ -2,9 +2,7 @@
 
 function carbon_autoloader($class_name) {
 	$file = $class_name . '.php';
-	if (file_exists($file)) {
-        require $file;
-    }
+    require $file;
 }
 
 spl_autoload_register('carbon_autoloader');
