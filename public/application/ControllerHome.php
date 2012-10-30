@@ -2,18 +2,26 @@
 
 class ControllerHome extends Controller {
 
-	function __construct($parent, $args) {
-		parent::__construct($parent, $args);
-		$this->controller = 'home';
-		$this->model      = 'post';
-		$this->content_dir = strtolower(sprintf("/%s/%ss",$this->content, $this->model));
-		
+	// list of recent posts
+
+	function records() {
+		$limit = Configuration::POSTS_HOMEPAGE;
+ 		$this->Records = new Files(array('url'=> '/content/posts'), $this->ext);
+    	$this->Records->limit($limit + 5);
 	}
 
-	function load_records() {
-		parent::load_records();
-		$limit = Configuration::POSTS_HOMEPAGE;
-    	$this->Records->limit($limit + 5);
+	function model() {
+		$this->Model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+	}
+
+	function view() {
+		parent::view();
+
+		$this->View = new Html( $this->Model->contents, array(
+			'layout'     => 'layout.php',
+			'controller' => 'home',
+			'model'      => 'post',
+		) ) ;
 	}
 
 }

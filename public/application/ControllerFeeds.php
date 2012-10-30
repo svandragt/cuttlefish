@@ -2,24 +2,26 @@
 
 class ControllerFeeds extends Controller {
 
-	function __construct($parent, $args) {
-		parent::__construct($parent, $args);
-		$this->controller = 'feeds';
-		$this->model      = 'feed';
-		$this->view       = 'feed';
-		$this->content_dir = sprintf("/%s/%s",$this->content, $this->args[0]);
-	}
+	// single feed
 
-	function load_records() {
-		parent::load_records();
+	function records() {
 		$limit = Configuration::POSTS_HOMEPAGE;
-    	$this->Records->limit($limit + 5);
+ 		$this->Records = new Files(array('url'=> '/content/posts'), $this->ext);
+    	$this->Records->limit($limit + 5); 		
 	}
 
-
-	function load_view() {
-		parent::load_view();
-		$this->_parent->view->render();
+	function model() {
+		$this->Model = new ModelFeed( $this->Records->collection, $this->_parent->Environment);
 	}
+
+	function view() {
+		parent::view();
+
+		$this->View = new Feed( $this->Model->contents, array(
+			'controller' => 'feeds',
+			'model'      => 'feed',
+		) ) ;
+	}		
+
 
 }

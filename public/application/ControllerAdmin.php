@@ -2,6 +2,8 @@
 
 class ControllerAdmin extends Controller {
 
+	// todo
+
 	public $allowed_methods = array(
 		'index'  => 'Overview',
 		'draft'  => 'New post template',

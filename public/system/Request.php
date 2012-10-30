@@ -20,7 +20,6 @@ class Request {
 		$controller_arguments = array_slice($args, 2);
 		if ( class_exists ( $controller_class, true )) {
 			$this->controller = new $controller_class( $this, $controller_arguments );
-			$this->controller->init();
 		} else $this->class_not_callable($controller_class);
 		$this->Cache->end();
 

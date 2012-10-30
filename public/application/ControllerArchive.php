@@ -2,12 +2,23 @@
 
 class ControllerArchive extends Controller {
 
-	function __construct($parent, $args) {
-		parent::__construct($parent, $args);
-		$this->controller = 'archive';
-		$this->model      = 'post';
-		$this->content_dir = strtolower(sprintf("/%s/%ss",$this->content, $this->model));
-		
+	// list of recent posts
+
+	function records() {
+ 		$this->Records = new Files(array('url'=> '/content/posts'), $this->ext);
 	}
+
+	function model() {
+		$this->Model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+	}
+
+	function view() {
+		parent::view();
+		$this->View = new Html( $this->Model->contents, array(
+			'layout'     => 'layout.php',
+			'controller' => 'archive',
+			'model'      => 'post',
+		) ) ;
+	}	
 
 }

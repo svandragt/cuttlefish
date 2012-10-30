@@ -13,6 +13,4 @@ class Extension {
     	$this->_parent = $parent;
     }
 
-    function init() {
-    }
 }

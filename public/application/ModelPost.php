@@ -7,17 +7,20 @@ class ModelPost extends Model {
 		'markdown|html' => 'content',
 	);
 
-	public function init() {
-		parent::init();
-		usort ( $this->contents, array($this, 'sort'));
-	}
 
 	public function sort($a, $b) {
 		return strcmp($b->metadata->Published, $a->metadata->Published);
 	}
 
-	function load_contents() {
-		parent::load_contents();
+	function contents($records, $Environment) {
+		$loaded_classes = array(
+			'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : null,
+			'spyc' => ($Environment->class_loaded('Spyc')) ? $spyc = new Spyc : null,
+		);
+		foreach ($records as $record) {
+			$this->contents[] = $this->list_contents($record, $loaded_classes);
+		}
+		usort ( $this->contents, array($this, 'sort'));
 		$limit = Configuration::POSTS_HOMEPAGE;
     	$this->limit($limit);
 	}

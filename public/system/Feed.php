@@ -26,6 +26,7 @@ class Feed {
             $item->addChild('pubDate', date(DATE_RSS, strtotime($post->metadata->Published))); 
         }
         $this->xml = $xml;
+        $this->render();
 	}
 
 	function render() {

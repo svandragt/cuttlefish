@@ -1,24 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Model extends Extension {
+class Model {
 
 	public $model = array(
 	);
 
-	function __construct($parent) {
-		parent::__construct($parent);
-	}
-
-
-	public function init() {
-		parent::init();
+	public function __construct($records, $Environment) {
 		try {
 	    	if (array_unique ($this->model) !== $this->model) throw new Exception('Array values not unique for model');
 		} catch (Exception $e) {
 			Log::error($e->getMessage());		
 		}
- 		$this->load_contents();
-
+ 		$this->contents($records, $Environment);
 	}
 
 	function limit($max) {
@@ -26,14 +19,8 @@ class Model extends Extension {
 		return $this;
 	}	
 
-	function load_contents() {
-		$records = $this->_parent->Records->collection;
-		$Environment = $this->_parent->_parent->Environment;
-		$loaded_classes = array(
-			'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : null,
-			'spyc' => ($Environment->class_loaded('Spyc')) ? $spyc = new Spyc : null,
-		);
-		foreach ($records as $record) $this->contents[] = $this->list_contents($record, $loaded_classes);
+	function contents($records, $Environment) {
+		$this->contents = array();
 	}
 
 	function list_contents($record, $loaded_classes) {
@@ -62,14 +49,14 @@ class Model extends Extension {
 			$content_section = $content_sections[$i];
 			$section_key = $section_keys[$i];
 			$section_value = $section_values[$i];
-			$content->$section_value = $this->load_section($content_section, $section_key, $section_value, $loaded_classes);		
+			$content->$section_value = $this->section($content_section, $section_key, $section_value, $loaded_classes);		
 		}
 
 		return $content;
 
 	}
 
-	public function load_section($content_section, $section_key, $section_value, $loaded_classes) {
+	public function section($content_section, $section_key, $section_value, $loaded_classes) {
 		// assign classes to their variables
 		foreach ($loaded_classes as $class_name => $obj) $$class_name = $obj;
 

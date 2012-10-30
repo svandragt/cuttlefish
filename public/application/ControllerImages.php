@@ -2,16 +2,27 @@
 
 class ControllerImages extends Controller {
 
-	function __construct($parent, $args) {
-		parent::__construct($parent, $args);
-		$this->controller = 'images';
-		$this->model      = 'image';
-		$this->view       = 'file';
+	// single image
+
+	function records() {
+		$this->Records = new StdClass();
+		$this->Records->collection = array(
+ 			Filesystem::url_to_path('/content/images/' . implode($this->args,"/")),
+ 		);
 	}
 
-	function load_view() {
-		parent::load_view();
-		$this->_parent->view->render();
+	function model() {
+		$this->Model = new ModelImage( $this->Records->collection, $this->_parent->Environment);
 	}
+
+	function view() {
+		parent::view();
+
+		$this->View = new File( $this->Model->contents, array(
+			'layout'     => 'single.php',
+			'controller' => 'images',
+			'model'      => 'image',
+		) ) ;
+	}		
 
 }
