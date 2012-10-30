@@ -42,14 +42,15 @@ class Files {
 	}
 
 	function remove_files($is_directory_removable = false) {
+		$output = '';
 		Log::debug(__FUNCTION__ . " called.");
 	    foreach($this->collection as $file) {
 	    		$file = realpath($file);
-	        	echo "Deleted: $file" . "<br>";
+	        	$output .= "Deleted: $file" . "<br>";
 	            unlink($file);
 	        
 	    }
-	    // if ($is_directory_removable) rmdir($dir);
+	    return $output;
 	}	
 
 	function sort_by_function($function) {

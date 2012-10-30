@@ -40,7 +40,6 @@ class Filesystem {
 			$dirname = pathinfo ($destination_file, PATHINFO_DIRNAME);
 			if (!is_dir($dirname)) mkdir ($dirname, 0777, true);
 			copy ( $value , $destination_file );
-			echo $destination_file . "<br>";
 			$i++;
 		}
 	}

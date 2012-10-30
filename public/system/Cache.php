@@ -70,25 +70,26 @@ class Cache extends Extension{
 	function clear() {
 		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
 		$dir = realpath($dir);
-		printf("Removing  all files in %s<br>", $dir);
+		$output = sprintf("Removing  all files in %s<br>", $dir);
 		$files = new Files(array('path' => $dir));
-		$files->remove_files();
+		$output .= $files->remove_files();
 		$dirs = Filesystem::subdirs(realpath($dir.'/.'), false);
 		foreach ($dirs as $dir) {
 			Filesystem::remove_dirs(realpath($dir.'/.'));
 		}
 		$this->_parent->Environment->webserver_configuration();
+		return $output;
 	}
 
 	function generate_site() {
-		// todo
+		$output = '';
 
 		if (Configuration::INDEX_PAGE !== '' ) {
 			die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
 		}
-		$this->clear();
+		$output .= $this->clear();
 
-		echo "<br>Generating site:<br>". PHP_EOL;
+		$output .= "<br>Generating site:<br>". PHP_EOL;
 		$content = Configuration::CONTENT_FOLDER;
 		$ext     = Configuration::CONTENT_EXT;
 		$c       = new Curl;
@@ -117,12 +118,14 @@ class Cache extends Extension{
 
 			if (Configuration::CACHE_ENABLED == false) {
 				$path = $this->write_cache_to_disk($url, $contents);
-				echo "Written: $path<br>". PHP_EOL;		
+				$output .= "Written: $path<br>". PHP_EOL;		
 			}
 		}
 		$c->close();
 
-		$this->copy_themefiles(array('css', 'js'));
+		$output .= $this->copy_themefiles(array('css', 'js'));
+
+		return $output;
 
 	}
 
@@ -143,21 +146,22 @@ class Cache extends Extension{
 
 		// $files  = array();
 		$theme_dir = rtrim(theme_dir(), '/');
-		echo "Copying files from theme: <br><br>";
+		$output = "Copying files from theme: <br><br>";
 
 
 		foreach ($file_types as $file_type) {
-			echo "filetype: $file_type<br>";
+			$output .= "filetype: $file_type<br>";
 			$fs = new Files( array('path' => Filesystem::url_to_path("$theme_dir")), $file_type);
 
 			$destination_files = array();
 			foreach ($fs->collection as $key => $value) {
-				echo "$key: $value<br>";
+				$output .= "$key: $value<br>";
 				$cache = ltrim(Configuration::CACHE_FOLDER,"./");	
 				$destination_files[] = str_replace('public', $cache, $value);
 			}
 			Filesystem::copy_files($fs->collection, $destination_files);
 		}
+		return $output;
 	}
 
 

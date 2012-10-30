@@ -61,12 +61,12 @@ class ControllerAdmin extends Controller {
 
 	function clear_cache() {
 		$this->_parent->Security->login_redirect();
-		$this->_parent->Cache->clear();
+		return $this->_parent->Cache->clear();
 	}
 
 	function generate() {
 		$this->_parent->Security->login_redirect();
-		$this->_parent->Cache->generate_site();
+		return $this->_parent->Cache->generate_site();
 	}
 
 	function logout() {
@@ -80,7 +80,9 @@ class ControllerAdmin extends Controller {
 
 	function show_tasks() {
 		$output =  '<ul>';
-		foreach ($this->allowed_methods as $key => $value):
+		$am = $this->allowed_methods;
+		array_shift($am);
+		foreach ($am as $key => $value):
 			$url = new Url();
 			$output .= sprintf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
 		endforeach; 
