@@ -12,7 +12,7 @@ class Controller extends Extension {
 		$this->model       = 'page';
 		$this->view        = 'Html';
 		$this->content_dir = strtolower(sprintf("/%s/%ss",$this->content, $this->model));
-		$this->args = $args;
+		$this->args        = $args;
 		Log::debug(__FUNCTION__ . " called.");
 	}
 
