@@ -2,17 +2,18 @@
 
 class Security {
 
-	static function login_redirect() {
-		if (!self::is_loggedin()) {
-			header('Location: ' . Url::abs( Url::index('/admin') ));
+	function login_redirect() {
+		if (!$this->is_loggedin()) {
+			$url = new Url();
+			header('Location: ' . $url->index('/admin')->abs()->url);
 		};
 	}
 
-	static function is_loggedin() {
+	function is_loggedin() {
 		return !is_null(Http::session('admin'));
 	}
 
-	static function login() {
+	function login() {
 		Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
 
 		if (is_null(Configuration::ADMIN_PASSWORD)) {
@@ -34,7 +35,7 @@ class Security {
 		}
 	}
 
-	static function logout() {
+	function logout() {
 		session_destroy();
 		echo "logged out.<br>";
 	}

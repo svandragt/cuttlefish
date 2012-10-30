@@ -1,4 +1,4 @@
 <?php
 define('BASEPATH', __DIR__);
-include 'system/autoload.php';
-Carbon::router();
+$test   = include 'system/autoload.php';
+$carbon = new Request();

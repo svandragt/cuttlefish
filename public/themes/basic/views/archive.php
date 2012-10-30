@@ -2,8 +2,8 @@
 
 echo '<h2>Archive</h2><dl>';
 
-foreach ($this->models as $model):
-	printf("<dt>%s</dt><dd><a href='%s'>%s</a></h2></dd>", $model->metadata->Published, $model->link, $model->title);
+foreach ($this->contents as $post):
+	printf("<dt>%s</dt><dd><a href='%s'>%s</a></h2></dd>", $post->metadata->Published, $post->link, $post->content->title);
 endforeach; 
 
 echo '</dl>';
