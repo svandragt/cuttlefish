@@ -2,7 +2,7 @@
 
 class Log {
 
-	const FILENAME_TEMPLATE = '/mdblog-%s.log';
+	const FILENAME_TEMPLATE = '/carbon-%s.log';
 
 	static function error( $message ) {
 		error_log($message,0);
