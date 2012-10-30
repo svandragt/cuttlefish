@@ -11,7 +11,7 @@ class ControllerFeeds extends Controller {
 	}
 
 	function model() {
-		$this->Model = new ModelFeed( $this->Records->collection, $this->_parent->Environment);
+		$this->Model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
 	}
 
 	function view() {
