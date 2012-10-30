@@ -3,10 +3,9 @@ Carbon is a hackable performant (semi) static blogging system.
 
 _It should be considered early alpha._
 
-[![Build Status](https://secure.travis-ci.org/svandragt/carbon.png)](https://travis-ci.org/svandragt/carbon)
-
 A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 ![Screenshot of the defaul theme](http://i.imm.io/FV6p.png)
+
 
 ## Screencasts
 
@@ -39,6 +38,44 @@ __Configuration__ settings override the defaults.<br>
 Manage your __data models and theming logic__ using the MVC classes in the _public/application_ folder.<br>
 
 
+Request object:
+
+-	Cache
+-	Log
+-	Environment
+-	Security
+-	Controller
+	-	Records
+	-	Model
+	-	View
+
+
+Controllers:
+
+-	Home (posts) default homepage
+-	Admin (no model) administration section
+-	Archive (posts) post archive
+-	Errors (page) custom error pages
+-	Feeds (posts) feed of posts
+-	Images (file) content images
+-	Pages (page) individual pages
+-	Posts (post) individual posts
+
+
+Model types:
+
+-	File (present bare file)
+-	Page (structure for pages)
+-	Post (structure for posts)
+
+
+View types:
+
+-	Html (templated content)
+-	Feed (xml representation)
+-	File (download)
+
+
 ## Basic configuration options
 
 open `public/Configuration.php` to:
@@ -48,11 +85,13 @@ open `public/Configuration.php` to:
 * Set the default number of posts shown on the frontpage.
 * Change common folder locations (Please submit issues if you find hardcoded locations).
 
+
 ## Getting started
 
 * Create your first page: `/content/pages/index.md`. 
 * Create your first post: Navigate to __Admin > Create post template__ to download a _post_ template and save it in `/content/posts/2012/09/first-post.md`. 
 * Create a 404: `/content/errors/404.md`. Now non-existing links will point here. Error pages follow the _page_ data model.
+
 
 ## Turn off Pretty Urls
 

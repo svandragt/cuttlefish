@@ -1,19 +1,30 @@
 Request
 	Cache
 	Log
-	Recordlist extends Filelist
-		Record contains
-			url
-			title
-			Model
-			Controller
-			View
+	Environment
+	Security
+	Controller
+		Records
+		Model
+		View
 
-		Post extends Record contains
 
-		Page extends Record
-		File extends Record
-	Template
+Controller
+	Home (posts) default homepage
+	Admin (no model) administration section
+	Archive (posts) post archive
+	Errors (page) custom error pages
+	Feeds (posts) feed of posts
+	Images (file) content images
+	Pages (page) individual pages
+	Posts (post) individual posts
 
-Request->Cache
-Request->RecordList->get($id)
+Model types:
+	File (present bare file)
+	Page (structure for pages)
+	Post (structure for posts)
+
+View types:
+	Html (templated content)
+	Feed (xml representation)
+	File (download)
