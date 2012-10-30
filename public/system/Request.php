@@ -3,7 +3,7 @@
 class Request {
 
 	function __construct() {
-		$this->Cache      = new Cache($this);
+		$this->Cache = new Cache($this);
 		if ($this->Cache->has_existing_cachefile()) {
 			exit(readfile($this->Cache->cache_file_from_url()));
 		} 
