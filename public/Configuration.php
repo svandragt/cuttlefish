@@ -2,7 +2,7 @@
 
 class Configuration extends Defaults {
 		const SITE_TITLE    = 'Carbon';
-		const SITE_MOTTO    = 'Home of <a href="https://github.com/svandragt/carbon">Carbon</a>, the hackable performant (semi) static blogging system.';
+		const SITE_MOTTO    = 'Example theme of <a href="http://carbon.vandragt.com/">Carbon</a>, the hackable performant (semi) static blogging system.';
 		const CACHE_ENABLED = false;
 
 		// const INDEX_PAGE     = '/index.php';		
