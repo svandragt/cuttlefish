@@ -37,13 +37,7 @@ class Request {
 
 	function redirect($args) {
 		$url = new Url();
-		$defaults = array (
-			'logmessage' => 'Redirection...',
-			'url' => $url->index('/errors/404')->abs(),
-		);
-		$args = array_merge($defaults, $args);
-		print_r($args);
-		Log::info($args['logmessage']);
+		Log::debug($args['logmessage']);
 		echo("Location: " . $args['url']->url);
 		exit($args['logmessage']);
 	}
