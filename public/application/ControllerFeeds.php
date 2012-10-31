@@ -7,7 +7,7 @@ class ControllerFeeds extends Controller {
 	function records() {
 		$limit = Configuration::POSTS_HOMEPAGE;
  		$this->Records = new Files(array('url'=> '/content/posts'), $this->ext);
-    	$this->Records->limit($limit + 5); 		
+    		$this->Records->limit($limit + 5); 		
 	}
 
 	function model() {
