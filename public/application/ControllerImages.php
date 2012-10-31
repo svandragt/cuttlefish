@@ -18,11 +18,7 @@ class ControllerImages extends Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new File( $this->Model->contents, array(
-			'layout'     => 'single.php',
-			'controller' => 'images',
-			'model'      => 'file',
-		) );
+		$this->View = new File( $this->Model->contents );
 		$this->View->render();
 	}		
 
