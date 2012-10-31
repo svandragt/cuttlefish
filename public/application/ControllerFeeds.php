@@ -16,12 +16,6 @@ class ControllerFeeds extends Controller {
 
 	function view() {
 		parent::view();
-
-		$this->View = new Feed( $this->Model->contents, array(
-			'controller' => 'feeds',
-			'model'      => 'feed',
-		) ) ;
+		$this->View = new Feed( $this->Model->contents ) ;
 	}		
-
-
 }
