@@ -24,7 +24,7 @@ class ModelPost extends Model {
 		}
 		usort ( $this->contents, array($this, 'sort'));
 		$limit = Configuration::POSTS_HOMEPAGE;
-    	$this->limit($limit);
+    		$this->limit($limit);
 	}
 	
 }
