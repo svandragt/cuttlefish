@@ -2,7 +2,7 @@
 
 class Feed {
 	
-	function __construct($posts, $args)
+	function __construct($posts)
 	{
         $xml = new SimpleXMLElement('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>'); 
         $xml->addChild('channel'); 
@@ -30,7 +30,7 @@ class Feed {
 	}
 
 	function render() {
-        header('Content-type: application/xml');
+        	header('Content-type: application/xml');
 		echo $this->xml->asXML();
 	}
 }
