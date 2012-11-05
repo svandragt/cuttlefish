@@ -53,8 +53,8 @@ class Environment {
 		$directory_index = "index.html index.xml";
 		$path = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
 		$fp = fopen($path, 'w'); 
-		fwrite($fp, "DirectoryIndex  $directory_index"); 
-		fwrite($fp, "ErrorDocument 404 /errors/404/"); 
+		fwrite($fp, "DirectoryIndex  $directory_index\n"); 
+		fwrite($fp, "ErrorDocument 404 /errors/404/\n"); 
 		fclose($fp); 
 
 
