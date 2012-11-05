@@ -29,9 +29,10 @@ class Cache extends Extension{
 	}
 
 	function has_cacheable_page_request() {
+		$cache_enabled = Configuration::CACHE_ENABLED;
 		$is_caching   = !ob_get_level() == 0;
 		$has_noerrors = is_null(error_get_last());
-		$has_cacheable_page_request = ($is_caching && $has_noerrors);
+		$has_cacheable_page_request = ($cache_enabled && $is_caching && $has_noerrors);
 		return $has_cacheable_page_request;
 	}
 
