@@ -75,9 +75,9 @@ Function deploy ($a) {
     }
 
     # copy and fix absolute path
-    Copy-Item $PWD\cache $TempDir\carbon -recurse
+    Copy-Item $PWD\cache\* $TempDir\carbon -recurse
 
-    $files=get-childitem $TempDir\carbon * -rec | where { ! $_.PSIsContainer }
+    $files=get-childitem $TempDir\carbon\ * -rec -include *.htm*,*.css,*.js | where { ! $_.PSIsContainer }
     foreach ($file in $files)
     {
         (Get-Content $file.PSPath) | 
