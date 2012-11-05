@@ -7,4 +7,3 @@ foreach ($this->contents as $post):
 		</article>", $post->link, $post->content->title, $post->content->main);
 endforeach;
 
-echo "<p><a href='" . href('/archive') . "'>&#171; Older articles</a></p>";
