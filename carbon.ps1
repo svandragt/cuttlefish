@@ -3,12 +3,13 @@ Write-Host "Carbon Powershell Script"
 Write-Host
 
 [Environment]::CurrentDirectory = $PWD
+$TempDir = [System.IO.Path]::GetTempPath()
 
 
 if (! $args) {
     Write-Host "The following arguments are supported:"
     Write-Host "    deploy          deploy to site"
-    Write-Host "        <keyword>   using <keyword> settings"
+    Write-Host "        <preset>   using <preset> settings"
     Write-Host
     exit
 }
@@ -43,27 +44,48 @@ Function deploy ($a) {
         $path        = $settings.Get_Item('path')
         $fingerprint = $settings.Get_Item('fingerprint')
         $winscp_dll  = $settings.Get_Item('winscp_dll')
+        $host_from   = $settings.Get_Item('host_from')
+        $host_to     = $settings.Get_Item('host_to')
         write-host "Using"
         write-host "    server:         $server"
         write-host "    username:       $username"
         write-host "    path:           $path"
         write-host "    fingerprint:    $fingerprint"
         write-host 
+        write-host "    Replacing:      '$host_from' to '$host_to' "
+        write-host 
     } else {
         $settings = @{}
-        $keyword     = Read-Host "Enter keyword for recall"
+        $keyword     = Read-Host "Enter preset name"
         $server      = Read-Host "Enter server"
         $username    = Read-Host "Enter username"
         $path        = Read-Host "Enter destination path"
         $fingerprint = Read-Host "Enter SshHostKeyFingerprint"
+        $host_from   = Read-Host "Enter SEARCH hostname"
+        $host_to     = Read-Host "Enter REPLACE hostname"
         $settings.Add("server", $server)
         $settings.Add("username", $username)
         $settings.Add("path", $path)
         $settings.Add("fingerprint", $fingerprint)
+        $settings.Add("host_from", $host_from)
+        $settings.Add("host_to", $host_to)
         $settings_file = [IO.Path]::GetTempPath() + 'carbon_' + $keyword + '.xml';
         Write-host $settings_file
         save_settings $settings $settings_file
     }
+
+    # copy and fix absolute path
+    Copy-Item $PWD\cache $TempDir\carbon -recurse
+
+    $files=get-childitem $TempDir\carbon * -rec | where { ! $_.PSIsContainer }
+    foreach ($file in $files)
+    {
+        (Get-Content $file.PSPath) | 
+        Foreach-Object {$_ -replace "$host_from", "$host_to"} | 
+        Set-Content $file.PSPath
+    }
+
+
 
 
     try
@@ -91,7 +113,8 @@ Function deploy ($a) {
         $sessionOptions.HostName = $server
         $sessionOptions.UserName = $username
         $sessionOptions.Password = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
-    [Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
+            [Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)
+        )
         $sessionOptions.SshHostKeyFingerprint = $fingerprint
      
         $session = New-Object WinSCP.Session
@@ -110,7 +133,7 @@ Function deploy ($a) {
             $transferOptions.TransferMode = [WinSCP.TransferMode]::Automatic
      
             $transferResult = $session.RemoveFiles("$path/*")
-            $transferResult = $session.PutFiles("$PWD\cache\*", "$path/", $FALSE, $transferOptions)
+            $transferResult = $session.PutFiles("$TempDir\carbon\*", "$path/", $FALSE, $transferOptions)
 
         }
         finally
@@ -119,6 +142,7 @@ Function deploy ($a) {
             $session.Dispose()
         }
      
+        Remove-Item $TempDir\carbon\* -recurse
         exit 0
     }
     catch [Exception]
