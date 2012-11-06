@@ -36,7 +36,7 @@ class Model {
 		$section_values   = array_values($this->model);
 
 		try {
-			if (count($content_sections) != count($section_keys)) throw new Exception('Model definition does not match number of content sections.');
+			if (count($section_keys) != count($content_sections)) throw new Exception('Model (' . get_class($this) . ') definition (' . count($section_keys) .') does not match number of content sections (' . count($content_sections) . ').');
 		} catch (Exception $e) {
 			Log::error($e->getMessage());	
 			exit();	
