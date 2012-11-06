@@ -5,10 +5,20 @@ Write-Host
 [Environment]::CurrentDirectory = $PWD
 $TempDir = [System.IO.Path]::GetTempPath()
 
+if ($document -eq $null) {
+    $Global:document = New-Object -ComObject msxml2.ServerXMLHTTP
+    $Global:hostname = ''
+    $Global:loggedin = 0
+}
+
 
 if (! $args) {
     Write-Host "The following arguments are supported:"
-    Write-Host "    deploy         deploy to site"
+    Write-Host "    login          login to admin"
+    Write-Host "        <hostname> to <host>/admin"
+    Write-Host "    draft          create draft"
+    Write-Host "    generate       generate static site"
+    Write-Host "    deploy         deploy to live"
     Write-Host "        <preset>   using <preset> settings"
     Write-Host
     exit
@@ -41,7 +51,7 @@ Function deploy ($a) {
             write-host "    username:       $username"
             write-host "    path:           $path"
             write-host 
-            write-host "    Replacing:      '$host_from' with '$host_to' in text files"
+            write-host "    Replacing:      '$host_from' to '$host_to' "
         } else {
             Write-Host "Settings-file $settings_file does not exist."
         }
@@ -145,6 +155,95 @@ Function deploy ($a) {
     }
 }
 
+
+Function login ($a) {
+    if ($a[1] -ne $null)  {
+        $password = Read-Host "Enter admin password"  -AsSecureString
+        $password_plain = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+                [Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)
+            )
+        $Global:hostname = $a[1]
+        $url = "http://" + $hostname + '/admin'
+        $postline = "password=" + $password_plain
+
+        # Create COM object, open a connection to www.somewhere.com,
+        # and set the header type
+        $document.open("POST", $url, $false)
+        $document.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+     
+        # Create the necessary login and report information from the parms we passed
+     
+        # Login to Markit with the information we passed above
+        $document.send($postline)
+     
+        # Check to see if we have a document matching the parms we passed
+        $response = $document.getResponseHeader("Content-Type")
+     
+        # // return the text of the web page
+        if ($document.status -eq 200) {
+            $Global:loggedin = 1
+            Write-Host $document.status  "logged in"        
+        } 
+        else {
+            Write-Host $document.status           
+        }
+
+    }
+    
+}
+
+Function generate () {
+    if ($loggedin -eq 1)  {
+        $url = "http://" + $hostname + '/admin/generate'
+
+        # Create COM object, open a connection to www.somewhere.com,
+        # and set the header type
+        $document.open("GET", $url, $false)
+        $document.send()
+     
+        # // return the text of the web page
+        if ($document.status -eq 200) {
+            Write-Host "Generated"
+        }
+        else {
+            Write-Host $document.status
+        }
+    }
+    else {
+        Write-Host "Not logged in."
+    }
+}
+
+Function draft ($a) {
+    if ($loggedin -eq 1)  {
+
+        $url = "http://" + $hostname + '/admin/draft'
+
+        # Create COM object, open a connection to www.somewhere.com,
+        # and set the header type
+        $document.open("GET", $url, $false)
+        $document.SetRequestHeader("Accept-Charset", "utf-8;q=1.0")
+        $document.send()
+     
+        # // return the text of the web page
+        if ($document.status -eq 200) {
+            $tempFile = [IO.Path]::GetTempFileName() + ".md"
+            $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding($False)
+            [System.IO.File]::WriteAllLines($tempFile, $document.responseText, $Utf8NoBomEncoding)
+
+            start $tempFile
+        }
+        else {
+            Write-Host $document.status
+        }    
+    }
+    else {
+        Write-Host "Not logged in."
+    }
+
+  
+    
+}
 
 $command = $args[0]
 $output  = & $command $args[0..($args.Length - 1)]
