@@ -20,6 +20,7 @@ if (! $args) {
     Write-Host "    generate       generate static site"
     Write-Host "    deploy         deploy to live"
     Write-Host "        <preset>   using <preset> settings"
+    Write-Host "    clear_cache    empty cache"
     Write-Host
     exit
 }
@@ -187,9 +188,19 @@ Function login ($a) {
         else {
             Write-Host $document.status           
         }
+    }
+    else {
+        Write-Host "Add hostname"
 
     }
     
+}
+
+Function logout() {
+    $Global:document = $null
+    $Global:hostname = $null
+    $Global:loggedin = $null
+    Write-host "logged out"
 }
 
 Function generate () {
@@ -204,6 +215,28 @@ Function generate () {
         # // return the text of the web page
         if ($document.status -eq 200) {
             Write-Host "Generated"
+        }
+        else {
+            Write-Host $document.status
+        }
+    }
+    else {
+        Write-Host "Not logged in."
+    }
+}
+
+Function clear_cache() {
+    if ($loggedin -eq 1)  {
+        $url = "http://" + $hostname + '/admin/clear_cache'
+
+        # Create COM object, open a connection to www.somewhere.com,
+        # and set the header type
+        $document.open("GET", $url, $false)
+        $document.send()
+     
+        # // return the text of the web page
+        if ($document.status -eq 200) {
+            Write-Host "Cleared"
         }
         else {
             Write-Host $document.status

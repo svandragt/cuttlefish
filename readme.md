@@ -12,6 +12,7 @@ A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 1. [Installing Carbon in developer mode on a shared host](http://screencast.com/t/QgDYtKUFpG)
 2. [Enable caching for production use](http://screencast.com/t/bRs6taeYUEQl)
 3. [Generate a static site and deployment](http://screencast.com/t/JRijwzqMA94)
+4. [Full powershell support](http://screencast.com/t/ALcrjU7csKM)
 
 
 ## Aims
