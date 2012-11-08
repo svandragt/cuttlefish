@@ -29,8 +29,9 @@ if (! $args) {
 }
 
 Function gdeploy($a) {
-    .\carbon.ps1 generate
-    .\carbon.ps1 deploy $a[1]
+    write-host $a[1]
+    # generate
+    # .\carbon.ps1 deploy $a[1]
 }
 
 Function deploy ($a) {
