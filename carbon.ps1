@@ -9,6 +9,8 @@ if ($document -eq $null) {
     $Global:document = New-Object -ComObject msxml2.ServerXMLHTTP
     $Global:hostname = ''
     $Global:loggedin = 0
+    $Global:passwords = @{}
+    $Global:deployment_keyword = ''
 }
 
 
@@ -20,9 +22,15 @@ if (! $args) {
     Write-Host "    generate       generate static site"
     Write-Host "    deploy         deploy to live"
     Write-Host "        <preset>   using <preset> settings"
+    Write-Host "    gdeploy        generate + deploy"
     Write-Host "    clear_cache    empty cache"
     Write-Host
     exit
+}
+
+Function gdeploy($a) {
+    .\carbon.ps1 generate
+    .\carbon.ps1 deploy $a[1]
 }
 
 Function deploy ($a) {
@@ -31,6 +39,7 @@ Function deploy ($a) {
     if ($a[1] -ne $null)  {
         # load and apply settings
         $settings = @{}
+        $Global:deployment_keyword = $a[1]
         $settings_file = [IO.Path]::GetTempPath() + 'carbon_' + $a[1] + '.xml';
         if (Test-Path $settings_file) {
             $settings = Import-Clixml -Path $settings_file
@@ -80,7 +89,7 @@ Function deploy ($a) {
     }
 
     # copy and search replace hostname
-    Copy-Item $PWD\cache\* $TempDir\carbon -recurse
+    Copy-Item $PWD\cache\* $TempDir\carbon -recurse -ErrorAction SilentlyContinue
 
     $files=get-childitem $TempDir\carbon\ * -rec -include *.htm*,*.css,*.js | where { ! $_.PSIsContainer }
     foreach ($file in $files) {
@@ -108,7 +117,12 @@ Function deploy ($a) {
         }
 
         [Reflection.Assembly]::LoadFrom($winscp_dll)
-        $password = Read-Host "Enter password"  -AsSecureString
+        if ($passwords.Get_Item($deployment_keyword) -eq $null) {
+            $password = Read-Host "Enter password"  -AsSecureString
+            $Global:passwords.Add($deployment_keyword, $password)
+        } else {
+            $password = $passwords.Get_Item($deployment_keyword)
+        }
      
         # Setup session options
         $sessionOptions = New-Object WinSCP.SessionOptions
@@ -198,8 +212,10 @@ Function login ($a) {
 
 Function logout() {
     $Global:document = $null
-    $Global:hostname = $null
     $Global:loggedin = $null
+    $Global:hostname = $null
+    $Global:passwords.Remove($deployment_keyword)
+    $Global:deployment_keyword = $null
     Write-host "logged out"
 }
 
