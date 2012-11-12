@@ -124,7 +124,7 @@ class Cache extends Extension{
 		}
 		$c->close();
 
-		$output .= $this->copy_themefiles(array('css', 'js'));
+		$output .= $this->copy_themefiles(array('css', 'js', 'png', 'gif', 'jpg'));
 
 		return $output;
 
