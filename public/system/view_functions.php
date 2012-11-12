@@ -32,3 +32,19 @@ function is_loggedin() {
 	$sec = new Security();
 	return $sec->is_loggedin();
 }
+
+function create_commons_li(
+		$photo_url, $photo, 
+		$author_url, $author,
+		$license) {
+
+	$cc = array(
+		'CC BY-NC-ND 2.0' => 'http://creativecommons.org/licenses/by-nc-nd/2.0/',
+		'CC BY-NC-SA 2.0' => 'http://creativecommons.org/licenses/by-nc-sa/2.0/',
+	);
+
+	return sprintf('<li class="credits" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" about="%s"><span property="dct:title">%s</span> (<a rel="cc:attributionURL" property="cc:attributionName" href="%s">%s</a>) / <a rel="license" href="%s">%s</a></li>',
+		$photo_url, $photo, 
+		$author_url, $author,
+		$cc[$license], $license);
+}
