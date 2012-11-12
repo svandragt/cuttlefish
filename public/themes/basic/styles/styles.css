@@ -20,12 +20,20 @@ body {
 	padding: 0 20px;
 	font-family: Georgia, serif;
 	border-left: 1px solid #ccc;
-	box-shadow: -4px  0 1px #eee;  
+	box-shadow: -4px  0 1px rgba(0,0,0, 0.06);  
 	min-height: 100%;
+	background: #fff;
 }
 
 html {
 	height: 100%;
+
+	background: #fff repeat left fixed;
+	-webkit-background-size: contain;
+	-moz-background-size   : contain;
+	-o-background-size     : contain;
+	background-size        : contain;
+	/*background-image: url(../images/carbon.jpg);*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,6 +49,16 @@ blockquote {
 	font-style: italic;
 	border: 1px solid #eee;
 	border-width: 1px 0;
+}
+
+#blank {
+	position:fixed;
+	background:#fff;
+	bottom:0;
+	left:50%;
+	right:0;
+	top:0;
+	z-index:-10; 
 }
 
 #content, #sidebar {
@@ -88,6 +106,18 @@ blockquote {
 #footer li a {
 	margin-right: 1em;
 }
+
+#footer li[class="credits"] a {
+	margin-right: 0px;
+}
+
+#footer li.credits {
+	opacity: 0.7;
+	float:right;
+	margin-right: 20px;
+	
+}
+
 
 #header {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
