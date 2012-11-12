@@ -1,21 +1,50 @@
-* {
-}
-
 article {
 	margin-bottom: 4em;
+}
+
+code {
+	background: #eee;
+	display: inline-block;
+	padding: 0 .25em;
+	margin: 0 0.25em;
+	border-radius: 1px;
+	border: 1px solid #ddd;
+	font-family: Consolas, monospace;
 }
 
 body {
 	max-width: 65em;
 	margin: 0 auto;
 	line-height:1.6;
-	padding: 60px 10px;
+	font-size: .95em;
+	padding: 0 20px;
 	font-family: Georgia, serif;
+	border-left: 1px solid #ccc;
+	box-shadow: -4px  0 1px #eee;  
+	min-height: 100%;
+}
+
+html {
+	height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-size: 1em;
+	font-size: 117.6%;
 	margin: 0.75em 0;
+}
+
+h2 a {
+	display: block;
+}
+
+blockquote {
+	font-style: italic;
+	border: 1px solid #eee;
+	border-width: 1px 0;
+}
+
+#content, #sidebar {
+	padding-top: 90px;
 }
 
 #header a, h2 a {
@@ -28,6 +57,11 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+#sidebar a, #footer a {
+	text-decoration: none;
+
+}
+
 #header a:hover, h2 a:hover {
 	opacity: 0.5;
 }
@@ -35,8 +69,10 @@ h1, h2, h3, h4, h5, h6 {
 
 
 #footer {
-	margin-top: 2em;
-	border-top: 1px solid #ccc;
+	margin: 2em -20px;
+	padding-left: 20px;
+	padding-bottom: 3em;
+	border-top: 1px solid #eee;
 	clear:both;
 }
 
@@ -50,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #footer li a {
-	margin-right: 0.5em;
+	margin-right: 1em;
 }
 
 #header {
@@ -60,7 +96,6 @@ h1, h2, h3, h4, h5, h6 {
 	left:0;
 	right: 0;
 	top: 0;
-	padding: 0 inherit;
 	line-height: 1.2;
 	padding: 10px;
 
