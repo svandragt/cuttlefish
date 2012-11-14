@@ -9,7 +9,8 @@ class ControllerArchive extends Controller {
 	}
 
 	function model() {
-		$this->Model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+		$model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+		$this->Model = $model;
 	}
 
 	function view() {

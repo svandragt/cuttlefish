@@ -11,7 +11,9 @@ class ControllerHome extends Controller {
 	}
 
 	function model() {
-		$this->Model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+		$model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+		$this->Model = $model->limit(Configuration::POSTS_HOMEPAGE);
+
 	}
 
 	function view() {
