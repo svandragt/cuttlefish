@@ -7,8 +7,6 @@ class Request {
 		if ($this->Cache->has_existing_cachefile()) {
 			exit(readfile($this->Cache->cache_file_from_url()));
 		} 
-		Log::debug('_______________');
-		Log::debug('BUILD CACHE');
 
 		$this->Environment   = new Environment();
 		$this->Security      = new Security();
@@ -25,6 +23,10 @@ class Request {
 
 	}
 
+	/**
+	 * Requesting urls without controller
+	 * @param  string $controller_class name of controller
+	 */
 	function class_not_callable($controller_class) {
 		$url = new Url();
 		$args = array(
@@ -34,19 +36,24 @@ class Request {
 		$this->redirect($args);
 	}
 
-
+	/**
+	 * Redirect to new url
+	 * @param  [array] $args [arguments array containing url and logmessage indexes]
+	 */
 	function redirect($args) {
 		$url = new Url();
-		Log::debug($args['logmessage']);
-		echo("Location: " . $args['url']->url);
+		// echo("Location: " . $args['url']->url);
+		header("Location: " . $args['url']->url);
 		exit($args['logmessage']);
 	}
 
 
 
-
+	/**
+	 * Return consistant path based on server variable and home_page path fallback
+	 * @return string Returns information about a file path
+	 */
 	function path_info() {
-		Log::debug(__FUNCTION__ . " called.");
 		$path_info = $_SERVER['PATH_INFO']; 
 		$no_specified_path = is_null($path_info ) || $path_info == '/';
 		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
@@ -58,13 +65,14 @@ class Request {
 				exit();
 			}
 		}
-		return $path_info;
+		return (string)$path_info;
 	}
 
-
+	/**
+	 * Initiate download for theme template
+	 * @param  string $template_type Name of template
+	 */
 	function template_download($template_type) {
-		Log::debug(__FUNCTION__ . " called.");
-		
     	if (is_null($template_type)) throw new Exception('Template type cannot be null.');
     	
 		$ext                = Configuration::CONTENT_EXT;

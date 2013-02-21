@@ -6,9 +6,12 @@ class Cache extends Extension{
 
 	public function __construct($parent) {
 		parent::__construct($parent);
-		$this->cwd = getcwd();
+		$this->cwd = getcwd(); // set current working directory
 	}
 
+	/**
+	 * Write page to disk if cache is enabled
+	 */
 	public function end() {
 		chdir($this->cwd); // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
 		if ( $this->has_cacheable_page_request() ) {
@@ -17,26 +20,38 @@ class Cache extends Extension{
 		}
 	}
 
+	/**
+	 * Abort caching
+	 */
 	function abort() {
 		while (ob_get_level() > 0) {
 			ob_end_clean();
 		}
 	}
 
-
+	/**
+	 * Start caching
+	 */
 	function start() {
 		ob_start();
 	}
 
+	/**
+	 * Returns possibility of caching the page based on environment and configuration
+	 * @return boolean whether caching is possible
+	 */
 	function has_cacheable_page_request() {
 		$cache_enabled = Configuration::CACHE_ENABLED;
 		$is_caching   = !ob_get_level() == 0;
 		$has_noerrors = is_null(error_get_last());
 		$has_cacheable_page_request = ($cache_enabled && $is_caching && $has_noerrors);
-		return $has_cacheable_page_request;
+		return (boolean)$has_cacheable_page_request;
 	}
 
-
+	/**
+	 * Retiurns whether page is already cached
+	 * @return boolean page has existing cachefile
+	 */
 	function has_existing_cachefile() {
 		$cache_file          = $this->cache_file_from_url();
 		$has_cache_file      = file_exists($cache_file);
@@ -45,7 +60,11 @@ class Cache extends Extension{
 		return ( $has_cache_file && $has_caching_enabled );
 	}
 
-
+	/**
+	 * Returns path to cache file based on url path
+	 * @param  string $path_info path to current request
+	 * @return string            path to cache file
+	 */
 	function cache_file_from_url($path_info = null) {
 		$ds = DIRECTORY_SEPARATOR;
 		if ( is_null( $path_info) ) {
@@ -65,9 +84,13 @@ class Cache extends Extension{
 		$cache_file = sprintf( "%s/%s.%s", Configuration::CACHE_FOLDER, ltrim($filename, '/'), $ext);
 		$cache_file = str_replace('/', $ds, $cache_file);
 
-		return $cache_file;
+		return (string)$cache_file;
 	}
 
+	/**
+	 * Completely clear the site cache
+	 * @return string list of output messages detailing the removed cachefiles
+	 */
 	function clear() {
 		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
 		$dir = realpath($dir);
@@ -79,9 +102,13 @@ class Cache extends Extension{
 			Filesystem::remove_dirs(realpath($dir.'/.'));
 		}
 		$this->_parent->Environment->webserver_configuration();
-		return $output;
+		return (string)$output;
 	}
 
+	/**
+	 * Generate a static version of the complete site
+	 * @return string list of output messages detailing the generated files
+	 */
 	function generate_site() {
 		$output = '';
 
@@ -126,10 +153,16 @@ class Cache extends Extension{
 
 		$output .= $this->copy_themefiles(array('css', 'js', 'png', 'gif', 'jpg'));
 
-		return $output;
+		return (string)$output;
 
 	}
 
+	/**
+	 * Writes the collected cache to disk
+	 * @param  object $url_obj  url object to be written
+	 * @param  string $contents contents of the cache
+	 * @return string           path to the cache file
+	 */
 	function write_cache_to_disk($url_obj, $contents) {
 		$url = (is_object($url_obj)) ? $url_obj->url : $url_obj;
 		$path = $this->cache_file_from_url($url);
@@ -142,6 +175,11 @@ class Cache extends Extension{
 		return $path;
 	}
 
+	/**
+	 * Copying of the theme files to the static site output folder
+	 * @param  array $file_types  list of filetypes to process
+	 * @return string             messages detailing the process
+	 */
 	function copy_themefiles($file_types) {
 		include ('view_functions.php');
 
@@ -162,7 +200,7 @@ class Cache extends Extension{
 			}
 			Filesystem::copy_files($fs->collection, $destination_files);
 		}
-		return $output;
+		return (string)$output;
 	}
 
 

@@ -1,10 +1,19 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
+/**
+ * Shorthand function to link to internal url
+ * @param  string $url internal url
+ * @return string      index independent internal url
+ */
 function href($url) {
 	$l = new Url();
 	return $l->index($url)->url;
 }
 
+/**
+ * List pages in templated format
+ * @return string html of list of pages
+ */
 function pages() {
 	Log::debug(__FUNCTION__ . " called.");
 
@@ -21,6 +30,10 @@ function pages() {
 	return $output;
 }
 
+/**
+ * Returns theme directory
+ * @return string link to theme directory
+ */
 function theme_dir() {
 	$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
 	$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
@@ -28,11 +41,24 @@ function theme_dir() {
 	return $path_to_script . $theme_dir_url ;
 }
 
+/**
+ * Is the user logged in
+ * @return boolean logged in status
+ */
 function is_loggedin() {
 	$sec = new Security();
 	return $sec->is_loggedin();
 }
 
+/**
+ * Shorthand for creating creative commons attribution link
+ * @param  string $photo_url  url to photo
+ * @param  string $photo      title of photo
+ * @param  string $author_url url to author
+ * @param  string $author     name of author
+ * @param  string $license    name of license
+ * @return string             html for cc attr link
+ */
 function create_commons_li(
 		$photo_url, $photo, 
 		$author_url, $author,
