@@ -7,10 +7,10 @@ class Request {
 		if ($this->Cache->has_existing_cachefile()) {
 			exit(readfile($this->Cache->cache_file_from_url()));
 		} 
+		$this->Cache->start();
 
 		$this->Environment   = new Environment();
 		$this->Security      = new Security();
-		$this->Cache->start();
 
 		// Route to controller
 		$args                 = explode("/", $this->path_info());
@@ -19,6 +19,7 @@ class Request {
 		if ( class_exists ( $controller_class, true )) {
 			$this->controller = new $controller_class( $this, $controller_arguments );
 		} else $this->class_not_callable($controller_class);
+		
 		$this->Cache->end();
 
 	}
