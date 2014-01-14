@@ -57,6 +57,7 @@ class Cache extends Extension{
 		$has_cache_file      = file_exists($cache_file);
 		$has_caching_enabled = Configuration::CACHE_ENABLED;
 
+
 		return ( $has_cache_file && $has_caching_enabled );
 	}
 
@@ -73,6 +74,7 @@ class Cache extends Extension{
 		$path_info = ltrim($path_info, '/');
 		$filename  = pathinfo ( $path_info , PATHINFO_DIRNAME  ) .'/'. pathinfo ( $path_info , PATHINFO_FILENAME );
 		$filename  = ltrim($filename, '.');
+
 
 		$ext = pathinfo ( $path_info , PATHINFO_EXTENSION);
 		if (strrpos($path_info, '.') === false) {
@@ -142,7 +144,13 @@ class Cache extends Extension{
 
 		foreach ($cache_urls as $url) {
 			$url2 = clone $url;
-			$contents = $c->url_contents($url2->abs()->url); 
+			$url_string = $url2->abs()->url;
+
+			// support Vagrant port forwarding where local HTTP_HOST is different from developer
+			if (defined('Configuration::LOCAL_HTTP_HOST')) {
+				$url_string = str_replace($_SERVER['HTTP_HOST'], Configuration::LOCAL_HTTP_HOST, $url_string);
+			}
+			$contents = $c->url_contents($url_string); 
 
 			if (empty($contents)) die("ERROR: no contents for {$url2->abs()->url}");
 
