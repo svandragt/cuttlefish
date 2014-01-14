@@ -3,9 +3,16 @@ class Curl
 {
 
 	function __construct() {
-		$this->c = curl_init();
+		if (!$this->_isCurl()) {
+			die('Please install the curl php extension to generate a static site.');
 
+		}
+		$this->c = curl_init();
     }
+
+    function _isCurl(){
+    	return function_exists('curl_version');
+	}
 
 	function url_contents($url, $query_data = NULL, $requestMethod = 'GET') 
 	{

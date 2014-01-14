@@ -144,6 +144,8 @@ class Cache extends Extension{
 			$url2 = clone $url;
 			$contents = $c->url_contents($url2->abs()->url); 
 
+			if (empty($contents)) die("ERROR: no contents for {$url2->abs()->url}");
+
 			if (Configuration::CACHE_ENABLED == false) {
 				$path = $this->write_cache_to_disk($url, $contents);
 				$output .= "Written: $path<br>". PHP_EOL;		
