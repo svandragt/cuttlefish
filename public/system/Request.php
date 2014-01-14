@@ -19,7 +19,7 @@ class Request {
 		if ( class_exists ( $controller_class, true )) {
 			$this->controller = new $controller_class( $this, $controller_arguments );
 		} else $this->class_not_callable($controller_class);
-		
+
 		$this->Cache->end();
 
 	}
@@ -56,13 +56,15 @@ class Request {
 	 */
 	function path_info() {
 		$path_info = $_SERVER['PATH_INFO']; 
+
 		$no_specified_path = is_null($path_info ) || $path_info == '/';
 		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
 		else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
 				$slashless_request = substr($path_info, 0, -1);
-				header('Location: ' . Url::abs( Url::index( $slashless_request) ));
+				$url = new Url();
+				header('Location: ' . $url->index($slashless_request)->abs()->url );
 				exit();
 			}
 		}
