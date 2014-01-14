@@ -30,6 +30,8 @@ class Security {
 				));	
 				$output .= "logged in.<br>";
 				Log::info("Login attempt successful");
+				$url = new Url();
+				header('Location: ' . $url->index('/admin')->abs()->url);
 			}
 			else {
 				Log::warn("Login attempt unsuccessful.");
