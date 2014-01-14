@@ -168,3 +168,6 @@ source/
 cache/
 docs/
 logs/
+
+# Vagrant
+.vagrant
