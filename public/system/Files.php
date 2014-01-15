@@ -41,7 +41,7 @@ class Files {
 		return $files;
 	}
 
-	function remove_files($is_directory_removable = false) {
+	function remove_all($is_directory_removable = false) {
 		$output = '';
 		Log::debug(__FUNCTION__ . " called.");
 	    foreach($this->collection as $file) {
