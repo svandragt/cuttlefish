@@ -35,7 +35,8 @@ function pages() {
  */
 function theme_dir() {
 	$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
-	$path_to_script = str_replace($script_url, '',$_SERVER['URL']);
+	// $path_to_script = str_replace($script_url, '',$_SERVER['REQUEST_URI']);
+	$path_to_script = ''; // todo
 	$theme_dir_url  = str_replace("\\","/",THEME_DIR);
 	return $path_to_script . $theme_dir_url ;
 }
