@@ -16,7 +16,7 @@ class Environment {
 			Filesystem::ensure_folder_exists( Configuration::CONTENT_FOLDER . '/posts');
 			Filesystem::ensure_folder_exists( Configuration::CONTENT_FOLDER . '/errors');
 			Filesystem::ensure_folder_exists( Configuration::THEMES_FOLDER);
-			$this->webserver_configuration();
+			$this->server_setup();
 		}
 
 		// Externals environment
@@ -48,7 +48,7 @@ class Environment {
 		set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
 	}
 
-	function webserver_configuration() {
+	function server_setup() {
 		Log::debug(__FUNCTION__ . " called.");
 		$directory_index = "index.html index.xml";
 		$path = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";

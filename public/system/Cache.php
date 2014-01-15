@@ -89,17 +89,20 @@ class Cache extends Extension{
 		return (string)$cache_file;
 	}
 
+	function cache_folder() {
+		return realpath(BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
+	}
+
 	/**
 	 * Completely clear the site cache
 	 * @return string list of output messages detailing the removed cachefiles
 	 */
 	function clear() {
-		$dir =  BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER);
-		$dir = realpath($dir);
+		$dir    =  $this->cache_folder();
 		$output = sprintf("Removing  all files in %s<br>", $dir);
-		$files = new Files(array('path' => $dir));
-		$output .= $files->remove_files();
-		$dirs = Filesystem::subdirs(realpath($dir.'/.'), false);
+		$files  = new Files(array('path' => $dir));
+		$output .= $files->remove_all();
+		$dirs   = Filesystem::subdirs(realpath($dir.'/.'), false);
 		foreach ($dirs as $dir) {
 			Filesystem::remove_dirs(realpath($dir.'/.'));
 		}
