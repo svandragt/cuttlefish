@@ -19,11 +19,10 @@ function pages() {
 
 	$output = '';
 	$pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
-	// todo
- 	$files = new Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
 
-	foreach ($files as $key => $value) {
-		$filename =  pathinfo($value[0], PATHINFO_FILENAME  );
+ 	$files = new Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
+	foreach ($files->getCollection() as $path) {
+		$filename =  pathinfo($path, PATHINFO_FILENAME  );
 		$title = ucwords(str_replace("-"," ",$filename));
 		$output .= sprintf("<li><a href='%s'>%s</a></li>",href("/pages/$filename"), $title);
 	}

@@ -9,22 +9,11 @@ class Environment {
 
 		$this->add_include_path(Filesystem::url_to_path('/'.Configuration::APPLICATION_FOLDER));	
 		define('THEME_DIR', DIRECTORY_SEPARATOR . Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR);
-		if ( $this->new_install()) {
-			Filesystem::ensure_folder_exists( Configuration::LOGS_FOLDER );
-			Filesystem::ensure_folder_exists( Configuration::CACHE_FOLDER );
-			Filesystem::ensure_folder_exists( Configuration::CONTENT_FOLDER . '/pages');
-			Filesystem::ensure_folder_exists( Configuration::CONTENT_FOLDER . '/posts');
-			Filesystem::ensure_folder_exists( Configuration::CONTENT_FOLDER . '/errors');
-			Filesystem::ensure_folder_exists( Configuration::THEMES_FOLDER);
-			$this->server_setup();
-		}
+
+		if ( $this->new_install()) $this->new_install_setup();
 
 		// Externals environment
-		$flist = new Files(array('url' => '/system/Ext'), 'php');
-		foreach ($flist->collection as $key => $value) {
-			$this->register[pathinfo($value,PATHINFO_FILENAME)] = true;
-			$this->add_include_path(pathinfo($value,PATHINFO_DIRNAME));	
-		}
+		$this->register_externals();
 		session_start();
 	}
 
@@ -43,12 +32,41 @@ class Environment {
 		return !(is_dir( Configuration::CACHE_FOLDER ) && is_dir( Configuration::CONTENT_FOLDER )) ;
 	}
 
+	private function new_install_setup() {
+		$cfg_content_folder = Configuration::CONTENT_FOLDER;
+
+		$folders = array(
+				Configuration::LOGS_FOLDER,
+				Configuration::CACHE_FOLDER,
+				$cfg_content_folder . '/pages',
+				$cfg_content_folder . '/posts',
+				$cfg_content_folder . '/errors',
+				Configuration::THEMES_FOLDER,
+			);
+			foreach ($folders as $folder) {
+				Filesystem::ensure_folder_exists($folder);
+			}
+			$this->server_setup();
+	}
+
 	function add_include_path($path) {
 		Log::debug(__FUNCTION__ . " called.");
 		set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
 	}
 
-	function server_setup() {
+	private function register($filepath) {
+		$this->register[pathinfo($filepath,PATHINFO_FILENAME)] = true;
+	}
+
+	private function register_externals() {
+		$flist = new Files(array('url' => '/system/Ext'), 'php');
+		foreach ($flist->getCollection() as $key => $filepath) {
+			$this->register($filepath);
+			$this->add_include_path(pathinfo($filepath,PATHINFO_DIRNAME));	
+		}
+	}
+
+	public function server_setup() {
 		Log::debug(__FUNCTION__ . " called.");
 		$directory_index = "index.html index.xml";
 		$path = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";

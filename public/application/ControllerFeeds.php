@@ -11,7 +11,7 @@ class ControllerFeeds extends Controller {
 	}
 
 	function model() {
-		$model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+		$model = new ModelPost( $this->Records->getCollection(), $this->_parent->Environment);
 		$this->Model = $model->limit(10);
 	}
 
