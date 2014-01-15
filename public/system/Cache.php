@@ -147,8 +147,8 @@ class Cache extends Extension{
 			$url_string = $url2->abs()->url;
 
 			// support Vagrant port forwarding where local HTTP_HOST is different from developer
-			if (defined('Configuration::LOCAL_HTTP_HOST')) {
-				$url_string = str_replace($_SERVER['HTTP_HOST'], Configuration::LOCAL_HTTP_HOST, $url_string);
+			if (defined('Configuration::SERVER_HTTP_HOST')) {
+				$url_string = str_replace($_SERVER['HTTP_HOST'], Configuration::SERVER_HTTP_HOST, $url_string);
 			}
 			$contents = $c->url_contents($url_string); 
 
