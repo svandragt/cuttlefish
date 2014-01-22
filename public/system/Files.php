@@ -8,8 +8,9 @@ class Files extends Collection {
 		} elseif (isset($dir_or_path['path'])) {
 			$dir_or_path = $dir_or_path['path'];
 		}
-		$this->setCollection( $this->collect( $dir_or_path, $ext) );
-		rsort($this->getCollection());
+		$collection = $this->collect( $dir_or_path, $ext);
+		rsort($collection);
+		$this->setCollection( $collection );
 		return $this;
 	}
 
