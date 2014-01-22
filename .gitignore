@@ -169,4 +169,4 @@ cache/
 phpdoc/
 logs/
 .vagrant
-#public/Configuration.php
+public/Configuration.php
