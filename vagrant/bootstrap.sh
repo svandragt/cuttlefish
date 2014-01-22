@@ -8,5 +8,6 @@ mkdir /vagrant/cache
 chown :www-data /vagrant/cache -R
 chmod g+w /vagrant/cache -R
 sed -i '/AllowOverride None/c AllowOverride All' /etc/apache2/sites-available/default
+sed -i 's/display_errors = .*/display_errors = On/' /etc/php5/apache2/php.ini
 a2enmod rewrite
 service apache2 reload
