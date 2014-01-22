@@ -166,7 +166,7 @@ pip-log.txt
 public/content/
 source/
 cache/
-docs/
+phpdoc/
 logs/
 
 # Vagrant
