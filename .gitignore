@@ -168,6 +168,5 @@ source/
 cache/
 phpdoc/
 logs/
-
-# Vagrant
 .vagrant
+#public/Configuration.php
