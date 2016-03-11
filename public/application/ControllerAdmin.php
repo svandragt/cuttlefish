@@ -61,7 +61,7 @@ class ControllerAdmin extends Controller {
 
 	function generate() {
 		$this->_parent->Security->login_redirect();
-		return $this->_parent->Cache->generate_site();
+		echo $this->_parent->Cache->generate_site();
 	}
 
 	function logout() {

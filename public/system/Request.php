@@ -7,12 +7,10 @@ class Request {
 		if ($this->Cache->has_existing_cachefile()) {
 			exit(readfile($this->Cache->cache_file_from_url()));
 		} 
-		Log::debug('_______________');
-		Log::debug('BUILD CACHE');
+		$this->Cache->start();
 
 		$this->Environment   = new Environment();
 		$this->Security      = new Security();
-		$this->Cache->start();
 
 		// Route to controller
 		$args                 = explode("/", $this->path_info());
@@ -21,10 +19,15 @@ class Request {
 		if ( class_exists ( $controller_class, true )) {
 			$this->controller = new $controller_class( $this, $controller_arguments );
 		} else $this->class_not_callable($controller_class);
+
 		$this->Cache->end();
 
 	}
 
+	/**
+	 * Requesting urls without controller
+	 * @param  string $controller_class name of controller
+	 */
 	function class_not_callable($controller_class) {
 		$url = new Url();
 		$args = array(
@@ -34,37 +37,45 @@ class Request {
 		$this->redirect($args);
 	}
 
-
+	/**
+	 * Redirect to new url
+	 * @param  [array] $args [arguments array containing url and logmessage indexes]
+	 */
 	function redirect($args) {
 		$url = new Url();
-		Log::debug($args['logmessage']);
-		echo("Location: " . $args['url']->url);
+		// echo("Location: " . $args['url']->url);
+		header("Location: " . $args['url']->url);
 		exit($args['logmessage']);
 	}
 
 
 
-
+	/**
+	 * Return consistant path based on server variable and home_page path fallback
+	 * @return string Returns information about a file path
+	 */
 	function path_info() {
-		Log::debug(__FUNCTION__ . " called.");
 		$path_info = $_SERVER['PATH_INFO']; 
+
 		$no_specified_path = is_null($path_info ) || $path_info == '/';
 		if ($no_specified_path ) $path_info = Configuration::HOME_PAGE;
 		else {
 			$ends_with_slash = !substr(strrchr($path_info, "/"), 1);
 			if ($ends_with_slash) {
 				$slashless_request = substr($path_info, 0, -1);
-				header('Location: ' . Url::abs( Url::index( $slashless_request) ));
+				$url = new Url();
+				header('Location: ' . $url->index($slashless_request)->abs()->url );
 				exit();
 			}
 		}
-		return $path_info;
+		return (string)$path_info;
 	}
 
-
+	/**
+	 * Initiate download for theme template
+	 * @param  string $template_type Name of template
+	 */
 	function template_download($template_type) {
-		Log::debug(__FUNCTION__ . " called.");
-		
     	if (is_null($template_type)) throw new Exception('Template type cannot be null.');
     	
 		$ext                = Configuration::CONTENT_EXT;

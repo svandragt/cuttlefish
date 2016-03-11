@@ -44,8 +44,16 @@ class File {
 				break;
 			
 			default:
-				return mime_content_type($this->path);
+				return $this->mime_content_type($this->path);
 				break;
 		}
+	}
+
+	function mime_content_type($filename) {
+	    if (is_resource($result) === true) {
+	        return mime_content_type ($filename);
+	    }
+
+	    return false;
 	}
 }

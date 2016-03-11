@@ -5,14 +5,16 @@ class ControllerErrors extends Controller {
 	// single errors page
 
 	function records() {
-		$this->Records = new StdClass();
-		$this->Records->collection = array(
- 			Filesystem::url_to_path('/content/errors/' . implode($this->args,"/") . '.' . $this->ext),
+		$this->Records = new Collection();
+		$this->Records->setCollection(
+			array(
+ 				Filesystem::url_to_path('/content/errors/' . implode($this->args,"/") . '.' . $this->ext),
+ 			)
  		);
 	}
 
 	function model() {
-		$this->Model = new ModelPage( $this->Records->collection, $this->_parent->Environment);
+		$this->Model = new ModelPage( $this->Records->getCollection(), $this->_parent->Environment);
 	}
 
 	function view() {

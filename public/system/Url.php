@@ -9,28 +9,38 @@ class Url {
 	// all url functions relative, except root
 	
 
-	function __construct() { 
+	function __construct() {}
 
-	}
-
+	/**
+	 * Returns an absolute url from a relative/absolute url
+	 * @return object url object
+	 */
 	function abs() {
 		// make a relative url absolute
 		if ($this->is_relative) {
 			$this->url = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url;
 			$this->is_relative = false;
 		}
-		return $this;
+		return (object)$this;
 	}
 
+	/**
+	 * Returns protocol part of an internal url
+	 * Source: http://stackoverflow.com/questions/4503135/php-get-site-url-protocol-http-vs-https
+	 * @return string correct protocol dependent url
+	 */
 	function protocol() {
-		// http://stackoverflow.com/questions/4503135/php-get-site-url-protocol-http-vs-https
     	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    	return $protocol;
+    	return (string)$protocol;
 	}
 
+	/**
+	 * Converts a file to an url.
+	 * make sure to call Url->index($url) after.
+	 * @param  object $file_object File object
+	 * @return object              url object
+	 */
 	function file_to_url($file_object) {
-		// convert a link to a file (content or otherwise)
-		// make sure to call Url::index($url) after
 		$file_object = $file_object->relative();
 
 
@@ -48,9 +58,14 @@ class Url {
 		$this->is_prefixed = false;
 
 
-		return $this;
+		return (object)$this;
 	}
 
+	/**
+	 * Returns index_page independent url
+	 * @param  string $url url
+	 * @return object      url object
+	 */
 	function index($url = null) {
 		// makes sure links work index_page independent	
 		if (!$this->is_prefixed) {
@@ -60,7 +75,7 @@ class Url {
 			$this->is_relative = true;
 
 		}
-		return $this;
+		return (object)$this;
 	}
 
 }

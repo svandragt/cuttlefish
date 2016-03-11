@@ -7,11 +7,13 @@ class ControllerHome extends Controller {
 	function records() {
 		$limit = Configuration::POSTS_HOMEPAGE;
  		$this->Records = new Files(array('url'=> '/content/posts'), $this->ext);
-    		$this->Records->limit($limit + 5);
+    	$this->Records->limit($limit + 5);
 	}
 
 	function model() {
-		$this->Model = new ModelPost( $this->Records->collection, $this->_parent->Environment);
+		$model = new ModelPost( $this->Records->getCollection(), $this->_parent->Environment);
+		$this->Model = $model->limit(Configuration::POSTS_HOMEPAGE);
+
 	}
 
 	function view() {

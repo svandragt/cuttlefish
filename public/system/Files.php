@@ -1,30 +1,21 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Files {
+class Files extends Collection {
 
-	function __construct($dir_or_path, $ext = null) {
+	public function __construct($dir_or_path, $ext = null) {
 		if (isset($dir_or_path['url'])) {
 			$dir_or_path = Filesystem::url_to_path($dir_or_path['url']);
 		} elseif (isset($dir_or_path['path'])) {
 			$dir_or_path = $dir_or_path['path'];
 		}
-		$this->collection = $this->collect( $dir_or_path, $ext);
-		rsort($this->collection);
+		$collection = $this->collect( $dir_or_path, $ext);
+		rsort($collection);
+		$this->setCollection( $collection );
 		return $this;
 	}
 
 
-
-
-
-	function limit($max) {
-		$this->collection = array_slice($this->collection, 0, $max); 
-		return $this;
-	}	
-
-
-
-	function collect($dir = ".", $filter = null) { 
+	private function collect($dir = ".", $filter = null) { 
 		Log::debug(__FUNCTION__ . " called.");
 		$files = array();
 	   	if ($handle = opendir($dir)) while (false !== ($file = readdir($handle))) {
@@ -41,10 +32,15 @@ class Files {
 		return $files;
 	}
 
-	function remove_files($is_directory_removable = false) {
+	public function limit($max) {
+		$this->setCollection( array_slice($this->getCollection(), 0, $max) ); 
+		return $this;
+	}	
+
+	public function remove_all($is_directory_removable = false) {
 		$output = '';
 		Log::debug(__FUNCTION__ . " called.");
-	    foreach($this->collection as $file) {
+	    foreach($this->getCollection() as $file) {
 	    		$file = realpath($file);
 	        	$output .= "Deleted: $file" . "<br>";
 	            unlink($file);
@@ -52,10 +48,5 @@ class Files {
 	    }
 	    return $output;
 	}	
-
-	function sort_by_function($function) {
-		usort ( $this->collection, $function);
-
-	}
 
 }

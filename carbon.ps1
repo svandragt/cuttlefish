@@ -1,11 +1,10 @@
 Write-Host
 Write-Host "Carbon Powershell Script"
-Write-Host
 
 [Environment]::CurrentDirectory = $PWD
-$TempDir = [System.IO.Path]::GetTempPath()
 
 if ($document -eq $null) {
+    $Global:TempDir = [System.IO.Path]::GetTempPath()
     $Global:document = New-Object -ComObject msxml2.ServerXMLHTTP
     $Global:hostname = ''
     $Global:loggedin = 0
@@ -29,17 +28,15 @@ if (! $args) {
 }
 
 Function gdeploy($a) {
-    write-host $a[1]
-    # generate
-    # .\carbon.ps1 deploy $a[1]
+    generate
+    deploy $a
 }
 
 Function deploy ($a) {
-    $settings = $null
+    $settings = @{}
 
     if ($a[1] -ne $null)  {
         # load and apply settings
-        $settings = @{}
         $Global:deployment_keyword = $a[1]
         $settings_file = [IO.Path]::GetTempPath() + 'carbon_' + $a[1] + '.xml';
         if (Test-Path $settings_file) {
@@ -49,14 +46,14 @@ Function deploy ($a) {
             Write-host         
 
 
-            $server      = $settings.Get_Item('server')
-            $username    = $settings.Get_Item('username')
-            $path        = $settings.Get_Item('path')
+            $server         = $settings.Get_Item('server')
+            $username       = $settings.Get_Item('username')
+            $path           = $settings.Get_Item('path')
             $fingerprint_pt = $settings.Get_Item('fingerprint') 
-            $fingerprint = $fingerprint_pt | ConvertTo-SecureString
-            $winscp_dll  = $settings.Get_Item('winscp_dll')
-            $host_from   = $settings.Get_Item('host_from')
-            $host_to     = $settings.Get_Item('host_to')
+            $fingerprint    = $fingerprint_pt | ConvertTo-SecureString
+            $winscp_dll     = $settings.Get_Item('winscp_dll')
+            $host_from      = $settings.Get_Item('host_from')
+            $host_to        = $settings.Get_Item('host_to')
             write-host "Using"
             write-host "    server:         $server"
             write-host "    username:       $username"
@@ -70,7 +67,6 @@ Function deploy ($a) {
     }
     else {
         # ask and save settings
-        $settings = @{}
         $keyword     = Read-Host "Enter preset name"
         $server      = Read-Host "Enter server"
         $username    = Read-Host "Enter username"
@@ -90,9 +86,16 @@ Function deploy ($a) {
     }
 
     # copy and search replace hostname
-    Copy-Item $PWD\cache\* $TempDir\carbon -recurse -ErrorAction SilentlyContinue
+    Mkdir $TempDir\carbon -force
+    $temp_path = resolve-path "$TempDir\carbon"
+    $source_path = resolve-path "$PWD\cache"
+    Remove-Item $temp_path\* -recurse
 
-    $files=get-childitem $TempDir\carbon\ * -rec -include *.htm*,*.css,*.js | where { ! $_.PSIsContainer }
+    # Copy-Item $source_path $temp_path -recurse -force
+    Copy-Item $source_path\* $temp_path -recurse
+    # exit
+
+    $files=get-childitem $temp_path\* -rec -include *.htm*,*.css,*.js | where { ! $_.PSIsContainer }
     foreach ($file in $files) {
         (Get-Content $file.PSPath) | 
         Foreach-Object {$_ -replace "$host_from", "$host_to"} | 
@@ -147,7 +150,7 @@ Function deploy ($a) {
             $transferOptions.TransferMode = [WinSCP.TransferMode]::Automatic
      
             $transferResult = $session.RemoveFiles("$path/*")
-            $transferResult = $session.PutFiles("$TempDir\carbon\*", "$path/", $FALSE, $transferOptions)
+            $transferResult = $session.PutFiles("$temp_path\*", "$path/", $FALSE, $transferOptions)
 
         }
         Finally
@@ -157,18 +160,16 @@ Function deploy ($a) {
         }
      
         # Demove temporary files
-        Remove-Item $TempDir\carbon\* -recurse
         Write-host "Done"
 
-        exit 0
     }
     Catch [Exception]
     {
         Write-Host "ERROR : " + $_.Exception.Message
         Write-host "Aborted"
 
-        exit 1
     }
+    Remove-Item $temp_path\* -recurse
 }
 
 
@@ -217,6 +218,7 @@ Function logout() {
     $Global:hostname = $null
     $Global:passwords.Remove($deployment_keyword)
     $Global:deployment_keyword = $null
+    $Global:TempDir = $null
     Write-host "logged out"
 }
 

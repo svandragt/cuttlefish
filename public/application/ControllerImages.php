@@ -5,14 +5,16 @@ class ControllerImages extends Controller {
 	// single image
 
 	function records() {
-		$this->Records = new StdClass();
-		$this->Records->collection = array(
- 			Filesystem::url_to_path('/content/images/' . implode($this->args,"/")),
+		$this->Records = new Collection();
+		$this->Records->setCollection( 
+			array(
+	 			Filesystem::url_to_path('/content/images/' . implode($this->args,"/")),
+ 			)
  		);
 	}
 
 	function model() {
-		$this->Model = new ModelFile( $this->Records->collection, $this->_parent->Environment);
+		$this->Model = new ModelFile( $this->Records->getCollection(), $this->_parent->Environment);
 	}
 
 	function view() {
