@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
 
 class Environment {
 
@@ -8,8 +8,7 @@ class Environment {
 		Log::debug(__FUNCTION__ . " called.");
 
 		$this->add_include_path(Filesystem::url_to_path('/'.Configuration::APPLICATION_FOLDER));	
-		define('THEME_DIR', DIRECTORY_SEPARATOR . Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR);
-
+		define('THEME_DIR', Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR);
 		if ( $this->new_install()) $this->new_install_setup();
 
 		// Externals environment

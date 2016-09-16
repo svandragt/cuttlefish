@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
 
 /**
  * Shorthand function to link to internal url
@@ -34,10 +34,8 @@ function pages() {
  * @return string link to theme directory
  */
 function theme_dir() {
-	$script_url     = substr(strrchr($_SERVER['SCRIPT_NAME'], "/"), 0);
-	// $path_to_script = str_replace($script_url, '',$_SERVER['REQUEST_URI']);
 	$path_to_script = ''; // todo
-	$theme_dir_url  = str_replace("\\","/",THEME_DIR);
+	$theme_dir_url  = BASE_PATH . str_replace("\\","/",THEME_DIR);
 	return $path_to_script . $theme_dir_url ;
 }
 

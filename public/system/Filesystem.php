@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
 
 class Filesystem {
 
@@ -26,7 +26,7 @@ class Filesystem {
 	static function url_to_path($url) {
 		// takes /content/pages/index and returns path
 		Log::debug(__FUNCTION__ . " called.");
-		$path = BASEPATH . str_replace('/', DIRECTORY_SEPARATOR, $url);
+		$path = BASE_FILEPATH . str_replace('/', DIRECTORY_SEPARATOR, $url);
 		Log::debug("$url converted to $path");
 		return $path;
 	} 

@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
 
 class Cache extends Extension{
 
@@ -90,7 +90,7 @@ class Cache extends Extension{
 	}
 
 	function cache_folder() {
-		return realpath(BASEPATH . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
+		return realpath(BASE_FILEPATH . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
 	}
 
 	/**

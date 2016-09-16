@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
 printf("<div class='%s %s'>", $this->controller, $this->model);
 
 switch (count($this->contents)) {
