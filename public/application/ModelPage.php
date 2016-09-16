@@ -1,6 +1,10 @@
-<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASE_FILEPATH'))
+{
+	exit('No direct script access allowed');
+}
 
-class ModelPage extends Model {
+class ModelPage extends Model
+{
 
 	// page model
 
@@ -8,11 +12,13 @@ class ModelPage extends Model {
 		'markdown|html' => 'content',
 	);
 
-	function contents($records, $Environment) {
+	function contents($records, $Environment)
+	{
 		$loaded_classes = array(
-			'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : null,
+			'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : NULL,
 		);
-		foreach ($records as $record) {
+		foreach ($records as $record)
+		{
 			$this->contents[] = $this->list_contents($record, $loaded_classes);
 		}
 	}

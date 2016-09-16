@@ -1,12 +1,17 @@
-<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASE_FILEPATH'))
+{
+	exit('No direct script access allowed');
+}
 
-class ModelFile extends Model {
+class ModelFile extends Model
+{
 
 	// File model
 
 	public $model = array();
 
-	function contents($records, $Environment) {
+	function contents($records, $Environment)
+	{
 		$this->contents = $records;
 	}
 

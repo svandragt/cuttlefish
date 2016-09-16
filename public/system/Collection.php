@@ -1,14 +1,20 @@
-<?php  if ( ! defined('BASE_FILEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASE_FILEPATH'))
+{
+	exit('No direct script access allowed');
+}
 
-class Collection {
+class Collection
+{
 
 	private $collection;
 
-	public function getCollection() {
+	public function getCollection()
+	{
 		return $this->collection;
 	}
 
-	public function setCollection( $value) {
+	public function setCollection($value)
+	{
 		$this->collection = $value;
 	}
 }
