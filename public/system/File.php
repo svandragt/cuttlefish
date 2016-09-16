@@ -50,7 +50,7 @@ class File {
 	}
 
 	function mime_content_type($filename) {
-	    if (is_resource($result) === true) {
+	    if (is_resource($filename) === true) {
 	        return mime_content_type ($filename);
 	    }
 
