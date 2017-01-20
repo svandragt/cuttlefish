@@ -3,6 +3,8 @@ Carbon is a PHP based hackable performant (semi) static blogging system.
 
 _It should be considered early alpha._
 
+[![Build Status](https://travis-ci.org/svandragt/carbon.svg?branch=master)](https://travis-ci.org/svandragt/carbon)
+
 
 ## Screencasts
 
