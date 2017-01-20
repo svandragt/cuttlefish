@@ -5,9 +5,9 @@ php:
   - '7.1'
   - hhvm
 
-before_script:
+before_install:
  - chmod +x ./tests/install_dependencies.sh
- 
+
 install:
   - ./tests/install_dependencies.sh
 
