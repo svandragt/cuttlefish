@@ -7,6 +7,7 @@ php:
 
 before_install:
  - chmod +x ./tests/install_dependencies.sh
+ - composer install
 
 install:
   - ./tests/install_dependencies.sh
