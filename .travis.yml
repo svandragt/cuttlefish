@@ -5,9 +5,14 @@ php:
   - '7.1'
   - hhvm
 
+# optionally set up exclutions and allowed failures in the matrix
+matrix:
+  allow_failures:
+    - php: 7.1
+    - php: hhvm
+
 before_install:
  - chmod +x ./tests/install_dependencies.sh
- - composer install
 
 install:
   - ./tests/install_dependencies.sh
