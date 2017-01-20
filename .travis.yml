@@ -3,5 +3,5 @@ php:
   - '7.0'
   - '7.1'
   - hhvm
-
-# script: phpunit --configuration tests/phpunit.xml --coverage-text
+install: true
+script: phpunit --configuration tests/phpunit.xml --coverage-text
