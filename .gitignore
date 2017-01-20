@@ -170,3 +170,4 @@ phpdoc/
 logs/
 .vagrant
 public/Configuration.php
+/vendor/

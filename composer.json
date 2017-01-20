@@ -1,0 +1,14 @@
+{
+    "name": "svandragt/carbon",
+    "description": "Hackable performant semi-static blogging system",
+    "type": "project",
+    "license": "proprietrary",
+    "authors": [
+        {
+            "name": "Sander van Dragt",
+            "email": "sander@vandragt.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
