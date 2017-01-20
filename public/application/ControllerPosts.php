@@ -1,30 +1,37 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php if (!defined('BASE_FILEPATH'))
+{
+	exit('No direct script access allowed');
+}
 
-class ControllerPosts extends Controller {
+class ControllerPosts extends Controller
+{
 
 	// single post
 
-	function records() {
+	function records()
+	{
 		$this->Records = new Collection();
-		$this->Records->setCollection( 
+		$this->Records->setCollection(
 			array(
-	 			Filesystem::url_to_path('/content/posts/' . implode($this->args,"/") . '.' . $this->ext),
- 			)
- 		);
+				Filesystem::url_to_path('/content/posts/' . implode($this->args, "/") . '.' . $this->ext),
+			)
+		);
 	}
 
-	function model() {
-		$this->Model = new ModelPost( $this->Records->getCollection(), $this->_parent->Environment);
+	function model()
+	{
+		$this->Model = new ModelPost($this->Records->getCollection(), $this->_parent->Environment);
 	}
 
-	function view() {
+	function view()
+	{
 		parent::view();
 
-		$this->View = new Html( $this->Model->contents, array(
+		$this->View = new Html($this->Model->contents, array(
 			'layout'     => 'single.php',
 			'controller' => 'posts',
 			'model'      => 'post',
-		) ) ;
-	}	
+		));
+	}
 
 }

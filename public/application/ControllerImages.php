@@ -1,27 +1,34 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php if (!defined('BASE_FILEPATH'))
+{
+	exit('No direct script access allowed');
+}
 
-class ControllerImages extends Controller {
+class ControllerImages extends Controller
+{
 
 	// single image
 
-	function records() {
+	function records()
+	{
 		$this->Records = new Collection();
-		$this->Records->setCollection( 
+		$this->Records->setCollection(
 			array(
-	 			Filesystem::url_to_path('/content/images/' . implode($this->args,"/")),
- 			)
- 		);
+				Filesystem::url_to_path('/content/images/' . implode($this->args, "/")),
+			)
+		);
 	}
 
-	function model() {
-		$this->Model = new ModelFile( $this->Records->getCollection(), $this->_parent->Environment);
+	function model()
+	{
+		$this->Model = new ModelFile($this->Records->getCollection(), $this->_parent->Environment);
 	}
 
-	function view() {
+	function view()
+	{
 		parent::view();
 
-		$this->View = new File( $this->Model->contents );
+		$this->View = new File($this->Model->contents);
 		$this->View->render();
-	}		
+	}
 
 }

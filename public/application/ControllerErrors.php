@@ -1,29 +1,36 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php if (!defined('BASE_FILEPATH'))
+{
+	exit('No direct script access allowed');
+}
 
-class ControllerErrors extends Controller {
+class ControllerErrors extends Controller
+{
 
 	// single errors page
 
-	function records() {
+	function records()
+	{
 		$this->Records = new Collection();
 		$this->Records->setCollection(
 			array(
- 				Filesystem::url_to_path('/content/errors/' . implode($this->args,"/") . '.' . $this->ext),
- 			)
- 		);
+				Filesystem::url_to_path('/content/errors/' . implode($this->args, "/") . '.' . $this->ext),
+			)
+		);
 	}
 
-	function model() {
-		$this->Model = new ModelPage( $this->Records->getCollection(), $this->_parent->Environment);
+	function model()
+	{
+		$this->Model = new ModelPage($this->Records->getCollection(), $this->_parent->Environment);
 	}
 
-	function view() {
+	function view()
+	{
 		parent::view();
 
-		$this->View = new Html( $this->Model->contents, array(
+		$this->View = new Html($this->Model->contents, array(
 			'layout'     => 'single.php',
 			'controller' => 'errors',
 			'model'      => 'page',
-		) ) ;
-	}		
+		));
+	}
 }
