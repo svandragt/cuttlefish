@@ -1,9 +1,13 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php
+
+namespace VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
 
-class Configuration extends Defaults
+class Configuration extends Sys\Defaults
 {
 
 	const SITE_TITLE = 'Your site';
