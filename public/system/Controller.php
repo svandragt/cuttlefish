@@ -8,10 +8,13 @@ if (!defined('BASE_FILEPATH')) {
 
 class Controller extends Extension
 {
+    private $content;
+    private $ext;
+    private $args;
 
     function __construct($parent, $args)
     {
-        parent::__construct($parent, $args);
+        parent::__construct($parent);
 
         $this->content = \Configuration::CONTENT_FOLDER;
         $this->ext = \Configuration::CONTENT_EXT;
@@ -48,7 +51,6 @@ class Controller extends Extension
     public function view()
     {
         include('view_functions.php');
-        include('functions.php');
     }
 }
 	

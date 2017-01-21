@@ -34,7 +34,7 @@ class Log
     static function info($message)
     {
         $message = sprintf("[%s] (%s) INFO %s", date('d/M/Y:H:i:s'), pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME), $message . PHP_EOL);
-        error_log($message, 3, Configuration::LOGS_FOLDER . self::filename());
+        error_log($message, 3, \Configuration::LOGS_FOLDER . self::filename());
     }
 
     static function filename()
@@ -45,7 +45,7 @@ class Log
     static function warn($message)
     {
         $message = sprintf("[%s] (%s) WARN %s", date('d/M/Y:H:i:s'), pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME), $message . PHP_EOL);
-        error_log($message, 3, Configuration::LOGS_FOLDER . self::filename());
+        error_log($message, 3, \Configuration::LOGS_FOLDER . self::filename());
     }
 
 }

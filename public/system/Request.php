@@ -89,11 +89,12 @@ class Request
      * Initiate download for theme template
      *
      * @param  string $template_type Name of template
+     * @throws \Exception
      */
     function template_download($template_type)
     {
         if (is_null($template_type)) {
-            throw new Exception('Template type cannot be null.');
+            throw new \Exception('Template type cannot be null.');
         }
 
         $ext = \Configuration::CONTENT_EXT;

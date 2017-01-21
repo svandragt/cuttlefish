@@ -24,7 +24,7 @@ class Filesystem
     static function is_found($file_path)
     {
         if (is_null($file_path)) {
-            throw new Exception('$file_path cannot be null.');
+            throw new \Exception('$file_path cannot be null.');
         }
         if (!file_exists($file_path)) {
             Log::info("'$file_path' cannot be found.");
@@ -70,8 +70,9 @@ class Filesystem
         foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file) {
             if (is_dir($file)) {
                 $dirs[] = $file;
+                // not really recursive then is it when it calls another function
                 if ($recursive) {
-                    self::remove_dirs($file, $recursive);
+                    self::remove_dirs($file);
                 }
             }
         }

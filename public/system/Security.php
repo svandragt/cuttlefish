@@ -24,13 +24,13 @@ class Security
 
         $output = "";
 
-        if (is_null(Configuration::ADMIN_PASSWORD)) {
+        if (is_null(\Configuration::ADMIN_PASSWORD)) {
             $output .= "Please set an admin password under Configuration::ADMIN_PASSWORD.<br>";
         } else {
             $password = HTTP::post('password');
             if (is_null($password)) {
                 $output .= "<form method='post'><input type='password' name='password'><input type='submit'></form>";
-            } elseif ($password == Configuration::ADMIN_PASSWORD) {
+            } elseif ($password == \Configuration::ADMIN_PASSWORD) {
                 Http::set_session(array(
                     'admin' => TRUE,
                 ));
