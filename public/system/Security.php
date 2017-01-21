@@ -1,5 +1,7 @@
 <?php
 
+namespace VanDragt\Carbon\Sys; 
+
 class Security
 {
 

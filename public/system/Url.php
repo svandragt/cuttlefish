@@ -1,4 +1,7 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php
+namespace VanDragt\Carbon\Sys; 
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -61,11 +64,13 @@ class Url
 		$relative_url = str_replace(DIRECTORY_SEPARATOR, "/", $file_object->path);
 		$relative_url = '/' . ltrim($relative_url, '/');
 		Log::debug(__FUNCTION__ . " relative_url: $relative_url");
+		
+		$content_folder = \Configuration::CONTENT_FOLDER;
 
-		if (!strrpos($relative_url, Configuration::CONTENT_FOLDER) === FALSE)
+		if (!strrpos($relative_url, $content_folder) === FALSE)
 		{
-			$relative_url = str_replace(Configuration::CONTENT_FOLDER . '/', '', $relative_url);
-			$relative_url = str_replace('.' . Configuration::CONTENT_EXT, '', $relative_url);
+			$relative_url = str_replace($content_folder . '/', '', $relative_url);
+			$relative_url = str_replace('.' . \Configuration::CONTENT_EXT, '', $relative_url);
 		}
 
 		$this->url = $relative_url;
@@ -88,7 +93,7 @@ class Url
 		if (!$this->is_prefixed)
 		{
 			$this->url = (is_null($url)) ? $this->url : $url;
-			$this->url = Configuration::INDEX_PAGE . $this->url;
+			$this->url = \Configuration::INDEX_PAGE . $this->url;
 			$this->is_prefixed = TRUE;
 			$this->is_relative = TRUE;
 		}

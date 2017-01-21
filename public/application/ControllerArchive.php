@@ -1,9 +1,15 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+
+namespace VanDragt\Carbon\App;
+
+use VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
 
-class ControllerArchive extends Controller
+class ControllerArchive extends Sys\Controller
 {
 
 	// list of recent posts

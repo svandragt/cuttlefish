@@ -1,4 +1,6 @@
-<?php
+<?php 
+
+namespace VanDragt\Carbon\Sys;
 
 class Curl
 {

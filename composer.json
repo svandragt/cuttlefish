@@ -10,5 +10,12 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "VanDragt\\Carbon\\App\\": "public/application/",
+            "VanDragt\\Carbon\\Sys\\": "public/system/"
+            
+        }
+    }
 }

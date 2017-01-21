@@ -1,4 +1,8 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php  
+
+namespace VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -12,8 +16,8 @@ class Environment
 	{
 		Log::debug(__FUNCTION__ . " called.");
 
-		$this->add_include_path(Filesystem::url_to_path('/' . Configuration::APPLICATION_FOLDER));
-		define('THEME_DIR', Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR);
+		$this->add_include_path(Filesystem::url_to_path('/' . \Configuration::APPLICATION_FOLDER));
+		define('THEME_DIR', \Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . \Configuration::THEME . DIRECTORY_SEPARATOR);
 		if ($this->new_install())
 		{
 			$this->new_install_setup();
@@ -34,20 +38,20 @@ class Environment
 	{
 		Log::debug(__FUNCTION__ . " called.");
 
-		return !(is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER));
+		return !(is_dir(\Configuration::CACHE_FOLDER) && is_dir(\Configuration::CONTENT_FOLDER));
 	}
 
 	private function new_install_setup()
 	{
-		$cfg_content_folder = Configuration::CONTENT_FOLDER;
+		$cfg_content_folder = \Configuration::CONTENT_FOLDER;
 
 		$folders = array(
-			Configuration::LOGS_FOLDER,
-			Configuration::CACHE_FOLDER,
+			\Configuration::LOGS_FOLDER,
+			\Configuration::CACHE_FOLDER,
 			$cfg_content_folder . '/pages',
 			$cfg_content_folder . '/posts',
 			$cfg_content_folder . '/errors',
-			Configuration::THEMES_FOLDER,
+			\Configuration::THEMES_FOLDER,
 		);
 		foreach ($folders as $folder)
 		{
@@ -66,7 +70,7 @@ class Environment
 		fwrite($fp, "ErrorDocument 404 /errors/404/\n");
 		fclose($fp);
 
-		$path = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . "web.config";
+		$path = \Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . "web.config";
 		$xml = new SimpleXMLElement('<configuration></configuration>');
 		$sys = $xml->addChild('system.webServer');
 		$sys->addChild('defaultDocument');

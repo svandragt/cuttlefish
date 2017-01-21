@@ -1,4 +1,8 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+
+namespace VanDragt\Carbon\Sys; 
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -37,8 +41,8 @@ class Model
 
 	function list_contents($record, $loaded_classes)
 	{
-		$content = new StdClass();
-		$content->metadata = new StdClass();
+		$content = new \StdClass();
+		$content->metadata = new \StdClass();
 
 		$url = new Url();
 		$file = new File($record);
@@ -80,7 +84,7 @@ class Model
 			$$class_name = $obj;
 		}
 
-		$section = new StdClass();
+		$section = new \StdClass();
 		switch ($section_key)
 		{
 			case 'yaml':
@@ -92,6 +96,8 @@ class Model
 				{
 					$yaml = $content_section;
 				}
+				
+				var_dump($yaml);
 
 				foreach ($yaml as $key => $value)
 				{

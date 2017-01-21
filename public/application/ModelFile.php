@@ -1,9 +1,15 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+
+namespace VanDragt\Carbon\App;
+
+use VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
 
-class ModelFile extends Model
+class ModelFile extends Sys\Model
 {
 
 	// File model

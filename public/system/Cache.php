@@ -1,4 +1,7 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+namespace VanDragt\Carbon\Sys; 
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -96,7 +99,7 @@ class Cache extends Extension
 				$ext = 'xml';
 			}
 		}
-		$cache_file = sprintf("%s/%s.%s", Configuration::CACHE_FOLDER, ltrim($filename, '/'), $ext);
+		$cache_file = sprintf("%s/%s.%s", \Configuration::CACHE_FOLDER, ltrim($filename, '/'), $ext);
 		$cache_file = str_replace('/', $ds, $cache_file);
 
 		return (string)$cache_file;
@@ -130,7 +133,7 @@ class Cache extends Extension
 	{
 		$cache_file = $this->cache_file_from_url();
 		$has_cache_file = file_exists($cache_file);
-		$has_caching_enabled = Configuration::CACHE_ENABLED;
+		$has_caching_enabled = \Configuration::CACHE_ENABLED;
 
 		return ($has_cache_file && $has_caching_enabled);
 	}

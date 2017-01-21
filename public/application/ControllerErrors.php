@@ -1,9 +1,15 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+
+namespace VanDragt\Carbon\App;
+
+use VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
 
-class ControllerErrors extends Controller
+class ControllerErrors extends Sys\Controller
 {
 
 	// single errors page

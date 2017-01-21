@@ -1,4 +1,7 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+namespace VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -20,7 +23,7 @@ class Request
 
 		// Route to controller
 		$args = explode("/", $this->path_info());
-		$controller_class = 'Controller' . ucfirst($args[1]);
+		$controller_class = '\VanDragt\Carbon\App\Controller' . ucfirst($args[1]);
 		$controller_arguments = array_slice($args, 2);
 		if (class_exists($controller_class, TRUE))
 		{
@@ -46,7 +49,7 @@ class Request
 		$no_specified_path = is_null($path_info) || $path_info == '/';
 		if ($no_specified_path)
 		{
-			$path_info = Configuration::HOME_PAGE;
+			$path_info = \Configuration::HOME_PAGE;
 		}
 		else
 		{
@@ -86,8 +89,8 @@ class Request
 	function redirect($args)
 	{
 		$url = new Url();
-		// echo("Location: " . $args['url']->url);
-		header("Location: " . $args['url']->url);
+		 echo("Location: " . $args['url']->url);
+		// header("Location: " . $args['url']->url);
 		exit($args['logmessage']);
 	}
 
@@ -103,8 +106,8 @@ class Request
 			throw new Exception('Template type cannot be null.');
 		}
 
-		$ext = Configuration::CONTENT_EXT;
-		$application_folder = Configuration::APPLICATION_FOLDER;
+		$ext = \Configuration::CONTENT_EXT;
+		$application_folder = \Configuration::APPLICATION_FOLDER;
 		$filepath_template = Filesystem::url_to_path("/$application_folder/template-$template_type.$ext");
 		$now = date("Y-m-d H:i:s");
 

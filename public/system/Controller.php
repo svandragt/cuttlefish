@@ -1,4 +1,8 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php  
+
+namespace VanDragt\Carbon\Sys;
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -10,8 +14,8 @@ class Controller extends Extension
 	{
 		parent::__construct($parent, $args);
 
-		$this->content = Configuration::CONTENT_FOLDER;
-		$this->ext = Configuration::CONTENT_EXT;
+		$this->content = \Configuration::CONTENT_FOLDER;
+		$this->ext = \Configuration::CONTENT_EXT;
 		$this->args = $args;
 		$this->init();
 	}

@@ -1,4 +1,7 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+namespace VanDragt\Carbon\Sys; 
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }

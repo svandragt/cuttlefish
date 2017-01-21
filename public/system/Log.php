@@ -1,4 +1,8 @@
-<?php if (!defined('BASE_FILEPATH'))
+<?php 
+
+namespace VanDragt\Carbon\Sys; 
+
+if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
@@ -17,10 +21,10 @@ class Log
 
 	static function debug($message)
 	{
-		if (Configuration::DEBUG_ENABLED)
+		if (\Configuration::DEBUG_ENABLED)
 		{
 			$message = sprintf("[%s] (%s) DEBUG %s", date('d/M/Y:H:i:s'), pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME), $message . PHP_EOL);
-			error_log($message, 3, Configuration::LOGS_FOLDER . self::filename_per_request());
+			error_log($message, 3, \Configuration::LOGS_FOLDER . self::filename_per_request());
 		}
 	}
 
