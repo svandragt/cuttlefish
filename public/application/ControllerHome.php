@@ -30,11 +30,12 @@ class ControllerHome extends Sys\Controller
     {
         parent::view();
 
-        $this->View = new Html($this->Model->contents, array(
+        $this->View = new Sys\Html($this->Model->contents, array(
             'layout' => 'layout.php',
             'controller' => 'home',
             'model' => 'post',
         ));
+
     }
 
 }

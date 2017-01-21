@@ -27,9 +27,7 @@ class Template
     public function render()
     {
         $path = BASE_FILEPATH . THEME_DIR . "views" . DIRECTORY_SEPARATOR . $this->file;
-        $result = include($path);
-        if (!$result) {
-            echo "Cannot include $path";
-        }
+        require($path);
+
     }
 }

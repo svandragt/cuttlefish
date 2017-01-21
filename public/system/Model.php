@@ -14,7 +14,7 @@ if (!defined('BASE_FILEPATH')) {
 class Model
 {
 
-    protected $contents = array();
+    public $contents = array();
 
     public $model = array();
 

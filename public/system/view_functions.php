@@ -1,6 +1,9 @@
-<?php if (!defined('BASE_FILEPATH')) {
+<?php
+if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
+
+use VanDragt\Carbon\Sys;
 
 /**
  * Shorthand function to link to internal url
@@ -11,7 +14,7 @@
  */
 function href($url)
 {
-    $l = new Url();
+    $l = new Sys\Url();
 
     return $l->index($url)->url;
 }
@@ -23,12 +26,12 @@ function href($url)
  */
 function pages()
 {
-    Log::debug(__FUNCTION__ . " called.");
+    Sys\Log::debug(__FUNCTION__ . " called.");
 
     $output = '';
-    $pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
+    $pages_path = sprintf("/%s/%s", \Configuration::CONTENT_FOLDER, 'pages');
 
-    $files = new Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
+    $files = new Sys\Files(array('url' => $pages_path), \Configuration::CONTENT_EXT);
     foreach ($files->getCollection() as $path) {
         $filename = pathinfo($path, PATHINFO_FILENAME);
         $title = ucwords(str_replace("-", " ", $filename));
@@ -58,7 +61,7 @@ function theme_dir()
  */
 function is_loggedin()
 {
-    $sec = new Security();
+    $sec = new Sys\Security();
 
     return $sec->is_loggedin();
 }

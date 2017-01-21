@@ -2,6 +2,7 @@
 
 namespace VanDragt\Carbon\App;
 
+use Michelf\MarkdownExtra;
 use VanDragt\Carbon\Sys;
 
 if (!defined('BASE_FILEPATH')) {
@@ -27,8 +28,8 @@ class ModelPost extends Sys\Model
     function contents($records, $Environment)
     {
         $loaded_classes = array(
-            // 	'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : NULL,
-            // 	'spyc' => ($Environment->class_loaded('Spyc')) ? $spyc = new Sys\Ext\Spyc : NULL,
+             	'mdep' => new MarkdownExtra(),
+             	'spyc' => new \Spyc(),
         );
         foreach ($records as $record) {
             $this->contents[] = $this->list_contents($record, $loaded_classes);
