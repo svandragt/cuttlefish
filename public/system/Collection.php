@@ -1,24 +1,23 @@
-<?php  
+<?php
 
 namespace VanDragt\Carbon\Sys;
 
-if (!defined('BASE_FILEPATH'))
-{
-	exit('No direct script access allowed');
+if (!defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 }
 
 class Collection
 {
 
-	private $collection;
+    private $collection;
 
-	public function getCollection()
-	{
-		return $this->collection;
-	}
+    public function getCollection()
+    {
+        return $this->collection;
+    }
 
-	public function setCollection($value)
-	{
-		$this->collection = $value;
-	}
+    public function setCollection($value)
+    {
+        $this->collection = $value;
+    }
 }

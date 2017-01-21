@@ -1,37 +1,35 @@
-<?php 
+<?php
 
-namespace VanDragt\Carbon\Sys; 
+namespace VanDragt\Carbon\Sys;
 
-if (!defined('BASE_FILEPATH'))
-{
-	exit('No direct script access allowed');
+if (!defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 }
 
 // PHP 5 - http://stackoverflow.com/questions/62617/whats-the-best-way-to-separate-php-code-and-html
 class Template
 {
 
-	private $args;
-	private $file;
+    private $args;
+    private $file;
 
-	public function __construct($file, $args = array())
-	{
-		$this->file = $file;
-		$this->args = $args;
-	}
+    public function __construct($file, $args = array())
+    {
+        $this->file = $file;
+        $this->args = $args;
+    }
 
-	public function __get($name)
-	{
-		return $this->args[$name];
-	}
+    public function __get($name)
+    {
+        return $this->args[$name];
+    }
 
-	public function render()
-	{
-		$path = BASE_FILEPATH . THEME_DIR . "views" . DIRECTORY_SEPARATOR . $this->file;
-		$result = include $path;
-		if (!$result)
-		{
-			echo "Cannot include $path";
-		}
-	}
+    public function render()
+    {
+        $path = BASE_FILEPATH . THEME_DIR . "views" . DIRECTORY_SEPARATOR . $this->file;
+        $result = include $path;
+        if (!$result) {
+            echo "Cannot include $path";
+        }
+    }
 }

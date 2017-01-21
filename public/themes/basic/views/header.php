@@ -1,6 +1,5 @@
-<?php if (!defined('BASE_FILEPATH'))
-{
-	exit('No direct script access allowed');
+<?php if (!defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 } ?>
 
 <h1 class="float-left"><a href="<?= href('/') ?>"><?= Configuration::SITE_TITLE ?></a></h1>

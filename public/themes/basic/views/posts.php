@@ -1,6 +1,5 @@
-<?php if (!defined('BASE_FILEPATH'))
-{
-	exit('No direct script access allowed');
+<?php if (!defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 }
 
 $post = $this->contents[0];
@@ -9,6 +8,6 @@ printf("<article>
 	<small>%s</small>
 	%s
 	</article>",
-	$post->content->title,
-	$post->metadata->Published,
-	$post->content->main);
+    $post->content->title,
+    $post->metadata->Published,
+    $post->content->main);

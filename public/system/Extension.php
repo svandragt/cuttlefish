@@ -1,26 +1,25 @@
-<?php  
+<?php
 
 namespace VanDragt\Carbon\Sys;
 
-if (!defined('BASE_FILEPATH'))
-{
-	exit('No direct script access allowed');
+if (!defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 }
 
 class Extension
 {
 
-	protected $parent;
+    protected $parent;
 
-	function __construct($parent)
-	{
-		$this->_parent = $parent;
-		// echo get_class($this);
-	}
+    function __construct($parent)
+    {
+        $this->_parent = $parent;
+        // echo get_class($this);
+    }
 
-	function set_parent($parent)
-	{
-		$this->_parent = $parent;
-	}
+    function set_parent($parent)
+    {
+        $this->_parent = $parent;
+    }
 
 }
