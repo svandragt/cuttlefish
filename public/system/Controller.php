@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon\Sys;
+namespace VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
@@ -11,6 +11,10 @@ class Controller extends Extension
     private $content;
     protected $ext;
     protected $args;
+
+    public $Records;
+    public $Model;
+    Public $View;
 
     function __construct($parent, $args)
     {

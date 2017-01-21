@@ -1,14 +1,14 @@
 <?php
 
-namespace VanDragt\Carbon\App;
 
-use VanDragt\Carbon\Sys;
 
+use VanDragt\Carbon;
+use Michelf\MarkdownExtra;
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class ModelPage extends Sys\Model
+class ModelPage extends Carbon\Model
 {
 
     // page model
@@ -20,7 +20,7 @@ class ModelPage extends Sys\Model
     function contents($records, $Environment)
     {
         $loaded_classes = array(
-            'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : NULL,
+            'mdep' =>  new MarkdownExtra(),
         );
         foreach ($records as $record) {
             $this->contents[] = $this->list_contents($record, $loaded_classes);

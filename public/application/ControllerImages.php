@@ -1,24 +1,22 @@
 <?php
 
-namespace VanDragt\Carbon\App;
-
-use VanDragt\Carbon\Sys;
+use VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class ControllerImages extends Sys\Controller
+class ControllerImages extends Carbon\Controller
 {
 
     // single image
 
     function records()
     {
-        $this->Records = new Collection();
+        $this->Records = new Carbon\Collection();
         $this->Records->setCollection(
             array(
-                Filesystem::url_to_path('/content/images/' . implode($this->args, "/")),
+                Carbon\Filesystem::url_to_path('/content/images/' . implode($this->args, "/")),
             )
         );
     }
@@ -32,7 +30,7 @@ class ControllerImages extends Sys\Controller
     {
         parent::view();
 
-        $this->View = new File($this->Model->contents);
+        $this->View = new Carbon\File($this->Model->contents);
         $this->View->render();
     }
 

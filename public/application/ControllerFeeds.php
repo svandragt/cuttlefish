@@ -1,22 +1,22 @@
 <?php
 
-namespace VanDragt\Carbon\App;
 
-use VanDragt\Carbon\Sys;
+
+use VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class ControllerFeeds extends Sys\Controller
+class ControllerFeeds extends Carbon\Controller
 {
 
     // single feed
 
     function records()
     {
-        $limit = Configuration::POSTS_HOMEPAGE;
-        $records = new Files(array('url' => '/content/posts'), $this->ext);
+        $limit = \Configuration::POSTS_HOMEPAGE;
+        $records = new Carbon\Files(array('url' => '/content/posts'), $this->ext);
         $this->Records = $records->limit($limit + 5);
     }
 
@@ -29,6 +29,6 @@ class ControllerFeeds extends Sys\Controller
     function view()
     {
         parent::view();
-        $this->View = new Feed($this->Model->contents);
+        $this->View = new Carbon\Feed($this->Model->contents);
     }
 }

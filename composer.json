@@ -16,8 +16,8 @@
     },
     "autoload": {
         "psr-4": {
-            "VanDragt\\Carbon\\App\\": "public/application/",
-            "VanDragt\\Carbon\\Sys\\": "public/system/"
+            "": "public/application/",
+            "VanDragt\\Carbon\\": "public/system/"
             
         }
     }

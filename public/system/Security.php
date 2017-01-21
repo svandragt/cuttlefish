@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon\Sys;
+namespace VanDragt\Carbon;
 
 class Security
 {

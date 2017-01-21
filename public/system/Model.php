@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon\Sys;
+namespace VanDragt\Carbon;
 
 use \Michelf\Markdown;
 use \Spyc;

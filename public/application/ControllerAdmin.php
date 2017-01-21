@@ -1,14 +1,14 @@
 <?php
 
-namespace VanDragt\Carbon\App;
 
-use VanDragt\Carbon\Sys;
+
+use VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class ControllerAdmin extends Sys\Controller
+class ControllerAdmin extends Carbon\Controller
 {
     protected $contents;
 
@@ -53,7 +53,7 @@ class ControllerAdmin extends Sys\Controller
     {
         parent::view();
 
-        $this->View = new Sys\Html($this->contents, array(
+        $this->View = new Carbon\Html($this->contents, array(
             'layout' => 'single.php',
             'controller' => 'admin',
             'model' => 'page',
@@ -75,7 +75,7 @@ class ControllerAdmin extends Sys\Controller
         $am = $this->allowed_methods;
         array_shift($am);
         foreach ($am as $key => $value):
-            $url = new Sys\Url();
+            $url = new Carbon\Url();
             $output .= sprintf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
         endforeach;
 

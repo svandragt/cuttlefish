@@ -1,14 +1,14 @@
 <?php
 
-namespace VanDragt\Carbon\App;
 
-use VanDragt\Carbon\Sys;
+
+use VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class ControllerHome extends Sys\Controller
+class ControllerHome extends Carbon\Controller
 {
 
     // list of recent posts
@@ -16,7 +16,7 @@ class ControllerHome extends Sys\Controller
     function records()
     {
         $limit = \Configuration::POSTS_HOMEPAGE;
-        $this->Records = new Sys\Files(array('url' => '/content/posts'), $this->ext);
+        $this->Records = new Carbon\Files(array('url' => '/content/posts'), $this->ext);
         $this->Records->limit($limit + 5);
     }
 
@@ -30,7 +30,7 @@ class ControllerHome extends Sys\Controller
     {
         parent::view();
 
-        $this->View = new Sys\Html($this->Model->contents, array(
+        $this->View = new Carbon\Html($this->Model->contents, array(
             'layout' => 'layout.php',
             'controller' => 'home',
             'model' => 'post',

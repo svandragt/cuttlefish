@@ -1,5 +1,5 @@
 <?php
-namespace VanDragt\Carbon\Sys;
+namespace VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
@@ -74,10 +74,11 @@ class Cache extends Extension
      *
      * @return string            path to cache file
      */
-    function cache_file_from_url($path_info = NULL)
+    function cache_file_from_url($path_info = '')
     {
+
         $ds = DIRECTORY_SEPARATOR;
-        if (is_null($path_info)) {
+        if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
             $path_info = substr($_SERVER['PATH_INFO'], 1);
         }
         $path_info = ltrim($path_info, '/');

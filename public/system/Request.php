@@ -1,5 +1,5 @@
 <?php
-namespace VanDragt\Carbon\Sys;
+namespace VanDragt\Carbon;
 
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
@@ -21,7 +21,7 @@ class Request
 
         // Route to controller
         $args = explode("/", $this->path_info());
-        $controller_class = '\VanDragt\Carbon\App\Controller' . ucfirst($args[1]);
+        $controller_class = 'Controller' . ucfirst($args[1]);
         $controller_arguments = array_slice($args, 2);
         if (class_exists($controller_class, TRUE)) {
             $this->controller = new $controller_class($this, $controller_arguments);
@@ -39,9 +39,13 @@ class Request
      */
     function path_info()
     {
-        $path_info = $_SERVER['PATH_INFO'];
+        $path_info = '';
+        if (isset($_SERVER['PATH_INFO'])) {
+            $path_info = $_SERVER['PATH_INFO'];
+        }
 
-        $no_specified_path = is_null($path_info) || $path_info == '/';
+
+        $no_specified_path = empty($path_info) || $path_info == '/';
         if ($no_specified_path) {
             $path_info = \Configuration::HOME_PAGE;
         } else {

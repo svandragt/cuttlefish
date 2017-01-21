@@ -6,4 +6,6 @@ $loader = require '../vendor/autoload.php';
 
 require './Configuration.php';
 
-$carbon = new \VanDragt\Carbon\Sys\Request();
+use VanDragt\Carbon;
+
+$carbon = new Carbon\Request();
