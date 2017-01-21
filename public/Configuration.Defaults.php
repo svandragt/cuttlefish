@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon\Sys;
+use VanDragt\Carbon\Sys;
 
 if (!defined('BASE_FILEPATH'))
 {
