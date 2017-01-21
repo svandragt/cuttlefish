@@ -35,7 +35,7 @@ class Cache extends Extension
      */
     function has_cacheable_page_request()
     {
-        $cache_enabled = Configuration::CACHE_ENABLED;
+        $cache_enabled = \Configuration::CACHE_ENABLED;
         $is_caching = !ob_get_level() == 0;
         $has_noerrors = is_null(error_get_last());
         $has_cacheable_page_request = ($cache_enabled && $is_caching && $has_noerrors);
@@ -140,14 +140,14 @@ class Cache extends Extension
     {
         $output = '';
 
-        if (Configuration::INDEX_PAGE !== '') {
+        if (\Configuration::INDEX_PAGE !== '') {
             die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
         }
         $output .= $this->clear();
 
         $output .= "<br>Generating site:<br>" . PHP_EOL;
-        $content = Configuration::CONTENT_FOLDER;
-        $ext = Configuration::CONTENT_EXT;
+        $content = \Configuration::CONTENT_FOLDER;
+        $ext = \Configuration::CONTENT_EXT;
         $c = new Curl;
         $fs = new Files(array('path' => Filesystem::url_to_path("/$content"), $ext));
 
@@ -173,7 +173,7 @@ class Cache extends Extension
 
             // support Vagrant port forwarding where local HTTP_HOST is different from developer
             if (defined('Configuration::SERVER_HTTP_HOST')) {
-                $url_string = str_replace($_SERVER['HTTP_HOST'], Configuration::SERVER_HTTP_HOST, $url_string);
+                $url_string = str_replace($_SERVER['HTTP_HOST'], \Configuration::SERVER_HTTP_HOST, $url_string);
             }
             $contents = $c->url_contents($url_string);
 
@@ -181,7 +181,7 @@ class Cache extends Extension
                 die("ERROR: no contents for {$url2->abs()->url}");
             }
 
-            if (Configuration::CACHE_ENABLED == FALSE) {
+            if (\Configuration::CACHE_ENABLED == FALSE) {
                 $path = $this->write_cache_to_disk($url, $contents);
                 $output .= "Written: $path<br>" . PHP_EOL;
             }
@@ -215,7 +215,7 @@ class Cache extends Extension
 
     function cache_folder()
     {
-        return realpath(BASE_FILEPATH . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
+        return realpath(BASE_FILEPATH . str_replace("/", DIRECTORY_SEPARATOR, \Configuration::CACHE_FOLDER));
     }
 
     /**
@@ -240,7 +240,7 @@ class Cache extends Extension
             $destination_files = array();
             foreach ($fs->getCollection() as $key => $value) {
                 $output .= "$key: $value<br>";
-                $cache = ltrim(Configuration::CACHE_FOLDER, "./");
+                $cache = ltrim(\Configuration::CACHE_FOLDER, "./");
                 $destination_files[] = str_replace('public', $cache, $value);
             }
             Filesystem::copy_files($fs->getCollection(), $destination_files);
