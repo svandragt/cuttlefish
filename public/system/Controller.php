@@ -9,8 +9,8 @@ if (!defined('BASE_FILEPATH')) {
 class Controller extends Extension
 {
     private $content;
-    private $ext;
-    private $args;
+    protected $ext;
+    protected $args;
 
     function __construct($parent, $args)
     {

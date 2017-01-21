@@ -10,6 +10,7 @@ if (!defined('BASE_FILEPATH')) {
 
 class ControllerAdmin extends Sys\Controller
 {
+    protected $contents;
 
     // admin section does not use content files
 
@@ -52,7 +53,7 @@ class ControllerAdmin extends Sys\Controller
     {
         parent::view();
 
-        $this->View = new Html($this->contents, array(
+        $this->View = new Sys\Html($this->contents, array(
             'layout' => 'single.php',
             'controller' => 'admin',
             'model' => 'page',
@@ -74,7 +75,7 @@ class ControllerAdmin extends Sys\Controller
         $am = $this->allowed_methods;
         array_shift($am);
         foreach ($am as $key => $value):
-            $url = new Url();
+            $url = new Sys\Url();
             $output .= sprintf('<li><a href="%s">%s</a></li>', $url->index("/admin/$key")->url, $value);
         endforeach;
 
@@ -91,7 +92,8 @@ class ControllerAdmin extends Sys\Controller
     function draft()
     {
         $this->_parent->Security->login_redirect();
-        $this->_parent->template_download('post');
+        // Broken draft but Request object shouldn't be called from here.
+        //       $this->_parent->template_download('post');
     }
 
     function clear_cache()

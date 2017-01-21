@@ -14,7 +14,7 @@ if (!defined('BASE_FILEPATH')) {
 class Model
 {
 
-    private $contents = array();
+    protected $contents = array();
 
     public $model = array();
 
@@ -69,13 +69,13 @@ class Model
             $content_section = $content_sections[$i];
             $section_key = $section_keys[$i];
             $section_value = $section_values[$i];
-            $content->$section_value = $this->section($content_section, $section_key, $section_value, $loaded_classes);
+            $content->$section_value = $this->section($content_section, $section_key, $loaded_classes);
         }
 
         return $content;
     }
 
-    public function section($content_section, $section_key, $section_value, $loaded_classes)
+    public function section($content_section, $section_key, $loaded_classes)
     {
         // assign classes to their variables
         foreach ($loaded_classes as $class_name => $obj) {
