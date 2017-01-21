@@ -10,7 +10,10 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "mustangostang/spyc": "^0.6.1",
+        "michelf/php-markdown": "^1.7"
+    },
     "autoload": {
         "psr-4": {
             "VanDragt\\Carbon\\App\\": "public/application/",

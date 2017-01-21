@@ -2,6 +2,10 @@
 
 namespace VanDragt\Carbon\Sys;
 
+use \Michelf\Markdown;
+use \Spyc;
+
+
 if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
@@ -78,13 +82,7 @@ class Model
         $section = new \StdClass();
         switch ($section_key) {
             case 'yaml':
-                if ($spyc) {
-                    $yaml = $spyc->YAMLLoadString($content_section);
-                } else {
-                    $yaml = $content_section;
-                }
-
-                var_dump($yaml);
+                $yaml = Spyc::YAMLLoadString($content_section);
 
                 foreach ($yaml as $key => $value) {
                     $section->$key = $value;
@@ -95,11 +93,9 @@ class Model
                 $title_sections = preg_split('/\R/', trim($md_sections[0]), 2);
                 $section->title = $title_sections[0];
 
-                if ($mdep) {
-                    $section->main = $mdep->transform($md_sections[1]);
-                } else {
-                    $section->main = $md_sections[1];
-                }
+
+                $section->main = Markdown::defaultTransform($md_sections[1]);
+
                 break;
 
             default:
