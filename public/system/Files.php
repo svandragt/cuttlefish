@@ -27,6 +27,13 @@ class Files extends Collection
     {
         Log::debug(__FUNCTION__ . " called.");
         $files = array();
+
+        // dir must exist
+        if (false == is_dir($dir)) {
+            return $files;
+        }
+
+        // get files
         if ($handle = opendir($dir)) {
             while (FALSE !== ($file = readdir($handle))) {
                 if ($file != "." && $file != "..") {
