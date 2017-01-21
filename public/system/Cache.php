@@ -151,6 +151,8 @@ class Cache extends Extension
         $c = new Curl;
         $fs = new Files(array('path' => Filesystem::url_to_path("/$content"), $ext));
 
+        $cache_urls = array();
+
         foreach ($fs->getCollection() as $index => $file_path) {
             $file_obj = new File($file_path);
             $url_obj = new Url();
