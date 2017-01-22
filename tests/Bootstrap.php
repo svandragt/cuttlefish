@@ -13,6 +13,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASE_FILEPATH. '
 
 unset($dir);
 
-$loader = require '../vendor/autoload.php';
+$loader =  require __DIR__ . '/../vendor/autoload.php';
 
-require '../public/Configuration.php';
+require __DIR__ . '/../public/Configuration.php';
