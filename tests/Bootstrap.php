@@ -12,3 +12,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASE_FILEPATH));
 set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASE_FILEPATH. '/system'));
 
 unset($dir);
+
+$loader = require '../vendor/autoload.php';
+
+require '../public/Configuration.php';
