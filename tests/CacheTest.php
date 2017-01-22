@@ -1,5 +1,7 @@
 <?php
 
+use VanDragt\Carbon;
+
 class CacheTest extends PHPUnit_Framework_TestCase {
 
 
