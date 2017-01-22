@@ -15,7 +15,6 @@ class Configuration extends Carbon\Defaults
 	const CACHE_ENABLED = FALSE;
 
 	// const INDEX_PAGE     = '/index.php';
-	// const ADMIN_PASSWORD = "carbon";
 
     // support port forwarding where local HTTP_HOST is different from developer (eg vagrant)
     // const SERVER_HTTP_HOST = 'localhost';
