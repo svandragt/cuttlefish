@@ -25,7 +25,7 @@ class ControllerPages extends Carbon\Controller
 
     function model()
     {
-        $this->Model = new ModelPage($this->Records->getCollection(), $this->_parent->Environment);
+        $this->Model = new ModelPage($this->Records->getCollection());
     }
 
     function view()
