@@ -125,7 +125,7 @@ blockquote {
 }
 
 #footer li[class="credits"] a {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 #footer li.credits {

@@ -11,6 +11,8 @@ isset($_SERVER['PATH_INFO']) OR $_SERVER['PATH_INFO'] = '/';
 set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASE_FILEPATH));
 set_include_path(get_include_path() . PATH_SEPARATOR . realpath(BASE_FILEPATH. '/system'));
 
-include BASE_FILEPATH . '/system/autoload.php';
-
 unset($dir);
+
+$loader =  require __DIR__ . '/../vendor/autoload.php';
+
+require __DIR__ . '/../public/Configuration.php';

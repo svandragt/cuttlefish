@@ -1,62 +1,59 @@
 <?php
 
+namespace VanDragt\Carbon;
+
 class Security
 {
 
-	function login_redirect()
-	{
-		if (!$this->is_loggedin())
-		{
-			$url = new Url();
-			header('Location: ' . $url->index('/admin')->abs()->url);
-		};
-	}
+    function login_redirect()
+    {
+        if (!$this->is_loggedin()) {
+            $url = new Url();
+            header('Location: ' . $url->index('/admin')->abs()->url);
+        };
+    }
 
-	function is_loggedin()
-	{
-		return !is_null(Http::session('admin'));
-	}
+    function is_loggedin()
+    {
+        return !is_null(Http::session('admin'));
+    }
 
-	function login()
-	{
-		Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
+    function login()
+    {
+        Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
 
-		$output = "";
+        $output = "";
 
-		if (is_null(Configuration::ADMIN_PASSWORD))
-		{
-			$output .= "Please set an admin password under Configuration::ADMIN_PASSWORD.<br>";
-		}
-		else
-		{
-			$password = HTTP::post('password');
-			if (is_null($password))
-			{
-				$output .= "<form method='post'><input type='password' name='password'><input type='submit'></form>";
-			}
-			elseif ($password == Configuration::ADMIN_PASSWORD)
-			{
-				Http::set_session(array(
-					'admin' => TRUE,
-				));
-				$output .= "logged in.<br>";
-				Log::info("Login attempt successful");
-				$url = new Url();
-				header('Location: ' . $url->index('/admin')->abs()->url);
-			}
-			else
-			{
-				Log::warn("Login attempt unsuccessful.");
-			}
-		}
+        if ($admin_password = getenv('CARBON_ADMIN_PASSWORD')) {
+            $password = HTTP::post('password');
+            if ($password == $admin_password) {
+                Http::set_session(array(
+                    'admin' => TRUE,
+                ));
+                $output .= "logged in.<br>";
+                Log::info("Login attempt successful");
+                $url = new Url();
+                header('Location: ' . $url->index('/admin')->abs()->url);
+            } else {
+                if (false === empty($password)) {
+                    Log::warn("Login attempt unsuccessful.");
+                    $output .= "Nope.<br>";
+                }
+                $output .= "<form method='post'><input type='password' name='password'><input type='submit'></form>";
 
-		return $output;
-	}
+            }
+        } else {
+            $output .= "To login, create an environment variable called CARBON_ADMIN_PASSWORD and a password as the value.<br>";
 
-	function logout()
-	{
-		session_destroy();
+        }
 
-		return "logged out.<br>";
-	}
+        return $output;
+    }
+
+    function logout()
+    {
+        session_destroy();
+
+        return "logged out.<br>";
+    }
 }

@@ -3,8 +3,7 @@ Carbon is a PHP based hackable performant (semi) static blogging system.
 
 _It should be considered early alpha._
 
-A [screenshot of the default theme](http://i.imm.io/FV6p.png):
-![Screenshot of the defaul theme](http://i.imm.io/FV6p.png)
+[![Build Status](https://travis-ci.org/svandragt/carbon.svg?branch=master)](https://travis-ci.org/svandragt/carbon)
 
 
 ## Screencasts
@@ -12,7 +11,6 @@ A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 1. [Installing Carbon in developer mode on a shared host](http://screencast.com/t/QgDYtKUFpG)
 2. [Enable caching for production use](http://screencast.com/t/bRs6taeYUEQl)
 3. [Generate a static site and deployment](http://screencast.com/t/JRijwzqMA94)
-4. [Full powershell support](http://screencast.com/t/ALcrjU7csKM)
 
 
 ## Aims
@@ -26,6 +24,6 @@ A [screenshot of the default theme](http://i.imm.io/FV6p.png):
 
 [Installation, configuration, add content](https://github.com/svandragt/carbon/wiki).
 
-Carbon now [has a website](http://carbon.vandragt.com). You can see [what i'm planning for upcoming milesones](https://github.com/svandragt/carbon/issues). There's a [wiki for tutorials / carbon powered sites]([https://github.com/svandragt/carbon/wiki). You can discuss Carbon via IRC ([#carbonframework on freenode](http://webchat.freenode.net/?nick=)) and the [Carbon Framework Google Group](https://groups.google.com/forum/?fromgroups#!forum/carbon-framework).
+Carbon now [has a website](http://carbon.vandragt.com). [Contributions are welcomed](https://github.com/svandragt/carbon/issues). 
 
-For more information visit the wiki.
+For more information [visit the wiki]([https://github.com/svandragt/carbon/wiki).

@@ -1,26 +1,30 @@
-<?php if (!defined('BASE_FILEPATH'))
-{
-	exit('No direct script access allowed');
+<?php
+
+
+
+use VanDragt\Carbon;
+use Michelf\MarkdownExtra;
+if (!defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 }
 
-class ModelPage extends Model
+class ModelPage extends Carbon\Model
 {
 
-	// page model
+    // page model
 
-	public $model = array(
-		'markdown|html' => 'content',
-	);
+    public $model = array(
+        'markdown|html' => 'content',
+    );
 
-	function contents($records, $Environment)
-	{
-		$loaded_classes = array(
-			'mdep' => ($Environment->class_loaded('MarkdownExtra_Parser')) ? $mdep = new MarkdownExtra_Parser : NULL,
-		);
-		foreach ($records as $record)
-		{
-			$this->contents[] = $this->list_contents($record, $loaded_classes);
-		}
-	}
+    function contents($records)
+    {
+        $loaded_classes = array(
+            'mdep' =>  new MarkdownExtra(),
+        );
+        foreach ($records as $record) {
+            $this->contents[] = $this->list_contents($record, $loaded_classes);
+        }
+    }
 
 }

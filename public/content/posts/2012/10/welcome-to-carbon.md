@@ -43,7 +43,7 @@ Manage your __data models and theming logic__ using the MVC classes in the _publ
 
 open `public/Configuration.php` to:
 
-* Enable administration functions: set `const ADMIN_PASSWORD = "your passphrase";` then visit [/admin](http://localhost/index.php/admin) to login.
+* Enable administration functions: create an environment variable called CARBON_ADMIN_PASSWORD and a password as the value, then visit [/admin](http://localhost/index.php/admin) to login.
 * Change your site title and motto.
 * Set the default number of posts shown on the frontpage.
 * Change common folder locations (Please submit issues if you find hardcoded locations).
