@@ -66,3 +66,4 @@ function is_loggedin()
 {
     return $Security->is_loggedin();
 }
+
