@@ -28,7 +28,7 @@ class Http
     }
 
 
-    static function download_string($contents)
+    static function attach_plaintext($contents)
     {
         $filename = sprintf("cbn_%s.%s", date("Y-m-d_H-i-s", time()), \Configuration::CONTENT_EXT);
         header("Content-Type: text/plain");
