@@ -97,7 +97,7 @@ class Request
 
         $contents = (file_exists($filepath_template)) ? trim(file_get_contents($filepath_template)) : "Create '$filepath_template' for your $template_type template.";
         $contents = sprintf($contents, $now);
-        Http::download_string($contents);
+        Http::attach_plaintext($contents);
         exit();
     }
 }
