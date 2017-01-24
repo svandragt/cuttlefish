@@ -8,6 +8,8 @@ if (!defined('BASE_FILEPATH')) {
 
 class Feed
 {
+    
+    private $xml;
 
     /**
      * Feed constructor.
