@@ -4,6 +4,7 @@ namespace VanDragt\Carbon;
 
 class Curl
 {
+    private $c;
 
     function __construct()
     {
