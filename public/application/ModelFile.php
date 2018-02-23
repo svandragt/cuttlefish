@@ -15,7 +15,7 @@ class ModelFile extends Carbon\Model
 
     public $model = array();
 
-    function contents($records, $Environment)
+    function contents($records)
     {
         $this->contents = $records;
     }

@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-
-apt-get update
 apt-get install -y php5 php-pear apache2 php5-suhosin php5-curl
 rm -rf /var/www
 ln -fs /vagrant/public /var/www

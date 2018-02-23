@@ -25,7 +25,7 @@ class ControllerPosts extends Carbon\Controller
 
     function model()
     {
-        $this->Model = new ModelPost($this->Records->getCollection(), $this->_parent->Environment);
+        $this->Model = new ModelPost($this->Records->getCollection());
     }
 
     function view()

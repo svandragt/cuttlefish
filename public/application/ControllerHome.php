@@ -22,7 +22,7 @@ class ControllerHome extends Carbon\Controller
 
     function model()
     {
-        $model = new ModelPost($this->Records->getCollection(), $this->_parent->Environment);
+        $model = new ModelPost($this->Records->getCollection());
         $this->Model = $model->limit(\Configuration::POSTS_HOMEPAGE);
     }
 

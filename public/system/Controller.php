@@ -6,7 +6,7 @@ if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Controller extends Extension
+class Controller
 {
     private $content;
     protected $ext;
@@ -18,8 +18,6 @@ class Controller extends Extension
 
     function __construct($parent, $args)
     {
-        parent::__construct($parent);
-
         $this->content = \Configuration::CONTENT_FOLDER;
         $this->ext = \Configuration::CONTENT_EXT;
         $this->args = $args;

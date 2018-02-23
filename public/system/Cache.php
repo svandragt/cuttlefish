@@ -5,14 +5,13 @@ if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Cache extends Extension
+class Cache
 {
 
     protected $cwd;
 
-    public function __construct($parent)
+    public function __construct()
     {
-        parent::__construct($parent);
         $this->cwd = getcwd(); // set current working directory
     }
 
@@ -203,6 +202,8 @@ class Cache extends Extension
      */
     function clear()
     {
+        global $Environment;
+
         $dir = $this->cache_folder();
         $output = sprintf("Removing  all files in %s<br>", $dir);
         $files = new Files(array('path' => $dir));
@@ -211,7 +212,7 @@ class Cache extends Extension
         foreach ($dirs as $dir) {
             Filesystem::remove_dirs(realpath($dir . '/.'));
         }
-        $this->_parent->Environment->server_setup();
+        $Environment->server_setup();
 
         return (string)$output;
     }

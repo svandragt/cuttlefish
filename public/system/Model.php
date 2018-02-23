@@ -18,7 +18,7 @@ class Model
 
     public $model = array();
 
-    public function __construct($records, $Environment)
+    public function __construct($records)
     {
         try {
             if (array_unique($this->model) !== $this->model) {
@@ -27,10 +27,10 @@ class Model
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
-        $this->contents($records, $Environment);
+        $this->contents($records);
     }
 
-    function contents($records, $Environment)
+    function contents($records)
     {
         // implement $this->contents in your controller
     }
