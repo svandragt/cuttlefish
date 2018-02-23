@@ -25,7 +25,7 @@ class ModelPost extends Carbon\Model
         return strcmp($b->metadata->Published, $a->metadata->Published);
     }
 
-    function contents($records, $Environment)
+    function contents($records)
     {
         $loaded_classes = array(
              	'mdep' => new MarkdownExtra(),

@@ -86,23 +86,9 @@ class Environment
     {
         $flist = new Files(array('url' => '/system/Ext'), 'php');
         foreach ($flist->getCollection() as $key => $filepath) {
-            $this->register($filepath);
+			$this->register[pathinfo($filepath, PATHINFO_FILENAME)] = TRUE;
             $this->add_include_path(pathinfo($filepath, PATHINFO_DIRNAME));
         }
-    }
-
-    private function register($filepath)
-    {
-        $this->register[pathinfo($filepath, PATHINFO_FILENAME)] = TRUE;
-    }
-
-    public function __destruct()
-    {
-    }
-
-    public function class_loaded($classname)
-    {
-        return isset($this->register[$classname]);
     }
 
 }

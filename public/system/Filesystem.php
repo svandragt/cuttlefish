@@ -21,23 +21,6 @@ class Filesystem
         }
     }
 
-    static function is_found($file_path)
-    {
-        if (is_null($file_path)) {
-            throw new \Exception('$file_path cannot be null.');
-        }
-        if (!file_exists($file_path)) {
-            Log::info("'$file_path' cannot be found.");
-            Log::debug($file_path . 'NOT found');
-            $found = FALSE;
-        } else {
-            Log::debug($file_path . ' found');
-            $found = TRUE;
-        }
-
-        return $found;
-    }
-
     static function url_to_path($url)
     {
         // takes /content/pages/index and returns path

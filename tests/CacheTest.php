@@ -2,7 +2,7 @@
 
 use VanDragt\Carbon;
 
-class CacheTest extends PHPUnit_Framework_TestCase {
+class CacheTest extends \PHPUnit\Framework\TestCase {
 
 
 	public function test_fucking_example() {

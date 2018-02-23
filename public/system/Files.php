@@ -29,7 +29,7 @@ class Files extends Collection
         $files = array();
 
         // dir must exist
-        if (false == is_dir($dir)) {
+        if (false === is_dir($dir)) {
             return $files;
         }
 

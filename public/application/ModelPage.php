@@ -17,7 +17,7 @@ class ModelPage extends Carbon\Model
         'markdown|html' => 'content',
     );
 
-    function contents($records, $Environment)
+    function contents($records)
     {
         $loaded_classes = array(
             'mdep' =>  new MarkdownExtra(),

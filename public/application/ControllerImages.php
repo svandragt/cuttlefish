@@ -23,7 +23,7 @@ class ControllerImages extends Carbon\Controller
 
     function model()
     {
-        $this->Model = new ModelFile($this->Records->getCollection(), $this->_parent->Environment);
+        $this->Model = new ModelFile($this->Records->getCollection());
     }
 
     function view()

@@ -8,8 +8,15 @@ if (!defined('BASE_FILEPATH')) {
 
 class Html
 {
-
-    function __construct($contents, $shared)
+	/**
+	 * Html constructor.
+	 * This code requires the following theme files:
+	 * content.php, head.php, header.php, footer.php,sidebar.php
+	 *
+	 * @param $contents
+	 * @param $shared
+	 */
+	function __construct($contents, $shared)
     {
         $template = new Template(
             $shared['layout'],
@@ -41,19 +48,4 @@ class Html
         $template->render();
     }
 
-
-
-    //    static function feed($models, $args) {
-    //        $feed = new Feed($models, $args);
-    //        $feed->output();
-    //    }
-
-    //    static function file($file, $args) {
-    //        $file = new File($file);
-    //        $file->output();
-    //    }
-
-    // public function template($models , $shared) {
-
-    // }
 }
