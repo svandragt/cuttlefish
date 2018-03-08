@@ -5,113 +5,101 @@ namespace VanDragt\Carbon;
 use \Michelf\Markdown;
 use \Spyc;
 
-
-if (!defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
+if ( ! defined( 'BASE_FILEPATH' ) ) {
+	exit( 'No direct script access allowed' );
 }
 
+class Model {
+	public $contents = array();
+	public $model = array();
 
-class Model
-{
+	public function __construct( $records ) {
+		try {
+			if ( array_unique( $this->model ) !== $this->model ) {
+				throw new \Exception( 'Array values not unique for model' );
+			}
+		}
+		catch ( \Exception $e ) {
+			Log::error( $e->getMessage() );
+		}
+		$this->contents( $records );
+	}
 
-    public $contents = array();
+	function contents( $records ) {
+		// implement $this->contents in your controller
+	}
 
-    public $model = array();
+	function limit( $max ) {
+		$this->contents = array_slice( $this->contents, 0, $max );
 
-    public function __construct($records)
-    {
-        try {
-            if (array_unique($this->model) !== $this->model) {
-                throw new \Exception('Array values not unique for model');
-            }
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-        }
-        $this->contents($records);
-    }
+		return $this;
+	}
 
-    function contents($records)
-    {
-        // implement $this->contents in your controller
-    }
+	function list_contents( $record, $loaded_classes ) {
+		$content           = new \StdClass();
+		$content->metadata = new \StdClass();
 
-    function limit($max)
-    {
-        $this->contents = array_slice($this->contents, 0, $max);
+		$url  = new Url();
+		$file = new File( $record );
 
-        return $this;
-    }
+		$content_sections = preg_split( '/\R\R\R/', trim( file_get_contents( $file->path ) ), count( $this->model ) );
+		$section_keys     = array_keys( $this->model );
+		$section_values   = array_values( $this->model );
 
-    function list_contents($record, $loaded_classes)
-    {
-        $content = new \StdClass();
-        $content->metadata = new \StdClass();
+		try {
+			if ( count( $section_keys ) != count( $content_sections ) ) {
+				throw new \Exception( 'Model (' . get_class( $this ) . ') definition (' . count( $section_keys ) . ') does not match number of content sections (' . count( $content_sections ) . ').' );
+			}
+		}
+		catch ( \Exception $e ) {
+			Log::error( $e->getMessage() );
+			exit();
+		}
 
-        $url = new Url();
-        $file = new File($record);
+		$content->link = $url->file_to_url( $file )->index()->abs()->url;
 
-        $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($file->path)), count($this->model));
-        $section_keys = array_keys($this->model);
-        $section_values = array_values($this->model);
+		for ( $i = 0; $i < count( $this->model ); $i ++ ) {
+			$content_section         = $content_sections[ $i ];
+			$section_key             = $section_keys[ $i ];
+			$section_value           = $section_values[ $i ];
+			$content->$section_value = $this->section( $content_section, $section_key, $loaded_classes );
+		}
 
-        try {
-            if (count($section_keys) != count($content_sections)) {
-                throw new \Exception('Model (' . get_class($this) . ') definition (' . count($section_keys) . ') does not match number of content sections (' . count($content_sections) . ').');
-            }
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            exit();
-        }
+		return $content;
+	}
 
-        $content->link = $url->file_to_url($file)->index()->abs()->url;
+	public function section( $content_section, $section_key, $loaded_classes ) {
+		// assign classes to their variables
+		foreach ( $loaded_classes as $class_name => $obj ) {
+			$$class_name = $obj;
+		}
 
-        for ($i = 0; $i < count($this->model); $i++) {
-            $content_section = $content_sections[$i];
-            $section_key = $section_keys[$i];
-            $section_value = $section_values[$i];
-            $content->$section_value = $this->section($content_section, $section_key, $loaded_classes);
-        }
+		$section = new \StdClass();
+		switch ( $section_key ) {
+			case 'yaml':
+				$yaml = Spyc::YAMLLoadString( $content_section );
 
-        return $content;
-    }
+				foreach ( $yaml as $key => $value ) {
+					$section->$key = $value;
+				}
+				break;
+			case 'markdown|html':
+				$md_sections    = preg_split( '/=\R/', trim( $content_section ), 2 );
+				$title_sections = preg_split( '/\R/', trim( $md_sections[0] ), 2 );
+				$section->title = $title_sections[0];
 
-    public function section($content_section, $section_key, $loaded_classes)
-    {
-        // assign classes to their variables
-        foreach ($loaded_classes as $class_name => $obj) {
-            $$class_name = $obj;
-        }
+				$section->main = Markdown::defaultTransform( $md_sections[1] );
 
-        $section = new \StdClass();
-        switch ($section_key) {
-            case 'yaml':
-                $yaml = Spyc::YAMLLoadString($content_section);
+				break;
 
-                foreach ($yaml as $key => $value) {
-                    $section->$key = $value;
-                }
-                break;
-            case 'markdown|html':
-                $md_sections = preg_split('/=\R/', trim($content_section), 2);
-                $title_sections = preg_split('/\R/', trim($md_sections[0]), 2);
-                $section->title = $title_sections[0];
+			default:
+				break;
+		}
 
+		return $section;
+	}
 
-                $section->main = Markdown::defaultTransform($md_sections[1]);
-
-                break;
-
-            default:
-                break;
-        }
-
-        return $section;
-    }
-
-    public function sort($a, $b)
-    {
-        return strcmp($b, $a);
-    }
-
-
+	public function sort( $a, $b ) {
+		return strcmp( $b, $a );
+	}
 }

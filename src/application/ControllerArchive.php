@@ -15,19 +15,19 @@ class ControllerArchive extends Carbon\Controller
 
     function records()
     {
-        $this->Records = new Carbon\Files(array('url' => '/content/posts'), $this->ext);
+        $this->records = new Carbon\Files(array( 'url' => '/content/posts'), $this->ext);
     }
 
     function model()
     {
-        $model = new ModelPost($this->Records->getCollection());
+        $model = new ModelPost($this->records);
         $this->Model = $model;
     }
 
     function view()
     {
         parent::view();
-        $this->View = new Carbon\Html($this->Model->contents, array(
+        $this->view = new Carbon\Html($this->Model->contents, array(
             'layout' => 'layout.php',
             'controller' => 'archive',
             'model' => 'post',

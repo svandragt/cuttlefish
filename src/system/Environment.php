@@ -85,7 +85,7 @@ class Environment
     private function register_externals()
     {
         $flist = new Files(array('url' => '/system/Ext'), 'php');
-        foreach ($flist->getCollection() as $key => $filepath) {
+        foreach ($flist->files() as $key => $filepath) {
 			$this->register[pathinfo($filepath, PATHINFO_FILENAME)] = TRUE;
             $this->add_include_path(pathinfo($filepath, PATHINFO_DIRNAME));
         }

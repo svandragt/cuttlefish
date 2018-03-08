@@ -5,8 +5,9 @@ if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Files extends Collection
+class Files
 {
+	private $files = [];
 
     public function __construct($dir_or_path, $ext = NULL)
     {
@@ -15,9 +16,9 @@ class Files extends Collection
         } elseif (isset($dir_or_path['path'])) {
             $dir_or_path = $dir_or_path['path'];
         }
-        $collection = $this->collect($dir_or_path, $ext);
-        rsort($collection);
-        $this->setCollection($collection);
+        $files = $this->collect($dir_or_path, $ext);
+        rsort($files);
+        $this->files = $files;
 
         return $this;
     }
@@ -56,16 +57,16 @@ class Files extends Collection
 
     public function limit($max)
     {
-        $this->setCollection(array_slice($this->getCollection(), 0, $max));
+        $this->files = array_slice($this->files, 0, $max);
 
         return $this;
     }
 
-    public function remove_all($is_directory_removable = FALSE)
+    public function remove_all()
     {
         $output = '';
         Log::debug(__FUNCTION__ . " called.");
-        foreach ($this->getCollection() as $file) {
+        foreach ($this->files as $file) {
             $file = realpath($file);
             $output .= "Deleted: $file" . "<br>";
             unlink($file);
@@ -74,4 +75,10 @@ class Files extends Collection
         return $output;
     }
 
+	/**
+	 * @return array
+	 */
+	public function files() {
+		return $this->files;
+	}
 }

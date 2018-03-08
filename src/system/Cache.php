@@ -153,7 +153,7 @@ class Cache
 
         $cache_urls = array();
 
-        foreach ($fs->getCollection() as $index => $file_path) {
+        foreach ($fs->files() as $index => $file_path) {
             $file_obj = new File($file_path);
             $url_obj = new Url();
             $cache_urls[] = $url_obj->file_to_url($file_obj)->index();
@@ -175,6 +175,7 @@ class Cache
 
             // support Vagrant port forwarding where local HTTP_HOST is different from developer
             if (defined('Configuration::SERVER_HTTP_HOST')) {
+                // TODO Warning:(178, 82) Constant 'SERVER_HTTP_HOST' not found in \Configuration
                 $url_string = str_replace($_SERVER['HTTP_HOST'], \Configuration::SERVER_HTTP_HOST, $url_string);
             }
             $contents = $c->url_contents($url_string);
@@ -212,6 +213,7 @@ class Cache
         foreach ($dirs as $dir) {
             Filesystem::remove_dirs(realpath($dir . '/.'));
         }
+        // TODO: server_setup not found
         $Environment->server_setup();
 
         return (string)$output;
@@ -242,12 +244,12 @@ class Cache
             $fs = new Files(array('path' => Filesystem::url_to_path("$theme_dir")), $file_type);
 
             $destination_files = array();
-            foreach ($fs->getCollection() as $key => $value) {
+            foreach ($fs->files() as $key => $value) {
                 $output .= "$key: $value<br>";
                 $cache = ltrim(\Configuration::CACHE_FOLDER, "./");
                 $destination_files[] = str_replace('public', $cache, $value);
             }
-            Filesystem::copy_files($fs->getCollection(), $destination_files);
+            Filesystem::copy_files($fs->files(), $destination_files);
         }
 
         return (string)$output;

@@ -12,9 +12,9 @@ class Controller
     protected $ext;
     protected $args;
 
-    public $Records;
-    public $Model;
-    Public $View;
+    protected $records;
+    protected $Model;
+    protected $view;
 
     function __construct($parent, $args)
     {
