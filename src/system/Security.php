@@ -7,13 +7,13 @@ class Security
 
     function login_redirect()
     {
-        if (!$this->is_loggedin()) {
+        if (!$this->is_logged_in()) {
             $url = new Url();
             header('Location: ' . $url->index('/admin')->abs()->url);
         };
     }
 
-    function is_loggedin()
+    function is_logged_in()
     {
         return !is_null(Http::session('admin'));
     }

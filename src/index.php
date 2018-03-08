@@ -38,6 +38,14 @@ class App {
 		// Save cache
 		$this->cache->end();
 	}
+
+	/**
+	 * @return Carbon\Security
+	 */
+	public function getSecurity() {
+		return $this->security;
+	}
 }
 
+global $app;
 $app = new App();
