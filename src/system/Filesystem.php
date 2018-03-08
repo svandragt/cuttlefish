@@ -25,7 +25,7 @@ class Filesystem
     {
         // takes /content/pages/index and returns path
         Log::debug(__FUNCTION__ . " called.");
-        $path = BASE_FILEPATH . str_replace('/', DIRECTORY_SEPARATOR, $url);
+        $path = BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url),'/');
         Log::debug("$url converted to $path");
 
         return $path;
