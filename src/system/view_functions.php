@@ -5,9 +5,6 @@ if (!defined('BASE_FILEPATH')) {
 
 use VanDragt\Carbon;
 
-global $Security;
-
-
 /**
  * Shorthand function to link to internal url
  *
@@ -64,6 +61,6 @@ function theme_dir()
  */
 function is_loggedin()
 {
-    return $Security->is_loggedin();
+    return $app->Security->is_loggedin();
 }
 

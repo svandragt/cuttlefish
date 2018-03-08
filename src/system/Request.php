@@ -5,10 +5,14 @@ if (!defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
+/**
+ * @property  controller
+ */
 class Request
 {
+	private $controller;
 
-    function __construct()
+	function __construct()
     {
 
         // Route to controller

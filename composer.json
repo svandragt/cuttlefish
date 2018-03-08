@@ -2,7 +2,7 @@
     "name": "svandragt/carbon",
     "description": "Hackable performant semi-static blogging system",
     "type": "project",
-    "license": "proprietrary",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Sander van Dragt",
@@ -11,14 +11,13 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "mustangostang/spyc": "^0.6.1",
-        "michelf/php-markdown": "^1.7"
+        "mustangostang/spyc": "*",
+        "michelf/php-markdown": "*"
     },
     "autoload": {
         "psr-4": {
-            "": "public/application/",
-            "VanDragt\\Carbon\\": "public/system/"
-            
+            "": "src/application/",
+            "VanDragt\\Carbon\\": "src/system/"
         }
     }
 }
