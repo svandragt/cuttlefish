@@ -12,7 +12,7 @@ class Controller
     protected $ext;
     protected $args;
 
-    protected $records;
+    protected $records = [];
     protected $Model;
     protected $view;
 

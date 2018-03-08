@@ -19,10 +19,6 @@ class ModelPage extends Carbon\Model {
 			'mdep' => new MarkdownExtra(),
 		);
 
-		if ( ! is_array( $records ) ) {
-			$records = [ $records ];
-		}
-
 		foreach ( $records as $record ) {
 			$this->contents[] = $this->list_contents( $record, $loaded_classes );
 		}

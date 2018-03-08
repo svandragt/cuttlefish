@@ -14,7 +14,7 @@ class ControllerErrors extends Carbon\Controller
 
     function records()
     {
-        $this->records = Carbon\Filesystem::url_to_path('/content/errors/' . implode($this->args, "/") . '.' . $this->ext);
+        $this->records = [Carbon\Filesystem::url_to_path('/content/errors/' . implode($this->args, "/") . '.' . $this->ext)];
     }
 
     function model()

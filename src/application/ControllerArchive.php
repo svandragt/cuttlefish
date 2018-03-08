@@ -15,7 +15,8 @@ class ControllerArchive extends Carbon\Controller
 
     function records()
     {
-        $this->records = new Carbon\Files(array( 'url' => '/content/posts'), $this->ext);
+        $files = new Carbon\Files(array( 'url' => '/content/posts'), $this->ext);
+        $this->records = $files->files();
     }
 
     function model()
