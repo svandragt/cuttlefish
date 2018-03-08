@@ -15,4 +15,4 @@ unset($dir);
 
 $loader =  require __DIR__ . '/../vendor/autoload.php';
 
-require __DIR__ . '/../public/Configuration.php';
+require __DIR__ . '/../src/Configuration.php';
