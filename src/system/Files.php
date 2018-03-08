@@ -59,7 +59,7 @@ class Files
     {
         $this->files = array_slice($this->files, 0, $max);
 
-        return $this;
+        return $this->files;
     }
 
     public function remove_all()
