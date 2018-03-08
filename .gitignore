@@ -163,11 +163,11 @@ pip-log.txt
 .DS_Store
 
 # Carbon
-public/content/
+src/content/
 source/
 cache/
 phpdoc/
 logs/
 .vagrant
-public/Configuration.php
-/vendor/
+Configuration.php
+vendor/
