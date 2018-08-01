@@ -27,7 +27,7 @@ class Template
     public function render()
     {
         $path = BASE_FILEPATH . THEME_DIR . "views" . DIRECTORY_SEPARATOR . $this->file;
-        require($path);
+	    require $path;
 
     }
 }

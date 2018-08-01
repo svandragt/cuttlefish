@@ -10,7 +10,8 @@ switch (count($this->contents)) {
         break;
 
     default:
-        include __DIR__ . DIRECTORY_SEPARATOR . $this->controller . ".php";
+	    $controller = $this->controller;
+	    include __DIR__ . $controller . ".php";
         break;
 }
 
