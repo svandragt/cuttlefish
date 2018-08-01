@@ -2,8 +2,8 @@
 
 namespace VanDragt\Carbon;
 
-use \Michelf\Markdown;
-use \Spyc;
+use Michelf\Markdown;
+use Spyc;
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
@@ -99,7 +99,7 @@ class Model {
 		return $section;
 	}
 
-	public function sort( $a, $b ) {
+	public function sortByPublished( $a, $b ) {
 		return strcmp( $b, $a );
 	}
 }
