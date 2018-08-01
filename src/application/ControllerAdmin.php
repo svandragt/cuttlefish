@@ -19,8 +19,8 @@ class ControllerAdmin extends Carbon\Controller {
 	);
 
 	function init() {
-		global $Cache;
-		$Cache->abort();
+		global $app;
+		$app->Cache->abort();
 
 		$action = ( isset( $this->args[0] ) ) ? $this->args[0] : 'index';
 		if ( $this->is_allowed_method( $action ) ) {
@@ -53,8 +53,8 @@ class ControllerAdmin extends Carbon\Controller {
 	}
 
 	function index() {
-		global $Security;
-		if ( $Security->is_loggedin() ) {
+		global $app;
+		if ( $app->Security->is_loggedin() ) {
 			return $this->show_tasks();
 		} else {
 			return $this->show_login();
@@ -76,40 +76,38 @@ class ControllerAdmin extends Carbon\Controller {
 	}
 
 	function show_login() {
-		global $Security;
+		global $app;
 
-		return $Security->login();
+		return $app->Security->login();
 	}
 
 	function draft() {
-		global $Security;
-		$Security->login_redirect();
+		global $app;
+		$app->Security->login_redirect();
 		// Broken draft but Request object shouldn't be called from here.
 		// global $Request;
 		// $Request->template_download('post');
 	}
 
 	function clear_cache() {
-		global $Security;
-		global $Cache;
-		$Security->login_redirect();
+		global $app;
+		$app->Security->login_redirect();
 
-		return $Cache->clear();
+		return $app->Cache->clear();
 	}
 
 	function generate() {
-		global $Security;
-		global $Cache;
+		global $app;
 
-		$Security->login_redirect();
-		echo $Cache->generate_site();
+		$app->Security->login_redirect();
+		echo $app->Cache->generate_site();
 	}
 
 	function logout() {
-		global $Security;
+		global $app;
 
-		$Security->login_redirect();
+		$app->Security->login_redirect();
 
-		return $Security->logout();
+		return $app->Security->logout();
 	}
 }

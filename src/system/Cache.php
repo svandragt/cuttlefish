@@ -203,8 +203,7 @@ class Cache
      */
     function clear()
     {
-        global $Environment;
-
+	    global $app;
         $dir = $this->cache_folder();
         $output = sprintf("Removing  all files in %s<br>", $dir);
         $files = new Files(array('path' => $dir));
@@ -213,8 +212,7 @@ class Cache
         foreach ($dirs as $dir) {
             Filesystem::remove_dirs(realpath($dir . '/.'));
         }
-        // TODO: server_setup not found
-        $Environment->server_setup();
+	    $app->Environment->server_setup();
 
         return (string)$output;
     }
