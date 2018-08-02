@@ -11,8 +11,8 @@ class Filesystem
 
     static function ensure_folder_exists($folder)
     {
-        Log::debug(__FUNCTION__ . " called.");
-        if (!is_dir($folder)) {
+
+	    if ( ! is_dir( $folder ) ) {
             if (!mkdir($folder, 0777, TRUE)) {
                 Log::error("Please manually create <code>$folder</code>");
             } else {
@@ -24,8 +24,8 @@ class Filesystem
     static function url_to_path($url)
     {
         // takes /content/pages/index and returns path
-        Log::debug(__FUNCTION__ . " called.");
-        $path = BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url),'/');
+
+	    $path = BASE_FILEPATH . ltrim( str_replace( '/', DIRECTORY_SEPARATOR, $url ), '/' );
         Log::debug("$url converted to $path");
 
         return $path;
@@ -33,8 +33,8 @@ class Filesystem
 
     static function copy_files($source_files, $destination_files)
     {
-        Log::debug(__FUNCTION__ . " called.");
-        $i = 0;
+
+	    $i = 0;
         foreach ($source_files as $key => $value) {
             $destination_file = $destination_files[$i];
 

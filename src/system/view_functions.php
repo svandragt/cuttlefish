@@ -26,8 +26,6 @@ function href($url)
  */
 function pages()
 {
-    Carbon\Log::debug(__FUNCTION__ . " called.");
-
     $output = '';
     $pages_path = sprintf("/%s/%s", \Configuration::CONTENT_FOLDER, 'pages');
 
@@ -62,6 +60,7 @@ function theme_dir()
 function is_logged_in()
 {
 	global $app;
-    return $app->getSecurity()->is_logged_in();
+
+	return $app->Security->is_logged_in();
 }
 

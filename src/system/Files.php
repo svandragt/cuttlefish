@@ -26,8 +26,8 @@ class Files
 
     private function collect($dir = ".", $filter = NULL)
     {
-        Log::debug(__FUNCTION__ . " called.");
-        $files = array();
+
+	    $files = array();
 
         // dir must exist
         if (false === is_dir($dir)) {
@@ -65,8 +65,8 @@ class Files
     public function remove_all()
     {
         $output = '';
-        Log::debug(__FUNCTION__ . " called.");
-        foreach ($this->files as $file) {
+
+	    foreach ( $this->files as $file ) {
             $file = realpath($file);
             $output .= "Deleted: $file" . "<br>";
             unlink($file);

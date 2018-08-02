@@ -13,9 +13,9 @@ class Environment
 
     public function __construct()
     {
-        Log::debug(__FUNCTION__ . " called.");
 
-        $this->add_include_path(Filesystem::url_to_path('/' . \Configuration::APPLICATION_FOLDER));
+
+	    $this->add_include_path( Filesystem::url_to_path( '/' . \Configuration::APPLICATION_FOLDER ) );
         define('THEME_DIR', \Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . \Configuration::THEME . DIRECTORY_SEPARATOR);
         if ($this->new_install()) {
             $this->new_install_setup();
@@ -28,15 +28,15 @@ class Environment
 
     function add_include_path($path)
     {
-        Log::debug(__FUNCTION__ . " called.");
-        set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
+
+	    set_include_path( get_include_path() . PATH_SEPARATOR . realpath( $path ) );
     }
 
     private function new_install()
     {
-        Log::debug(__FUNCTION__ . " called.");
 
-        return !(is_dir(\Configuration::CACHE_FOLDER) && is_dir(\Configuration::CONTENT_FOLDER));
+
+	    return ! ( is_dir( \Configuration::CACHE_FOLDER ) && is_dir( \Configuration::CONTENT_FOLDER ) );
     }
 
     private function new_install_setup()
@@ -59,8 +59,8 @@ class Environment
 
     public function server_setup()
     {
-        Log::debug(__FUNCTION__ . " called.");
-        $directory_index = "index.html index.xml";
+
+	    $directory_index = "index.html index.xml";
         $path = \Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
         $fp = fopen($path, 'w');
         fwrite($fp, "DirectoryIndex  $directory_index\n");
