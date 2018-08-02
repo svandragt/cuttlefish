@@ -10,8 +10,8 @@ class ControllerPages extends Carbon\Controller {
 	// single page
 
 	function records() {
-		$this->records = [Carbon\Filesystem::url_to_path( '/content/pages/' . implode( $this->args, "/" ) . '.' . $this->ext )];
-    }
+		$this->records = [ Carbon\Filesystem::url_to_path( '/content/pages/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
+	}
 
 	function model() {
 		$this->Model = new ModelPage( $this->records );

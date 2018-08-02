@@ -7,9 +7,6 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class ControllerAdmin extends Carbon\Controller {
-	protected $contents;
-	// admin section does not use content files
-
 	public $allowed_methods = array(
 		'index'       => 'Overview',
 		'draft'       => 'New post template',
@@ -17,6 +14,8 @@ class ControllerAdmin extends Carbon\Controller {
 		'generate'    => 'Generate static site',
 		'logout'      => 'Logout',
 	);
+	// admin section does not use content files
+	protected $contents;
 
 	function init() {
 		global $app;

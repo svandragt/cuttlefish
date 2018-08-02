@@ -18,8 +18,7 @@ class Model {
 			if ( array_unique( $this->model ) !== $this->model ) {
 				throw new \Exception( 'Array values not unique for model' );
 			}
-		}
-		catch ( \Exception $e ) {
+		} catch ( \Exception $e ) {
 			Log::error( $e->getMessage() );
 		}
 		$this->contents( $records );
@@ -50,8 +49,7 @@ class Model {
 			if ( count( $section_keys ) != count( $content_sections ) ) {
 				throw new \Exception( 'Model (' . get_class( $this ) . ') definition (' . count( $section_keys ) . ') does not match number of content sections (' . count( $content_sections ) . ').' );
 			}
-		}
-		catch ( \Exception $e ) {
+		} catch ( \Exception $e ) {
 			Log::error( $e->getMessage() );
 			exit();
 		}

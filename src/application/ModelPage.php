@@ -1,7 +1,7 @@
 <?php
 
-use VanDragt\Carbon;
 use Michelf\MarkdownExtra;
+use VanDragt\Carbon;
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
