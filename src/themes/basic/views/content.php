@@ -11,7 +11,7 @@ switch ( count( $this->contents ) ) {
 
 	default:
 		$controller = $this->controller;
-		include __DIR__ . $controller . ".php";
+		include __DIR__ . DIRECTORY_SEPARATOR . $controller . ".php";
 		break;
 }
 
