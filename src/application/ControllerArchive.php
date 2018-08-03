@@ -12,18 +12,18 @@ class ControllerArchive extends Carbon\Controller {
 	// list of recent posts
 
 	function records() {
-		$files         = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
-		$this->records = $files->files();
+		$Files         = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$this->records = $Files->files();
 	}
 
 	function model() {
-		$model       = new ModelPost( $this->records );
-		$this->Model = $model;
+		$Model       = new ModelPost( $this->records );
+		$this->Model = $Model;
 	}
 
 	function view() {
 		parent::view();
-		$this->view = new Carbon\Html( $this->Model->contents, array(
+		$this->View = new Carbon\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'archive',
 			'model'      => 'post',

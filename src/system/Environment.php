@@ -62,23 +62,23 @@ class Environment {
 		fclose( $fp );
 
 		$path = \Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . "web.config";
-		$xml  = new \SimpleXMLElement( '<configuration></configuration>' );
-		$sys  = $xml->addChild( 'system.webServer' );
-		$sys->addChild( 'defaultDocument' );
-		$files = $sys->defaultDocument->addChild( 'files' );
+		$Xml  = new \SimpleXMLElement( '<configuration></configuration>' );
+		$Sys  = $Xml->addChild( 'system.webServer' );
+		$Sys->addChild( 'defaultDocument' );
+		$Files = $Sys->defaultDocument->addChild( 'files' );
 
-		$files->addChild( 'clear' );
+		$Files->addChild( 'clear' );
 		$values = explode( ' ', $directory_index );
 		foreach ( $values as $value ) {
-			$add = $files->addChild( 'add' );
-			$add->addAttribute( 'value', $value );
+			$Add = $Files->addChild( 'add' );
+			$Add->addAttribute( 'value', $value );
 		}
-		$xml->asXML( $path );
+		$Xml->asXML( $path );
 	}
 
 	private function register_externals() {
-		$flist = new Files( array( 'url' => '/system/Ext' ), 'php' );
-		foreach ( $flist->files() as $key => $filepath ) {
+		$Files = new Files( array( 'url' => '/system/Ext' ), 'php' );
+		foreach ( $Files->files() as $key => $filepath ) {
 			$this->register[ pathinfo( $filepath, PATHINFO_FILENAME ) ] = true;
 			$this->add_include_path( pathinfo( $filepath, PATHINFO_DIRNAME ) );
 		}

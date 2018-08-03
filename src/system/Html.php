@@ -16,7 +16,7 @@ class Html {
 	 * @param $shared
 	 */
 	function __construct( $contents, $shared ) {
-		$template = new Template(
+		$Template = new Template(
 			$shared['layout'],
 			array_merge( array(
 				'content' => new Template(
@@ -43,7 +43,7 @@ class Html {
 				),
 			), $shared )
 		);
-		$template->render();
+		$Template->render();
 	}
 
 }

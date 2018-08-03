@@ -7,30 +7,26 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class App {
-	private $security;
-	private $cache;
-	private $environment;
+	public $Security;
+	public $Cache;
+	public $Environment;
 
 	public function __construct() {
 		// Prime a new cache and start caching
-		$this->cache = new Cache();
-		if ( $this->cache->has_existing_cachefile() ) {
+		$this->Cache = new Cache();
+		if ( $this->Cache->has_existing_cachefile() ) {
 			exit( 'cache disabled' );
 			// exit(readfile($Cache->cache_file_from_url()));
 		}
 
 		// Setup environment
-		$this->environment = new Environment();
-		$this->security    = new Security();
+		$this->Environment = new Environment();
+		$this->Security    = new Security();
 	}
 
 	public function __destruct() {
-		$this->cache->start();
-
-		// Process request
+		$this->Cache->start();
 		new Request();
-
-		// Save cache
-		$this->cache->end();
+		$this->Cache->end();
 	}
 }

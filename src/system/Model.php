@@ -35,13 +35,12 @@ class Model {
 	}
 
 	function list_contents( $record, $loaded_classes ) {
-		$content           = new \StdClass();
-		$content->metadata = new \StdClass();
+		$Content = new \StdClass();
 
-		$url  = new Url();
-		$file = new File( $record );
+		$Url  = new Url();
+		$File = new File( $record );
 
-		$content_sections = preg_split( '/\R\R\R/', trim( file_get_contents( $file->path ) ), count( $this->model ) );
+		$content_sections = preg_split( '/\R\R\R/', trim( file_get_contents( $File->path ) ), count( $this->model ) );
 		$section_keys     = array_keys( $this->model );
 		$section_values   = array_values( $this->model );
 
@@ -54,16 +53,16 @@ class Model {
 			exit();
 		}
 
-		$content->link = $url->file_to_url( $file )->index()->make_absolute()->url;
+		$Content->link = $Url->file_to_url( $File )->index()->make_absolute()->url;
 
 		for ( $i = 0; $i < count( $this->model ); $i ++ ) {
 			$content_section         = $content_sections[ $i ];
 			$section_key             = $section_keys[ $i ];
 			$section_value           = $section_values[ $i ];
-			$content->$section_value = $this->section( $content_section, $section_key, $loaded_classes );
+			$Content->$section_value = $this->section( $content_section, $section_key, $loaded_classes );
 		}
 
-		return $content;
+		return $Content;
 	}
 
 	public function section( $content_section, $section_key, $loaded_classes ) {
@@ -72,21 +71,21 @@ class Model {
 			$$class_name = $obj;
 		}
 
-		$section = new \StdClass();
+		$Section = new \StdClass();
 		switch ( $section_key ) {
 			case 'yaml':
 				$yaml = Spyc::YAMLLoadString( $content_section );
 
 				foreach ( $yaml as $key => $value ) {
-					$section->$key = $value;
+					$Section->$key = $value;
 				}
 				break;
 			case 'markdown|html':
 				$md_sections    = preg_split( '/=\R/', trim( $content_section ), 2 );
 				$title_sections = preg_split( '/\R/', trim( $md_sections[0] ), 2 );
-				$section->title = $title_sections[0];
+				$Section->title = $title_sections[0];
 
-				$section->main = Markdown::defaultTransform( $md_sections[1] );
+				$Section->main = Markdown::defaultTransform( $md_sections[1] );
 
 				break;
 
@@ -94,7 +93,7 @@ class Model {
 				break;
 		}
 
-		return $section;
+		return $Section;
 	}
 
 	public function sortByPublished( $a, $b ) {

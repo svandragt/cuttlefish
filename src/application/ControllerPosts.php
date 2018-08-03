@@ -20,7 +20,7 @@ class ControllerPosts extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\Html( $this->Model->contents, array(
+		$this->View = new Carbon\Html( $this->Model->contents, array(
 			'layout'     => 'single.php',
 			'controller' => 'posts',
 			'model'      => 'post',

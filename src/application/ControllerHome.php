@@ -11,19 +11,19 @@ class ControllerHome extends Carbon\Controller {
 
 	function records() {
 		$limit         = \Configuration::POSTS_HOMEPAGE;
-		$files         = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
-		$this->records = $files->limit( $limit + 5 );
+		$Files         = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$this->records = $Files->limit( $limit + 5 );
 	}
 
 	function model() {
-		$model       = new ModelPost( $this->records );
-		$this->Model = $model->limit( \Configuration::POSTS_HOMEPAGE );
+		$Model       = new ModelPost( $this->records );
+		$this->Model = $Model->limit( \Configuration::POSTS_HOMEPAGE );
 	}
 
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\Html( $this->Model->contents, array(
+		$this->View = new Carbon\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'home',
 			'model'      => 'post',

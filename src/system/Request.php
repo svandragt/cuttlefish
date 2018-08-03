@@ -10,7 +10,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
  * @property  controller
  */
 class Request {
-	private $controller;
+	private $Controller;
 
 	function __construct() {
 
@@ -19,7 +19,7 @@ class Request {
 		$controller_class     = 'Controller' . ucfirst( $args[1] );
 		$controller_arguments = array_slice( $args, 2 );
 		if ( class_exists( $controller_class, true ) ) {
-			$this->controller = new $controller_class( $this, $controller_arguments );
+			$this->Controller = new $controller_class( $this, $controller_arguments );
 		} else {
 			$this->class_not_callable( $controller_class );
 		}
@@ -44,8 +44,8 @@ class Request {
 			$ends_with_slash = ! substr( strrchr( $path_info, "/" ), 1 );
 			if ( $ends_with_slash ) {
 				$slashless_request = substr( $path_info, 0, - 1 );
-				$url               = new Url();
-				header( 'Location: ' . $url->index( $slashless_request )->make_absolute()->url );
+				$Url               = new Url();
+				header( 'Location: ' . $Url->index( $slashless_request )->make_absolute()->url );
 				exit();
 			}
 		}
@@ -59,9 +59,9 @@ class Request {
 	 * @param  string $controller_class name of controller
 	 */
 	function class_not_callable( $controller_class ) {
-		$url  = new Url();
+		$Url  = new Url();
 		$args = array(
-			'url'        => $url->index( '/errors/404' )->make_absolute(),
+			'url'        => $Url->index( '/errors/404' )->make_absolute(),
 			'logmessage' => "Not callable '$controller_class' or missing parameter.",
 		);
 		$this->redirect( $args );

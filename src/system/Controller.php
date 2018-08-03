@@ -11,7 +11,7 @@ class Controller {
 	protected $args;
 	protected $records = [];
 	protected $Model;
-	protected $view;
+	protected $View;
 	private $content;
 
 	function __construct( $parent, $args ) {

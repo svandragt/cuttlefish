@@ -71,7 +71,6 @@ class Cache {
 	 */
 	function cache_file_from_url( $path_info = '' ) {
 
-		$ds = DIRECTORY_SEPARATOR;
 		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
 			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
 		}
@@ -89,7 +88,7 @@ class Cache {
 			}
 		}
 		$cache_file = sprintf( "%s/%s.%s", \Configuration::CACHE_FOLDER, ltrim( $filename, '/' ), $ext );
-		$cache_file = str_replace( '/', $ds, $cache_file );
+		$cache_file = str_replace( '/', DIRECTORY_SEPARATOR, $cache_file );
 
 		return (string) $cache_file;
 	}
@@ -145,9 +144,9 @@ class Cache {
 		$cache_urls = array();
 
 		foreach ( $Files->files() as $index => $file_path ) {
-			$file_obj     = new File( $file_path );
-			$url_obj      = new Url();
-			$cache_urls[] = $url_obj->file_to_url( $file_obj )->index();
+			$File         = new File( $file_path );
+			$Url          = new Url();
+			$cache_urls[] = $Url->file_to_url( $File )->index();
 		}
 
 		$urls = array(
@@ -190,8 +189,8 @@ class Cache {
 		global $App;
 		$dir    = $this->cache_folder();
 		$output = sprintf( "Removing  all files in %s<br>", $dir );
-		$files  = new Files( array( 'path' => $dir ) );
-		$output .= $files->remove_all();
+		$Files  = new Files( array( 'path' => $dir ) );
+		$output .= $Files->remove_all();
 		$dirs   = Filesystem::subdirs( realpath( $dir . '/.' ), false );
 		foreach ( $dirs as $dir ) {
 			Filesystem::remove_dirs( realpath( $dir . '/.' ) );
@@ -215,21 +214,20 @@ class Cache {
 	function copy_themefiles( $file_types ) {
 		include( 'view_functions.php' );
 
-		// $files  = array();
 		$theme_dir = rtrim( theme_dir(), '/' );
 		$output    = "Copying files from theme: <br><br>";
 
 		foreach ( $file_types as $file_type ) {
 			$output .= "filetype: $file_type<br>";
-			$fs     = new Files( array( 'path' => Filesystem::url_to_path( "$theme_dir" ) ), $file_type );
+			$Files  = new Files( array( 'path' => Filesystem::url_to_path( "$theme_dir" ) ), $file_type );
 
 			$destination_files = array();
-			foreach ( $fs->files() as $key => $value ) {
+			foreach ( $Files->files() as $key => $value ) {
 				$output              .= "$key: $value<br>";
 				$cache               = ltrim( \Configuration::CACHE_FOLDER, "./" );
 				$destination_files[] = str_replace( 'public', $cache, $value );
 			}
-			Filesystem::copy_files( $fs->files(), $destination_files );
+			Filesystem::copy_files( $Files->files(), $destination_files );
 		}
 
 		return (string) $output;

@@ -20,7 +20,7 @@ class ControllerImages extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\File( $this->Model->contents );
-		$this->view->render();
+		$this->View = new Carbon\File( $this->Model->contents );
+		$this->View->render();
 	}
 }

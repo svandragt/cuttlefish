@@ -44,7 +44,7 @@ class ControllerAdmin extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\Html( $this->contents, array(
+		$this->View = new Carbon\Html( $this->contents, array(
 			'layout'     => 'single.php',
 			'controller' => 'admin',
 			'model'      => 'page',
@@ -65,8 +65,8 @@ class ControllerAdmin extends Carbon\Controller {
 		$am     = $this->allowed_methods;
 		array_shift( $am );
 		foreach ( $am as $key => $value ):
-			$url    = new Carbon\Url();
-			$output .= sprintf( '<li><a href="%s">%s</a></li>', $url->index( "/admin/$key" )->url, $value );
+			$Url    = new Carbon\Url();
+			$output .= sprintf( '<li><a href="%s">%s</a></li>', $Url->index( "/admin/$key" )->url, $value );
 		endforeach;
 
 		$output .= '</ul>';
