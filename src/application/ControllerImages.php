@@ -10,7 +10,7 @@ class ControllerImages extends Carbon\Controller {
 	// single image
 
 	function records() {
-		$this->records = [Carbon\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/") )];
+		$this->records = [ Carbon\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/" ) ) ];
 	}
 
 	function model() {
@@ -20,7 +20,7 @@ class ControllerImages extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\File( $this->Model->contents );
-		$this->view->render();
+		$this->View = new Carbon\File( $this->Model->contents );
+		$this->View->render();
 	}
 }

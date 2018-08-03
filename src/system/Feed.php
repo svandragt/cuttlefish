@@ -2,51 +2,49 @@
 
 namespace VanDragt\Carbon;
 
-if (!defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
+if ( ! defined( 'BASE_FILEPATH' ) ) {
+	exit( 'No direct script access allowed' );
 }
 
-class Feed
-{
-    
-    private $xml;
+class Feed {
 
-    /**
-     * Feed constructor.
-     * @param $posts
-     */
-    function __construct($posts)
-    {
-        $page_url = new Url();
-        $xml = new \SimpleXMLElement('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
-        $xml->addChild('channel');
+	private $xml;
 
-        $xml->channel->addChild('title', \Configuration::SITE_TITLE);
-        $xml->channel->addChild('link', $page_url->index($_SERVER['PATH_INFO'])->abs()->url);
-        $xml->channel->addChild('description', strip_tags(\Configuration::SITE_MOTTO));
+	/**
+	 * Feed constructor.
+	 *
+	 * @param $posts
+	 */
+	function __construct( $posts ) {
+		$PageUrl = new Url();
+		$Xml     = new \SimpleXMLElement( '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>' );
+		$Channel = $Xml->addChild( 'channel' );
 
-        $xml->channel->addChild('pubDate', date(DATE_RSS));
+		$Channel->addChild( 'title', \Configuration::SITE_TITLE );
+		$Channel->addChild( 'link', $PageUrl->index( $_SERVER['PATH_INFO'] )->make_absolute()->url );
+		$Channel->addChild( 'description', strip_tags( \Configuration::SITE_MOTTO ) );
 
-        $atom = $xml->channel->addChild('link', '', 'http://www.w3.org/2005/Atom');
-        $atom->addAttribute('href', $page_url->url);
-        $atom->addAttribute('rel', 'self');
-        $atom->addAttribute('type', 'application/rss+xml');
+		$Channel->addChild( 'pubDate', date( DATE_RSS ) );
 
-        foreach ($posts as $post) {
-            $item = $xml->channel->addChild('item');
-            $item->addChild('title', $post->content->title);
-            $item->addChild('link', $post->link);
-            $item->addChild('guid', $post->link);
-            $item->addChild('description', $post->content->main);
-            $item->addChild('pubDate', date(DATE_RSS, strtotime($post->metadata->Published)));
-        }
-        $this->xml = $xml;
-        $this->render();
-    }
+		$Atom = $Channel->addChild( 'link', '', 'http://www.w3.org/2005/Atom' );
+		$Atom->addAttribute( 'href', $PageUrl->url );
+		$Atom->addAttribute( 'rel', 'self' );
+		$Atom->addAttribute( 'type', 'application/rss+xml' );
 
-    function render()
-    {
-        header('Content-type: application/xml');
-        echo $this->xml->asXML();
-    }
+		foreach ( $posts as $post ) {
+			$Item = $Channel->addChild( 'item' );
+			$Item->addChild( 'title', $post->content->title );
+			$Item->addChild( 'link', $post->link );
+			$Item->addChild( 'guid', $post->link );
+			$Item->addChild( 'description', $post->content->main );
+			$Item->addChild( 'pubDate', date( DATE_RSS, strtotime( $post->metadata->Published ) ) );
+		}
+		$this->xml = $Xml;
+		$this->render();
+	}
+
+	function render() {
+		header( 'Content-type: application/xml' );
+		echo $this->xml->asXML();
+	}
 }

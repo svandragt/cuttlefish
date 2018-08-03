@@ -10,17 +10,17 @@ class ControllerFeeds extends Carbon\Controller {
 	// single feed
 	function records() {
 		$limit         = \Configuration::POSTS_HOMEPAGE;
-		$records       = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
-		$this->records = $records->limit( $limit + 5 );
+		$Records       = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$this->records = $Records->limit( $limit + 5 );
 	}
 
 	function model() {
-		$model       = new ModelPost( $this->records );
-		$this->Model = $model->limit( 10 );
+		$Model       = new ModelPost( $this->records );
+		$this->Model = $Model->limit( 10 );
 	}
 
 	function view() {
 		parent::view();
-		$this->view = new Carbon\Feed( $this->Model->contents );
+		$this->View = new Carbon\Feed( $this->Model->contents );
 	}
 }

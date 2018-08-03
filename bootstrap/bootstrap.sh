@@ -15,8 +15,8 @@ mv composer.phar /usr/bin/composer
 
 cp /vagrant/bootstrap/etc/ / -r
 
-service nginx restart &
-
 pushd /vagrant
 composer update
 popd
+
+service nginx restart

@@ -10,7 +10,7 @@ class ControllerPosts extends Carbon\Controller {
 	// single post
 
 	function records() {
-		$this->records = [Carbon\Filesystem::url_to_path( '/content/posts/' . implode( $this->args, "/" ) . '.' . $this->ext )];
+		$this->records = [ Carbon\Filesystem::url_to_path( '/content/posts/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
 	}
 
 	function model() {
@@ -20,8 +20,8 @@ class ControllerPosts extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\Html( $this->Model->contents, array(
-			'layout'     => 'single.php',
+		$this->View = new Carbon\Html( $this->Model->contents, array(
+			'layout'     => 'layout.php',
 			'controller' => 'posts',
 			'model'      => 'post',
 		) );

@@ -7,9 +7,6 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class ControllerAdmin extends Carbon\Controller {
-	protected $contents;
-	// admin section does not use content files
-
 	public $allowed_methods = array(
 		'index'       => 'Overview',
 		'draft'       => 'New post template',
@@ -17,10 +14,12 @@ class ControllerAdmin extends Carbon\Controller {
 		'generate'    => 'Generate static site',
 		'logout'      => 'Logout',
 	);
+	// admin section does not use content files
+	protected $contents;
 
 	function init() {
-		global $app;
-		$app->Cache->abort();
+		global $App;
+		$App->Cache->abort();
 
 		$action = ( isset( $this->args[0] ) ) ? $this->args[0] : 'index';
 		if ( $this->is_allowed_method( $action ) ) {
@@ -45,16 +44,16 @@ class ControllerAdmin extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->view = new Carbon\Html( $this->contents, array(
-			'layout'     => 'single.php',
+		$this->View = new Carbon\Html( $this->contents, array(
+			'layout'     => 'layout.php',
 			'controller' => 'admin',
 			'model'      => 'page',
 		) );
 	}
 
 	function index() {
-		global $app;
-		if ( $app->Security->is_loggedin() ) {
+		global $App;
+		if ( $App->Security->is_logged_in() ) {
 			return $this->show_tasks();
 		} else {
 			return $this->show_login();
@@ -66,8 +65,8 @@ class ControllerAdmin extends Carbon\Controller {
 		$am     = $this->allowed_methods;
 		array_shift( $am );
 		foreach ( $am as $key => $value ):
-			$url    = new Carbon\Url();
-			$output .= sprintf( '<li><a href="%s">%s</a></li>', $url->index( "/admin/$key" )->url, $value );
+			$Url    = new Carbon\Url();
+			$output .= sprintf( '<li><a href="%s">%s</a></li>', $Url->index( "/admin/$key" )->url, $value );
 		endforeach;
 
 		$output .= '</ul>';
@@ -76,38 +75,38 @@ class ControllerAdmin extends Carbon\Controller {
 	}
 
 	function show_login() {
-		global $app;
+		global $App;
 
-		return $app->Security->login();
+		return $App->Security->login();
 	}
 
 	function draft() {
-		global $app;
-		$app->Security->login_redirect();
+		global $App;
+		$App->Security->login_redirect();
 		// Broken draft but Request object shouldn't be called from here.
 		// global $Request;
 		// $Request->template_download('post');
 	}
 
 	function clear_cache() {
-		global $app;
-		$app->Security->login_redirect();
+		global $App;
+		$App->Security->login_redirect();
 
-		return $app->Cache->clear();
+		return $App->Cache->clear();
 	}
 
 	function generate() {
-		global $app;
+		global $App;
 
-		$app->Security->login_redirect();
-		echo $app->Cache->generate_site();
+		$App->Security->login_redirect();
+		echo $App->Cache->generate_site();
 	}
 
 	function logout() {
-		global $app;
+		global $App;
 
-		$app->Security->login_redirect();
+		$App->Security->login_redirect();
 
-		return $app->Security->logout();
+		return $App->Security->logout();
 	}
 }

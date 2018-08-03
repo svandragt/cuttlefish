@@ -1,6 +1,6 @@
 <?php
-if (!defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
+if ( ! defined( 'BASE_FILEPATH' ) ) {
+	exit( 'No direct script access allowed' );
 }
 
 use VanDragt\Carbon;
@@ -8,15 +8,14 @@ use VanDragt\Carbon;
 /**
  * Shorthand function to link to internal url
  *
- * @param  string $url internal url
+ * @param  string $internal_url internal url
  *
  * @return string      index independent internal url
  */
-function href($url)
-{
-    $l = new Carbon\Url();
+function href( $internal_url ) {
+	$Url = new Carbon\Url();
 
-    return $l->index($url)->url;
+	return $Url->index( $internal_url )->url;
 }
 
 /**
@@ -24,21 +23,18 @@ function href($url)
  *
  * @return string html of list of pages
  */
-function pages()
-{
-    Carbon\Log::debug(__FUNCTION__ . " called.");
+function pages() {
+	$output     = '';
+	$pages_path = sprintf( "/%s/%s", \Configuration::CONTENT_FOLDER, 'pages' );
 
-    $output = '';
-    $pages_path = sprintf("/%s/%s", \Configuration::CONTENT_FOLDER, 'pages');
+	$Files = new Carbon\Files( array( 'url' => $pages_path ), \Configuration::CONTENT_EXT );
+	foreach ( $Files->files() as $path ) {
+		$filename = pathinfo( $path, PATHINFO_FILENAME );
+		$title    = ucwords( str_replace( "-", " ", $filename ) );
+		$output   .= sprintf( "<li><a href='%s'>%s</a></li>", href( "/pages/$filename" ), $title );
+	}
 
-    $files = new Carbon\Files(array('url' => $pages_path), \Configuration::CONTENT_EXT);
-    foreach ($files->files() as $path) {
-        $filename = pathinfo($path, PATHINFO_FILENAME);
-        $title = ucwords(str_replace("-", " ", $filename));
-        $output .= sprintf("<li><a href='%s'>%s</a></li>", href("/pages/$filename"), $title);
-    }
-
-    return $output;
+	return $output;
 }
 
 /**
@@ -46,12 +42,11 @@ function pages()
  *
  * @return string link to theme directory
  */
-function theme_dir()
-{
-    $path_to_script = ''; // todo
-    $theme_dir_url = BASE_PATH . str_replace("\\", "/", THEME_DIR);
+function theme_dir() {
+	$path_to_script = ''; // todo
+	$theme_dir_url  = BASE_PATH . str_replace( "\\", "/", THEME_DIR );
 
-    return $path_to_script . $theme_dir_url;
+	return $path_to_script . $theme_dir_url;
 }
 
 /**
@@ -59,9 +54,9 @@ function theme_dir()
  *
  * @return boolean logged in status
  */
-function is_logged_in()
-{
-	global $app;
-    return $app->getSecurity()->is_logged_in();
+function is_logged_in() {
+	global $App;
+
+	return $App->Security->is_logged_in();
 }
 

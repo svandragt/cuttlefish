@@ -1,10 +1,11 @@
-<?php if (!defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
+<?php
+if ( ! defined( 'BASE_FILEPATH' ) ) {
+	exit( 'No direct script access allowed' );
 }
 
 $post = $this->contents[0]->content;
 
-printf("<article>
+printf( "<article>
 	<h2>%s</h2>
 	%s
-	</article>", $post->title, $post->main);
+	</article>", $post->title, $post->main );
