@@ -139,12 +139,12 @@ class Cache {
 		$output  .= "<br>Generating site:<br>" . PHP_EOL;
 		$content = \Configuration::CONTENT_FOLDER;
 		$ext     = \Configuration::CONTENT_EXT;
-		$c       = new Curl;
-		$fs      = new Files( array( 'path' => Filesystem::url_to_path( "/$content" ), $ext ) );
+		$Curl    = new Curl;
+		$Files   = new Files( array( 'path' => Filesystem::url_to_path( "/$content" ), $ext ) );
 
 		$cache_urls = array();
 
-		foreach ( $fs->files() as $index => $file_path ) {
+		foreach ( $Files->files() as $index => $file_path ) {
 			$file_obj     = new File( $file_path );
 			$url_obj      = new Url();
 			$cache_urls[] = $url_obj->file_to_url( $file_obj )->index();
@@ -156,31 +156,25 @@ class Cache {
 			'/archive',
 		);
 		foreach ( $urls as $key => $value ) {
-			$url          = new Url();
-			$cache_urls[] = $url->index( $value );
+			$Url          = new Url();
+			$cache_urls[] = $Url->index( $value );
 		}
 
-		foreach ( $cache_urls as $url ) {
-			$url2       = clone $url;
-			$url_string = $url2->abs()->url;
-
-			// support Vagrant port forwarding where local HTTP_HOST is different from developer
-			if ( defined( 'Configuration::SERVER_HTTP_HOST' ) ) {
-				// TODO Warning:(178, 82) Constant 'SERVER_HTTP_HOST' not found in \Configuration
-				$url_string = str_replace( $_SERVER['HTTP_HOST'], \Configuration::SERVER_HTTP_HOST, $url_string );
-			}
-			$contents = $c->url_contents( $url_string );
+		foreach ( $cache_urls as $Url ) {
+			$UrlCloned  = clone $Url;
+			$url_string = $UrlCloned->make_absolute()->url;
+			$contents   = $Curl->url_contents( $url_string );
 
 			if ( empty( $contents ) ) {
-				die( "ERROR: no contents for {$url2->abs()->url}" );
+				die( "ERROR: no contents for {$UrlCloned->abs()->url}" );
 			}
 
 			if ( \Configuration::CACHE_ENABLED == false ) {
-				$path   = $this->write_cache_to_disk( $url, $contents );
+				$path   = $this->write_cache_to_disk( $Url, $contents );
 				$output .= "Written: $path<br>" . PHP_EOL;
 			}
 		}
-		$c->close();
+		$Curl->close();
 
 		$output .= $this->copy_themefiles( array( 'css', 'js', 'png', 'gif', 'jpg' ) );
 
@@ -193,7 +187,7 @@ class Cache {
 	 * @return string list of output messages detailing the removed cachefiles
 	 */
 	function clear() {
-		global $app;
+		global $App;
 		$dir    = $this->cache_folder();
 		$output = sprintf( "Removing  all files in %s<br>", $dir );
 		$files  = new Files( array( 'path' => $dir ) );
@@ -202,7 +196,7 @@ class Cache {
 		foreach ( $dirs as $dir ) {
 			Filesystem::remove_dirs( realpath( $dir . '/.' ) );
 		}
-		$app->Environment->server_setup();
+		$App->Environment->server_setup();
 
 		return (string) $output;
 	}

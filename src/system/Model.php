@@ -54,7 +54,7 @@ class Model {
 			exit();
 		}
 
-		$content->link = $url->file_to_url( $file )->index()->abs()->url;
+		$content->link = $url->file_to_url( $file )->index()->make_absolute()->url;
 
 		for ( $i = 0; $i < count( $this->model ); $i ++ ) {
 			$content_section         = $content_sections[ $i ];

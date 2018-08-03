@@ -9,5 +9,5 @@ $loader = require '../vendor/autoload.php';
 
 require 'Configuration.php';
 
-global $app;
-$app = new VanDragt\Carbon\App();
+global $App;
+$App = new VanDragt\Carbon\App();

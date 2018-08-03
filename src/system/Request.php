@@ -45,7 +45,7 @@ class Request {
 			if ( $ends_with_slash ) {
 				$slashless_request = substr( $path_info, 0, - 1 );
 				$url               = new Url();
-				header( 'Location: ' . $url->index( $slashless_request )->abs()->url );
+				header( 'Location: ' . $url->index( $slashless_request )->make_absolute()->url );
 				exit();
 			}
 		}
@@ -61,7 +61,7 @@ class Request {
 	function class_not_callable( $controller_class ) {
 		$url  = new Url();
 		$args = array(
-			'url'        => $url->index( '/errors/404' )->abs(),
+			'url'        => $url->index( '/errors/404' )->make_absolute(),
 			'logmessage' => "Not callable '$controller_class' or missing parameter.",
 		);
 		$this->redirect( $args );

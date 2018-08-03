@@ -22,7 +22,7 @@ class Url {
 	 *
 	 * @return object url object
 	 */
-	function abs() {
+	function make_absolute() {
 		// make a relative url absolute
 		if ( $this->is_relative ) {
 			$this->url         = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url;

@@ -21,7 +21,7 @@ class Feed {
 		$xml->addChild( 'channel' );
 
 		$xml->channel->addChild( 'title', \Configuration::SITE_TITLE );
-		$xml->channel->addChild( 'link', $page_url->index( $_SERVER['PATH_INFO'] )->abs()->url );
+		$xml->channel->addChild( 'link', $page_url->index( $_SERVER['PATH_INFO'] )->make_absolute()->url );
 		$xml->channel->addChild( 'description', strip_tags( \Configuration::SITE_MOTTO ) );
 
 		$xml->channel->addChild( 'pubDate', date( DATE_RSS ) );

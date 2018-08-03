@@ -55,8 +55,8 @@ function theme_dir() {
  * @return boolean logged in status
  */
 function is_logged_in() {
-	global $app;
+	global $App;
 
-	return $app->Security->is_logged_in();
+	return $App->Security->is_logged_in();
 }
 

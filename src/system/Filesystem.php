@@ -29,7 +29,6 @@ class Filesystem {
 	}
 
 	static function copy_files( $source_files, $destination_files ) {
-
 		$i = 0;
 		foreach ( $source_files as $key => $value ) {
 			$destination_file = $destination_files[ $i ];

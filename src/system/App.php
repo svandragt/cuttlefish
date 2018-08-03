@@ -11,7 +11,7 @@ class App {
 	private $cache;
 	private $environment;
 
-	function __construct() {
+	public function __construct() {
 		// Prime a new cache and start caching
 		$this->cache = new Cache();
 		if ( $this->cache->has_existing_cachefile() ) {
@@ -24,7 +24,7 @@ class App {
 		$this->security    = new Security();
 	}
 
-	function __destruct() {
+	public function __destruct() {
 		$this->cache->start();
 
 		// Process request
