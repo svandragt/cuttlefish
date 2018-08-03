@@ -14,7 +14,7 @@ class Controller {
 	protected $View;
 	private $content;
 
-	function __construct( $args ) {
+	function __construct( $parent, $args ) {
 		$this->content = \Configuration::CONTENT_FOLDER;
 		$this->ext     = \Configuration::CONTENT_EXT;
 		$this->args    = $args;
