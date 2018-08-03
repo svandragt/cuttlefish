@@ -18,21 +18,21 @@ class Feed {
 	function __construct( $posts ) {
 		$PageUrl = new Url();
 		$Xml     = new \SimpleXMLElement( '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>' );
-		$Xml->addChild( 'channel' );
+		$Channel = $Xml->addChild( 'channel' );
 
-		$Xml->channel->addChild( 'title', \Configuration::SITE_TITLE );
-		$Xml->channel->addChild( 'link', $PageUrl->index( $_SERVER['PATH_INFO'] )->make_absolute()->url );
-		$Xml->channel->addChild( 'description', strip_tags( \Configuration::SITE_MOTTO ) );
+		$Channel->addChild( 'title', \Configuration::SITE_TITLE );
+		$Channel->addChild( 'link', $PageUrl->index( $_SERVER['PATH_INFO'] )->make_absolute()->url );
+		$Channel->addChild( 'description', strip_tags( \Configuration::SITE_MOTTO ) );
 
-		$Xml->channel->addChild( 'pubDate', date( DATE_RSS ) );
+		$Channel->addChild( 'pubDate', date( DATE_RSS ) );
 
-		$Atom = $Xml->channel->addChild( 'link', '', 'http://www.w3.org/2005/Atom' );
+		$Atom = $Channel->addChild( 'link', '', 'http://www.w3.org/2005/Atom' );
 		$Atom->addAttribute( 'href', $PageUrl->url );
 		$Atom->addAttribute( 'rel', 'self' );
 		$Atom->addAttribute( 'type', 'application/rss+xml' );
 
 		foreach ( $posts as $post ) {
-			$Item = $Xml->channel->addChild( 'item' );
+			$Item = $Channel->addChild( 'item' );
 			$Item->addChild( 'title', $post->content->title );
 			$Item->addChild( 'link', $post->link );
 			$Item->addChild( 'guid', $post->link );

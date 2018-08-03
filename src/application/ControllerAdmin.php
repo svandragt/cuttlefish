@@ -53,7 +53,7 @@ class ControllerAdmin extends Carbon\Controller {
 
 	function index() {
 		global $App;
-		if ( $App->Security->is_loggedin() ) {
+		if ( $App->Security->is_logged_in() ) {
 			return $this->show_tasks();
 		} else {
 			return $this->show_login();

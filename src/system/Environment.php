@@ -60,20 +60,6 @@ class Environment {
 		fwrite( $fp, "DirectoryIndex  $directory_index\n" );
 		fwrite( $fp, "ErrorDocument 404 /errors/404/\n" );
 		fclose( $fp );
-
-		$path = \Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . "web.config";
-		$Xml  = new \SimpleXMLElement( '<configuration></configuration>' );
-		$Sys  = $Xml->addChild( 'system.webServer' );
-		$Sys->addChild( 'defaultDocument' );
-		$Files = $Sys->defaultDocument->addChild( 'files' );
-
-		$Files->addChild( 'clear' );
-		$values = explode( ' ', $directory_index );
-		foreach ( $values as $value ) {
-			$Add = $Files->addChild( 'add' );
-			$Add->addAttribute( 'value', $value );
-		}
-		$Xml->asXML( $path );
 	}
 
 	private function register_externals() {

@@ -4,18 +4,18 @@ namespace VanDragt\Carbon;
 
 class Security {
 
-	function login_redirect() {
+	public function login_redirect() {
 		if ( ! $this->is_logged_in() ) {
 			$Url = new Url();
 			header( 'Location: ' . $Url->index( '/admin' )->make_absolute()->url );
 		};
 	}
 
-	function is_logged_in() {
+	public function is_logged_in() {
 		return ! is_null( Http::session( 'admin' ) );
 	}
 
-	function login() {
+	public function login() {
 		Log::info( sprintf( "Login attempt from %s", $_SERVER['REMOTE_ADDR'] ) );
 
 		$output = "";
@@ -46,7 +46,7 @@ class Security {
 		return $output;
 	}
 
-	function logout() {
+	public function logout() {
 		session_destroy();
 
 		return "logged out.<br>";
