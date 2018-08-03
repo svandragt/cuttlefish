@@ -1,4 +1,5 @@
-<?php  if ( ! defined( 'BASE_FILEPATH' ) ) {
+<?php
+if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
