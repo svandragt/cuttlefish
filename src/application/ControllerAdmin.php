@@ -45,7 +45,7 @@ class ControllerAdmin extends Carbon\Controller {
 		parent::view();
 
 		$this->View = new Carbon\Html( $this->contents, array(
-			'layout'     => 'single.php',
+			'layout'     => 'layout.php',
 			'controller' => 'admin',
 			'model'      => 'page',
 		) );

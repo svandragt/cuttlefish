@@ -21,7 +21,7 @@ class ControllerPages extends Carbon\Controller {
 		parent::view();
 
 		$this->View = new Carbon\Html( $this->Model->contents, array(
-			'layout'     => 'single.php',
+			'layout'     => 'layout.php',
 			'controller' => 'pages',
 			'model'      => 'page',
 		) );
