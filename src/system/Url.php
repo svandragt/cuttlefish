@@ -29,7 +29,7 @@ class Url {
 			$this->is_relative = false;
 		}
 
-		return (object) $this;
+		return $this;
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Url {
 		$this->is_relative = true;
 		$this->is_prefixed = false;
 
-		return (object) $this;
+		return $this;
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Url {
 			$this->is_relative = true;
 		}
 
-		return (object) $this;
+		return $this;
 	}
 
 }
