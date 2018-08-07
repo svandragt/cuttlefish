@@ -59,22 +59,20 @@ class Request {
 	 * @param  string $controller_class name of controller
 	 */
 	function class_not_callable( $controller_class ) {
-		$Url  = new Url();
-		$args = array(
-			'url'        => $Url->index( '/errors/404' )->make_absolute(),
-			'logmessage' => "Not callable '$controller_class' or missing parameter.",
-		);
-		$this->redirect( $args );
+		$Url         = new Url();
+		$Url         = $Url->index( '/errors/404' );
+		$log_message = "Not callable '$controller_class' or missing parameter.";
+		$this->redirect( $Url, $log_message );
 	}
 
 	/**
 	 * Redirect to new url
 	 *
-	 * @param  [array] $args [arguments array containing url and logmessage indexes]
+	 * @param Url $Url URL to redirect to
+	 * @param $log_message
 	 */
-	function redirect( $args ) {
-		echo( "Location: " . $args['url']->url );
-		// header("Location: " . $args['url']->url);
-		exit( $args['logmessage'] );
+	function redirect( $Url, $log_message ) {
+		echo( "Location: " . $Url->make_absolute()->url );
+		exit( $log_message );
 	}
 }
