@@ -77,27 +77,4 @@ class Request {
 		// header("Location: " . $args['url']->url);
 		exit( $args['logmessage'] );
 	}
-
-	/**
-	 * Initiate download for theme template
-	 *
-	 * @param  string $template_type Name of template
-	 *
-	 * @throws \Exception
-	 */
-	function template_download( $template_type ) {
-		if ( is_null( $template_type ) ) {
-			throw new \Exception( 'Template type cannot be null.' );
-		}
-
-		$ext                = \Configuration::CONTENT_EXT;
-		$application_folder = \Configuration::APPLICATION_FOLDER;
-		$filepath_template  = Filesystem::url_to_path( "/$application_folder/template-$template_type.$ext" );
-		$now                = date( "Y-m-d H:i:s" );
-
-		$contents = ( file_exists( $filepath_template ) ) ? trim( file_get_contents( $filepath_template ) ) : "Create '$filepath_template' for your $template_type template.";
-		$contents = sprintf( $contents, $now );
-		Http::attach_plaintext( $contents );
-		exit();
-	}
 }
