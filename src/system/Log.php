@@ -8,38 +8,28 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 
 class Log {
 
-	const FILENAME_TEMPLATE = '/carbon-%s.log';
-
-
-	static function error( $message ) {
-		error_log( $message, 0 );
+	static function error( $message, $message_type = 'ERROR' ) {
+		self::error_log( $message, $message_type );
 		echo( $message . "<br>" );
 	}
 
+	static function error_log( $message, $message_type = 'ERROR', $destination = null ) {
+		$message = sprintf( "[%s] (%s) %s %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message_type, $message . PHP_EOL );
+		error_log( $message, 3, $destination );
+	}
 
 	static function debug( $message ) {
 		if ( \Configuration::DEBUG_ENABLED ) {
-			$message = sprintf( "[%s] (%s) DEBUG %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message . PHP_EOL );
-			error_log( $message, 3, \Configuration::LOGS_FOLDER . self::filename_per_request() );
+			self::error_log( $message, 'DEBUG' );
 		}
 	}
 
-	static function filename_per_request() {
-		return sprintf( self::FILENAME_TEMPLATE, date( "Y-m-d_H-m-s" ) );
-	}
-
 	static function info( $message ) {
-		$message = sprintf( "[%s] (%s) INFO %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message . PHP_EOL );
-		error_log( $message, 3, \Configuration::LOGS_FOLDER . self::filename() );
-	}
-
-	static function filename() {
-		return sprintf( self::FILENAME_TEMPLATE, date( "Y-m-d" ) );
+		self::error_log( $message, 'INFO' );
 	}
 
 	static function warn( $message ) {
-		$message = sprintf( "[%s] (%s) WARN %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message . PHP_EOL );
-		error_log( $message, 3, \Configuration::LOGS_FOLDER . self::filename() );
+		self::error_log( $message, 'WARN' );
 	}
 
 }
