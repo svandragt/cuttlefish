@@ -171,3 +171,5 @@ logs/
 .vagrant
 Configuration.php
 vendor/
+*.log
+*.phar
