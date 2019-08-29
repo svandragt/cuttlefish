@@ -9,7 +9,6 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 class ControllerAdmin extends Carbon\Controller {
 	public $allowed_methods = array(
 		'index'       => 'Overview',
-		'draft'       => 'New post template',
 		'clear_cache' => 'Clear cache',
 		'generate'    => 'Generate static site',
 		'logout'      => 'Logout',
@@ -78,14 +77,6 @@ class ControllerAdmin extends Carbon\Controller {
 		global $App;
 
 		return $App->Security->login();
-	}
-
-	function draft() {
-		global $App;
-		$App->Security->login_redirect();
-		// Broken draft but Request object shouldn't be called from here.
-		// global $Request;
-		// $Request->template_download('post');
 	}
 
 	function clear_cache() {

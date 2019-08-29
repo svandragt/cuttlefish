@@ -20,7 +20,7 @@ class Cache {
 	public function end() {
 		chdir( $this->cwd ); // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
 		if ( $this->has_cacheable_page_request() ) {
-			$this->write_cache_to_disk( null, ob_get_contents() );
+			$this->write_cache_to_disk( ob_get_contents(), null );
 			ob_end_flush();
 		}
 	}
@@ -42,14 +42,14 @@ class Cache {
 	/**
 	 * Writes the collected cache to disk
 	 *
-	 * @param  object $url_obj url object to be written
 	 * @param  string $contents contents of the cache
+	 *
+	 * @param null|string $url_relative Relative URL
 	 *
 	 * @return string           path to the cache file
 	 */
-	function write_cache_to_disk( $url_obj, $contents ) {
-		$url     = ( is_object( $url_obj ) ) ? $url_obj->url : $url_obj;
-		$path    = $this->cache_file_from_url( $url );
+	function write_cache_to_disk( $contents, $url_relative = null ) {
+		$path    = $this->cache_file_from_url( $url_relative );
 		$dirname = pathinfo( $path, PATHINFO_DIRNAME );
 
 		if ( ! is_dir( $dirname ) ) {
@@ -146,7 +146,7 @@ class Cache {
 		foreach ( $Files->files() as $index => $file_path ) {
 			$File         = new File( $file_path );
 			$Url          = new Url();
-			$cache_urls[] = $Url->file_to_url( $File )->index();
+			$cache_urls[] = $Url->file_to_url( $File );
 		}
 
 		$urls = array(
@@ -154,22 +154,19 @@ class Cache {
 			'/feeds/posts',
 			'/archive',
 		);
-		foreach ( $urls as $key => $value ) {
-			$Url          = new Url();
-			$cache_urls[] = $Url->index( $value );
+		foreach ( $urls as $path ) {
+			$cache_urls[] = new Url( $path );
 		}
 
 		foreach ( $cache_urls as $Url ) {
-			$UrlCloned  = clone $Url;
-			$url_string = $UrlCloned->make_absolute()->url;
-			$contents   = $Curl->url_contents( $url_string );
+			$contents = $Curl->url_contents( $Url->url_absolute );
 
 			if ( empty( $contents ) ) {
-				die( "ERROR: no contents for {$UrlCloned->abs()->url}" );
+				die( "ERROR: no contents for {$Url->url_absolute}" );
 			}
 
 			if ( \Configuration::CACHE_ENABLED == false ) {
-				$path   = $this->write_cache_to_disk( $Url, $contents );
+				$path   = $this->write_cache_to_disk( $contents, $Url->url_relative );
 				$output .= "Written: $path<br>" . PHP_EOL;
 			}
 		}
