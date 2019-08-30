@@ -16,7 +16,8 @@ mv composer.phar /usr/bin/composer
 cp /vagrant/bootstrap/etc/ / -r
 
 pushd /vagrant
-composer update
+  sudo -u vagrant -H composer update
 popd
 
 service nginx restart
+echo "Ready. http://carbon.test"
