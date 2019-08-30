@@ -2,7 +2,7 @@
 export DEBIAN_FRONTEND=noninteractive
 
 add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:nginx/development
+add-apt-repository -y ppa:nginx/stable
 
 apt-get -y update
 apt-get -y install nginx zip
