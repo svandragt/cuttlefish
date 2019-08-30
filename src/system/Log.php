@@ -9,7 +9,6 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class Log {
-
     const FILENAME_TEMPLATE = '/carbon.log';
 
 
@@ -17,7 +16,6 @@ class Log {
         error_log( $message, 0 );
         echo( $message . "<br>" );
     }
-
 
     static function debug($message ) {
         if (Configuration::DEBUG_ENABLED) {

@@ -8,28 +8,21 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 
 class Url {
 
-	public $url;
-	public $is_relative; // made absolute?
-	public $is_prefixed; // been through index function
+	public $url_relative;
+	public $url_absolute;
 
-	// all url functions relative, except root
-
-	function __construct() {
-	}
-
-	/**
-	 * Returns an absolute url from a relative/absolute url
-	 *
-	 * @return object url object
-	 */
-	function make_absolute() {
-		// make a relative url absolute
-		if ( $this->is_relative ) {
-			$this->url         = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url;
-			$this->is_relative = false;
+	function __construct( $path = null ) {
+		if ( is_string( $path ) ) {
+			$this->setUrl( $path );
 		}
 
-		return (object) $this;
+		return $this;
+
+	}
+
+	function setUrl( $path ) {
+		$this->url_relative = \Configuration::INDEX_PAGE . $path;
+		$this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
 	}
 
 	/**
@@ -65,31 +58,8 @@ class Url {
 			$relative_url = str_replace( $content_folder . '/', '', $relative_url );
 			$relative_url = str_replace( '.' . \Configuration::CONTENT_EXT, '', $relative_url );
 		}
+		$this->setUrl( $relative_url );
 
-		$this->url         = $relative_url;
-		$this->is_relative = true;
-		$this->is_prefixed = false;
-
-		return (object) $this;
+		return $this;
 	}
-
-	/**
-	 * Returns index_page independent url
-	 *
-	 * @param  string $url url
-	 *
-	 * @return object      url object
-	 */
-	function index( $url = null ) {
-		// makes sure links work index_page independent
-		if ( ! $this->is_prefixed ) {
-			$this->url         = ( is_null( $url ) ) ? $this->url : $url;
-			$this->url         = \Configuration::INDEX_PAGE . $this->url;
-			$this->is_prefixed = true;
-			$this->is_relative = true;
-		}
-
-		return (object) $this;
-	}
-
 }

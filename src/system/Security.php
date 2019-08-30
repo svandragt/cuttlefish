@@ -6,8 +6,8 @@ class Security {
 
 	public function login_redirect() {
 		if ( ! $this->is_logged_in() ) {
-			$Url = new Url();
-			header( 'Location: ' . $Url->index( '/admin' )->make_absolute()->url );
+			$Url = new Url( '/admin' );
+			header( 'Location: ' . $Url->url_absolute );
 		};
 	}
 
@@ -28,8 +28,8 @@ class Security {
 				) );
 				$output .= "logged in.<br>";
 				Log::info( "Login attempt successful" );
-				$Url = new Url();
-				header( 'Location: ' . $Url->index( '/admin' )->make_absolute()->url );
+				$Url = new Url( '/admin' );
+				header( 'Location: ' . $Url->url_absolute );
 			} else {
 				if ( false === empty( $password ) ) {
 					Log::warn( "Login attempt unsuccessful." );

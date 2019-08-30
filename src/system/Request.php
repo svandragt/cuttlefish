@@ -44,8 +44,8 @@ class Request {
 			$ends_with_slash = ! substr( strrchr( $path_info, "/" ), 1 );
 			if ( $ends_with_slash ) {
 				$slashless_request = substr( $path_info, 0, - 1 );
-				$Url               = new Url();
-				header( 'Location: ' . $Url->index( $slashless_request )->make_absolute()->url );
+				$Url               = new Url( $slashless_request );
+				header( 'Location: ' . $Url->url_absolute );
 				exit();
 			}
 		}
@@ -59,45 +59,19 @@ class Request {
 	 * @param  string $controller_class name of controller
 	 */
 	function class_not_callable( $controller_class ) {
-		$Url  = new Url();
-		$args = array(
-			'url'        => $Url->index( '/errors/404' )->make_absolute(),
-			'logmessage' => "Not callable '$controller_class' or missing parameter.",
-		);
-		$this->redirect( $args );
+		$Url         = new Url( '/errors/404' );
+		$log_message = "Not callable '$controller_class' or missing parameter.";
+		$this->redirect( $Url, $log_message );
 	}
 
 	/**
 	 * Redirect to new url
 	 *
-	 * @param  [array] $args [arguments array containing url and logmessage indexes]
+	 * @param Url $Url URL to redirect to
+	 * @param $log_message
 	 */
-	function redirect( $args ) {
-		echo( "Location: " . $args['url']->url );
-		// header("Location: " . $args['url']->url);
-		exit( $args['logmessage'] );
-	}
-
-	/**
-	 * Initiate download for theme template
-	 *
-	 * @param  string $template_type Name of template
-	 *
-	 * @throws \Exception
-	 */
-	function template_download( $template_type ) {
-		if ( is_null( $template_type ) ) {
-			throw new \Exception( 'Template type cannot be null.' );
-		}
-
-		$ext                = \Configuration::CONTENT_EXT;
-		$application_folder = \Configuration::APPLICATION_FOLDER;
-		$filepath_template  = Filesystem::url_to_path( "/$application_folder/template-$template_type.$ext" );
-		$now                = date( "Y-m-d H:i:s" );
-
-		$contents = ( file_exists( $filepath_template ) ) ? trim( file_get_contents( $filepath_template ) ) : "Create '$filepath_template' for your $template_type template.";
-		$contents = sprintf( $contents, $now );
-		Http::attach_plaintext( $contents );
-		exit();
+	function redirect( $Url, $log_message ) {
+		echo( "Location: " . $Url->url_absolute );
+		exit( $log_message );
 	}
 }
