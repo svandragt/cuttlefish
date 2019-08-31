@@ -13,9 +13,9 @@ use VanDragt\Carbon;
  * @return string      index independent internal url
  */
 function href( $internal_url ) {
-	$Url = new Carbon\Url();
+    $Url = new Carbon\Url($internal_url);
 
-	return $Url->index( $internal_url )->url;
+    return $Url->url_absolute;
 }
 
 /**
@@ -25,9 +25,9 @@ function href( $internal_url ) {
  */
 function pages() {
 	$output     = '';
-	$pages_path = sprintf( "/%s/%s", \Configuration::CONTENT_FOLDER, 'pages' );
+    $pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
 
-	$Files = new Carbon\Files( array( 'url' => $pages_path ), \Configuration::CONTENT_EXT );
+    $Files = new Carbon\Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
 	foreach ( $Files->files() as $path ) {
 		$filename = pathinfo( $path, PATHINFO_FILENAME );
 		$title    = ucwords( str_replace( "-", " ", $filename ) );
