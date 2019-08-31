@@ -5,6 +5,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-18.04"
 
   config.vm.provision :shell, :path => "bootstrap/bootstrap.sh"
+  config.vm.provision :shell, :path => "bootstrap/start.sh", run: "always"
+
 
   config.vm.network :private_network, ip: "192.168.4.3"
   config.vm.hostname = "carbon.test"
@@ -14,5 +16,5 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.synced_folder ".", "/srv/carbon"
+  config.vm.synced_folder ".", "/srv/carbon", owner: "www-data", group: "www-data"
 end
