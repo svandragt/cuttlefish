@@ -15,7 +15,8 @@ use VanDragt\Carbon;
 function href( $internal_url ) {
     $Url = new Carbon\Url($internal_url);
 
-    return $Url->url_absolute;
+    // relative links for portability.
+    return $Url->url_relative;
 }
 
 /**
