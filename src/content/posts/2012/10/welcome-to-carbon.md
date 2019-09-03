@@ -1,52 +1,49 @@
 Published: 2012-10-03 13:32:37
+Updated: 2019-9-03 07:37:43
 
 
 Welcome to Carbon
 =================
-Thanks for trying out Carbon. 
-Carbon is a hackable performant (semi) static blogging system. 
+Thanks for trying out Carbon: a fast, hackable (semi) static blogging system. 
 
 _It should be considered early alpha._
 
-### Screencasts
+## Aims
 
-1. [Installing Carbon in developer mode on a shared host](http://screencast.com/t/QgDYtKUFpG)
-2. [Enable caching for production use](http://screencast.com/t/bRs6taeYUEQl)
-3. [Generate a static site](http://screencast.com/t/KqP1GRhNTf)
+Carbon aims to be...
 
-
-### Aims
-
-* Easy to learn
-* Easy to hack & extend (with basic PHP knowledge)
-* Performant
-
+* Fast.
+* Easy to adopt.
+* Hackable.
 
 ### Installation
 
-Carbon requires PHP 5.3+ and is tested on IIS 6.1 / Windows & Apache / Ubuntu.
+Carbon is a regular PHP application and requires PHP 7+. It is tested on Ubuntu.
 
 1. Check out this repository and point your webserver to the public folder.
-2. Open `public/Configuration.php` and override any constants from `public/system/Defaults.php`.
-3. Open the site in your browser. A _cache_ and _logs_ folder outside _public_ will be created, and example content loaded from _public/content_.
+2. Clone `public/Configuration-sample.php` as `public/Configuration.php` and override any constants from `public/system/Defaults.php`.
+3. Open the site in your browser. A _cache_ and _logs_ folder outside _public_ will be created, and the example content will load from _public/content_.
 
 
-### Concepts
+### Example Application Concepts
 
-__Posts__ are listed in the index page. Pages contain a section of YAML followed by Markdown, by default.<br>
-__Pages__ just contain markdown content, by default. In the _basic_ theme, pages are linked from the footer. <br>
-__Configuration__ settings override the defaults.<br>
-Manage your __data models and theming logic__ using the MVC classes in the _public/application_ folder.<br>
+Carbon comes with this example application, complete with archive pages, feeds and homepage index:
+
+* __Posts__ are looped in the index page. Posts contain a section of YAML followed by Markdown, by default.
+* __Pages__ just contain markdown content, by default. In the _basic_ theme, pages are linked from the footer.
+* Manage your __data models and theming logic__ using the MVC classes in the _public/application_ folder.
 
 
 ### Basic configuration options
 
-open `public/Configuration.php` to:
+open `public/Configuration.php` to change this like:
 
 * Enable administration functions: create an environment variable called CARBON_ADMIN_PASSWORD and a password as the value, then visit [/admin](http://localhost/index.php/admin) to login.
 * Change your site title and motto.
 * Set the default number of posts shown on the frontpage.
 * Change common folder locations (Please submit issues if you find hardcoded locations).
+
+Full details of all configuration options can be found in the wiki, in the future. ;-)
 
 ### Getting started
 
@@ -54,21 +51,20 @@ open `public/Configuration.php` to:
 * Create your first post: Navigate to __Admin > Create post template__ to download a _post_ template and save it in `/content/posts/2012/09/first-post.md`. 
 * Create a 404: `/content/errors/404.md`. Now non-existing links will point here. Error pages follow the _page_ data model.
 
-### Turn off Pretty Urls
+### Pretty Urls
 
-By default Carbon uses Apache's mod_rewrite and IIS'es URL rewrite to keep urls nice. You can disable this behaviour by opening `public/Configuration.php`: set `const INDEX_PAGE = '/index.php';`. This adds `/index.php` to all urls (eg: [/index.php/admin/new](http://localhost/index.php/admin/new) instead of [/admin/new](http://localhost/admin/new));
+By default Carbon uses Apache's mod_rewrite and the provided Nginx configuration to keep urls nice. You can disable this behaviour by opening `public/Configuration.php`: set `const INDEX_PAGE = '/index.php';`. This adds `/index.php` to all urls (eg: [/index.php/admin/new](http://localhost/index.php/admin/new) instead of [/admin/new](http://localhost/admin/new));
 
 
 ### Caching
 
-To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through __Admin > Clear Cache__. Caching is required if you want to generate a static site.
+To enable caching: open `public/Configuration.php` and set `const CACHE_ENABLED = true;`. Pages remain cached until its cache-file is deleted, manually or through __Admin > Clear Cache__. Caching must be enabled to use static site generation.
 
 
 ### Full static site generation
 
 Navigate to __Admin > Generate static site__. The `cache` folder now contains a full static site. 
 
-To deploy the static site, open a Powershell and run `.\carbon.ps1 deploy`. The script will ask for a keyword (for example: live), after which you can redeploy quickly by recalling the settings: in this case using `.\carbon.ps1 deploy live`. Currently the script only supports sftp connections. It requires [WinSCP](http://winscp.net/eng/download.php) and the *WinSCP .NET  Assembly / COM library*.
 
 
 ### Externals
@@ -78,10 +74,10 @@ Carbon will support third-party plugins (externals). Simply drop a [spl_autoload
 Carbon will register any externals and autoload them. It comes with markdown and yaml support courtesy of [PHP Markdown Extra](http://michelf.ca/projects/php-markdown/) and [Spyc](https://github.com/mustangostang/spyc/).
 
 
-### Images
+### Use of images within templates
 
 Put the image in the _/content/images_ folder, and then call the `/images` controller:
 
 ![carbon logo](/images/carbon/logo.png)
 
-Image is shown above.
+An image is shown above this paragraph.
