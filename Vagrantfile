@@ -2,6 +2,9 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  
   config.vm.box = "bento/ubuntu-18.04"
 
   config.vm.provision :shell, :path => "bootstrap/bootstrap.sh"
