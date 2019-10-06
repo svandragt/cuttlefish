@@ -24,3 +24,4 @@ vendor/
 *.log
 *.phar
 .idea/
+.phpintel/
