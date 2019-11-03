@@ -1,6 +1,6 @@
 {
-    "name": "svandragt/carbon",
-    "description": "Hackable performant semi-static blogging system",
+    "name": "svandragt/mana",
+    "description": "Hackable web framework.",
     "type": "project",
     "license": "proprietary",
     "authors": [
@@ -12,12 +12,14 @@
     "minimum-stability": "stable",
     "require": {
         "mustangostang/spyc": "*",
-        "michelf/php-markdown": "*"
+        "michelf/php-markdown": "*",
+        "vimeo/psalm": "^3.6",
+        "ext-curl": "*"
     },
     "autoload": {
         "psr-4": {
             "": "src/application/",
-            "VanDragt\\Carbon\\": "src/system/"
+            "Mana\\": "src/system/"
         }
     }
 }

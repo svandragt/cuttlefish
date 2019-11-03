@@ -1,12 +1,12 @@
 <?php
 
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerAdmin extends Carbon\Controller {
+class ControllerAdmin extends Mana\Controller {
 	public $allowed_methods = array(
 		'index'       => 'Overview',
 		'clear_cache' => 'Clear cache',
@@ -43,7 +43,7 @@ class ControllerAdmin extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Carbon\Html( $this->contents, array(
+		$this->View = new Mana\Html( $this->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'admin',
 			'model'      => 'page',
@@ -54,9 +54,9 @@ class ControllerAdmin extends Carbon\Controller {
 		global $App;
 		if ( $App->Security->is_logged_in() ) {
 			return $this->show_tasks();
-		} else {
-			return $this->show_login();
 		}
+
+		return $this->show_login();
 	}
 
 	function show_tasks() {
@@ -64,8 +64,8 @@ class ControllerAdmin extends Carbon\Controller {
 		$am     = $this->allowed_methods;
 		array_shift( $am );
 		foreach ( $am as $key => $value ):
-			$Url    = new Carbon\Url();
-			$output .= sprintf( '<li><a href="%s">%s</a></li>', $Url->index( "/admin/$key" )->url, $value );
+			$Url    = new Mana\Url( "/admin/$key" );
+			$output .= sprintf( '<li><a href="%s">%s</a></li>', $Url->url_absolute, $value );
 		endforeach;
 
 		$output .= '</ul>';
@@ -81,7 +81,7 @@ class ControllerAdmin extends Carbon\Controller {
 
 	function clear_cache() {
 		global $App;
-		$App->Security->login_redirect();
+		$App->Security->maybe_login_redirect();
 
 		return $App->Cache->clear();
 	}
@@ -89,14 +89,14 @@ class ControllerAdmin extends Carbon\Controller {
 	function generate() {
 		global $App;
 
-		$App->Security->login_redirect();
+		$App->Security->maybe_login_redirect();
 		echo $App->Cache->generate_site();
 	}
 
 	function logout() {
 		global $App;
 
-		$App->Security->login_redirect();
+		$App->Security->maybe_login_redirect();
 
 		return $App->Security->logout();
 	}

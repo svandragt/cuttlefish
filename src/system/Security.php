@@ -1,10 +1,9 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 class Security {
-
-	public function login_redirect() {
+	public function maybe_login_redirect() {
 		if ( ! $this->is_logged_in() ) {
 			$Url = new Url( '/admin' );
 			header( 'Location: ' . $Url->url_absolute );
@@ -20,7 +19,7 @@ class Security {
 
 		$output = "";
 
-		if ( $admin_password = getenv( 'CARBON_ADMIN_PASSWORD' ) ) {
+		if ( $admin_password = getenv( 'MANA_ADMIN_PASSWORD' ) ) {
 			$password = HTTP::post( 'password' );
 			if ( $password == $admin_password ) {
 				Http::set_session( array(
@@ -39,7 +38,7 @@ class Security {
 
 			}
 		} else {
-			$output .= "To login, create an environment variable called CARBON_ADMIN_PASSWORD and a password as the value.<br>";
+			$output .= "To login, create an environment variable called MANA_ADMIN_PASSWORD and a password as the value.<br>";
 
 		}
 

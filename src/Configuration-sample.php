@@ -1,17 +1,17 @@
 <?php
 
-use VanDragt\Carbon;
+
 
 if (!defined('BASE_FILEPATH'))
 {
 	exit('No direct script access allowed');
 }
 
-class Configuration extends Carbon\Defaults
+class Configuration extends Mana\Defaults
 {
 
 	const SITE_TITLE = 'Your site';
-	const SITE_MOTTO = 'Example theme of <a href="http://carbon.vandragt.com/">Carbon</a>, the hackable performant (semi) static blogging system.';
+	const SITE_MOTTO = 'Example theme of <a href="https://vandragt.com/tag/mana/">Mana</a>, the hackable web framework.';
 	const CACHE_ENABLED = FALSE;
 
 	// const INDEX_PAGE     = '/index.php';

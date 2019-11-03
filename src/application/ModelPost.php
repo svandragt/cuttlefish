@@ -1,13 +1,12 @@
 <?php
 
 use Michelf\MarkdownExtra;
-use VanDragt\Carbon;
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ModelPost extends Carbon\Model {
+class ModelPost extends Mana\Model {
 
 	public $model = array(
 		'yaml'          => 'metadata',
@@ -21,7 +20,7 @@ class ModelPost extends Carbon\Model {
 	function contents( $records ) {
 		$loaded_classes = array(
 			'mdep' => new MarkdownExtra(),
-			'spyc' => new \Spyc(),
+			'spyc' => new Spyc(),
 		);
 		foreach ( $records as $record ) {
 			$this->contents[] = $this->list_contents( $record, $loaded_classes );

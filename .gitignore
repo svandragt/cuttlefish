@@ -14,7 +14,6 @@ Desktop.ini
 
 # Carbon
 src/content/
-source/
 cache/
 phpdoc/
 logs/

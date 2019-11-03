@@ -1,9 +1,11 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
+use Exception;
 use Michelf\Markdown;
 use Spyc;
+use StdClass;
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
@@ -16,9 +18,10 @@ class Model {
 	public function __construct( $records ) {
 		try {
 			if ( array_unique( $this->model ) !== $this->model ) {
-				throw new \Exception( 'Array values not unique for model' );
+				throw new Exception( 'Array values not unique for model' );
 			}
-		} catch ( \Exception $e ) {
+		}
+		catch ( Exception $e ) {
 			Log::error( $e->getMessage() );
 		}
 		$this->contents( $records );
@@ -35,7 +38,7 @@ class Model {
 	}
 
 	function list_contents( $record, $loaded_classes ) {
-		$Content = new \StdClass();
+		$Content = new StdClass();
 
 		$Url  = new Url();
 		$File = new File( $record );
@@ -46,16 +49,17 @@ class Model {
 
 		try {
 			if ( count( $section_keys ) != count( $content_sections ) ) {
-				throw new \Exception( 'Model (' . get_class( $this ) . ') definition (' . count( $section_keys ) . ') does not match number of content sections (' . count( $content_sections ) . ').' );
+				throw new Exception( 'Model (' . get_class( $this ) . ') definition (' . count( $section_keys ) . ') does not match number of content sections (' . count( $content_sections ) . ').' );
 			}
-		} catch ( \Exception $e ) {
+		}
+		catch ( Exception $e ) {
 			Log::error( $e->getMessage() );
 			exit();
 		}
 
 		$Content->link = $Url->file_to_url( $File )->url_absolute;
 
-		for ( $i = 0; $i < count( $this->model ); $i ++ ) {
+		for ( $i = 0, $len = count( $this->model ); $i < $len; $i ++ ) {
 			$content_section         = $content_sections[ $i ];
 			$section_key             = $section_keys[ $i ];
 			$section_value           = $section_values[ $i ];
@@ -71,7 +75,7 @@ class Model {
 			$$class_name = $obj;
 		}
 
-		$Section = new \StdClass();
+		$Section = new StdClass();
 		switch ( $section_key ) {
 			case 'yaml':
 				$yaml = Spyc::YAMLLoadString( $content_section );

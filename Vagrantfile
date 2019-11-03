@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
 
 
   config.vm.network :private_network, ip: "192.168.4.3"
-  config.vm.hostname = "carbon.test"
+  config.vm.hostname = "mana.test"
 
   config.vm.provider "virtualbox" do |vb|
 	vb.name = "carbon"
@@ -21,5 +21,5 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/vagrant"
   # Enable writing to the logs and cache folder through permissions
-  config.vm.synced_folder ".", "/srv/carbon", owner: "www-data", group: "www-data"
+  config.vm.synced_folder ".", "/srv/mana", owner: "www-data", group: "www-data"
 end

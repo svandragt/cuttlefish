@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 class Curl {
 	private $c;
@@ -18,7 +18,7 @@ class Curl {
 
 	function url_contents( $url, $query_data = null, $requestMethod = 'GET' ) {
 		// return the contens of an url with POST params and authentication based on setings;
-		if ( $requestMethod != 'GET' ) {
+		if ( $requestMethod !== 'GET' ) {
 			die ( sprintf( "%s method not implemented yet.", $requestMethod ) );
 		}
 

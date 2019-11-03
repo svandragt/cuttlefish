@@ -1,16 +1,16 @@
 <?php
 
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerImages extends Carbon\Controller {
+class ControllerImages extends Mana\Controller {
 	// single image
 
 	function records() {
-		$this->records = [ Carbon\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/" ) ) ];
+		$this->records = [ Mana\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/" ) ) ];
 	}
 
 	function model() {
@@ -20,7 +20,7 @@ class ControllerImages extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Carbon\File( $this->Model->contents );
+		$this->View = new Mana\File( $this->Model->contents );
 		$this->View->render();
 	}
 }

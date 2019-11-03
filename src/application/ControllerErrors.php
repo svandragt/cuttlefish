@@ -1,17 +1,17 @@
 <?php
 
 
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerErrors extends Carbon\Controller {
+class ControllerErrors extends Mana\Controller {
 	// single errors page
 
 	function records() {
-		$this->records = [ Carbon\Filesystem::url_to_path( '/content/errors/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
+		$this->records = [ Mana\Filesystem::url_to_path( '/content/errors/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
 	}
 
 	function model() {
@@ -21,7 +21,7 @@ class ControllerErrors extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Carbon\Html( $this->Model->contents, array(
+		$this->View = new Mana\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'errors',
 			'model'      => 'page',
