@@ -9,7 +9,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 class ControllerFeeds extends Mana\Controller {
 	// single feed
 	function records() {
-		$limit         = \Configuration::POSTS_HOMEPAGE;
+		$limit         = Configuration::POSTS_HOMEPAGE;
 		$Records       = new Mana\Files( array( 'url' => '/content/posts' ), $this->ext );
 		$this->records = $Records->limit( $limit + 5 );
 	}

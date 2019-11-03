@@ -2,12 +2,13 @@
 
 namespace Mana;
 
+use Configuration;
+
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
 class Url {
-
 	public $url_relative;
 	public $url_absolute;
 
@@ -21,7 +22,7 @@ class Url {
 	}
 
 	function setUrl( $path ) {
-		$this->url_relative = \Configuration::INDEX_PAGE . $path;
+		$this->url_relative = Configuration::INDEX_PAGE . $path;
 		$this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
 	}
 
@@ -52,11 +53,13 @@ class Url {
 		$relative_url = '/' . ltrim( $relative_url, '/' );
 		Log::debug( __FUNCTION__ . " relative_url: $relative_url" );
 
-		$content_folder = \Configuration::CONTENT_FOLDER;
+		$content_folder = Configuration::CONTENT_FOLDER;
 
 		if ( ! strrpos( $relative_url, $content_folder ) === false ) {
-			$relative_url = str_replace( $content_folder . '/', '', $relative_url );
-			$relative_url = str_replace( '.' . \Configuration::CONTENT_EXT, '', $relative_url );
+			$relative_url = str_replace( [
+				$content_folder . '/',
+				'.' . Configuration::CONTENT_EXT,
+			], '', $relative_url );
 		}
 		$this->setUrl( $relative_url );
 

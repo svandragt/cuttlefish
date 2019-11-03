@@ -2,7 +2,6 @@
 
 use Michelf\MarkdownExtra;
 
-
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
@@ -21,7 +20,7 @@ class ModelPost extends Mana\Model {
 	function contents( $records ) {
 		$loaded_classes = array(
 			'mdep' => new MarkdownExtra(),
-			'spyc' => new \Spyc(),
+			'spyc' => new Spyc(),
 		);
 		foreach ( $records as $record ) {
 			$this->contents[] = $this->list_contents( $record, $loaded_classes );

@@ -39,10 +39,10 @@ class Files {
 					$file_path = $dir . DIRECTORY_SEPARATOR . $file;
 					if ( is_dir( $file_path ) ) {
 						$dir_files = $this->collect( $file_path, $filter );
-						if ( count( $dir_files ) > 0 ) {
-							$files = array_merge( $files, $dir_files );
+						foreach ( $dir_files as $ai ) {
+							$files[] = $ai;
 						}
-					} elseif ( ( is_null( $filter ) ) || pathinfo( $file_path, PATHINFO_EXTENSION ) == $filter ) {
+					} elseif ( ( ß$filter === null ) || pathinfo( $file_path, PATHINFO_EXTENSION ) == $filter ) {
 						$files[] = $file_path;
 					}
 				}
