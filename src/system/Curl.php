@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 class Curl {
 	private $c;

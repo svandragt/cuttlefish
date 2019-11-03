@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );

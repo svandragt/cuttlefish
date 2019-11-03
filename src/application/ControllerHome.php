@@ -1,17 +1,17 @@
 <?php
 
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerHome extends Carbon\Controller {
+class ControllerHome extends Mana\Controller {
 	// list of recent posts
 
 	function records() {
 		$limit         = \Configuration::POSTS_HOMEPAGE;
-		$Files         = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$Files         = new Mana\Files( array( 'url' => '/content/posts' ), $this->ext );
 		$this->records = $Files->limit( $limit + 5 );
 	}
 
@@ -23,7 +23,7 @@ class ControllerHome extends Carbon\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Carbon\Html( $this->Model->contents, array(
+		$this->View = new Mana\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'home',
 			'model'      => 'post',

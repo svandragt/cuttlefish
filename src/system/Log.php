@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 use Configuration;
 
@@ -9,7 +9,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class Log {
-    const FILENAME_TEMPLATE = '/carbon.log';
+    const FILENAME_TEMPLATE = '/mana.log';
 
 
     static function error($message ) {

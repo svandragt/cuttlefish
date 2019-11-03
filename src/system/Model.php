@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 use Michelf\Markdown;
 use Spyc;

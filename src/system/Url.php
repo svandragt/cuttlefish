@@ -1,6 +1,6 @@
 <?php
 
-namespace VanDragt\Carbon;
+namespace Mana;
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
@@ -39,7 +39,7 @@ class Url {
 
 	/**
 	 * Converts a file to an url.
-	 * make sure to call Url->index($url) after.
+	 * make sure to call Url->url_absolute after.
 	 *
 	 * @param  object $file_object File object
 	 *

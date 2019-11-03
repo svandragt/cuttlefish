@@ -1,13 +1,13 @@
 <?php
 
 use Michelf\MarkdownExtra;
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ModelPage extends Carbon\Model {
+class ModelPage extends Mana\Model {
 	// page model
 
 	public $model = array(

@@ -1,16 +1,16 @@
 <?php
 
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerFeeds extends Carbon\Controller {
+class ControllerFeeds extends Mana\Controller {
 	// single feed
 	function records() {
 		$limit         = \Configuration::POSTS_HOMEPAGE;
-		$Records       = new Carbon\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$Records       = new Mana\Files( array( 'url' => '/content/posts' ), $this->ext );
 		$this->records = $Records->limit( $limit + 5 );
 	}
 
@@ -21,6 +21,6 @@ class ControllerFeeds extends Carbon\Controller {
 
 	function view() {
 		parent::view();
-		$this->View = new Carbon\Feed( $this->Model->contents );
+		$this->View = new Mana\Feed( $this->Model->contents );
 	}
 }

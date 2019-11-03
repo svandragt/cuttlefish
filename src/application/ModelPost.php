@@ -1,13 +1,13 @@
 <?php
 
 use Michelf\MarkdownExtra;
-use VanDragt\Carbon;
+
 
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ModelPost extends Carbon\Model {
+class ModelPost extends Mana\Model {
 
 	public $model = array(
 		'yaml'          => 'metadata',
