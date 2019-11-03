@@ -1,5 +1,5 @@
-# Carbon
-Carbon is a PHP based hackable performant (semi) static blogging system. 
+# Mana
+Mana is a PHP based hackable web framework (work in progress). 
 
 _It should be considered early alpha._
 
@@ -13,7 +13,7 @@ _It should be considered early alpha._
 
 ## Next step
 
-[Installation, configuration, and content management](https://github.com/svandragt/carbon/wiki)
+[Installation, configuration, and content management](https://github.com/svandragt/mana/wiki)
 instructions are found on the wiki.
 
-[Contributions are welcomed](https://github.com/svandragt/carbon/issues). 
+[Contributions are welcomed](https://github.com/svandragt/mana/issues). 
