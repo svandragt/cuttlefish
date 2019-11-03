@@ -42,7 +42,7 @@ class Files {
 						foreach ( $dir_files as $ai ) {
 							$files[] = $ai;
 						}
-					} elseif ( ( ß$filter === null ) || pathinfo( $file_path, PATHINFO_EXTENSION ) == $filter ) {
+					} elseif ( ( $filter === null ) || pathinfo( $file_path, PATHINFO_EXTENSION ) == $filter ) {
 						$files[] = $file_path;
 					}
 				}
