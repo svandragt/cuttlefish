@@ -3,8 +3,7 @@
 namespace Mana;
 
 class Security {
-
-	public function login_redirect() {
+	public function maybe_login_redirect() {
 		if ( ! $this->is_logged_in() ) {
 			$Url = new Url( '/admin' );
 			header( 'Location: ' . $Url->url_absolute );

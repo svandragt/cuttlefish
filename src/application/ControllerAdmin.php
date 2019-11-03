@@ -81,7 +81,7 @@ class ControllerAdmin extends Mana\Controller {
 
 	function clear_cache() {
 		global $App;
-		$App->Security->login_redirect();
+		$App->Security->maybe_login_redirect();
 
 		return $App->Cache->clear();
 	}
@@ -89,14 +89,14 @@ class ControllerAdmin extends Mana\Controller {
 	function generate() {
 		global $App;
 
-		$App->Security->login_redirect();
+		$App->Security->maybe_login_redirect();
 		echo $App->Cache->generate_site();
 	}
 
 	function logout() {
 		global $App;
 
-		$App->Security->login_redirect();
+		$App->Security->maybe_login_redirect();
 
 		return $App->Security->logout();
 	}
