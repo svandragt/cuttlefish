@@ -22,24 +22,28 @@ class Cache {
 	public function end() {
 		// Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
 		chdir( $this->cwd );
-		if ( $this->has_cacheable_page_request() ) {
-			$this->write_cache_to_disk( ob_get_contents(), null );
-			ob_end_flush();
+		if ( $this->can_cache() ) {
+			$this->write_to_disk( ob_get_flush(), null );
+			exit;
 		}
 	}
 
 	/**
-	 * Returns possibility of caching the page based on environment and configuration
+	 * Returns possibility of caching the page based on environment and configuration.
 	 *
 	 * @return boolean whether caching is possible
 	 */
-	public function has_cacheable_page_request() {
-		$cache_enabled              = Configuration::CACHE_ENABLED;
-		$is_caching                 = ! ob_get_level() === 0;
-		$has_noerrors               = error_get_last() === null;
-		$has_cacheable_page_request = ( $cache_enabled && $is_caching && $has_noerrors );
+	public function can_cache() {
+		$cache_enabled = Configuration::CACHE_ENABLED;
+		if ( $cache_enabled === false ) {
+			return false;
+		}
+		$is_caching = ob_get_level() > 0;
+		if ( $is_caching === false ) {
+			return false;
+		}
 
-		return (boolean) $has_cacheable_page_request;
+		return error_get_last() === null;
 	}
 
 	/**
@@ -51,8 +55,8 @@ class Cache {
 	 *
 	 * @return string           path to the cache file
 	 */
-	function write_cache_to_disk( $contents, $url_relative = null ) {
-		$path    = $this->cache_file_from_url( $url_relative );
+	public function write_to_disk( $contents, $url_relative = '' ) {
+		$path    = $this->generate_cache_file_from_url( $url_relative );
 		$dirname = pathinfo( $path, PATHINFO_DIRNAME );
 
 		if ( ! mkdir( $dirname, 0777, true ) && ! is_dir( $dirname ) ) {
@@ -66,31 +70,35 @@ class Cache {
 	}
 
 	/**
-	 * Returns path to cache file based on url path
+	 * Returns path to cache file based on url path.
 	 *
 	 * @param  string $path_info path to current request
 	 *
 	 * @return string            path to cache file
 	 */
-	function cache_file_from_url( $path_info = '' ) {
+	public function generate_cache_file_from_url( $path_info = '' ) {
 
 		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
 			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
 		}
 		$path_info = ltrim( $path_info, '/' );
+
 		$filename  = pathinfo( $path_info, PATHINFO_DIRNAME ) . '/' . pathinfo( $path_info, PATHINFO_FILENAME );
 		$filename  = ltrim( $filename, '.' );
 
 		$ext = pathinfo( $path_info, PATHINFO_EXTENSION );
+		// If the path is not explicity got an extension.
 		if ( strrpos( $path_info, '.' ) === false ) {
+
 			$filename = rtrim( $filename, '/' ) . '/index';
 			$ext      = 'html';
 
+			// FIXME: If filename has the word feed in it it's xml (lol)
 			if ( ! strrpos( $filename, 'feed' ) === false ) {
 				$ext = 'xml';
 			}
 		}
-		$cache_file = sprintf( "%s/%s.%s", Configuration::CACHE_FOLDER, ltrim( $filename, '/' ), $ext );
+		$cache_file = sprintf( '%s/%s.%s', Configuration::CACHE_FOLDER, ltrim( $filename, '/' ), $ext );
 		$cache_file = str_replace( '/', DIRECTORY_SEPARATOR, $cache_file );
 
 		return (string) $cache_file;
@@ -117,14 +125,14 @@ class Cache {
 	 *
 	 * @return boolean page has existing cachefile
 	 */
-	function has_existing_cachefile() {
-		$cache_file          = $this->cache_file_from_url();
-		$has_cache_file      = file_exists( $cache_file );
+	public function has_existing_cachefile() {
 		$has_caching_enabled = Configuration::CACHE_ENABLED;
+		if ( ! $has_caching_enabled ) {
+			return false;
+		}
+		$cache_file = $this->generate_cache_file_from_url();
 
-		$status = $has_cache_file && $has_caching_enabled;
-
-		return $status;
+		return file_exists( $cache_file );
 	}
 
 	/**
@@ -171,7 +179,7 @@ class Cache {
 			}
 
 			if ( Configuration::CACHE_ENABLED === false ) {
-				$path   = $this->write_cache_to_disk( $contents, $Url->url_relative );
+				$path   = $this->write_to_disk( $contents, $Url->url_relative );
 				$output .= "Written: $path<br>" . PHP_EOL;
 			}
 		}

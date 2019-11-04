@@ -15,7 +15,7 @@ class App {
 		// Prime a new cache and start caching
 		$this->Cache = new Cache();
 		if ( $this->Cache->has_existing_cachefile() ) {
-			exit( readfile( $this->Cache->cache_file_from_url() ) );
+			exit( readfile( $this->Cache->generate_cache_file_from_url() ) );
 		}
 
 		// Setup environment
