@@ -22,6 +22,6 @@ class Defaults {
 	const APPLICATION_FOLDER = 'application';
 	const CACHE_FOLDER = '../_cache';
 	const CONTENT_FOLDER = 'content';
-	const LOGS_FOLDER = '../_log';
+	const LOGS_FOLDER = '../_logs';
 	const THEMES_FOLDER = 'themes';
 }
