@@ -14,5 +14,5 @@ curl -Ss https://getcomposer.org/installer | php
 mv composer.phar /usr/bin/composer
 pushd /vagrant
 sudo -u vagrant -H composer install &
-cp src/Configuration-sample.php src/Configuration.php -n
+cp src/Configuration.php.dist src/Configuration.php -n
 popd
