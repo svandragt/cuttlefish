@@ -2,7 +2,7 @@
     "name": "svandragt/mana",
     "description": "Hackable web framework.",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sander van Dragt",
@@ -13,8 +13,10 @@
     "require": {
         "mustangostang/spyc": "*",
         "michelf/php-markdown": "*",
-        "vimeo/psalm": "^3.6",
         "ext-curl": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {
