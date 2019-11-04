@@ -78,27 +78,24 @@ class Cache {
 	 */
 	public function generate_cache_file_from_url( $path_info = '' ) {
 
-		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
-			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
-		}
-		$path_info = ltrim( $path_info, '/' );
+		$path_info = $this->sanitize_pathinfo( $path_info );
 
-		$filename  = pathinfo( $path_info, PATHINFO_DIRNAME ) . '/' . pathinfo( $path_info, PATHINFO_FILENAME );
-		$filename  = ltrim( $filename, '.' );
+		$file_path = pathinfo( $path_info, PATHINFO_DIRNAME ) . '/' . pathinfo( $path_info, PATHINFO_FILENAME );
+		$file_path = ltrim( $file_path, '.' );
 
 		$ext = pathinfo( $path_info, PATHINFO_EXTENSION );
-		// If the path is not explicity got an extension.
 		if ( strrpos( $path_info, '.' ) === false ) {
-
-			$filename = rtrim( $filename, '/' ) . '/index';
-			$ext      = 'html';
+			// Convert html request into a folder
+			$file_path = rtrim( $file_path, '/' ) . '/index';
+			$ext       = 'html';
 
 			// FIXME: If filename has the word feed in it it's xml (lol)
-			if ( ! strrpos( $filename, 'feed' ) === false ) {
+			if ( ! strrpos( $file_path, 'feed/' ) === false ) {
 				$ext = 'xml';
 			}
 		}
-		$cache_file = sprintf( '%s/%s.%s', Configuration::CACHE_FOLDER, ltrim( $filename, '/' ), $ext );
+
+		$cache_file = sprintf( '%s/%s.%s', Configuration::CACHE_FOLDER, ltrim( $file_path, '/' ), $ext );
 		$cache_file = str_replace( '/', DIRECTORY_SEPARATOR, $cache_file );
 
 		return (string) $cache_file;
@@ -241,6 +238,20 @@ class Cache {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * @param $path_info
+	 *
+	 * @return string
+	 */
+	protected function sanitize_pathinfo( $path_info ) {
+		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
+			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
+		}
+		$path_info = ltrim( $path_info, '/' );
+
+		return (string) $path_info;
 	}
 }
 
