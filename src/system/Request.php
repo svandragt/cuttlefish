@@ -2,6 +2,8 @@
 
 namespace Mana;
 
+use Configuration;
+
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
@@ -36,10 +38,9 @@ class Request {
 			$path_info = $_SERVER['PATH_INFO'];
 		}
 
-
 		$no_specified_path = empty( $path_info ) || $path_info == '/';
 		if ( $no_specified_path ) {
-			$path_info = \Configuration::HOME_PAGE;
+			$path_info = Configuration::HOME_PAGE;
 		} else {
 			$ends_with_slash = ! substr( strrchr( $path_info, "/" ), 1 );
 			if ( $ends_with_slash ) {

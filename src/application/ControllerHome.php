@@ -10,14 +10,14 @@ class ControllerHome extends Mana\Controller {
 	// list of recent posts
 
 	function records() {
-		$limit         = \Configuration::POSTS_HOMEPAGE;
+		$limit         = Configuration::POSTS_HOMEPAGE;
 		$Files         = new Mana\Files( array( 'url' => '/content/posts' ), $this->ext );
 		$this->records = $Files->limit( $limit + 5 );
 	}
 
 	function model() {
 		$Model       = new ModelPost( $this->records );
-		$this->Model = $Model->limit( \Configuration::POSTS_HOMEPAGE );
+		$this->Model = $Model->limit( Configuration::POSTS_HOMEPAGE );
 	}
 
 	function view() {

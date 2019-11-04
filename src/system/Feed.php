@@ -2,12 +2,14 @@
 
 namespace Mana;
 
+use Configuration;
+use SimpleXMLElement;
+
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
 class Feed {
-
 	private $xml;
 
 	/**
@@ -17,12 +19,12 @@ class Feed {
 	 */
 	function __construct( $posts ) {
 		$PageUrl = new Url( $_SERVER['PATH_INFO'] );
-		$Xml     = new \SimpleXMLElement( '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>' );
+		$Xml     = new SimpleXMLElement( '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>' );
 		$Channel = $Xml->addChild( 'channel' );
 
-		$Channel->addChild( 'title', \Configuration::SITE_TITLE );
+		$Channel->addChild( 'title', Configuration::SITE_TITLE );
 		$Channel->addChild( 'link', $PageUrl->url_absolute );
-		$Channel->addChild( 'description', strip_tags( \Configuration::SITE_MOTTO ) );
+		$Channel->addChild( 'description', strip_tags( Configuration::SITE_MOTTO ) );
 
 		$Channel->addChild( 'pubDate', date( DATE_RSS ) );
 
