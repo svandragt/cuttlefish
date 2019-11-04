@@ -11,7 +11,7 @@ $body_class = preg_replace( "/[^\W]/", "-", str_replace( '.php', '', $_SERVER['P
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
     <link type="text/css" rel="stylesheet" href="<?= theme_dir() ?>styles/styles.css">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?= href( 'feeds/posts' ) ?>">
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="<?= href( '/feeds/posts' ) ?>">
 </head>
 <body id="body<?= $body_class ?>">
 
