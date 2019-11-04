@@ -20,8 +20,8 @@ class Defaults {
 
 	const HOME_PAGE = '/home';
 	const APPLICATION_FOLDER = 'application';
-	const CACHE_FOLDER = '../cache';
+	const CACHE_FOLDER = '../_cache';
 	const CONTENT_FOLDER = 'content';
-	const LOGS_FOLDER = '../log';
+	const LOGS_FOLDER = '../_log';
 	const THEMES_FOLDER = 'themes';
 }

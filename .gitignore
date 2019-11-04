@@ -14,9 +14,9 @@ Desktop.ini
 
 # Carbon
 src/content/
-cache/
+_cache/
 phpdoc/
-logs/
+_logs/
 .vagrant
 Configuration.php
 vendor/
