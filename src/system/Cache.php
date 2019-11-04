@@ -20,7 +20,8 @@ class Cache {
 	 * Write page to disk if cache is enabled
 	 */
 	public function end() {
-		chdir( $this->cwd ); // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
+		// Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
+		chdir( $this->cwd );
 		if ( $this->has_cacheable_page_request() ) {
 			$this->write_cache_to_disk( ob_get_contents(), null );
 			ob_end_flush();
@@ -212,7 +213,7 @@ class Cache {
 	 *
 	 * @return string             messages detailing the process
 	 */
-	function copy_themefiles( $file_types ) {
+	public function copy_themefiles( $file_types ) {
 		include( 'view_functions.php' );
 
 		$theme_dir = rtrim( theme_dir(), '/' );
