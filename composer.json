@@ -13,7 +13,6 @@
     "require": {
         "mustangostang/spyc": "*",
         "michelf/php-markdown": "*",
-        "vimeo/psalm": "^3.6",
         "ext-curl": "*"
     },
     "autoload": {
@@ -21,5 +20,12 @@
             "": "src/application/",
             "Mana\\": "src/system/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+        ],
+        "build": [
+            "docker-compose up --build"
+        ]
     }
 }

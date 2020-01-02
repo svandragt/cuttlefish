@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    domainname: mana.test
+    ports:
+      - 80:2015
+    volumes:
+      - .:/srv/app
