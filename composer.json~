@@ -21,15 +21,11 @@
             "Mana\\": "src/system/"
         }
     },
-    "config": {
-        "process-timeout": 0
-    },
     "scripts": {
-        "serve": [
+        "post-install-cmd": [
+        ],
+        "build": [
             "docker-compose up --build"
         ]
-    },
-    "scripts-descriptions": {
-        "serve": "Start the container."
     }
 }
