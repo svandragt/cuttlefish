@@ -1,17 +1,13 @@
 <?php
-
-
-
-
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerErrors extends Mana\Controller {
+class ControllerErrors extends Cuttlefish\Controller {
 	// single errors page
 
 	function records() {
-		$this->records = [ Mana\Filesystem::url_to_path( '/content/errors/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
+		$this->records = [ Cuttlefish\Filesystem::url_to_path( '/content/errors/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
 	}
 
 	function model() {
@@ -21,7 +17,7 @@ class ControllerErrors extends Mana\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Mana\Html( $this->Model->contents, array(
+		$this->View = new Cuttlefish\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'errors',
 			'model'      => 'page',

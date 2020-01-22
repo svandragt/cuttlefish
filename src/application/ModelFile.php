@@ -7,7 +7,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ModelFile extends Mana\Model {
+class ModelFile extends Cuttlefish\Model {
 
 	// File model
 

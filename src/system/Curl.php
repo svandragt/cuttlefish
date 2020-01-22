@@ -1,6 +1,6 @@
 <?php
 
-namespace Mana;
+namespace Cuttlefish;
 
 class Curl {
 	private $c;

@@ -6,11 +6,11 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerPosts extends Mana\Controller {
+class ControllerPosts extends Cuttlefish\Controller {
 	// single post
 
 	function records() {
-		$this->records = [ Mana\Filesystem::url_to_path( '/content/posts/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
+		$this->records = [ Cuttlefish\Filesystem::url_to_path( '/content/posts/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
 	}
 
 	function model() {
@@ -20,7 +20,7 @@ class ControllerPosts extends Mana\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Mana\Html( $this->Model->contents, array(
+		$this->View = new Cuttlefish\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'posts',
 			'model'      => 'post',

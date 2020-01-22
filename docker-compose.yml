@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    domainname: mana.test
+    domainname: cuttlefish.test
     ports:
       - 80:2015
     volumes:

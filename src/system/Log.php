@@ -1,6 +1,6 @@
 <?php
 
-namespace Mana;
+namespace Cuttlefish;
 
 use Configuration;
 
@@ -9,7 +9,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class Log {
-    const FILENAME_TEMPLATE = '/mana.log';
+    const FILENAME_TEMPLATE = '/cuttlefish.log';
 
 
     static function error($message ) {

@@ -6,11 +6,11 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerFeeds extends Mana\Controller {
+class ControllerFeeds extends Cuttlefish\Controller {
 	// single feed
 	function records() {
 		$limit         = Configuration::POSTS_HOMEPAGE;
-		$Records       = new Mana\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$Records       = new Cuttlefish\Files( array( 'url' => '/content/posts' ), $this->ext );
 		$this->records = $Records->limit( $limit + 5 );
 	}
 
@@ -21,6 +21,6 @@ class ControllerFeeds extends Mana\Controller {
 
 	function view() {
 		parent::view();
-		$this->View = new Mana\Feed( $this->Model->contents );
+		$this->View = new Cuttlefish\Feed( $this->Model->contents );
 	}
 }

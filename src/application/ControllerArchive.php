@@ -1,18 +1,14 @@
 <?php
-
-
-
-
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerArchive extends Mana\Controller {
+class ControllerArchive extends Cuttlefish\Controller {
 
 	// list of recent posts
 
 	function records() {
-		$Files         = new Mana\Files( array( 'url' => '/content/posts' ), $this->ext );
+		$Files         = new Cuttlefish\Files( array( 'url' => '/content/posts' ), $this->ext );
 		$this->records = $Files->files();
 	}
 
@@ -23,7 +19,7 @@ class ControllerArchive extends Mana\Controller {
 
 	function view() {
 		parent::view();
-		$this->View = new Mana\Html( $this->Model->contents, array(
+		$this->View = new Cuttlefish\Html( $this->Model->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'archive',
 			'model'      => 'post',

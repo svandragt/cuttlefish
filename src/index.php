@@ -10,4 +10,4 @@ $loader = require '../vendor/autoload.php';
 require 'Configuration.php';
 
 global $App;
-$App = new Mana\App();
+$App = new Cuttlefish\App();
