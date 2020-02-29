@@ -16,6 +16,7 @@ class Environment {
 
 		$this->add_include_path( Filesystem::url_to_path( '/' . Configuration::APPLICATION_FOLDER ) );
 		define( 'THEME_DIR', Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR );
+
 		if ( $this->new_install() ) {
 			$this->new_install_setup();
 		}
@@ -31,8 +32,6 @@ class Environment {
 	}
 
 	private function new_install() {
-
-
 		return ! ( is_dir( Configuration::CACHE_FOLDER ) && is_dir( Configuration::CONTENT_FOLDER ) );
 	}
 
@@ -48,7 +47,11 @@ class Environment {
 			Configuration::THEMES_FOLDER,
 		);
 		foreach ( $folders as $folder ) {
-			Filesystem::ensure_folder_exists( $folder );
+			$ok[] = Filesystem::ensure_folder_exists( $folder );
+
+		}
+		if ( in_array(false, $ok)) {
+			trigger_error('Create the missing folders, then retry.', E_USER_ERROR);
 		}
 		$this->server_setup();
 	}

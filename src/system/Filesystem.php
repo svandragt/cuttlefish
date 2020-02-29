@@ -11,10 +11,13 @@ class Filesystem {
 	static function ensure_folder_exists( $folder ) {
 
 		if ( ! is_dir( $folder ) ) {
-			if ( ! mkdir( $folder, 0777, true ) ) {
+			@mkdir( $folder, 0777, true );
+			if ( ! is_dir($folder) ) {
 				Log::error( "Please manually create <code>$folder</code>" );
+				return false;
 			} else {
 				Log::info( "Created $folder" );
+				return true;
 			}
 		}
 	}
