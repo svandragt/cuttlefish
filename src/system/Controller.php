@@ -2,6 +2,8 @@
 
 namespace Cuttlefish;
 
+use Configuration;
+
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
@@ -15,12 +17,11 @@ class Controller {
 	private $content;
 
 	function __construct( $parent, $args ) {
-		$this->content = \Configuration::CONTENT_FOLDER;
-		$this->ext     = \Configuration::CONTENT_EXT;
+		$this->content = Configuration::CONTENT_FOLDER;
+		$this->ext     = Configuration::CONTENT_EXT;
 		$this->args    = $args;
 		$this->init();
 	}
-
 
 	public function init() {
 		$this->records();
