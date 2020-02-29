@@ -1,12 +1,9 @@
 <?php
-
-
-
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerAdmin extends Mana\Controller {
+class ControllerAdmin extends Cuttlefish\Controller {
 	public $allowed_methods = array(
 		'index'       => 'Overview',
 		'clear_cache' => 'Clear cache',
@@ -43,7 +40,7 @@ class ControllerAdmin extends Mana\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Mana\Html( $this->contents, array(
+		$this->View = new Cuttlefish\Html( $this->contents, array(
 			'layout'     => 'layout.php',
 			'controller' => 'admin',
 			'model'      => 'page',
@@ -64,7 +61,7 @@ class ControllerAdmin extends Mana\Controller {
 		$am     = $this->allowed_methods;
 		array_shift( $am );
 		foreach ( $am as $key => $value ):
-			$Url    = new Mana\Url( "/admin/$key" );
+			$Url    = new Cuttlefish\Url( "/admin/$key" );
 			$output .= sprintf( '<li><a href="%s">%s</a></li>', $Url->url_absolute, $value );
 		endforeach;
 

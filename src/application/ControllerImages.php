@@ -6,11 +6,11 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ControllerImages extends Mana\Controller {
+class ControllerImages extends Cuttlefish\Controller {
 	// single image
 
 	function records() {
-		$this->records = [ Mana\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/" ) ) ];
+		$this->records = [ Cuttlefish\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/" ) ) ];
 	}
 
 	function model() {
@@ -20,7 +20,7 @@ class ControllerImages extends Mana\Controller {
 	function view() {
 		parent::view();
 
-		$this->View = new Mana\File( $this->Model->contents );
+		$this->View = new Cuttlefish\File( $this->Model->contents );
 		$this->View->render();
 	}
 }

@@ -1,5 +1,5 @@
 {
-    "name": "svandragt/mana",
+    "name": "svandragt/cuttlefish",
     "description": "Hackable web framework.",
     "type": "project",
     "license": "MIT",
@@ -21,7 +21,18 @@
     "autoload": {
         "psr-4": {
             "": "src/application/",
-            "Mana\\": "src/system/"
+            "Cuttlefish\\": "src/system/"
         }
+    },
+    "config": {
+        "process-timeout": 0
+    },
+    "scripts": {
+        "serve": [
+            "docker-compose up --build"
+        ]
+    },
+    "scripts-descriptions": {
+        "serve": "Start the container."
     }
 }

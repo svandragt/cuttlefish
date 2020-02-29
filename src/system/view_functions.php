@@ -13,7 +13,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
  * @return string      index independent internal url
  */
 function href( $internal_url ) {
-    $Url = new Mana\Url($internal_url);
+    $Url = new Cuttlefish\Url($internal_url);
 
     // relative links for portability.
     return $Url->url_relative;
@@ -28,7 +28,7 @@ function pages() {
 	$output     = '';
     $pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
 
-    $Files = new Mana\Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
+    $Files = new Cuttlefish\Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
 	foreach ( $Files->files() as $path ) {
 		$filename = pathinfo( $path, PATHINFO_FILENAME );
 		$title    = ucwords( str_replace( "-", " ", $filename ) );

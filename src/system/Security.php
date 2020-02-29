@@ -1,6 +1,6 @@
 <?php
 
-namespace Mana;
+namespace Cuttlefish;
 
 class Security {
 	public function maybe_login_redirect() {

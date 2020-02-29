@@ -6,7 +6,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ModelPage extends Mana\Model {
+class ModelPage extends Cuttlefish\Model {
 	// page model
 
 	public $model = array(

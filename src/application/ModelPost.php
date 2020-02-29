@@ -6,7 +6,7 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
-class ModelPost extends Mana\Model {
+class ModelPost extends Cuttlefish\Model {
 
 	public $model = array(
 		'yaml'          => 'metadata',
