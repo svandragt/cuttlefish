@@ -17,7 +17,6 @@ class App {
 		if ( $this->Cache->has_existing_cachefile() ) {
 			exit( readfile( $this->Cache->generate_cache_file_from_url() ) );
 		}
-
 		// Setup environment
 		$this->Environment = new Environment();
 		$this->Security    = new Security();

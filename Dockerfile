@@ -13,10 +13,10 @@ RUN curl --silent --show-error --fail --location \
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
-COPY src /srv/app
+COPY . /srv/app
 COPY Caddyfile /etc/Caddyfile
 
 WORKDIR /srv/app/
-RUN chown -R www-data:www-data /srv/app
+RUN chown www-data . -R
 
 CMD ["/usr/bin/caddy", "--conf", "/etc/Caddyfile", "--log", "stdout"]

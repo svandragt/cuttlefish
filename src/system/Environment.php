@@ -15,7 +15,6 @@ class Environment {
 
 
 		$this->add_include_path( Filesystem::url_to_path( '/' . Configuration::APPLICATION_FOLDER ) );
-		define( 'THEME_DIR', Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR );
 
 		if ( $this->new_install() ) {
 			$this->new_install_setup();
