@@ -2,12 +2,14 @@
 
 namespace Cuttlefish;
 
+use Configuration;
+use RuntimeException;
+
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
 class Cache {
-
 	protected $cwd;
 
 	public function __construct() {
@@ -18,25 +20,30 @@ class Cache {
 	 * Write page to disk if cache is enabled
 	 */
 	public function end() {
-		chdir( $this->cwd ); // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
-		if ( $this->has_cacheable_page_request() ) {
-			$this->write_cache_to_disk( ob_get_contents(), null );
-			ob_end_flush();
+		// Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
+		chdir( $this->cwd );
+		if ( $this->can_cache() ) {
+			$this->write_to_disk( ob_get_flush(), null );
+			exit;
 		}
 	}
 
 	/**
-	 * Returns possibility of caching the page based on environment and configuration
+	 * Returns possibility of caching the page based on environment and configuration.
 	 *
 	 * @return boolean whether caching is possible
 	 */
-	function has_cacheable_page_request() {
-		$cache_enabled              = \Configuration::CACHE_ENABLED;
-		$is_caching                 = ! ob_get_level() == 0;
-		$has_noerrors               = is_null( error_get_last() );
-		$has_cacheable_page_request = ( $cache_enabled && $is_caching && $has_noerrors );
+	public function can_cache() {
+		$cache_enabled = Configuration::CACHE_ENABLED;
+		if ( $cache_enabled === false ) {
+			return false;
+		}
+		$is_caching = ob_get_level() > 0;
+		if ( $is_caching === false ) {
+			return false;
+		}
 
-		return (boolean) $has_cacheable_page_request;
+		return error_get_last() === null;
 	}
 
 	/**
@@ -48,14 +55,14 @@ class Cache {
 	 *
 	 * @return string           path to the cache file
 	 */
-	function write_cache_to_disk( $contents, $url_relative = null ) {
-		$path    = $this->cache_file_from_url( $url_relative );
+	public function write_to_disk( $contents, $url_relative = '' ) {
+		$path    = $this->generate_cache_file_from_url( $url_relative );
 		$dirname = pathinfo( $path, PATHINFO_DIRNAME );
 
-		if ( ! is_dir( $dirname ) ) {
-			mkdir( $dirname, 0777, true );
+		if ( ! mkdir( $dirname, 0777, true ) && ! is_dir( $dirname ) ) {
+			throw new RuntimeException( sprintf( 'Directory "%s" was not created', $dirname ) );
 		}
-		$fp = fopen( $path, 'w' );
+		$fp = fopen( $path, 'wb' );
 		fwrite( $fp, $contents );
 		fclose( $fp );
 
@@ -63,31 +70,32 @@ class Cache {
 	}
 
 	/**
-	 * Returns path to cache file based on url path
+	 * Returns path to cache file based on url path.
 	 *
 	 * @param  string $path_info path to current request
 	 *
 	 * @return string            path to cache file
 	 */
-	function cache_file_from_url( $path_info = '' ) {
+	public function generate_cache_file_from_url( $path_info = '' ) {
 
-		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
-			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
-		}
-		$path_info = ltrim( $path_info, '/' );
-		$filename  = pathinfo( $path_info, PATHINFO_DIRNAME ) . '/' . pathinfo( $path_info, PATHINFO_FILENAME );
-		$filename  = ltrim( $filename, '.' );
+		$path_info = $this->sanitize_pathinfo( $path_info );
+
+		$file_path = pathinfo( $path_info, PATHINFO_DIRNAME ) . '/' . pathinfo( $path_info, PATHINFO_FILENAME );
+		$file_path = ltrim( $file_path, '.' );
 
 		$ext = pathinfo( $path_info, PATHINFO_EXTENSION );
 		if ( strrpos( $path_info, '.' ) === false ) {
-			$filename = rtrim( $filename, '/' ) . '/index';
-			$ext      = 'html';
+			// Convert html request into a folder
+			$file_path = rtrim( $file_path, '/' ) . '/index';
+			$ext       = 'html';
 
-			if ( ! strrpos( $filename, 'feed' ) === false ) {
+			// FIXME: If filename has the word feed in it it's xml (lol)
+			if ( ! strrpos( $file_path, 'feed/' ) === false ) {
 				$ext = 'xml';
 			}
 		}
-		$cache_file = sprintf( "%s/%s.%s", \Configuration::CACHE_FOLDER, ltrim( $filename, '/' ), $ext );
+
+		$cache_file = sprintf( '%s/%s.%s', Configuration::CACHE_FOLDER, ltrim( $file_path, '/' ), $ext );
 		$cache_file = str_replace( '/', DIRECTORY_SEPARATOR, $cache_file );
 
 		return (string) $cache_file;
@@ -114,12 +122,14 @@ class Cache {
 	 *
 	 * @return boolean page has existing cachefile
 	 */
-	function has_existing_cachefile() {
-		$cache_file          = $this->cache_file_from_url();
-		$has_cache_file      = file_exists( $cache_file );
-		$has_caching_enabled = \Configuration::CACHE_ENABLED;
+	public function has_existing_cachefile() {
+		$has_caching_enabled = Configuration::CACHE_ENABLED;
+		if ( ! $has_caching_enabled ) {
+			return false;
+		}
+		$cache_file = $this->generate_cache_file_from_url();
 
-		return ( $has_cache_file && $has_caching_enabled );
+		return file_exists( $cache_file );
 	}
 
 	/**
@@ -130,14 +140,14 @@ class Cache {
 	function generate_site() {
 		$output = '';
 
-		if ( \Configuration::INDEX_PAGE !== '' ) {
+		if ( Configuration::INDEX_PAGE !== '' ) {
 			die( 'Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).' );
 		}
 		$output .= $this->clear();
 
 		$output  .= "<br>Generating site:<br>" . PHP_EOL;
-		$content = \Configuration::CONTENT_FOLDER;
-		$ext     = \Configuration::CONTENT_EXT;
+		$content = Configuration::CONTENT_FOLDER;
+		$ext     = Configuration::CONTENT_EXT;
 		$Curl    = new Curl;
 		$Files   = new Files( array( 'path' => Filesystem::url_to_path( "/$content" ), $ext ) );
 
@@ -165,8 +175,8 @@ class Cache {
 				die( "ERROR: no contents for {$Url->url_absolute}" );
 			}
 
-			if ( \Configuration::CACHE_ENABLED == false ) {
-				$path   = $this->write_cache_to_disk( $contents, $Url->url_relative );
+			if ( Configuration::CACHE_ENABLED === false ) {
+				$path   = $this->write_to_disk( $contents, $Url->url_relative );
 				$output .= "Written: $path<br>" . PHP_EOL;
 			}
 		}
@@ -174,7 +184,7 @@ class Cache {
 
 		$output .= $this->copy_themefiles( array( 'css', 'js', 'png', 'gif', 'jpg' ) );
 
-		return (string) $output;
+		return $output;
 	}
 
 	/**
@@ -185,7 +195,7 @@ class Cache {
 	function clear() {
 		global $App;
 		$dir    = $this->cache_folder();
-		$output = sprintf( "Removing  all files in %s<br>", $dir );
+		$output = sprintf( 'Removing  all files in %s<br>', $dir );
 		$Files  = new Files( array( 'path' => $dir ) );
 		$output .= $Files->remove_all();
 		$dirs   = Filesystem::subdirs( realpath( $dir . '/.' ), false );
@@ -198,7 +208,7 @@ class Cache {
 	}
 
 	function cache_folder() {
-		return realpath( BASE_FILEPATH . str_replace( "/", DIRECTORY_SEPARATOR, \Configuration::CACHE_FOLDER ) );
+		return realpath( BASE_FILEPATH . str_replace( "/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER ) );
 	}
 
 	/**
@@ -208,11 +218,11 @@ class Cache {
 	 *
 	 * @return string             messages detailing the process
 	 */
-	function copy_themefiles( $file_types ) {
+	public function copy_themefiles( $file_types ) {
 		include( 'view_functions.php' );
 
 		$theme_dir = rtrim( theme_dir(), '/' );
-		$output    = "Copying files from theme: <br><br>";
+		$output    = 'Copying files from theme: <br><br>';
 
 		foreach ( $file_types as $file_type ) {
 			$output .= "filetype: $file_type<br>";
@@ -221,15 +231,27 @@ class Cache {
 			$destination_files = array();
 			foreach ( $Files->files() as $key => $value ) {
 				$output              .= "$key: $value<br>";
-				$cache               = ltrim( \Configuration::CACHE_FOLDER, "./" );
+				$cache               = ltrim( Configuration::CACHE_FOLDER, "./" );
 				$destination_files[] = str_replace( 'public', $cache, $value );
 			}
 			Filesystem::copy_files( $Files->files(), $destination_files );
 		}
 
-		return (string) $output;
+		return $output;
 	}
 
+	/**
+	 * @param $path_info
+	 *
+	 * @return string
+	 */
+	protected function sanitize_pathinfo( $path_info ) {
+		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
+			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
+		}
+		$path_info = ltrim( $path_info, '/' );
 
+		return (string) $path_info;
+	}
 }
 

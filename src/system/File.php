@@ -2,12 +2,13 @@
 
 namespace Cuttlefish;
 
+use Exception;
+
 if ( ! defined( 'BASE_FILEPATH' ) ) {
 	exit( 'No direct script access allowed' );
 }
 
 class File {
-
 	public $is_relative;
 	public $path;
 
@@ -16,12 +17,13 @@ class File {
 		$file_path = ( is_array( $file_path ) ) ? implode( $file_path, " " ) : $file_path;
 		try {
 			if ( ! file_exists( $file_path ) ) {
-				throw new \Exception( "'$file_path' not found" );
+				throw new Exception( "'$file_path' not found" );
 			}
 			if ( ! is_readable( $file_path ) ) {
-				throw new \Exception( "'$file_path' is unreadable!" );
+				throw new Exception( "'$file_path' is unreadable!" );
 			}
-		} catch ( \Exception $e ) {
+		}
+		catch ( Exception $e ) {
 			Log::debug( $e->getMessage() );
 			Log::error( $e->getMessage() );
 			exit();
