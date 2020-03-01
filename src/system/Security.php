@@ -38,7 +38,7 @@ class Security {
 
 			}
 		} else {
-			$output .= "To login, create an environment variable called MANA_ADMIN_PASSWORD and a password as the value.<br>";
+			$output .= "To login, create an environment variable called CUTTLEFISH_ADMIN_PASSWORD and a password as the value.<br>";
 
 		}
 
