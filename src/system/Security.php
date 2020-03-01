@@ -4,15 +4,15 @@ namespace Cuttlefish;
 
 class Security
 {
-    public function maybe_login_redirect()
+    public function maybeLoginRedirect()
     {
-        if (! $this->is_logged_in()) {
+        if (! $this->isLoggedIn()) {
             $Url = new Url('/admin');
             header('Location: ' . $Url->url_absolute);
         };
     }
 
-    public function is_logged_in()
+    public function isLoggedIn()
     {
         return ! is_null(Http::session('admin'));
     }

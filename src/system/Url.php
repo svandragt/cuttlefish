@@ -13,7 +13,7 @@ class Url
     public $url_relative;
     public $url_absolute;
 
-    function __construct($path = null)
+    public function __construct($path = null)
     {
         if (is_string($path)) {
             $this->setUrl($path);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phive xmlns="https://phar.io/phive">
-  <phar name="phpdox" version="^0.12.0" installed="0.12.0" location="./tools/phpdox" copy="false"/>
-  <phar name="phpcs" version="^3.5.4" installed="3.5.4" location="./tools/phpcs" copy="false"/>
-  <phar name="phpcbf" version="^3.5.4" installed="3.5.4" location="./tools/phpcbf" copy="false"/>
+  <phar name="phpdox" version="^0.12.0" installed="0.12.0" location="./vendor/bin/phpdox" copy="false"/>
+  <phar name="phpcs" version="^3.5.4" installed="3.5.4" location="./vendor/bin/phpcs" copy="false"/>
+  <phar name="phpcbf" version="^3.5.4" installed="3.5.4" location="./vendor/bin/phpcbf" copy="false"/>
 </phive>

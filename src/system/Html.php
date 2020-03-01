@@ -16,7 +16,7 @@ class Html
      * @param array $contents Array of content items
      * @param array $shared Array of shared data available to add templates
      */
-    function __construct($contents, $shared)
+    public function __construct($contents, $shared)
     {
         $Template = new Template(
             $shared['layout'],

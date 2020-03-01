@@ -14,7 +14,7 @@ class ModelPage extends Cuttlefish\Model
         'markdown|html' => 'content',
     );
 
-    function contents($records)
+    public function contents($records)
     {
         $loaded_classes = array(
             'mdep' => new MarkdownExtra(),

@@ -16,6 +16,7 @@
 
     <!-- Include the whole PEAR standard -->
     <rule ref="PSR12">
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
     </rule>
 
 </ruleset>

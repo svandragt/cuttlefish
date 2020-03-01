@@ -6,7 +6,7 @@ class Curl
 {
     private $c;
 
-    function __construct()
+    public function __construct()
     {
         if (! $this->_isCurl()) {
             die('Please install the curl php extension to generate a static site.');

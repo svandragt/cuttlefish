@@ -63,7 +63,7 @@ class Files
         return $this->files;
     }
 
-    public function remove_all()
+    public function removeAll()
     {
         $output = '';
 

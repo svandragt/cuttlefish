@@ -36,15 +36,15 @@
             "docker-compose up --build"
         ],
         "docs": [
-            "tools/phpdox"
+            "phpdox"
         ],
         "prep": [
-            "tools/phpcbf",
+            "phpcbf",
             "@lint",
             "@docs"
         ],
          "lint": [
-            "tools/phpcs --cache -s"
+            "phpcs --cache -s"
         ]
     },
     "scripts-descriptions": {

@@ -13,7 +13,7 @@ class File
     public $is_relative;
     public $path;
 
-    function __construct($file_path)
+    public function __construct($file_path)
     {
 
         $file_path = ( is_array($file_path) ) ? implode($file_path, " ") : $file_path;

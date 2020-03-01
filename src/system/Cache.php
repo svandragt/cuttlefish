@@ -218,7 +218,7 @@ class Cache
         $dir    = $this->cache_folder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
         $Files  = new Files(array( 'path' => $dir ));
-        $output .= $Files->remove_all();
+        $output .= $Files->removeAll();
         $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
         foreach ($dirs as $dir) {
             Filesystem::remove_dirs(realpath($dir . '/.'));

@@ -18,7 +18,7 @@ class Feed
      *
      * @param $posts
      */
-    function __construct($posts)
+    public function __construct($posts)
     {
         $PageUrl = new Url($_SERVER['PATH_INFO']);
         $Xml     = new SimpleXMLElement('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
@@ -47,7 +47,7 @@ class Feed
         $this->render();
     }
 
-    function render()
+    public function render()
     {
         header('Content-type: application/xml');
         echo $this->xml->asXML();

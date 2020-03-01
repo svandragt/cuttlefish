@@ -13,7 +13,7 @@ if (! defined('BASE_FILEPATH')) {
  *
  * @return string      index independent internal url
  */
-function href($internal_url)
+public function href($internal_url)
 {
     $Url = new Cuttlefish\Url($internal_url);
 
@@ -26,7 +26,7 @@ function href($internal_url)
  *
  * @return string html of list of pages
  */
-function pages()
+public function pages()
 {
     $output     = '';
     $pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
@@ -46,7 +46,7 @@ function pages()
  *
  * @return string link to theme directory
  */
-function theme_dir()
+public function theme_dir()
 {
     $path_to_script = ''; // todo
     $theme_dir_url  = BASE_PATH . str_replace("\\", "/", THEME_DIR);
@@ -59,9 +59,9 @@ function theme_dir()
  *
  * @return boolean logged in status
  */
-function is_logged_in()
+public function isLoggedIn()
 {
     global $App;
 
-    return $App->Security->is_logged_in();
+    return $App->Security->isLoggedIn();
 }

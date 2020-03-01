@@ -56,7 +56,7 @@ class ControllerAdmin extends Cuttlefish\Controller
     function index()
     {
         global $App;
-        if ($App->Security->is_logged_in()) {
+        if ($App->Security->isLoggedIn()) {
             return $this->show_tasks();
         }
 
@@ -88,7 +88,7 @@ class ControllerAdmin extends Cuttlefish\Controller
     function clear_cache()
     {
         global $App;
-        $App->Security->maybe_login_redirect();
+        $App->Security->maybeLoginRedirect();
 
         return $App->Cache->clear();
     }
@@ -97,7 +97,7 @@ class ControllerAdmin extends Cuttlefish\Controller
     {
         global $App;
 
-        $App->Security->maybe_login_redirect();
+        $App->Security->maybeLoginRedirect();
         echo $App->Cache->generate_site();
     }
 
@@ -105,7 +105,7 @@ class ControllerAdmin extends Cuttlefish\Controller
     {
         global $App;
 
-        $App->Security->maybe_login_redirect();
+        $App->Security->maybeLoginRedirect();
 
         return $App->Security->logout();
     }

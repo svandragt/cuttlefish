@@ -19,7 +19,7 @@ class ModelPost extends Cuttlefish\Model
         return strcmp($b->metadata->Published, $a->metadata->Published);
     }
 
-    function contents($records)
+    public function contents($records)
     {
         $loaded_classes = array(
             'mdep' => new MarkdownExtra(),
