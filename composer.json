@@ -28,11 +28,23 @@
         "process-timeout": 0
     },
     "scripts": {
+        "setup": [
+            "composer install --ansi",
+            "phive install"
+        ],
         "serve": [
             "docker-compose up --build"
         ],
         "docs": [
-            "phpdox"
+            "tools/phpdox"
+        ],
+        "prep": [
+            "tools/phpcbf",
+            "@lint",
+            "@docs"
+        ],
+         "lint": [
+            "tools/phpcs --cache -s"
         ]
     },
     "scripts-descriptions": {
