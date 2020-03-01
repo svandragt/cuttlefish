@@ -12,10 +12,13 @@ class App {
 	public $Environment;
 
 	public function __construct() {
-		// Prime a new cache and start caching
 		$this->Cache = new Cache();
 		if ( $this->Cache->has_existing_cachefile() ) {
-			exit( readfile( $this->Cache->generate_cache_file_from_url() ) );
+			 $bytes = readfile( $this->Cache->convert_urlpath_to_filepath() );
+			 if ( $bytes !== false) {
+			 	$this->Cache->is_cached = true;
+			 	return;
+			 }
 		}
 
 		// Setup environment
@@ -24,6 +27,11 @@ class App {
 	}
 
 	public function __destruct() {
+		if ( $this->Cache->is_cached ) {
+			return;
+		}
+
+		// Process request if not statically cached.
 		$this->Cache->start();
 		new Request();
 		$this->Cache->end();
