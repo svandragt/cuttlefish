@@ -3,7 +3,9 @@
   <project name="Cuttlefish" source="${basedir}/src" workdir="${basedir}/.phpdox">
     <collector backend="parser" />
     <generator output="${basedir}/docs">
-      <build engine="html" output="html"/>
+      <build engine="html" output="../docs">
+        <file extension="html"/>
+    </build>
     </generator>
   </project>
 </phpdox>
