@@ -32,7 +32,7 @@
             "docker-compose up --build"
         ],
         "docs": [
-            "rm -rf docs && phpdox"
+            "phpdox"
         ]
     },
     "scripts-descriptions": {
