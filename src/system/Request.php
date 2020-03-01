@@ -15,17 +15,17 @@ class Request
 {
     private $Controller;
 
-    function __construct()
+    public function __construct()
     {
 
         // Route to controller
-        $args                 = explode("/", $this->path_info());
+        $args                 = explode("/", $this->pathInfo());
         $controller_class     = 'Controller' . ucfirst($args[1]);
         $controller_arguments = array_slice($args, 2);
         if (class_exists($controller_class, true)) {
             $this->Controller = new $controller_class($this, $controller_arguments);
         } else {
-            $this->class_not_callable($controller_class);
+            $this->classNotCallable($controller_class);
         }
     }
 
@@ -34,7 +34,7 @@ class Request
      *
      * @return string Returns information about a file path
      */
-    function path_info()
+    protected function pathInfo()
     {
         $path_info = '';
         if (isset($_SERVER['PATH_INFO'])) {
@@ -62,7 +62,7 @@ class Request
      *
      * @param  string $controller_class name of controller
      */
-    function class_not_callable($controller_class)
+    protected function classNotCallable($controller_class)
     {
         $Url         = new Url('/errors/404');
         $log_message = "Not callable '$controller_class' or missing parameter.";
@@ -75,7 +75,7 @@ class Request
      * @param Url $Url URL to redirect to
      * @param $log_message
      */
-    function redirect($Url, $log_message)
+    protected function redirect($Url, $log_message)
     {
         echo( "Location: " . $Url->url_absolute );
         exit($log_message);
