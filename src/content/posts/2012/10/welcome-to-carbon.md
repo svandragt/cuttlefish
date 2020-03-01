@@ -38,7 +38,7 @@ Cuttlefish comes with this example application, complete with archive pages, fee
 
 open `public/Configuration.php` to change this like:
 
-* Enable administration functions: create an environment variable called MANA_ADMIN_PASSWORD and a password as the value, then visit [/admin](http://localhost/index.php/admin) to login.
+* Enable administration functions: create an environment variable called CUTTLEFISH_ADMIN_PASSWORD and a password as the value, then visit [/admin](http://localhost/index.php/admin) to login.
 * Change your site title and motto.
 * Set the default number of posts shown on the frontpage.
 * Change common folder locations (Please submit issues if you find hardcoded locations).

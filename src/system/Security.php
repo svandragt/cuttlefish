@@ -19,7 +19,7 @@ class Security {
 
 		$output = "";
 
-		if ( $admin_password = getenv( 'MANA_ADMIN_PASSWORD' ) ) {
+		if ( $admin_password = getenv( 'CUTTLEFISH_ADMIN_PASSWORD' ) ) {
 			$password = HTTP::post( 'password' );
 			if ( $password == $admin_password ) {
 				Http::set_session( array(
