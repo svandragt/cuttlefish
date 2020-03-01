@@ -36,6 +36,7 @@
         ]
     },
     "scripts-descriptions": {
-        "serve": "Start the container."
+        "serve": "Start container.",
+        "docs": "Generate documentation."
     }
 }
