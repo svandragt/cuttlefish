@@ -133,8 +133,8 @@ class Cache {
 	 * @return boolean page has existing cachefile
 	 */
 	public function has_existing_cachefile() {
-		$has_caching_enabled = Configuration::CACHE_ENABLED;
-		if ( ! $has_caching_enabled ) {
+		$wants_caching = Configuration::CACHE_ENABLED;
+		if ( ! $wants_caching ) {
 			return false;
 		}
 		$cache_file = $this->convert_urlpath_to_filepath();
@@ -239,10 +239,10 @@ class Cache {
 			$Files  = new Files( array( 'path' => Filesystem::url_to_path( "$theme_dir" ) ), $file_type );
 
 			$destination_files = array();
-			foreach ( $Files->files() as $key => $value ) {
-				$output              .= "$key: $value<br>";
+			foreach ( $Files->files() as $key => $source ) {
+				$output              .= " - $key: $source<br>";
 				$cache               = ltrim( Configuration::CACHE_FOLDER, "./" );
-				$destination_files[] = str_replace( 'public', $cache, $value );
+				$destination_files[] = str_replace( 'src', $cache, $source );
 			}
 			Filesystem::copy_files( $Files->files(), $destination_files );
 		}
