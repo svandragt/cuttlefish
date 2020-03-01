@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Cuttlefish\Cache</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml#Cuttlefish">Cuttlefish</a>
+          </li>
+          <li class="separator">Cache</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/system/Cache.php.xhtml#line12">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Cuttlefish\</small>Cache</h1>
+        <h4/>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Cache
+            {<br/><ul class="none"><li>// members</li><li>protected string <a href="#members">$cwd</a> =
+                        '';
+                    </li><li>public boolean <a href="#members">$is_cached</a> =
+                        false;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/__construct.xhtml">__construct</a>()
+                    </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/end.xhtml">end</a>()
+                    </li><li>public boolean <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/can_cache.xhtml">can_cache</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/write_to_disk.xhtml">write_to_disk</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/convert_urlpath_to_filepath.xhtml">convert_urlpath_to_filepath</a>()
+                    </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/abort.xhtml">abort</a>()
+                    </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/start.xhtml">start</a>()
+                    </li><li>public boolean <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/has_existing_cachefile.xhtml">has_existing_cachefile</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/generate_site.xhtml">generate_site</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/clear.xhtml">clear</a>()
+                    </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/cache_folder.xhtml">cache_folder</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/copy_themefiles.xhtml">copy_themefiles</a>()
+                    </li><li>protected string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/sanitize_pathinfo.xhtml">sanitize_pathinfo</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>protected</h4>
+          <ul class="members">
+            <li id="cwd"><strong>$cwd</strong>
+                —
+                string<br/><span class="indent">Current working directory</span></li>
+          </ul>
+          <h4>public</h4>
+          <ul class="members">
+            <li id="is_cached"><strong>$is_cached</strong>
+                —
+                boolean<br/><span class="indent">Is the request already cached?</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>protected</h4>
+          <ul>
+            <li id="sanitize_pathinfo">
+              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/sanitize_pathinfo.xhtml">sanitize_pathinfo()</a>
+            </li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct">
+              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/__construct.xhtml">__construct()</a>
+            </li>
+            <li id="abort"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/abort.xhtml">abort()</a>
+                — Abort caching</li>
+            <li id="cache_folder">
+              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/cache_folder.xhtml">cache_folder()</a>
+            </li>
+            <li id="can_cache"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/can_cache.xhtml">can_cache()</a>
+                — Returns possibility of caching the page based on environment and configuration.</li>
+            <li id="clear"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/clear.xhtml">clear()</a>
+                — Completely clear the site cache</li>
+            <li id="convert_urlpath_to_filepath"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/convert_urlpath_to_filepath.xhtml">convert_urlpath_to_filepath()</a>
+                — Returns path to cache file based on url path.</li>
+            <li id="copy_themefiles"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/copy_themefiles.xhtml">copy_themefiles()</a>
+                — Copying of the theme files to the static site output folder</li>
+            <li id="end"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/end.xhtml">end()</a>
+                — Write page to disk if cache is enabled</li>
+            <li id="generate_site"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/generate_site.xhtml">generate_site()</a>
+                — Generate a static version of the complete site</li>
+            <li id="has_existing_cachefile"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/has_existing_cachefile.xhtml">has_existing_cachefile()</a>
+                — Retiurns whether page is already cached</li>
+            <li id="start"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/start.xhtml">start()</a>
+                — Start caching</li>
+            <li id="write_to_disk"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/write_to_disk.xhtml">write_to_disk()</a>
+                — Writes the collected cache to disk</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.12.0 - Copyright (C) 2010 - 2020 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>
