@@ -2,7 +2,7 @@
 
 root /srv/app/src
 gzip
-fastcgi / 127.0.0.1:9000 php
+fastcgi / 127.0.0.1:9090 php
 rewrite {
     regexp .*
     ext /
@@ -11,4 +11,4 @@ rewrite {
 
 log _logs/access.log
 errors _logs/errors.log
-on startup php-fpm --nodaemonize
+on startup php-fpm --nodaemonize --allow-to-run-as-root

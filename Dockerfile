@@ -14,9 +14,7 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 COPY . /srv/app
-COPY Caddyfile /etc/Caddyfile
+COPY docker/www.conf /usr/local/etc/php-fpm.conf
 
 WORKDIR /srv/app/
-RUN chown www-data . -R
-
-CMD ["/usr/bin/caddy", "--conf", "/etc/Caddyfile", "--log", "stdout"]
+CMD ["/usr/bin/caddy", "--conf", "/srv/app/Caddyfile", "--log", "stdout"]
