@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <phpdox xmlns="http://xml.phpdox.net/config">
     <project name="Cuttlefish" source="${basedir}/src" workdir="${basedir}/.phpdox">
-    <collector backend="parser" />
-        <exclude mask="Configuration.php"/>
+        <collector backend="parser">
+            <exclude mask="**/Configuration.php"/>
+        </collector>
 
         <generator output="${basedir}/docs">
             <build engine="html" output="api">
