@@ -19,7 +19,7 @@ class Security {
 
 		$output = "";
 
-		if ( $admin_password = getenv( 'MANA_ADMIN_PASSWORD' ) ) {
+		if ( $admin_password = getenv( 'CUTTLEFISH_ADMIN_PASSWORD' ) ) {
 			$password = HTTP::post( 'password' );
 			if ( $password == $admin_password ) {
 				Http::set_session( array(
@@ -38,7 +38,7 @@ class Security {
 
 			}
 		} else {
-			$output .= "To login, create an environment variable called MANA_ADMIN_PASSWORD and a password as the value.<br>";
+			$output .= "To login, create an environment variable called CUTTLEFISH_ADMIN_PASSWORD and a password as the value.<br>";
 
 		}
 

@@ -10,7 +10,17 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
 }
 
 class Cache {
-	protected $cwd;
+	/**
+	 * Current working directory
+	 * @var string
+	 */
+	protected $cwd = '';
+
+	/**
+	 * Is the request already cached?
+	 * @var boolean
+	 */
+	public $is_cached = false;
 
 	public function __construct() {
 		$this->cwd = getcwd(); // set current working directory
@@ -56,10 +66,10 @@ class Cache {
 	 * @return string           path to the cache file
 	 */
 	public function write_to_disk( $contents, $url_relative = '' ) {
-		$path    = $this->generate_cache_file_from_url( $url_relative );
+		$path    = $this->convert_urlpath_to_filepath( $url_relative );
 		$dirname = pathinfo( $path, PATHINFO_DIRNAME );
 
-		if ( ! mkdir( $dirname, 0777, true ) && ! is_dir( $dirname ) ) {
+		if ( ! is_dir( $dirname ) && ! mkdir( $dirname, 0777, true )  ) {
 			throw new RuntimeException( sprintf( 'Directory "%s" was not created', $dirname ) );
 		}
 		$fp = fopen( $path, 'wb' );
@@ -76,7 +86,7 @@ class Cache {
 	 *
 	 * @return string            path to cache file
 	 */
-	public function generate_cache_file_from_url( $path_info = '' ) {
+	public function convert_urlpath_to_filepath( $path_info = '' ) {
 
 		$path_info = $this->sanitize_pathinfo( $path_info );
 
@@ -123,11 +133,11 @@ class Cache {
 	 * @return boolean page has existing cachefile
 	 */
 	public function has_existing_cachefile() {
-		$has_caching_enabled = Configuration::CACHE_ENABLED;
-		if ( ! $has_caching_enabled ) {
+		$wants_caching = Configuration::CACHE_ENABLED;
+		if ( ! $wants_caching ) {
 			return false;
 		}
-		$cache_file = $this->generate_cache_file_from_url();
+		$cache_file = $this->convert_urlpath_to_filepath();
 
 		return file_exists( $cache_file );
 	}
@@ -219,7 +229,7 @@ class Cache {
 	 * @return string             messages detailing the process
 	 */
 	public function copy_themefiles( $file_types ) {
-		include( 'view_functions.php' );
+		include_once( 'view_functions.php' );
 
 		$theme_dir = rtrim( theme_dir(), '/' );
 		$output    = 'Copying files from theme: <br><br>';
@@ -229,10 +239,10 @@ class Cache {
 			$Files  = new Files( array( 'path' => Filesystem::url_to_path( "$theme_dir" ) ), $file_type );
 
 			$destination_files = array();
-			foreach ( $Files->files() as $key => $value ) {
-				$output              .= "$key: $value<br>";
+			foreach ( $Files->files() as $key => $source ) {
+				$output              .= " - $key: $source<br>";
 				$cache               = ltrim( Configuration::CACHE_FOLDER, "./" );
-				$destination_files[] = str_replace( 'public', $cache, $value );
+				$destination_files[] = str_replace( 'src', $cache, $source );
 			}
 			Filesystem::copy_files( $Files->files(), $destination_files );
 		}

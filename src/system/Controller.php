@@ -46,7 +46,7 @@ class Controller {
 	 * implement $this->View in your controller
 	 */
 	public function view() {
-		include( 'view_functions.php' );
+		include_once( 'view_functions.php' );
 	}
 }
 	
