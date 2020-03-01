@@ -9,6 +9,6 @@ rewrite {
     to /index.php{uri}?{query}
 }
 
-log stdout
-errors stdout
+log _logs/access.log
+errors _logs/errors.log
 on startup php-fpm --nodaemonize
