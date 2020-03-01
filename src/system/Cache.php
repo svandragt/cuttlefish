@@ -229,7 +229,7 @@ class Cache {
 	 * @return string             messages detailing the process
 	 */
 	public function copy_themefiles( $file_types ) {
-		include( 'view_functions.php' );
+		include_once( 'view_functions.php' );
 
 		$theme_dir = rtrim( theme_dir(), '/' );
 		$output    = 'Copying files from theme: <br><br>';
