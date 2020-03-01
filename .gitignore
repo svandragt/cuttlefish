@@ -1,26 +1,14 @@
-############
-## Windows
-############
-
-# Windows image file caches
-Thumbs.db
-
-# Folder config file
-Desktop.ini
-
-
-# macOS
-.DS_Store
-
-# Carbon
-src/content/
-_cache/
-phpdoc/
-_logs/
-.vagrant
-Configuration.php
-vendor/
 *.log
 *.phar
+.DS_Store
 .idea/
+.phpdox/
 .phpintel/
+.vagrant
+Configuration.php
+Desktop.ini
+Thumbs.db
+_cache/
+_logs/
+src/content/
+vendor/

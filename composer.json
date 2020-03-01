@@ -30,6 +30,9 @@
     "scripts": {
         "serve": [
             "docker-compose up --build"
+        ],
+        "docs": [
+            "phpdox"
         ]
     },
     "scripts-descriptions": {
