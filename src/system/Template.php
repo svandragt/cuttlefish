@@ -2,10 +2,6 @@
 
 namespace Cuttlefish;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 // @link http://stackoverflow.com/questions/62617/whats-the-best-way-to-separate-php-code-and-html
 class Template
 {
