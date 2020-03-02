@@ -6,8 +6,9 @@
 
     <arg name="basepath" value="src/"/>
     <arg name="colors"/>
+    <arg name="cache" value=".phpcs-cache"/> 
     <arg name="parallel" value="75"/>
-    <arg value="np"/>
+    <arg value="sp"/>
 
     <!-- Don't hide tokenizer exceptions -->
     <rule ref="Internal.Tokenizer.Exception">

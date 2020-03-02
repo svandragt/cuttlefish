@@ -44,7 +44,7 @@
             "@docs"
         ],
          "lint": [
-            "phpcs --cache -s"
+            "phpcs"
         ]
     },
     "scripts-descriptions": {

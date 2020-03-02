@@ -2,6 +2,7 @@
 *.phar
 .DS_Store
 .idea/
+.phpcs-cache/
 .phpdox/
 .phpintel/
 .vagrant
@@ -11,5 +12,4 @@ Thumbs.db
 _cache/
 _logs/
 src/content/
-tools/
 vendor/
