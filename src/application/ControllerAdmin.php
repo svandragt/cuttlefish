@@ -1,9 +1,5 @@
 <?php
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class ControllerAdmin extends Cuttlefish\Controller
 {
     public $allowed_methods = array(
@@ -98,7 +94,7 @@ class ControllerAdmin extends Cuttlefish\Controller
         global $App;
 
         $App->Security->maybeLoginRedirect();
-        echo $App->Cache->generate_site();
+        echo $App->Cache->generateSite();
     }
 
     function logout()

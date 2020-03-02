@@ -13,7 +13,7 @@ if (! defined('BASE_FILEPATH')) {
  */
 class Request
 {
-    private $Controller;
+    protected $Controller;
 
     public function __construct()
     {

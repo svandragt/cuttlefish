@@ -4,10 +4,6 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Log
 {
     const FILENAME_TEMPLATE = '/cuttlefish.log';

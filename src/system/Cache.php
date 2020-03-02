@@ -5,10 +5,6 @@ namespace Cuttlefish;
 use Configuration;
 use RuntimeException;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Cache
 {
     /**
@@ -35,8 +31,8 @@ class Cache
     {
         // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
         chdir($this->cwd);
-        if ($this->can_cache()) {
-            $this->write_to_disk(ob_get_flush(), null);
+        if ($this->canCache()) {
+            $this->writeToDisk(ob_get_flush(), null);
             exit;
         }
     }
@@ -46,7 +42,7 @@ class Cache
      *
      * @return boolean whether caching is possible
      */
-    public function can_cache()
+    protected function canCache()
     {
         $cache_enabled = Configuration::CACHE_ENABLED;
         if ($cache_enabled === false) {
@@ -69,9 +65,9 @@ class Cache
      *
      * @return string           path to the cache file
      */
-    public function write_to_disk($contents, $url_relative = '')
+    protected function writeToDisk($contents, $url_relative = '')
     {
-        $path    = $this->convert_urlpath_to_filepath($url_relative);
+        $path    = $this->convertUrlpathToFilepath($url_relative);
         $dirname = pathinfo($path, PATHINFO_DIRNAME);
 
         if (! is_dir($dirname) && ! mkdir($dirname, 0777, true)) {
@@ -91,10 +87,10 @@ class Cache
      *
      * @return string            path to cache file
      */
-    public function convert_urlpath_to_filepath($path_info = '')
+    public function convertUrlpathToFilepath($path_info = '')
     {
 
-        $path_info = $this->sanitize_pathinfo($path_info);
+        $path_info = $this->sanitizePathinfo($path_info);
 
         $file_path = pathinfo($path_info, PATHINFO_DIRNAME) . '/' . pathinfo($path_info, PATHINFO_FILENAME);
         $file_path = ltrim($file_path, '.');
@@ -120,7 +116,7 @@ class Cache
     /**
      * Abort caching
      */
-    function abort()
+    public function abort()
     {
         while (ob_get_level() > 0) {
             ob_end_clean();
@@ -130,7 +126,7 @@ class Cache
     /**
      * Start caching
      */
-    function start()
+    public function start()
     {
         ob_start();
     }
@@ -140,13 +136,13 @@ class Cache
      *
      * @return boolean page has existing cachefile
      */
-    public function has_existing_cachefile()
+    public function hasExistingCachefile()
     {
         $wants_caching = Configuration::CACHE_ENABLED;
         if (! $wants_caching) {
             return false;
         }
-        $cache_file = $this->convert_urlpath_to_filepath();
+        $cache_file = $this->convertUrlpathToFilepath();
 
         return file_exists($cache_file);
     }
@@ -156,7 +152,7 @@ class Cache
      *
      * @return string list of output messages detailing the generated files
      */
-    function generate_site()
+    public function generateSite()
     {
         $output = '';
 
@@ -196,13 +192,13 @@ class Cache
             }
 
             if (Configuration::CACHE_ENABLED === false) {
-                $path   = $this->write_to_disk($contents, $Url->url_relative);
+                $path   = $this->writeToDisk($contents, $Url->url_relative);
                 $output .= "Written: $path<br>" . PHP_EOL;
             }
         }
         $Curl->close();
 
-        $output .= $this->copy_themefiles(array( 'css', 'js', 'png', 'gif', 'jpg' ));
+        $output .= $this->copyThemeFiles(array( 'css', 'js', 'png', 'gif', 'jpg' ));
 
         return $output;
     }
@@ -212,10 +208,10 @@ class Cache
      *
      * @return string list of output messages detailing the removed cachefiles
      */
-    function clear()
+    public function clear()
     {
         global $App;
-        $dir    = $this->cache_folder();
+        $dir    = $this->getCacheFolder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
         $Files  = new Files(array( 'path' => $dir ));
         $output .= $Files->removeAll();
@@ -228,7 +224,7 @@ class Cache
         return (string) $output;
     }
 
-    function cache_folder()
+    protected function getCacheFolder()
     {
         return realpath(BASE_FILEPATH . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
     }
@@ -240,7 +236,7 @@ class Cache
      *
      * @return string             messages detailing the process
      */
-    public function copy_themefiles($file_types)
+    protected function copyThemeFiles($file_types)
     {
         include_once('view_functions.php');
 
@@ -268,7 +264,7 @@ class Cache
      *
      * @return string
      */
-    protected function sanitize_pathinfo($path_info)
+    protected function sanitizePathinfo($path_info)
     {
         if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
             $path_info = substr($_SERVER['PATH_INFO'], 1);

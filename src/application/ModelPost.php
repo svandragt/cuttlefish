@@ -2,10 +2,6 @@
 
 use Michelf\MarkdownExtra;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class ModelPost extends Cuttlefish\Model
 {
 

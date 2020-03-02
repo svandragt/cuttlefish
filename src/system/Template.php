@@ -10,8 +10,8 @@ if (! defined('BASE_FILEPATH')) {
 class Template
 {
 
-    private $args;
-    private $file;
+    protected $args;
+    protected $file;
 
     public function __construct($file, $args = array())
     {

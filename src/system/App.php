@@ -2,10 +2,6 @@
 
 namespace Cuttlefish;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class App
 {
     public $Security;
@@ -15,8 +11,8 @@ class App
     public function __construct()
     {
         $this->Cache = new Cache();
-        if ($this->Cache->has_existing_cachefile()) {
-             $bytes = readfile($this->Cache->convert_urlpath_to_filepath());
+        if ($this->Cache->hasExistingCachefile()) {
+             $bytes = readfile($this->Cache->convertUrlpathToFilepath());
             if ($bytes !== false) {
                 $this->Cache->is_cached = true;
                 return;

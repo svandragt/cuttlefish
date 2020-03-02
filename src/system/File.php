@@ -4,10 +4,6 @@ namespace Cuttlefish;
 
 use Exception;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class File
 {
     public $is_relative;

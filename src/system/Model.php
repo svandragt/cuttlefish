@@ -7,10 +7,6 @@ use Michelf\Markdown;
 use Spyc;
 use StdClass;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Model
 {
     public $contents = array();

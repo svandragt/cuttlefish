@@ -41,7 +41,10 @@ class Security
                 $output .= "<form method='post'><input type='password' name='password'><input type='submit'></form>";
             }
         } else {
-            $output .= "To login, create an environment variable called CUTTLEFISH_ADMIN_PASSWORD and a password as the value.<br>";
+            $output .= <<< MSG
+            To login, create an environment variable called
+            CUTTLEFISH_ADMIN_PASSWORD and a password as the value . < br >
+MSG;
         }
 
         return $output;

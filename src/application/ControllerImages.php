@@ -1,9 +1,5 @@
 <?php
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class ControllerImages extends Cuttlefish\Controller
 {
     // single image

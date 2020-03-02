@@ -4,8 +4,9 @@ if (! defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-/** @noinspection NotOptimalRegularExpressionsInspection */$body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP_SELF']));
-?><!DOCTYPE html>
+$body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP_SELF']));
+?>
+<!DOCTYPE html>
 <html>
 <head>
     <title><?= Configuration::SITE_TITLE ?></title>

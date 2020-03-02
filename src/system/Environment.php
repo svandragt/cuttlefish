@@ -4,10 +4,6 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Environment
 {
     protected $register;
@@ -33,12 +29,12 @@ class Environment
         set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
     }
 
-    private function new_install()
+    protected function new_install()
     {
         return ! ( is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER) );
     }
 
-    private function new_install_setup()
+    protected function new_install_setup()
     {
         $cfg_content_folder = Configuration::CONTENT_FOLDER;
 
@@ -70,7 +66,7 @@ class Environment
         fclose($fp);
     }
 
-    private function register_externals()
+    protected function register_externals()
     {
         $Files = new Files(array( 'url' => '/system/Ext' ), 'php');
         foreach ($Files->files() as $key => $filepath) {

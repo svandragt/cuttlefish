@@ -1,9 +1,5 @@
 <?php
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class ControllerPosts extends Cuttlefish\Controller
 {
     // single post

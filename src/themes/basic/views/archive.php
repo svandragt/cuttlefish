@@ -9,7 +9,12 @@ if (! defined('BASE_FILEPATH')) {
 <dl>
 
     <?php foreach ($this->contents as $post) :
-        printf("<dt>%s</dt><dd><a href='%s'>%s</a></h2></dd>", $post->metadata->Published, $post->link, $post->content->title);
+        printf(
+            "<dt>%s</dt><dd><a href='%s'>%s</a></h2></dd>",
+            $post->metadata->Published,
+            $post->link,
+            $post->content->title
+        );
     endforeach;
     ?>
 

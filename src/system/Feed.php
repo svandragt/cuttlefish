@@ -5,13 +5,9 @@ namespace Cuttlefish;
 use Configuration;
 use SimpleXMLElement;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Feed
 {
-    private $xml;
+    protected $xml;
 
     /**
      * Feed constructor.

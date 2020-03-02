@@ -8,7 +8,12 @@ printf("<div class='%s %s'>", $this->controller, $this->model);
 switch (count((array)$this->contents)) {
     case 0:
         // no content - new installation
-        printf("<p> Please <a href='%s'>add content</a> to /%s/%s.</p>", href('/admin/new'), Configuration::CONTENT_FOLDER, $this->model);
+        printf(
+            "<p> Please <a href='%s'>add content</a> to /%s/%s.</p>",
+            href('/admin/new'),
+            Configuration::CONTENT_FOLDER,
+            $this->model
+        );
         break;
 
     default:

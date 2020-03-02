@@ -2,10 +2,6 @@
 
 namespace Cuttlefish;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Html
 {
     /**

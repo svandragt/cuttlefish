@@ -4,10 +4,6 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Controller
 {
     protected $ext;
@@ -15,7 +11,7 @@ class Controller
     protected $records = [];
     protected $Model;
     protected $View;
-    private $content;
+    protected $content;
 
     public function __construct($parent, $args)
     {

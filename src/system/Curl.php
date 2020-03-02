@@ -4,7 +4,7 @@ namespace Cuttlefish;
 
 class Curl
 {
-    private $c;
+    protected $c;
 
     public function __construct()
     {

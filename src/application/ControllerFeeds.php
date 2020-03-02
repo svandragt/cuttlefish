@@ -1,9 +1,5 @@
 <?php
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class ControllerFeeds extends Cuttlefish\Controller
 {
     // single feed

@@ -2,13 +2,9 @@
 
 namespace Cuttlefish;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Files
 {
-    private $files = [];
+    protected $files = [];
 
     public function __construct($dir_or_path, $ext = null)
     {
@@ -25,7 +21,7 @@ class Files
     }
 
 
-    private function collect($dir = ".", $filter = null)
+    protected function collect($dir = ".", $filter = null)
     {
 
         $files = array();

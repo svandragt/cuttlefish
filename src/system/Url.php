@@ -4,10 +4,6 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if (! defined('BASE_FILEPATH')) {
-    exit('No direct script access allowed');
-}
-
 class Url
 {
     public $url_relative;
@@ -22,7 +18,7 @@ class Url
         return $this;
     }
 
-    function setUrl($path)
+    protected function setUrl($path)
     {
         $this->url_relative = Configuration::INDEX_PAGE . $path;
         $this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
@@ -34,7 +30,7 @@ class Url
      *
      * @return string correct protocol dependent url
      */
-    function protocol()
+    protected function protocol()
     {
         $protocol = ( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 ) ? "https://" : "http://";
 
@@ -49,7 +45,7 @@ class Url
      *
      * @return object              url object
      */
-    function file_to_url($file_object)
+    public function file_to_url($file_object)
     {
         $file_object = $file_object->relative();
 
