@@ -2,7 +2,7 @@
 *.phar
 .DS_Store
 .idea/
-.phpcs-cache/
+.phpcs-cache
 .phpdox/
 .phpintel/
 .vagrant
