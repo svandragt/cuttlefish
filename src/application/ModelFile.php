@@ -7,7 +7,7 @@ class ModelFile extends Cuttlefish\Model
 
     public $model = array();
 
-    function contents($records)
+    public function contents($records)
     {
         $this->contents = $records;
     }

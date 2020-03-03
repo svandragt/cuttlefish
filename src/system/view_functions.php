@@ -4,8 +4,6 @@ if (! defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
-
-
 /**
  * Shorthand function to link to internal url
  *
@@ -13,7 +11,7 @@ if (! defined('BASE_FILEPATH')) {
  *
  * @return string      index independent internal url
  */
-public function href($internal_url)
+function href($internal_url)
 {
     $Url = new Cuttlefish\Url($internal_url);
 
@@ -26,7 +24,7 @@ public function href($internal_url)
  *
  * @return string html of list of pages
  */
-public function pages()
+function pages()
 {
     $output     = '';
     $pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
@@ -46,7 +44,7 @@ public function pages()
  *
  * @return string link to theme directory
  */
-public function theme_dir()
+function theme_dir()
 {
     $path_to_script = ''; // todo
     $theme_dir_url  = BASE_PATH . str_replace("\\", "/", THEME_DIR);
@@ -59,7 +57,7 @@ public function theme_dir()
  *
  * @return boolean logged in status
  */
-public function isLoggedIn()
+function isLoggedIn()
 {
     global $App;
 

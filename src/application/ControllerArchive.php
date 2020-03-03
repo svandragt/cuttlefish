@@ -2,22 +2,19 @@
 
 class ControllerArchive extends Cuttlefish\Controller
 {
-
-    // list of recent posts
-
-    function records()
+    public function records()
     {
         $Files         = new Cuttlefish\Files(array( 'url' => '/content/posts' ), $this->ext);
         $this->records = $Files->files();
     }
 
-    function model()
+    public function model()
     {
         $Model       = new ModelPost($this->records);
         $this->Model = $Model;
     }
 
-    function view()
+    public function view()
     {
         parent::view();
         $this->View = new Cuttlefish\Html($this->Model->contents, array(

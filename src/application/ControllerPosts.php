@@ -1,20 +1,21 @@
 <?php
 
+// single post
 class ControllerPosts extends Cuttlefish\Controller
 {
-    // single post
 
-    function records()
+    public function records()
     {
-        $this->records = [ Cuttlefish\Filesystem::url_to_path('/content/posts/' . implode($this->args, "/") . '.' . $this->ext) ];
+        $url = '/content/posts/' . implode($this->args, "/") . '.' . $this->ext;
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 
-    function model()
+    public function model()
     {
         $this->Model = new ModelPost($this->records);
     }
 
-    function view()
+    public function view()
     {
         parent::view();
 

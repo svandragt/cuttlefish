@@ -4,17 +4,18 @@ class ControllerErrors extends Cuttlefish\Controller
 {
     // single errors page
 
-    function records()
+    public function records()
     {
-        $this->records = [ Cuttlefish\Filesystem::url_to_path('/content/errors/' . implode($this->args, "/") . '.' . $this->ext) ];
+        $url = '/content/errors/' . implode($this->args, "/") . '.' . $this->ext;
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 
-    function model()
+    public function model()
     {
         $this->Model = new ModelPage($this->records);
     }
 
-    function view()
+    public function view()
     {
         parent::view();
 

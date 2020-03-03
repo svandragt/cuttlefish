@@ -17,7 +17,7 @@ class ModelPage extends Cuttlefish\Model
         );
 
         foreach ($records as $record) {
-            $this->contents[] = $this->list_contents($record, $loaded_classes);
+            $this->contents[] = $this->listContents($record, $loaded_classes);
         }
     }
 }

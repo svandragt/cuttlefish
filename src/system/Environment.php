@@ -10,31 +10,29 @@ class Environment
 
     public function __construct()
     {
+        $this->addIncludePath(Filesystem::convertUrlToPath('/' . Configuration::APPLICATION_FOLDER));
 
-
-        $this->add_include_path(Filesystem::url_to_path('/' . Configuration::APPLICATION_FOLDER));
-
-        if ($this->new_install()) {
-            $this->new_install_setup();
+        if ($this->isNewInstall()) {
+            $this->createSystemFolders();
+            $this->writeHtaccess();
         }
 
         // Externals environment
-        $this->register_externals();
+        $this->registerExternals();
         session_start();
     }
 
-    function add_include_path($path)
+    protected function addIncludePath($path)
     {
-
         set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
     }
 
-    protected function new_install()
+    protected function isNewInstall()
     {
         return ! ( is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER) );
     }
 
-    protected function new_install_setup()
+    protected function createSystemFolders()
     {
         $cfg_content_folder = Configuration::CONTENT_FOLDER;
 
@@ -47,17 +45,15 @@ class Environment
             Configuration::THEMES_FOLDER,
         );
         foreach ($folders as $folder) {
-            $ok[] = Filesystem::ensure_folder_exists($folder);
+            $ok[] = Filesystem::requireFolder($folder);
         }
         if (in_array(false, $ok)) {
             trigger_error('Create the missing folders, then retry.', E_USER_ERROR);
         }
-        $this->server_setup();
     }
 
-    public function server_setup()
+    public function writeHtaccess()
     {
-
         $directory_index = "index.html index.xml";
         $path            = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
         $fp              = fopen($path, 'w');
@@ -66,12 +62,12 @@ class Environment
         fclose($fp);
     }
 
-    protected function register_externals()
+    protected function registerExternals()
     {
         $Files = new Files(array( 'url' => '/system/Ext' ), 'php');
         foreach ($Files->files() as $key => $filepath) {
             $this->register[ pathinfo($filepath, PATHINFO_FILENAME) ] = true;
-            $this->add_include_path(pathinfo($filepath, PATHINFO_DIRNAME));
+            $this->addIncludePath(pathinfo($filepath, PATHINFO_DIRNAME));
         }
     }
 }

@@ -9,7 +9,7 @@ class Files
     public function __construct($dir_or_path, $ext = null)
     {
         if (isset($dir_or_path['url'])) {
-            $dir_or_path = Filesystem::url_to_path($dir_or_path['url']);
+            $dir_or_path = Filesystem::convertUrlToPath($dir_or_path['url']);
         } elseif (isset($dir_or_path['path'])) {
             $dir_or_path = $dir_or_path['path'];
         }

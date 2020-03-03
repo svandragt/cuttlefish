@@ -5,9 +5,8 @@ namespace Cuttlefish;
 class Filesystem
 {
 
-    static function ensure_folder_exists($folder)
+    public static function requireFolder($folder)
     {
-
         if (! is_dir($folder)) {
             @mkdir($folder, 0777, true);
             if (! is_dir($folder)) {
@@ -20,17 +19,16 @@ class Filesystem
         }
     }
 
-    static function url_to_path($url)
+    public static function convertUrlToPath($url)
     {
         // takes /content/pages/index and returns path
-
         $path = BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url), '/');
         Log::debug("$url converted to $path");
 
         return $path;
     }
 
-    static function copy_files($source_files, $destination_files)
+    public static function copyFiles($source_files, $destination_files)
     {
         $i = 0;
         foreach ($source_files as $key => $value) {
@@ -45,7 +43,7 @@ class Filesystem
         }
     }
 
-    static function subdirs($path, $recursive = false)
+    public static function subdirs($path, $recursive = false)
     {
         $dirs = array();
         foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file) {
@@ -53,7 +51,7 @@ class Filesystem
                 $dirs[] = $file;
                 // not really recursive then is it when it calls another function
                 if ($recursive) {
-                    self::remove_dirs($file);
+                    self::removeDirs($file);
                 }
             }
         }
@@ -61,11 +59,11 @@ class Filesystem
         return $dirs;
     }
 
-    static function remove_dirs($path)
+    public static function removeDirs($path)
     {
         $empty = true;
         foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file) {
-            $empty &= is_dir($file) && self::remove_dirs($file);
+            $empty &= is_dir($file) && self::removeDirs($file);
         }
 
         return $empty && rmdir($path);

@@ -8,18 +8,13 @@ class Curl
 
     public function __construct()
     {
-        if (! $this->_isCurl()) {
+        if (! function_exists('curl_version')) {
             die('Please install the curl php extension to generate a static site.');
         }
         $this->c = curl_init();
     }
 
-    function _isCurl()
-    {
-        return function_exists('curl_version');
-    }
-
-    function url_contents($url, $query_data = null, $requestMethod = 'GET')
+    public function getURLContents($url, $query_data = null, $requestMethod = 'GET')
     {
         // return the contens of an url with POST params and authentication based on setings;
         if ($requestMethod !== 'GET') {
@@ -44,7 +39,7 @@ class Curl
         }
     }
 
-    function close()
+    public function close()
     {
         curl_close($this->c);
     }

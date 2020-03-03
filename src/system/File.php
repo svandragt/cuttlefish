@@ -27,10 +27,10 @@ class File
         }
         $this->path = $file_path;
         $this->ext  = pathinfo($file_path, PATHINFO_EXTENSION);
-        $this->mime = $this->mime();
+        $this->mime = $this->getMimetype();
     }
 
-    function mime()
+    protected function getMimetype()
     {
         switch ($this->ext) {
             case 'css': // php cannot detect css
@@ -38,24 +38,24 @@ class File
                 break;
 
             default:
-                return $this->mime_content_type($this->path);
+                return $this->getMimetypeFromFile($this->path);
                 break;
         }
     }
 
-    function mime_content_type($filename)
+    protected function getMimetypeFromFile($filename)
     {
         if (is_resource($filename) === true) {
-            return mime_content_type($filename);
+            return getMimetypeFromFile($filename);
         }
 
         return false;
     }
 
-    function relative()
+    public function relative()
     {
         if (! $this->is_relative) {
-            $root_path         = Filesystem::url_to_path('/');
+            $root_path         = Filesystem::convertUrlToPath('/');
             $this->path        = str_replace($root_path, "", $this->path);
             $this->is_relative = true;
         }
@@ -63,7 +63,7 @@ class File
         return $this;
     }
 
-    function render()
+    public function render()
     {
         $mime = $this->mime;
         header("Content-Type: $mime");

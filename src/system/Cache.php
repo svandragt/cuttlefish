@@ -165,14 +165,14 @@ class Cache
         $content = Configuration::CONTENT_FOLDER;
         $ext     = Configuration::CONTENT_EXT;
         $Curl    = new Curl();
-        $Files   = new Files(array( 'path' => Filesystem::url_to_path("/$content"), $ext ));
+        $Files   = new Files(array( 'path' => Filesystem::convertUrlToPath("/$content"), $ext ));
 
         $cache_urls = array();
 
         foreach ($Files->files() as $index => $file_path) {
             $File         = new File($file_path);
             $Url          = new Url();
-            $cache_urls[] = $Url->file_to_url($File);
+            $cache_urls[] = $Url->convertFileToURL($File);
         }
 
         $urls = array(
@@ -185,7 +185,7 @@ class Cache
         }
 
         foreach ($cache_urls as $Url) {
-            $contents = $Curl->url_contents($Url->url_absolute);
+            $contents = $Curl->getURLContents($Url->url_absolute);
 
             if (empty($contents)) {
                 die("ERROR: no contents for {$Url->url_absolute}");
@@ -217,9 +217,9 @@ class Cache
         $output .= $Files->removeAll();
         $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
         foreach ($dirs as $dir) {
-            Filesystem::remove_dirs(realpath($dir . '/.'));
+            Filesystem::removeDirs(realpath($dir . '/.'));
         }
-        $App->Environment->server_setup();
+        $App->Environment->writeHtaccess();
 
         return (string) $output;
     }
@@ -245,7 +245,7 @@ class Cache
 
         foreach ($file_types as $file_type) {
             $output .= "filetype: $file_type<br>";
-            $Files  = new Files(array( 'path' => Filesystem::url_to_path("$theme_dir") ), $file_type);
+            $Files  = new Files(array( 'path' => Filesystem::convertUrlToPath("$theme_dir") ), $file_type);
 
             $destination_files = array();
             foreach ($Files->files() as $key => $source) {
@@ -253,7 +253,7 @@ class Cache
                 $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
                 $destination_files[] = str_replace('src', $cache, $source);
             }
-            Filesystem::copy_files($Files->files(), $destination_files);
+            Filesystem::copyFiles($Files->files(), $destination_files);
         }
 
         return $output;

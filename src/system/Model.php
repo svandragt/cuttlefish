@@ -24,19 +24,19 @@ class Model
         $this->contents($records);
     }
 
-    function contents($records)
+    public function contents($records)
     {
         // implement $this->contents in your controller
     }
 
-    function limit($max)
+    public function limit($max)
     {
         $this->contents = array_slice($this->contents, 0, $max);
 
         return $this;
     }
 
-    function list_contents($record, $loaded_classes)
+    protected function listContents($record, $loaded_classes)
     {
         $Content = new StdClass();
 
@@ -49,14 +49,21 @@ class Model
 
         try {
             if (count($section_keys) != count($content_sections)) {
-                throw new Exception('Model (' . get_class($this) . ') definition (' . count($section_keys) . ') does not match number of content sections (' . count($content_sections) . ').');
+                  throw new Exception(
+                      sprintf(
+                          'Model (%s) definition (%s) does not match number of content sections (%s).',
+                          get_class($this),
+                          count($section_keys),
+                          count($content_sections)
+                      )
+                  );
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
             exit();
         }
 
-        $Content->link = $Url->file_to_url($File)->url_absolute;
+        $Content->link = $Url->convertFileToURL($File)->url_absolute;
 
         for ($i = 0, $len = count($this->model); $i < $len; $i++) {
             $content_section         = $content_sections[ $i ];

@@ -1,20 +1,19 @@
 <?php
 
+// single image
 class ControllerImages extends Cuttlefish\Controller
 {
-    // single image
-
-    function records()
+    public function records()
     {
-        $this->records = [ Cuttlefish\Filesystem::url_to_path('/content/images/' . implode($this->args, "/")) ];
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath('/content/images/' . implode($this->args, "/")) ];
     }
 
-    function model()
+    public function model()
     {
         $this->Model = new ModelFile($this->records);
     }
 
-    function view()
+    public function view()
     {
         parent::view();
 

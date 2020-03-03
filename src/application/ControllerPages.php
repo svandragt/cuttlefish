@@ -1,20 +1,20 @@
 <?php
 
+// single page
 class ControllerPages extends Cuttlefish\Controller
 {
-    // single page
-
-    function records()
+    public function records()
     {
-        $this->records = [ Cuttlefish\Filesystem::url_to_path('/content/pages/' . implode($this->args, "/") . '.' . $this->ext) ];
+        $url = '/content/pages/' . implode($this->args, "/") . '.' . $this->ext;
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 
-    function model()
+    public function model()
     {
         $this->Model = new ModelPage($this->records);
     }
 
-    function view()
+    public function view()
     {
         parent::view();
 

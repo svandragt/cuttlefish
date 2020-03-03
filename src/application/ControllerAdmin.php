@@ -11,55 +11,12 @@ class ControllerAdmin extends Cuttlefish\Controller
     // admin section does not use content files
     protected $contents;
 
-    function init()
-    {
-        global $App;
-        $App->Cache->abort();
-
-        $action = ( isset($this->args[0]) ) ? $this->args[0] : 'index';
-        if ($this->is_allowed_method($action)) {
-            $this->contents = $this->$action();
-        } else {
-            $this->is_allowed_method_fail($action);
-        }
-
-        parent::init();
-    }
-
-    function is_allowed_method($action)
+    protected function isAllowedMethod($action)
     {
         return array_key_exists($action, $this->allowed_methods);
     }
 
-    /* admin functionality */
-
-    function is_allowed_method_fail($action)
-    {
-        exit("method $action not allowed");
-    }
-
-    function view()
-    {
-        parent::view();
-
-        $this->View = new Cuttlefish\Html($this->contents, array(
-            'layout'     => 'layout.php',
-            'controller' => 'admin',
-            'model'      => 'page',
-        ));
-    }
-
-    function index()
-    {
-        global $App;
-        if ($App->Security->isLoggedIn()) {
-            return $this->show_tasks();
-        }
-
-        return $this->show_login();
-    }
-
-    function show_tasks()
+    protected function showTasks()
     {
         $output = '<ul>';
         $am     = $this->allowed_methods;
@@ -74,14 +31,14 @@ class ControllerAdmin extends Cuttlefish\Controller
         return $output;
     }
 
-    function show_login()
+    protected function showLogin()
     {
         global $App;
 
         return $App->Security->login();
     }
 
-    function clear_cache()
+    protected function clearCache()
     {
         global $App;
         $App->Security->maybeLoginRedirect();
@@ -89,7 +46,7 @@ class ControllerAdmin extends Cuttlefish\Controller
         return $App->Cache->clear();
     }
 
-    function generate()
+    protected function generateSite()
     {
         global $App;
 
@@ -97,7 +54,44 @@ class ControllerAdmin extends Cuttlefish\Controller
         echo $App->Cache->generateSite();
     }
 
-    function logout()
+
+    public function init()
+    {
+        global $App;
+        $App->Cache->abort();
+
+        $action = ( isset($this->args[0]) ) ? $this->args[0] : 'index';
+        if ($this->isAllowedMethod($action)) {
+            $this->contents = $this->$action();
+        } else {
+            exit("Method $action is not allowed");
+        }
+
+        parent::init();
+    }
+
+    public function view()
+    {
+        parent::view();
+
+        $this->View = new Cuttlefish\Html($this->contents, array(
+            'layout'     => 'layout.php',
+            'controller' => 'admin',
+            'model'      => 'page',
+        ));
+    }
+
+    public function index()
+    {
+        global $App;
+        if ($App->Security->isLoggedIn()) {
+            return $this->showTasks();
+        }
+
+        return $this->showLogin();
+    }
+
+    public function logout()
     {
         global $App;
 

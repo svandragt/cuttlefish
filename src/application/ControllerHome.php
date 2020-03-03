@@ -3,21 +3,20 @@
 class ControllerHome extends Cuttlefish\Controller
 {
     // list of recent posts
-
-    function records()
+    public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
         $Files         = new Cuttlefish\Files(array( 'url' => '/content/posts' ), $this->ext);
         $this->records = $Files->limit($limit + 5);
     }
 
-    function model()
+    public function model()
     {
         $Model       = new ModelPost($this->records);
         $this->Model = $Model->limit(Configuration::POSTS_HOMEPAGE);
     }
 
-    function view()
+    public function view()
     {
         parent::view();
 

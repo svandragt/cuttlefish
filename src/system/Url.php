@@ -32,7 +32,10 @@ class Url
      */
     protected function protocol()
     {
-        $protocol = ( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 ) ? "https://" : "http://";
+        $protocol = 'http://';
+        if (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+            $protocol = 'https://';
+        }
 
         return (string) $protocol;
     }
@@ -45,7 +48,7 @@ class Url
      *
      * @return object              url object
      */
-    public function file_to_url($file_object)
+    public function convertFileToURL($file_object)
     {
         $file_object = $file_object->relative();
 

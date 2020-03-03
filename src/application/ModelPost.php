@@ -22,7 +22,7 @@ class ModelPost extends Cuttlefish\Model
             'spyc' => new Spyc(),
         );
         foreach ($records as $record) {
-            $this->contents[] = $this->list_contents($record, $loaded_classes);
+            $this->contents[] = $this->listContents($record, $loaded_classes);
         }
         usort($this->contents, array( $this, 'sortByPublished' ));
 
