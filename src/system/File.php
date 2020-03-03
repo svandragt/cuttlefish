@@ -48,7 +48,7 @@ class File
     protected function getMimetypeFromFile($filename)
     {
         if (is_resource($filename) === true) {
-            return getMimetypeFromFile($filename);
+            return mime_content_type($filename);
         }
 
         return false;
