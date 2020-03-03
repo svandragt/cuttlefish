@@ -11,6 +11,9 @@ _It should be considered early alpha._
 * Easy to adopt.
 * Hackable.
 
+![Cuttlefish screenshot](https://vandragt.com/file/d97a82559947ebc1f195213a751c52f0/Screenshot+from+2020-03-03+08-34-26.png)
+
+
 ## Next step
 
 [Installation, configuration, and content management](https://github.com/svandragt/cuttlefish/wiki)
