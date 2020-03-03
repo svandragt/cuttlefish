@@ -5,7 +5,7 @@ class ControllerPages extends Cuttlefish\Controller
 {
     public function records()
     {
-        $url = '/content/pages/' . implode($this->args, "/") . '.' . $this->ext;
+        $url = '/content/pages/' . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 

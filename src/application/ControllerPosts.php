@@ -3,10 +3,9 @@
 // single post
 class ControllerPosts extends Cuttlefish\Controller
 {
-
     public function records()
     {
-        $url = '/content/posts/' . implode($this->args, "/") . '.' . $this->ext;
+        $url = '/content/posts/' . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 

@@ -5,7 +5,7 @@ class ControllerImages extends Cuttlefish\Controller
 {
     public function records()
     {
-        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath('/content/images/' . implode($this->args, "/")) ];
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath('/content/images/' . implode('/', $this->args)) ];
     }
 
     public function model()

@@ -6,7 +6,7 @@ class ControllerErrors extends Cuttlefish\Controller
 
     public function records()
     {
-        $url = '/content/errors/' . implode($this->args, "/") . '.' . $this->ext;
+        $url = '/content/errors/' . implode("/", $this->args) . '.' . $this->ext;
         $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 

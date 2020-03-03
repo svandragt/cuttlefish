@@ -6,6 +6,8 @@ use Exception;
 
 class File
 {
+    protected $ext;
+    protected $mime;
     public $is_relative;
     public $path;
 
