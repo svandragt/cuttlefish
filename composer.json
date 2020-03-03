@@ -28,14 +28,28 @@
         "process-timeout": 0
     },
     "scripts": {
+        "setup": [
+            "composer install --ansi",
+            "phive install"
+        ],
         "serve": [
             "docker-compose up --build"
         ],
         "docs": [
             "phpdox"
+        ],
+        "prep": [
+            "phpcbf",
+            "@lint",
+            "@docs"
+        ],
+         "lint": [
+            "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
+            "phpcs"
         ]
     },
     "scripts-descriptions": {
-        "serve": "Start the container."
+        "serve": "Start container.",
+        "docs": "Generate documentation."
     }
 }

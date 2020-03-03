@@ -67,17 +67,17 @@
         <ul/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class Request
-            {<br/><ul class="none"><li>// members</li><li>private  <a href="#members">$Controller</a>;
+            {<br/><ul class="none"><li>// members</li><li>protected  <a href="#members">$Controller</a>;
                     </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/__construct.html">__construct</a>()
-                    </li><li>public string <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/path_info.html">path_info</a>()
-                    </li><li>public void <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/class_not_callable.html">class_not_callable</a>()
-                    </li><li>public void <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/redirect.html">redirect</a>()
+                    </li><li>protected string <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/pathInfo.html">pathInfo</a>()
+                    </li><li>protected void <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/classNotCallable.html">classNotCallable</a>()
+                    </li><li>protected void <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/redirect.html">redirect</a>()
                     </li></ul>
 
             }<br/></div>
         <h2 id="members">Members</h2>
         <div class="styled members">
-          <h4>private</h4>
+          <h4>protected</h4>
           <ul class="members">
             <li id="Controller">
               <strong>$Controller</strong>
@@ -86,14 +86,11 @@
         </div>
         <h2 id="methods">Methods</h2>
         <div class="styled">
-          <h4>public</h4>
+          <h4>protected</h4>
           <ul>
-            <li id="__construct">
-              <a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/__construct.html">__construct()</a>
-            </li>
-            <li id="class_not_callable"><a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/class_not_callable.html">class_not_callable()</a>
+            <li id="classNotCallable"><a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/classNotCallable.html">classNotCallable()</a>
                 — Requesting urls without controller</li>
-            <li id="path_info"><a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/path_info.html">path_info()</a>
+            <li id="pathInfo"><a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/pathInfo.html">pathInfo()</a>
                 — Return consistant path based on server variable and home_page path fallback</li>
             <li id="redirect"><a title="Cuttlefish\Request" href="../classes/Cuttlefish_Request/redirect.html">redirect()</a>
                 — Redirect to new url</li>

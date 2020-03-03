@@ -56,7 +56,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/system/File.php.html#line11">Source</a>
+            <a href="../source/system/File.php.html#line7">Source</a>
           </li>
         </ul>
       </nav>
@@ -66,11 +66,13 @@
         <p/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class File
-            {<br/><ul class="none"><li>// members</li><li>public  <a href="#members">$is_relative</a>;
+            {<br/><ul class="none"><li>// members</li><li>protected  <a href="#members">$ext</a>;
+                    </li><li>protected  <a href="#members">$mime</a>;
+                    </li><li>public  <a href="#members">$is_relative</a>;
                     </li><li>public  <a href="#members">$path</a>;
                     </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/__construct.html">__construct</a>()
-                    </li><li>public void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/mime.html">mime</a>()
-                    </li><li>public void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/mime_content_type.html">mime_content_type</a>()
+                    </li><li>protected void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/getMimetype.html">getMimetype</a>()
+                    </li><li>protected void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/getMimetypeFromFile.html">getMimetypeFromFile</a>()
                     </li><li>public void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/relative.html">relative</a>()
                     </li><li>public void <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/render.html">render</a>()
                     </li></ul>
@@ -78,6 +80,15 @@
             }<br/></div>
         <h2 id="members">Members</h2>
         <div class="styled members">
+          <h4>protected</h4>
+          <ul class="members">
+            <li id="ext">
+              <strong>$ext</strong>
+            </li>
+            <li id="mime">
+              <strong>$mime</strong>
+            </li>
+          </ul>
           <h4>public</h4>
           <ul class="members">
             <li id="is_relative">
@@ -90,16 +101,19 @@
         </div>
         <h2 id="methods">Methods</h2>
         <div class="styled">
+          <h4>protected</h4>
+          <ul>
+            <li id="getMimetype">
+              <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/getMimetype.html">getMimetype()</a>
+            </li>
+            <li id="getMimetypeFromFile">
+              <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/getMimetypeFromFile.html">getMimetypeFromFile()</a>
+            </li>
+          </ul>
           <h4>public</h4>
           <ul>
             <li id="__construct">
               <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/__construct.html">__construct()</a>
-            </li>
-            <li id="mime">
-              <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/mime.html">mime()</a>
-            </li>
-            <li id="mime_content_type">
-              <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/mime_content_type.html">mime_content_type()</a>
             </li>
             <li id="relative">
               <a title="Cuttlefish\File" href="../classes/Cuttlefish_File/relative.html">relative()</a>

@@ -56,7 +56,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/system/Cache.php.html#line12">Source</a>
+            <a href="../source/system/Cache.php.html#line8">Source</a>
           </li>
         </ul>
       </nav>
@@ -72,17 +72,17 @@
                         false;
                     </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/__construct.html">__construct</a>()
                     </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/end.html">end</a>()
-                    </li><li>public boolean <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/can_cache.html">can_cache</a>()
-                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/write_to_disk.html">write_to_disk</a>()
-                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/convert_urlpath_to_filepath.html">convert_urlpath_to_filepath</a>()
+                    </li><li>protected boolean <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/canCache.html">canCache</a>()
+                    </li><li>protected string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/writeToDisk.html">writeToDisk</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/convertUrlpathToFilepath.html">convertUrlpathToFilepath</a>()
                     </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/abort.html">abort</a>()
                     </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/start.html">start</a>()
-                    </li><li>public boolean <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/has_existing_cachefile.html">has_existing_cachefile</a>()
-                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/generate_site.html">generate_site</a>()
+                    </li><li>public boolean <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/hasExistingCachefile.html">hasExistingCachefile</a>()
+                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/generateSite.html">generateSite</a>()
                     </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/clear.html">clear</a>()
-                    </li><li>public void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/cache_folder.html">cache_folder</a>()
-                    </li><li>public string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/copy_themefiles.html">copy_themefiles</a>()
-                    </li><li>protected string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/sanitize_pathinfo.html">sanitize_pathinfo</a>()
+                    </li><li>protected void <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/getCacheFolder.html">getCacheFolder</a>()
+                    </li><li>protected string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/copyThemeFiles.html">copyThemeFiles</a>()
+                    </li><li>protected string <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/sanitizePathinfo.html">sanitizePathinfo</a>()
                     </li></ul>
 
             }<br/></div>
@@ -105,9 +105,18 @@
         <div class="styled">
           <h4>protected</h4>
           <ul>
-            <li id="sanitize_pathinfo">
-              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/sanitize_pathinfo.html">sanitize_pathinfo()</a>
+            <li id="canCache"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/canCache.html">canCache()</a>
+                — Returns possibility of caching the page based on environment and configuration.</li>
+            <li id="copyThemeFiles"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/copyThemeFiles.html">copyThemeFiles()</a>
+                — Copying of the theme files to the static site output folder</li>
+            <li id="getCacheFolder">
+              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/getCacheFolder.html">getCacheFolder()</a>
             </li>
+            <li id="sanitizePathinfo">
+              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/sanitizePathinfo.html">sanitizePathinfo()</a>
+            </li>
+            <li id="writeToDisk"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/writeToDisk.html">writeToDisk()</a>
+                — Writes the collected cache to disk</li>
           </ul>
           <h4>public</h4>
           <ul>
@@ -116,27 +125,18 @@
             </li>
             <li id="abort"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/abort.html">abort()</a>
                 — Abort caching</li>
-            <li id="cache_folder">
-              <a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/cache_folder.html">cache_folder()</a>
-            </li>
-            <li id="can_cache"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/can_cache.html">can_cache()</a>
-                — Returns possibility of caching the page based on environment and configuration.</li>
             <li id="clear"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/clear.html">clear()</a>
                 — Completely clear the site cache</li>
-            <li id="convert_urlpath_to_filepath"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/convert_urlpath_to_filepath.html">convert_urlpath_to_filepath()</a>
+            <li id="convertUrlpathToFilepath"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/convertUrlpathToFilepath.html">convertUrlpathToFilepath()</a>
                 — Returns path to cache file based on url path.</li>
-            <li id="copy_themefiles"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/copy_themefiles.html">copy_themefiles()</a>
-                — Copying of the theme files to the static site output folder</li>
             <li id="end"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/end.html">end()</a>
                 — Write page to disk if cache is enabled</li>
-            <li id="generate_site"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/generate_site.html">generate_site()</a>
+            <li id="generateSite"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/generateSite.html">generateSite()</a>
                 — Generate a static version of the complete site</li>
-            <li id="has_existing_cachefile"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/has_existing_cachefile.html">has_existing_cachefile()</a>
+            <li id="hasExistingCachefile"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/hasExistingCachefile.html">hasExistingCachefile()</a>
                 — Retiurns whether page is already cached</li>
             <li id="start"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/start.html">start()</a>
                 — Start caching</li>
-            <li id="write_to_disk"><a title="Cuttlefish\Cache" href="../classes/Cuttlefish_Cache/write_to_disk.html">write_to_disk()</a>
-                — Writes the collected cache to disk</li>
           </ul>
         </div>
       </section>

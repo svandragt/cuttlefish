@@ -1,9 +1,8 @@
 <?php
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
+
+if (! defined('BASE_FILEPATH')) {
+    exit('No direct script access allowed');
 }
-
-
 
 /**
  * Shorthand function to link to internal url
@@ -12,7 +11,8 @@ if ( ! defined( 'BASE_FILEPATH' ) ) {
  *
  * @return string      index independent internal url
  */
-function href( $internal_url ) {
+function href($internal_url)
+{
     $Url = new Cuttlefish\Url($internal_url);
 
     // relative links for portability.
@@ -24,18 +24,19 @@ function href( $internal_url ) {
  *
  * @return string html of list of pages
  */
-function pages() {
-	$output     = '';
+function pages()
+{
+    $output     = '';
     $pages_path = sprintf("/%s/%s", Configuration::CONTENT_FOLDER, 'pages');
 
     $Files = new Cuttlefish\Files(array('url' => $pages_path), Configuration::CONTENT_EXT);
-	foreach ( $Files->files() as $path ) {
-		$filename = pathinfo( $path, PATHINFO_FILENAME );
-		$title    = ucwords( str_replace( "-", " ", $filename ) );
-		$output   .= sprintf( "<li><a href='%s'>%s</a></li>", href( "/pages/$filename" ), $title );
-	}
+    foreach ($Files->files() as $path) {
+        $filename = pathinfo($path, PATHINFO_FILENAME);
+        $title    = ucwords(str_replace("-", " ", $filename));
+        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/pages/$filename"), $title);
+    }
 
-	return $output;
+    return $output;
 }
 
 /**
@@ -43,11 +44,12 @@ function pages() {
  *
  * @return string link to theme directory
  */
-function theme_dir() {
-	$path_to_script = ''; // todo
-	$theme_dir_url  = BASE_PATH . str_replace( "\\", "/", THEME_DIR );
+function theme_dir()
+{
+    $path_to_script = ''; // todo
+    $theme_dir_url  = BASE_PATH . str_replace("\\", "/", THEME_DIR);
 
-	return $path_to_script . $theme_dir_url;
+    return $path_to_script . $theme_dir_url;
 }
 
 /**
@@ -55,9 +57,9 @@ function theme_dir() {
  *
  * @return boolean logged in status
  */
-function is_logged_in() {
-	global $App;
+function isLoggedIn()
+{
+    global $App;
 
-	return $App->Security->is_logged_in();
+    return $App->Security->isLoggedIn();
 }
-
