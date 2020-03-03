@@ -132,7 +132,7 @@ class Cache
     }
 
     /**
-     * Retiurns whether page is already cached
+     * Returns whether page is already cached
      *
      * @return boolean page has existing cachefile
      */
