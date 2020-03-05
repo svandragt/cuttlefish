@@ -26,8 +26,10 @@ class Cache
 
     /**
      * Write page to disk if cache is enabled
+     *
+     * @return void
      */
-    public function end()
+    public function end(): void
     {
         // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
         chdir($this->cwd);
@@ -115,8 +117,10 @@ class Cache
 
     /**
      * Abort caching
+     *
+     * @return void
      */
-    public function abort()
+    public function abort(): void
     {
         while (ob_get_level() > 0) {
             ob_end_clean();
@@ -125,8 +129,10 @@ class Cache
 
     /**
      * Start caching
+     *
+     * @return void
      */
-    public function start()
+    public function start(): void
     {
         ob_start();
     }
@@ -152,7 +158,7 @@ class Cache
      *
      * @return string list of output messages detailing the generated files
      */
-    public function generateSite()
+    public function generateSite(): string
     {
         $output = '';
 
@@ -224,9 +230,15 @@ class Cache
         return (string) $output;
     }
 
+    /**
+     * @return false|null|string
+     */
     protected function getCacheFolder()
     {
-        return realpath(BASE_FILEPATH . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
+        if (! isset($GLOBALS['BASE_FILEPATH'])) {
+            return null;
+        }
+        return realpath($GLOBALS['BASE_FILEPATH'] . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
     }
 
     /**
@@ -264,7 +276,7 @@ class Cache
      *
      * @return string
      */
-    protected function sanitizePathinfo($path_info)
+    protected function sanitizePathinfo(string $path_info)
     {
         if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
             $path_info = substr($_SERVER['PATH_INFO'], 1);

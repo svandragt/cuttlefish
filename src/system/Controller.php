@@ -21,6 +21,9 @@ class Controller
         $this->init();
     }
 
+    /**
+     * @return void
+     */
     public function init()
     {
         $this->records();
@@ -30,6 +33,8 @@ class Controller
 
     /**
      * implement $this->Records in your controller
+     *
+     * @return void
      */
     public function records()
     {
@@ -37,14 +42,17 @@ class Controller
 
     /**
      * implement $this->Model in your controller
+     *
+     * @return void
      */
-
     public function model()
     {
     }
 
     /**
      * implement $this->View in your controller
+     *
+     * @return void
      */
     public function view()
     {

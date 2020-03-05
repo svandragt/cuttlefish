@@ -21,7 +21,12 @@ class Files
     }
 
 
-    protected function collect($dir = ".", $filter = null)
+    /**
+     * @return array
+     *
+     * @psalm-return list<mixed>
+     */
+    protected function collect(string $dir = ".", $filter = null): array
     {
 
         $files = array();
@@ -52,14 +57,14 @@ class Files
         return $files;
     }
 
-    public function limit($max)
+    public function limit(int $max): array
     {
         $this->files = array_slice($this->files, 0, $max);
 
         return $this->files;
     }
 
-    public function removeAll()
+    public function removeAll(): string
     {
         $output = '';
 

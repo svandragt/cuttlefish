@@ -14,7 +14,10 @@ class Curl
         $this->c = curl_init();
     }
 
-    public function getURLContents($url, $query_data = null, $requestMethod = 'GET')
+    /**
+     * @return bool|string
+     */
+    public function getURLContents(string $url, $query_data = null, $requestMethod = 'GET')
     {
         // return the contens of an url with POST params and authentication based on setings;
         if ($requestMethod !== 'GET') {
@@ -39,7 +42,7 @@ class Curl
         }
     }
 
-    public function close()
+    public function close(): void
     {
         curl_close($this->c);
     }

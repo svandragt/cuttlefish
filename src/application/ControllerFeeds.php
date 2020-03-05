@@ -3,6 +3,9 @@
 class ControllerFeeds extends Cuttlefish\Controller
 {
     // single feed
+    /**
+     * @return void
+     */
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
@@ -10,12 +13,18 @@ class ControllerFeeds extends Cuttlefish\Controller
         $this->records = $Records->limit($limit + 5);
     }
 
+    /**
+     * @return void
+     */
     public function model()
     {
         $Model       = new ModelPost($this->records);
         $this->Model = $Model->limit(10);
     }
 
+    /**
+     * @return void
+     */
     public function view()
     {
         parent::view();

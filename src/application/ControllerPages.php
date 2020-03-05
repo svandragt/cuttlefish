@@ -3,17 +3,26 @@
 // single page
 class ControllerPages extends Cuttlefish\Controller
 {
+    /**
+     * @return void
+     */
     public function records()
     {
         $url = '/content/pages/' . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
     }
 
+    /**
+     * @return void
+     */
     public function model()
     {
         $this->Model = new ModelPage($this->records);
     }
 
+    /**
+     * @return void
+     */
     public function view()
     {
         parent::view();

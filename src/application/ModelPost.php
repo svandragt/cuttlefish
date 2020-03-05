@@ -10,11 +10,17 @@ class ModelPost extends Cuttlefish\Model
         'markdown|html' => 'content',
     );
 
+    /**
+     * @return int
+     */
     public function sortByPublished($a, $b)
     {
         return strcmp($b->metadata->Published, $a->metadata->Published);
     }
 
+    /**
+     * @return self
+     */
     public function contents($records)
     {
         $loaded_classes = array(

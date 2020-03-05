@@ -60,9 +60,11 @@ class Request
     /**
      * Requesting urls without controller
      *
-     * @param  string $controller_class name of controller
+     * @param string $controller_class name of controller
+     *
+     * @return void
      */
-    protected function classNotCallable($controller_class)
+    protected function classNotCallable($controller_class): void
     {
         $Url         = new Url('/errors/404');
         $log_message = "Not callable '$controller_class' or missing parameter.";
@@ -74,8 +76,10 @@ class Request
      *
      * @param Url $Url URL to redirect to
      * @param $log_message
+     *
+     * @return void
      */
-    protected function redirect($Url, $log_message)
+    protected function redirect($Url, string $log_message): void
     {
         echo( "Location: " . $Url->url_absolute );
         exit($log_message);

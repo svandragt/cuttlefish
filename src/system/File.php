@@ -11,10 +11,8 @@ class File
     public $is_relative;
     public $path;
 
-    public function __construct($file_path)
+    public function __construct(string $file_path)
     {
-
-        $file_path = ( is_array($file_path) ) ? implode($file_path, " ") : $file_path;
         try {
             if (! file_exists($file_path)) {
                 throw new Exception("'$file_path' not found");
@@ -32,6 +30,9 @@ class File
         $this->mime = $this->getMimetype();
     }
 
+    /**
+     * @return false|string
+     */
     protected function getMimetype()
     {
         switch ($this->ext) {
@@ -45,7 +46,10 @@ class File
         }
     }
 
-    protected function getMimetypeFromFile($filename)
+    /**
+     * @return false|string
+     */
+    protected function getMimetypeFromFile(string $filename)
     {
         if (is_resource($filename) === true) {
             return mime_content_type($filename);
@@ -54,7 +58,7 @@ class File
         return false;
     }
 
-    public function relative()
+    public function relative(): self
     {
         if (! $this->is_relative) {
             $root_path         = Filesystem::convertUrlToPath('/');
@@ -65,7 +69,7 @@ class File
         return $this;
     }
 
-    public function render()
+    public function render(): void
     {
         $mime = $this->mime;
         header("Content-Type: $mime");
