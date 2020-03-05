@@ -3,7 +3,7 @@ Cuttlefish is a PHP based hackable web framework (work in progress).
 
 _It should be considered early alpha._
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/svandragt/carbon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/svandragt/carbon/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/svandragt/cuttlefish/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/svandragt/cuttlefish/?branch=master)
 
 ## Aims
 
