@@ -38,11 +38,8 @@ class File
         switch ($this->ext) {
             case 'css': // php cannot detect css
                 return "text/css";
-                break;
-
             default:
                 return $this->getMimetypeFromFile($this->path);
-                break;
         }
     }
 
