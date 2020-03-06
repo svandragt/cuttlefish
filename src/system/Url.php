@@ -6,8 +6,8 @@ use Configuration;
 
 class Url
 {
-    public $url_relative;
-    public $url_absolute;
+    public $url_relative = '';
+    public $url_absolute = '';
 
     public function __construct($path = null)
     {
@@ -18,7 +18,7 @@ class Url
         return $this;
     }
 
-    protected function setUrl($path)
+    protected function setUrl(string $path): void
     {
         $this->url_relative = Configuration::INDEX_PAGE . $path;
         $this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
@@ -30,7 +30,7 @@ class Url
      *
      * @return string correct protocol dependent url
      */
-    protected function protocol()
+    protected function protocol(): string
     {
         $protocol = 'http://';
         if (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
@@ -44,11 +44,11 @@ class Url
      * Converts a file to an url.
      * make sure to call Url->url_absolute after.
      *
-     * @param  object $file_object File object
+     * @param object $file_object File object
      *
-     * @return object              url object
+     * @return self url object
      */
-    public function convertFileToURL($file_object)
+    public function convertFileToURL($file_object): self
     {
         $file_object = $file_object->relative();
 

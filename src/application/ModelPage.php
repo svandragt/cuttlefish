@@ -10,6 +10,9 @@ class ModelPage extends Cuttlefish\Model
         'markdown|html' => 'content',
     );
 
+    /**
+     * @return void
+     */
     public function contents($records)
     {
         $loaded_classes = array(

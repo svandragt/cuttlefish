@@ -20,7 +20,7 @@ class Template
         return $this->args[ $name ];
     }
 
-    public function render()
+    public function render(): void
     {
         $path = BASE_FILEPATH . THEME_DIR . "views" . DIRECTORY_SEPARATOR . $this->file;
         require $path;

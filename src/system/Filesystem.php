@@ -5,7 +5,7 @@ namespace Cuttlefish;
 class Filesystem
 {
 
-    public static function requireFolder($folder)
+    public static function requireFolder(string $folder): ?bool
     {
         if (! is_dir($folder)) {
             @mkdir($folder, 0777, true);
@@ -19,7 +19,7 @@ class Filesystem
         }
     }
 
-    public static function convertUrlToPath($url)
+    public static function convertUrlToPath(string $url): string
     {
         // takes /content/pages/index and returns path
         $path = BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url), '/');
@@ -28,7 +28,12 @@ class Filesystem
         return $path;
     }
 
-    public static function copyFiles($source_files, $destination_files)
+    /**
+     * @param string[] $destination_files
+     *
+     * @return void
+     */
+    public static function copyFiles(array $source_files, array $destination_files): void
     {
         $i = 0;
         foreach ($source_files as $key => $value) {
@@ -43,7 +48,15 @@ class Filesystem
         }
     }
 
-    public static function subdirs($path, $recursive = false)
+    /**
+     * @param false|string $path
+     * @param false $recursive
+     *
+     * @return string[]
+     *
+     * @psalm-return list<string>
+     */
+    public static function subdirs($path, bool $recursive = false): array
     {
         $dirs = array();
         foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file) {
@@ -59,7 +72,12 @@ class Filesystem
         return $dirs;
     }
 
-    public static function removeDirs($path)
+    /**
+     * @param false|string $path
+     *
+     * @return bool
+     */
+    public static function removeDirs($path): bool
     {
         $empty = true;
         foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file) {

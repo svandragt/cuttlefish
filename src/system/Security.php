@@ -4,7 +4,7 @@ namespace Cuttlefish;
 
 class Security
 {
-    public function maybeLoginRedirect()
+    public function maybeLoginRedirect(): void
     {
         if (! $this->isLoggedIn()) {
             $Url = new Url('/admin');
@@ -12,19 +12,19 @@ class Security
         };
     }
 
-    public function isLoggedIn()
+    public function isLoggedIn(): bool
     {
         return ! is_null(Http::session('admin'));
     }
 
-    public function login()
+    public function login(): string
     {
         Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
 
         $output = "";
 
         if ($admin_password = getenv('CUTTLEFISH_ADMIN_PASSWORD')) {
-            $password = HTTP::post('password');
+            $password = Http::post('password');
             if ($password == $admin_password) {
                 Http::setSession(array(
                     'admin' => true,
@@ -50,7 +50,7 @@ MSG;
         return $output;
     }
 
-    public function logout()
+    public function logout(): string
     {
         session_destroy();
 

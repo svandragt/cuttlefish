@@ -11,12 +11,12 @@ class ControllerAdmin extends Cuttlefish\Controller
     // admin section does not use content files
     protected $contents;
 
-    protected function isAllowedMethod($action)
+    protected function isAllowedMethod($action): bool
     {
         return array_key_exists($action, $this->allowed_methods);
     }
 
-    protected function showTasks()
+    protected function showTasks(): string
     {
         $output = '<ul>';
         $am     = $this->allowed_methods;
@@ -46,7 +46,7 @@ class ControllerAdmin extends Cuttlefish\Controller
         return $App->Cache->clear();
     }
 
-    protected function generateSite()
+    protected function generateSite(): void
     {
         global $App;
 
@@ -55,6 +55,9 @@ class ControllerAdmin extends Cuttlefish\Controller
     }
 
 
+    /**
+     * @return void
+     */
     public function init()
     {
         global $App;
@@ -70,6 +73,9 @@ class ControllerAdmin extends Cuttlefish\Controller
         parent::init();
     }
 
+    /**
+     * @return void
+     */
     public function view()
     {
         parent::view();

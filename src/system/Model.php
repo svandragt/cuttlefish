@@ -24,19 +24,27 @@ class Model
         $this->contents($records);
     }
 
+    /**
+     * @return void
+     */
     public function contents($records)
     {
         // implement $this->contents in your controller
     }
 
-    public function limit($max)
+    public function limit(int $max): self
     {
         $this->contents = array_slice($this->contents, 0, $max);
 
         return $this;
     }
 
-    protected function listContents($record, $loaded_classes)
+    /**
+     * @param (Spyc|\Michelf\MarkdownExtra)[] $loaded_classes
+     *
+     * @return StdClass
+     */
+    protected function listContents($record, array $loaded_classes): StdClass
     {
         $Content = new StdClass();
 
@@ -75,7 +83,13 @@ class Model
         return $Content;
     }
 
-    public function section($content_section, $section_key, $loaded_classes)
+    /**
+     * @param array-key $section_key
+     * @param (Spyc|\Michelf\MarkdownExtra)[] $loaded_classes
+     *
+     * @return StdClass
+     */
+    public function section(string $content_section, $section_key, array $loaded_classes): StdClass
     {
         // assign classes to their variables
         foreach ($loaded_classes as $class_name => $obj) {
@@ -105,10 +119,5 @@ class Model
         }
 
         return $Section;
-    }
-
-    public function sortByPublished($a, $b)
-    {
-        return strcmp($b, $a);
     }
 }

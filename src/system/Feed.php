@@ -43,7 +43,7 @@ class Feed
         $this->render();
     }
 
-    public function render()
+    public function render(): void
     {
         header('Content-type: application/xml');
         echo $this->xml->asXML();

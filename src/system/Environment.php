@@ -22,17 +22,17 @@ class Environment
         session_start();
     }
 
-    protected function addIncludePath($path)
+    protected function addIncludePath(string $path): void
     {
         set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
     }
 
-    protected function isNewInstall()
+    protected function isNewInstall(): bool
     {
         return ! ( is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER) );
     }
 
-    protected function createSystemFolders()
+    protected function createSystemFolders(): void
     {
         $cfg_content_folder = Configuration::CONTENT_FOLDER;
 
@@ -44,6 +44,7 @@ class Environment
             $cfg_content_folder . '/errors',
             Configuration::THEMES_FOLDER,
         );
+        $ok = null;
         foreach ($folders as $folder) {
             $ok[] = Filesystem::requireFolder($folder);
         }
@@ -52,7 +53,7 @@ class Environment
         }
     }
 
-    public function writeHtaccess()
+    public function writeHtaccess(): void
     {
         $directory_index = "index.html index.xml";
         $path            = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
@@ -62,7 +63,7 @@ class Environment
         fclose($fp);
     }
 
-    protected function registerExternals()
+    protected function registerExternals(): void
     {
         $Files = new Files(array( 'url' => '/system/Ext' ), 'php');
         foreach ($Files->files() as $key => $filepath) {
