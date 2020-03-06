@@ -11,7 +11,6 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "mustangostang/spyc": "*",
         "michelf/php-markdown": "*",
         "ext-curl": "*",
         "eno-lang/enophp": "^0.1.3"
