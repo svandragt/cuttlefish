@@ -4,7 +4,6 @@ namespace Cuttlefish;
 
 use Exception;
 use Michelf\Markdown;
-use Spyc;
 use StdClass;
 use Eno\Parser;
 
@@ -101,7 +100,6 @@ class Model
         switch ($section_key) {
             case 'eno':
                 $document = Parser::parse($content_section);
-                // $Section = (object)$doc->jsonItems();
                 foreach ($document->elements() as $element) {
                     $key = $element->name;
                     $Section->$key = $element->value;

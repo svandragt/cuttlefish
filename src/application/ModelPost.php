@@ -25,7 +25,6 @@ class ModelPost extends Cuttlefish\Model
     {
         $loaded_classes = array(
             'mdep' => new MarkdownExtra(),
-            'spyc' => new Spyc(),
         );
         foreach ($records as $record) {
             $this->contents[] = $this->listContents($record, $loaded_classes);
