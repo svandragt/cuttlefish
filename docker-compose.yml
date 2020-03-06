@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    domainname: cuttlefish.test
+    hostname: cuttlefish.test
     ports:
-      - 80:2015
+      - 80:80
     volumes:
       - .:/srv/app

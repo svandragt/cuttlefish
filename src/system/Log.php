@@ -4,42 +4,62 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-    exit( 'No direct script access allowed' );
-}
+class Log
+{
+    protected const FILENAME_TEMPLATE = '/cuttlefish.log';
 
-class Log {
-    const FILENAME_TEMPLATE = '/cuttlefish.log';
+    protected static function getUniqueFilename(): string
+    {
+        return sprintf(self::FILENAME_TEMPLATE, date("Y-m-d_H-m-s"));
+    }
 
-
-    static function error($message ) {
-        error_log( $message, 0 );
+    public static function error(string $message): void
+    {
+        error_log($message, 0);
         echo( $message . "<br>" );
     }
 
-    static function debug($message ) {
+    public static function debug(string $message): void
+    {
         if (Configuration::DEBUG_ENABLED) {
-            $message = sprintf( "[%s] (%s) DEBUG %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message . PHP_EOL );
-            error_log($message, 3, Configuration::LOGS_FOLDER . self::filename_per_request());
+            $message = sprintf(
+                "[%s] (%s) DEBUG %s",
+                date('d/M/Y:H:i:s'),
+                pathinfo(
+                    $_SERVER['PHP_SELF'],
+                    PATHINFO_FILENAME
+                ),
+                $message . PHP_EOL
+            );
+            error_log($message, 3, Configuration::LOGS_FOLDER . self::getUniqueFilename());
         }
     }
 
-    static function filename_per_request() {
-        return sprintf( self::FILENAME_TEMPLATE, date( "Y-m-d_H-m-s" ) );
+    public static function info(string $message): void
+    {
+        $message = sprintf(
+            "[%s] (%s) INFO %s",
+            date('d/M/Y:H:i:s'),
+            pathinfo(
+                $_SERVER['PHP_SELF'],
+                PATHINFO_FILENAME
+            ),
+            $message . PHP_EOL
+        );
+        error_log($message, 3, Configuration::LOGS_FOLDER . self::FILENAME_TEMPLATE);
     }
 
-    static function info($message ) {
-        $message = sprintf( "[%s] (%s) INFO %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message . PHP_EOL );
-        error_log($message, 3, Configuration::LOGS_FOLDER . self::filename());
+    public static function warn(string $message): void
+    {
+        $message = sprintf(
+            "[%s] (%s) WARN %s",
+            date('d/M/Y:H:i:s'),
+            pathinfo(
+                $_SERVER['PHP_SELF'],
+                PATHINFO_FILENAME
+            ),
+            $message . PHP_EOL
+        );
+        error_log($message, 3, Configuration::LOGS_FOLDER . self::FILENAME_TEMPLATE);
     }
-
-    static function filename() {
-        return self::FILENAME_TEMPLATE;
-    }
-
-    static function warn($message ) {
-        $message = sprintf( "[%s] (%s) WARN %s", date( 'd/M/Y:H:i:s' ), pathinfo( $_SERVER['PHP_SELF'], PATHINFO_FILENAME ), $message . PHP_EOL );
-        error_log($message, 3, Configuration::LOGS_FOLDER . self::filename());
-    }
-
 }

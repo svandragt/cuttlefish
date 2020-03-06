@@ -1,26 +1,37 @@
 <?php
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
 
-class ControllerErrors extends Cuttlefish\Controller {
-	// single errors page
+class ControllerErrors extends Cuttlefish\Controller
+{
+    // single errors page
 
-	function records() {
-		$this->records = [ Cuttlefish\Filesystem::url_to_path( '/content/errors/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
-	}
+    /**
+     * @return void
+     */
+    public function records()
+    {
+        $url = '/content/errors/' . implode("/", $this->args) . '.' . $this->ext;
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
+    }
 
-	function model() {
-		$this->Model = new ModelPage( $this->records );
-	}
+    /**
+     * @return void
+     */
+    public function model()
+    {
+        $this->Model = new ModelPage($this->records);
+    }
 
-	function view() {
-		parent::view();
+    /**
+     * @return void
+     */
+    public function view()
+    {
+        parent::view();
 
-		$this->View = new Cuttlefish\Html( $this->Model->contents, array(
-			'layout'     => 'layout.php',
-			'controller' => 'errors',
-			'model'      => 'page',
-		) );
-	}
+        $this->View = new Cuttlefish\Html($this->Model->contents, array(
+            'layout'     => 'layout.php',
+            'controller' => 'errors',
+            'model'      => 'page',
+        ));
+    }
 }

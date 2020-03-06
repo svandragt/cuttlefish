@@ -1,100 +1,108 @@
 <?php
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
 
-class ControllerAdmin extends Cuttlefish\Controller {
-	public $allowed_methods = array(
-		'index'       => 'Overview',
-		'clear_cache' => 'Clear cache',
-		'generate'    => 'Generate static site',
-		'logout'      => 'Logout',
-	);
-	// admin section does not use content files
-	protected $contents;
+class ControllerAdmin extends Cuttlefish\Controller
+{
+    public $allowed_methods = array(
+        'index'       => 'Overview',
+        'clear_cache' => 'Clear cache',
+        'generate'    => 'Generate static site',
+        'logout'      => 'Logout',
+    );
+    // admin section does not use content files
+    protected $contents;
 
-	function init() {
-		global $App;
-		$App->Cache->abort();
+    protected function isAllowedMethod($action): bool
+    {
+        return array_key_exists($action, $this->allowed_methods);
+    }
 
-		$action = ( isset( $this->args[0] ) ) ? $this->args[0] : 'index';
-		if ( $this->is_allowed_method( $action ) ) {
-			$this->contents = $this->$action();
-		} else {
-			$this->is_allowed_method_fail( $action );
-		}
+    protected function showTasks(): string
+    {
+        $output = '<ul>';
+        $am     = $this->allowed_methods;
+        array_shift($am);
+        foreach ($am as $key => $value) :
+            $Url    = new Cuttlefish\Url("/admin/$key");
+            $output .= sprintf('<li><a href="%s">%s</a></li>', $Url->url_absolute, $value);
+        endforeach;
 
-		parent::init();
-	}
+        $output .= '</ul>';
 
-	function is_allowed_method( $action ) {
-		return array_key_exists( $action, $this->allowed_methods );
-	}
+        return $output;
+    }
 
-	/* admin functionality */
+    protected function showLogin()
+    {
+        global $App;
 
-	function is_allowed_method_fail( $action ) {
-		exit( "method $action not allowed" );
-	}
+        return $App->Security->login();
+    }
 
-	function view() {
-		parent::view();
+    protected function clearCache()
+    {
+        global $App;
+        $App->Security->maybeLoginRedirect();
 
-		$this->View = new Cuttlefish\Html( $this->contents, array(
-			'layout'     => 'layout.php',
-			'controller' => 'admin',
-			'model'      => 'page',
-		) );
-	}
+        return $App->Cache->clear();
+    }
 
-	function index() {
-		global $App;
-		if ( $App->Security->is_logged_in() ) {
-			return $this->show_tasks();
-		}
+    protected function generateSite(): void
+    {
+        global $App;
 
-		return $this->show_login();
-	}
+        $App->Security->maybeLoginRedirect();
+        echo $App->Cache->generateSite();
+    }
 
-	function show_tasks() {
-		$output = '<ul>';
-		$am     = $this->allowed_methods;
-		array_shift( $am );
-		foreach ( $am as $key => $value ):
-			$Url    = new Cuttlefish\Url( "/admin/$key" );
-			$output .= sprintf( '<li><a href="%s">%s</a></li>', $Url->url_absolute, $value );
-		endforeach;
 
-		$output .= '</ul>';
+    /**
+     * @return void
+     */
+    public function init()
+    {
+        global $App;
+        $App->Cache->abort();
 
-		return $output;
-	}
+        $action = ( isset($this->args[0]) ) ? $this->args[0] : 'index';
+        if ($this->isAllowedMethod($action)) {
+            $this->contents = $this->$action();
+        } else {
+            exit("Method $action is not allowed");
+        }
 
-	function show_login() {
-		global $App;
+        parent::init();
+    }
 
-		return $App->Security->login();
-	}
+    /**
+     * @return void
+     */
+    public function view()
+    {
+        parent::view();
 
-	function clear_cache() {
-		global $App;
-		$App->Security->maybe_login_redirect();
+        $this->View = new Cuttlefish\Html($this->contents, array(
+            'layout'     => 'layout.php',
+            'controller' => 'admin',
+            'model'      => 'page',
+        ));
+    }
 
-		return $App->Cache->clear();
-	}
+    public function index()
+    {
+        global $App;
+        if ($App->Security->isLoggedIn()) {
+            return $this->showTasks();
+        }
 
-	function generate() {
-		global $App;
+        return $this->showLogin();
+    }
 
-		$App->Security->maybe_login_redirect();
-		echo $App->Cache->generate_site();
-	}
+    public function logout()
+    {
+        global $App;
 
-	function logout() {
-		global $App;
+        $App->Security->maybeLoginRedirect();
 
-		$App->Security->maybe_login_redirect();
-
-		return $App->Security->logout();
-	}
+        return $App->Security->logout();
+    }
 }

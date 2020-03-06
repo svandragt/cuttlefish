@@ -1,26 +1,32 @@
 <?php
 
+// single image
+class ControllerImages extends Cuttlefish\Controller
+{
+    /**
+     * @return void
+     */
+    public function records()
+    {
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath('/content/images/' . implode('/', $this->args)) ];
+    }
 
+    /**
+     * @return void
+     */
+    public function model()
+    {
+        $this->Model = new ModelFile($this->records);
+    }
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+    /**
+     * @return void
+     */
+    public function view()
+    {
+        parent::view();
 
-class ControllerImages extends Cuttlefish\Controller {
-	// single image
-
-	function records() {
-		$this->records = [ Cuttlefish\Filesystem::url_to_path( '/content/images/' . implode( $this->args, "/" ) ) ];
-	}
-
-	function model() {
-		$this->Model = new ModelFile( $this->records );
-	}
-
-	function view() {
-		parent::view();
-
-		$this->View = new Cuttlefish\File( $this->Model->contents );
-		$this->View->render();
-	}
+        $this->View = new Cuttlefish\File($this->Model->contents);
+        $this->View->render();
+    }
 }

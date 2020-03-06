@@ -2,30 +2,37 @@
 
 namespace Cuttlefish;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+class App
+{
+    public $Security;
+    public $Cache;
+    public $Environment;
 
-class App {
-	public $Security;
-	public $Cache;
-	public $Environment;
+    public function __construct()
+    {
+        $this->Cache = new Cache();
+        if ($this->Cache->hasExistingCachefile()) {
+             $bytes = readfile($this->Cache->convertUrlpathToFilepath());
+            if ($bytes !== false) {
+                $this->Cache->is_cached = true;
+                return;
+            }
+        }
 
-	public function __construct() {
-		// Prime a new cache and start caching
-		$this->Cache = new Cache();
-		if ( $this->Cache->has_existing_cachefile() ) {
-			exit( readfile( $this->Cache->generate_cache_file_from_url() ) );
-		}
+        // Setup environment
+        $this->Environment = new Environment();
+        $this->Security    = new Security();
+    }
 
-		// Setup environment
-		$this->Environment = new Environment();
-		$this->Security    = new Security();
-	}
+    public function __destruct()
+    {
+        if ($this->Cache->is_cached) {
+            return;
+        }
 
-	public function __destruct() {
-		$this->Cache->start();
-		new Request();
-		$this->Cache->end();
-	}
+        // Process request if not statically cached.
+        $this->Cache->start();
+        new Request();
+        $this->Cache->end();
+    }
 }

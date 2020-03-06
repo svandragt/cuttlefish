@@ -4,57 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "77f8daa9b246abb4394e3c579b6a49a5",
+    "content-hash": "4d3b084be9a23c64f6a2ef28005401ce",
     "packages": [
-        {
-            "name": "eno-lang/enophp",
-            "version": "v0.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/eno-lang/enophp.git",
-                "reference": "ec55fbb1113cabec9c1d1f89f356d5bb499e4a79"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/eno-lang/enophp/zipball/ec55fbb1113cabec9c1d1f89f356d5bb499e4a79",
-                "reference": "ec55fbb1113cabec9c1d1f89f356d5bb499e4a79",
-                "shasum": ""
-            },
-            "require-dev": {
-                "kahlan/kahlan": "^4.3.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Eno\\": [
-                        "src",
-                        "src/elements/",
-                        "src/errors/"
-                    ],
-                    "Eno\\Errors\\": "src/errors",
-                    "Eno\\Reporters\\": "src/reporters"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Simon Repp",
-                    "email": "simon@fdpl.io",
-                    "homepage": "https://simonrepp.com"
-                }
-            ],
-            "description": "PHP library for parsing, loading and inspecting eno documents",
-            "homepage": "https://eno-lang.org/php/",
-            "keywords": [
-                "eno",
-                "parser",
-                "validation"
-            ],
-            "time": "2019-02-16T16:28:07+00:00"
-        },
         {
             "name": "michelf/php-markdown",
             "version": "1.9.0",

@@ -1,29 +1,36 @@
 <?php
 
+// single page
+class ControllerPages extends Cuttlefish\Controller
+{
+    /**
+     * @return void
+     */
+    public function records()
+    {
+        $url = '/content/pages/' . implode('/', $this->args) . '.' . $this->ext;
+        $this->records = [ Cuttlefish\Filesystem::convertUrlToPath($url) ];
+    }
 
+    /**
+     * @return void
+     */
+    public function model()
+    {
+        $this->Model = new ModelPage($this->records);
+    }
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+    /**
+     * @return void
+     */
+    public function view()
+    {
+        parent::view();
 
-class ControllerPages extends Cuttlefish\Controller {
-	// single page
-
-	function records() {
-		$this->records = [ Cuttlefish\Filesystem::url_to_path( '/content/pages/' . implode( $this->args, "/" ) . '.' . $this->ext ) ];
-	}
-
-	function model() {
-		$this->Model = new ModelPage( $this->records );
-	}
-
-	function view() {
-		parent::view();
-
-		$this->View = new Cuttlefish\Html( $this->Model->contents, array(
-			'layout'     => 'layout.php',
-			'controller' => 'pages',
-			'model'      => 'page',
-		) );
-	}
+        $this->View = new Cuttlefish\Html($this->Model->contents, array(
+            'layout'     => 'layout.php',
+            'controller' => 'pages',
+            'model'      => 'page',
+        ));
+    }
 }

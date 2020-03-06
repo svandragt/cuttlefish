@@ -2,31 +2,36 @@
 
 use Michelf\MarkdownExtra;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+class ModelPost extends Cuttlefish\Model
+{
 
-class ModelPost extends Cuttlefish\Model {
+    public $model = array(
+        'yaml'          => 'metadata',
+        'markdown|html' => 'content',
+    );
 
-	public $model = array(
-		'yaml'          => 'metadata',
-		'markdown|html' => 'content',
-	);
+    /**
+     * @return int
+     */
+    public function sortByPublished($a, $b)
+    {
+        return strcmp($b->metadata->Published, $a->metadata->Published);
+    }
 
-	public function sortByPublished( $a, $b ) {
-		return strcmp( $b->metadata->Published, $a->metadata->Published );
-	}
+    /**
+     * @return self
+     */
+    public function contents($records)
+    {
+        $loaded_classes = array(
+            'mdep' => new MarkdownExtra(),
+            'spyc' => new Spyc(),
+        );
+        foreach ($records as $record) {
+            $this->contents[] = $this->listContents($record, $loaded_classes);
+        }
+        usort($this->contents, array( $this, 'sortByPublished' ));
 
-	function contents( $records ) {
-		$loaded_classes = array(
-			'mdep' => new MarkdownExtra(),
-			'spyc' => new Spyc(),
-		);
-		foreach ( $records as $record ) {
-			$this->contents[] = $this->list_contents( $record, $loaded_classes );
-		}
-		usort( $this->contents, array( $this, 'sortByPublished' ) );
-
-		return $this;
-	}
+        return $this;
+    }
 }
