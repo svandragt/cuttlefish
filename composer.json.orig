@@ -26,18 +26,13 @@
         }
     },
     "config": {
-        "process-timeout": 0,
-        "platform": {
-            "php": "7.3"
-        }
+        "process-timeout": 0
     },
     "scripts": {
-        "setup": [
-            "composer install --ansi",
-            "phive install"
-        ],
         "serve": [
             "docker-compose up --build"
+<<<<<<< Updated upstream
+=======
         ],
         "docs": [
             "phpdox"
@@ -51,11 +46,11 @@
          "lint": [
             "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "psalm --show-info=true; exit 0",
-            "phpcs"
+            "phpcs" 
+>>>>>>> Stashed changes
         ]
     },
     "scripts-descriptions": {
-        "serve": "Start container.",
-        "docs": "Generate documentation."
+        "serve": "Start the container."
     }
 }
