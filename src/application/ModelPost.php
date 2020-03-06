@@ -6,7 +6,7 @@ class ModelPost extends Cuttlefish\Model
 {
 
     public $model = array(
-        'yaml'          => 'metadata',
+        'eno'          => 'metadata',
         'markdown|html' => 'content',
     );
 

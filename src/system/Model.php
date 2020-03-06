@@ -6,6 +6,7 @@ use Exception;
 use Michelf\Markdown;
 use Spyc;
 use StdClass;
+use Eno\Parser;
 
 class Model
 {
@@ -98,11 +99,12 @@ class Model
 
         $Section = new StdClass();
         switch ($section_key) {
-            case 'yaml':
-                $yaml = Spyc::YAMLLoadString($content_section);
-
-                foreach ($yaml as $key => $value) {
-                    $Section->$key = $value;
+            case 'eno':
+                $document = Parser::parse($content_section);
+                // $Section = (object)$doc->jsonItems();
+                foreach ($document->elements() as $element) {
+                    $key = $element->name;
+                    $Section->$key = $element->value;
                 }
                 break;
             case 'markdown|html':
