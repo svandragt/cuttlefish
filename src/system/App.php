@@ -24,8 +24,7 @@ class App
         $this->Security    = new Security();
     }
 
-    public function __destruct()
-    {
+    public function run() {
         if ($this->Cache->is_cached) {
             return;
         }
