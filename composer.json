@@ -36,26 +36,15 @@
             "composer install --ansi",
             "phive install"
         ],
-        "serve": [
-            "docker-compose up --build"
-        ],
-        "docs": [
-            "phpdox"
-        ],
         "prep": [
             "phpcbf",
             "psalm --alter --issues=all",
-            "@lint",
-            "@docs"
+            "@lint"
         ],
          "lint": [
             "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "psalm --show-info=true; exit 0",
             "phpcs"
         ]
-    },
-    "scripts-descriptions": {
-        "serve": "Start container.",
-        "docs": "Generate documentation."
     }
 }
