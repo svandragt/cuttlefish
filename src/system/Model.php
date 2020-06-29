@@ -4,8 +4,9 @@ namespace Cuttlefish;
 
 use Exception;
 use Michelf\Markdown;
-use Spyc;
 use StdClass;
+use Cuttlefish\MetadataReader;
+
 
 class Model
 {
@@ -40,11 +41,10 @@ class Model
     }
 
     /**
-     * @param (Spyc|\Michelf\MarkdownExtra)[] $loaded_classes
      *
      * @return StdClass
      */
-    protected function listContents($record, array $loaded_classes): StdClass
+    protected function listContents($record): StdClass
     {
         $Content = new StdClass();
 
@@ -77,7 +77,7 @@ class Model
             $content_section         = $content_sections[ $i ];
             $section_key             = $section_keys[ $i ];
             $section_value           = $section_values[ $i ];
-            $Content->$section_value = $this->section($content_section, $section_key, $loaded_classes);
+            $Content->$section_value = $this->section($content_section, $section_key);
         }
 
         return $Content;
@@ -85,23 +85,18 @@ class Model
 
     /**
      * @param array-key $section_key
-     * @param (Spyc|\Michelf\MarkdownExtra)[] $loaded_classes
      *
      * @return StdClass
      */
-    public function section(string $content_section, $section_key, array $loaded_classes): StdClass
+    public function section(string $content_section, $section_key): StdClass
     {
-        // assign classes to their variables
-        foreach ($loaded_classes as $class_name => $obj) {
-            $$class_name = $obj;
-        }
-
         $Section = new StdClass();
         switch ($section_key) {
-            case 'yaml':
-                $yaml = Spyc::YAMLLoadString($content_section);
+            case 'metadatareader':
+                $reader = new MetadataReader();
+                $data = $reader->loadString($content_section);
 
-                foreach ($yaml as $key => $value) {
+                foreach ($data as $key => $value) {
                     $Section->$key = $value;
                 }
                 break;

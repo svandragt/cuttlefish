@@ -10,4 +10,5 @@ require 'Configuration.php';
 
 define('THEME_DIR', Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR);
 
-new Cuttlefish\App();
+$App = new Cuttlefish\App();
+$App->run();
