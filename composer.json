@@ -1,7 +1,8 @@
 {
     "name": "svandragt/cuttlefish",
     "description": "Hackable web framework.",
-    "type": "project",
+    "type": "library",
+    "version": "0.4.1",
     "license": "MIT",
     "authors": [
         {
@@ -19,8 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": "src/application/",
-            "Cuttlefish\\": "src/system/"
+            "Cuttlefish\\": "src"
         }
     },
     "config": {
