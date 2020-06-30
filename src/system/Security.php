@@ -43,7 +43,7 @@ class Security
         } else {
             $output .= <<< MSG
             To login, create an environment variable called
-            CUTTLEFISH_ADMIN_PASSWORD and a password as the value . < br >
+            CUTTLEFISH_ADMIN_PASSWORD and a password as the value . <br />
 MSG;
         }
 
