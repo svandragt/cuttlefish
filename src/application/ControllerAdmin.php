@@ -4,10 +4,11 @@ class ControllerAdmin extends Cuttlefish\Controller
 {
     public $allowed_methods = array(
         'index'       => 'Overview',
-        'clear_cache' => 'Clear cache',
-        'generate'    => 'Generate static site',
+        'clearCache' => 'Clear cache',
+        'generateSite'    => 'Generate static site',
         'logout'      => 'Logout',
     );
+
     // admin section does not use content files
     protected $contents;
 
