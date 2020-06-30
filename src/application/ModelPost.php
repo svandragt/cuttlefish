@@ -1,6 +1,5 @@
 <?php
 
-
 class ModelPost extends Cuttlefish\Model
 {
 

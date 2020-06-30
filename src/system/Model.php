@@ -7,7 +7,6 @@ use Michelf\Markdown;
 use StdClass;
 use Cuttlefish\MetadataReader;
 
-
 class Model
 {
     public $contents = array();
