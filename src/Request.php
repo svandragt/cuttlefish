@@ -15,12 +15,15 @@ class Request
 {
     protected $Controller;
 
-    public function __construct()
+    public function __construct($app_namespace)
     {
 
         // Route to controller
         $args                 = explode("/", $this->pathInfo());
         $controller_class     = 'Controller' . ucfirst($args[1]);
+        if (!empty($app_namespace)) {
+            $controller_class = $app_namespace . '\\' . $controller_class;
+        }
         $controller_arguments = array_slice($args, 2);
         if (class_exists($controller_class, true)) {
             $this->Controller = new $controller_class($this, $controller_arguments);
