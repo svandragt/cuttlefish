@@ -11,18 +11,17 @@ if (! defined('BASE_FILEPATH')) {
 /**
  * @property  controller
  */
-class Request
+class Router
 {
     protected $Controller;
 
-    public function __construct($app_namespace)
+    public function __construct($routes)
     {
 
         // Route to controller
         $args                 = explode("/", $this->pathInfo());
-        $controller_class     = 'Controller' . ucfirst($args[1]);
-        if (!empty($app_namespace)) {
-            $controller_class = $app_namespace . '\\' . $controller_class;
+        if (isset($routes[$args[1]])) {
+            $controller_class     =  $routes[$args[1]];
         }
         $controller_arguments = array_slice($args, 2);
         if (class_exists($controller_class, true)) {
@@ -86,5 +85,13 @@ class Request
     {
         echo( "Location: " . $Url->url_absolute );
         exit($log_message);
+    }
+
+    protected function matchRoute($pattern, $routes) {
+            $keys = array_flip($routes);    
+            $matches =  preg_grep($pattern,$keys);
+            if ($matches) {
+                return array_shift($matches);
+            }
     }
 }

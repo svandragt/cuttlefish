@@ -7,11 +7,11 @@ class App
     public $Security;
     public $Cache;
     public $Environment;
-    public $app_namespace;
+    public $routes;
 
-    public function __construct($app_namespace = '')
+    public function __construct(array $routes)
     {
-        $this->app_namespace = $app_namespace;
+        $this->routes = $routes;
         $this->Cache = new Cache();
         if ($this->Cache->hasExistingCachefile()) {
              $bytes = readfile($this->Cache->convertUrlpathToFilepath());
@@ -34,7 +34,7 @@ class App
 
         // Process request if not statically cached.
         $this->Cache->start();
-        new Request($this->app_namespace);
+        new Router($this->routes);
         $this->Cache->end();
     }
 }
