@@ -2,16 +2,16 @@
 
 namespace Cuttlefish;
 
+use Cuttlefish\Defaults;
+
 class App
 {
     public $Security;
     public $Cache;
     public $Environment;
-    public $routes;
 
-    public function __construct(array $routes)
+    public function __construct()
     {
-        $this->routes = $routes;
         $this->Cache = new Cache();
         if ($this->Cache->hasExistingCachefile()) {
              $bytes = readfile($this->Cache->convertUrlpathToFilepath());
@@ -26,7 +26,7 @@ class App
         $this->Security    = new Security();
     }
 
-    public function run()
+    public function run(array $routes)
     {
         if ($this->Cache->is_cached) {
             return;
@@ -34,7 +34,7 @@ class App
 
         // Process request if not statically cached.
         $this->Cache->start();
-        new Router($this->routes);
+        new Router($routes);
         $this->Cache->end();
     }
 }

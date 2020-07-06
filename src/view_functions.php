@@ -46,10 +46,9 @@ function pages()
  */
 function theme_dir()
 {
-    $path_to_script = ''; // todo
-    $theme_dir_url  = BASE_PATH . str_replace("\\", "/", THEME_DIR);
+	$theme_folder = Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR;
 
-    return $path_to_script . $theme_dir_url;
+	return BASE_PATH . str_replace("\\", "/", $theme_folder);
 }
 
 /**

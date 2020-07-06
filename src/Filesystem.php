@@ -19,6 +19,12 @@ class Filesystem
         }
     }
 
+	/**
+	 * FIXME: This is a pointless function
+	 * @param string $url
+	 *
+	 * @return string
+	 */
     public static function convertUrlToPath(string $url): string
     {
         // takes /content/pages/index and returns path
