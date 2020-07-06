@@ -15,10 +15,10 @@ class Template
         $this->args = $args;
     }
 
-	public function __get($name)
-	{
-		return $this->args[ $name ];
-	}
+    public function __get($name)
+    {
+        return $this->args[ $name ];
+    }
 
     public function render(): void
     {

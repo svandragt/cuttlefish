@@ -8,12 +8,7 @@ class MetadataReader
     {
     }
 
-    /**
-     * @return string[]
-     *
-     * @psalm-return array<string, string>
-     */
-    public function loadString(string $subject): array
+    public function loadString($subject)
     {
         $data = [];
 

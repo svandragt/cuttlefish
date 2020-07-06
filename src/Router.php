@@ -20,7 +20,6 @@ class Router
 
         // Route to controller
         $args                 = explode("/", $this->pathInfo());
-        $controller_class = null;
         if (isset($routes[$args[1]])) {
             $controller_class     =  $routes[$args[1]];
         }
@@ -86,5 +85,13 @@ class Router
     {
         echo( "Location: " . $Url->url_absolute );
         exit($log_message);
+    }
+
+    protected function matchRoute($pattern, $routes) {
+            $keys = array_flip($routes);    
+            $matches =  preg_grep($pattern,$keys);
+            if ($matches) {
+                return array_shift($matches);
+            }
     }
 }

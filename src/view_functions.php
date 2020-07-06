@@ -46,9 +46,9 @@ function pages()
  */
 function theme_dir()
 {
-    $theme_folder = Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR;
+	$theme_folder = Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR;
 
-    return BASE_PATH . str_replace("\\", "/", $theme_folder);
+	return BASE_PATH . str_replace("\\", "/", $theme_folder);
 }
 
 /**

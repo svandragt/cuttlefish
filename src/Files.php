@@ -55,12 +55,12 @@ class Files
         return $files;
     }
 
-	public function limit(int $max): array
-	{
-		$this->files = array_slice($this->files, 0, $max);
+    public function limit(int $max): array
+    {
+        $this->files = array_slice($this->files, 0, $max);
 
-		return $this->files;
-	}
+        return $this->files;
+    }
 
     public function removeAll(): string
     {
