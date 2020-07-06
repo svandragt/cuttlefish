@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a1718f7203cb88020992234d676fad7",
+    "content-hash": "ec292d72ac08a19e75914b2e0cf33fb0",
     "packages": [
         {
             "name": "michelf/php-markdown",
