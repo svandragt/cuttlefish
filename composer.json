@@ -12,7 +12,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "michelf/php-markdown": "*",
+        "michelf/php-markdown": "^1.9",
         "ext-curl": "*"
     },
     "require-dev": {
