@@ -2,5 +2,5 @@
 <phive xmlns="https://phar.io/phive">
   <phar name="phpcs" version="^3.5.4" installed="3.5.5" location="./vendor/bin/phpcs" copy="false"/>
   <phar name="phpcbf" version="^3.5.4" installed="3.5.5" location="./vendor/bin/phpcbf" copy="false"/>
-  <phar name="vimeo/psalm" version="^3.9.3" installed="3.9.3" location="./vendor/bin/psalm" copy="false"/>
+  <phar name="vimeo/psalm" version="^3.9.3" installed="3.12.2" location="./vendor/bin/psalm" copy="false"/>
 </phive>

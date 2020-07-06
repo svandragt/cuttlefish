@@ -26,6 +26,9 @@ class App
         $this->Security    = new Security();
     }
 
+    /**
+     * @return void
+     */
     public function run(array $routes)
     {
         if ($this->Cache->is_cached) {

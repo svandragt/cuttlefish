@@ -72,7 +72,7 @@ class Cache
         $path    = $this->convertUrlpathToFilepath($url_relative);
         $dirname = pathinfo($path, PATHINFO_DIRNAME);
 
-        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true)) {
+        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
         $fp = fopen($path, 'wb');
@@ -116,18 +116,6 @@ class Cache
     }
 
     /**
-     * Abort caching
-     *
-     * @return void
-     */
-    public function abort(): void
-    {
-        while (ob_get_level() > 0) {
-            ob_end_clean();
-        }
-    }
-
-    /**
      * Start caching
      *
      * @return void
@@ -151,62 +139,6 @@ class Cache
         $cache_file = $this->convertUrlpathToFilepath();
 
         return file_exists($cache_file);
-    }
-
-    /**
-     * Generate a static version of the complete site
-     *
-     * @return string list of output messages detailing the generated files
-     */
-    public function generateSite(): string
-    {
-        $output = '';
-
-        if (Configuration::INDEX_PAGE !== '') {
-            die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
-        }
-        $output .= $this->clear();
-
-        $output  .= "<br>Generating site:<br>" . PHP_EOL;
-        $content = Configuration::CONTENT_FOLDER;
-        $ext     = Configuration::CONTENT_EXT;
-        $Curl    = new Curl();
-        $Files   = new Files(array( 'path' => Filesystem::convertUrlToPath("/$content"), $ext ));
-
-        $cache_urls = array();
-
-        foreach ($Files->files() as $index => $file_path) {
-            $File         = new File($file_path);
-            $Url          = new Url();
-            $cache_urls[] = $Url->convertFileToURL($File);
-        }
-
-        $urls = array(
-            '/',
-            '/feeds/posts',
-            '/archive',
-        );
-        foreach ($urls as $path) {
-            $cache_urls[] = new Url($path);
-        }
-
-        foreach ($cache_urls as $Url) {
-            $contents = $Curl->getURLContents($Url->url_absolute);
-
-            if (empty($contents)) {
-                die("ERROR: no contents for {$Url->url_absolute}");
-            }
-
-            if (Configuration::CACHE_ENABLED === false) {
-                $path   = $this->writeToDisk($contents, $Url->url_relative);
-                $output .= "Written: $path<br>" . PHP_EOL;
-            }
-        }
-        $Curl->close();
-
-        $output .= $this->copyThemeFiles(array( 'css', 'js', 'png', 'gif', 'jpg' ));
-
-        return $output;
     }
 
     /**
