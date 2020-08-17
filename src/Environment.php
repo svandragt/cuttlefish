@@ -18,7 +18,7 @@ class Environment
         }
 
         // Externals environment
-        $this->registerExternals();
+        $this->registerPlugins();
         session_start();
     }
 
@@ -63,9 +63,9 @@ class Environment
         fclose($fp);
     }
 
-    protected function registerExternals(): void
+    protected function registerPlugins(): void
     {
-        $Files = new Files(array( 'url' => '/system/Ext' ), 'php');
+        $Files = new Files(array( 'url' => '/plugins' ), 'php');
         foreach ($Files->files() as $key => $filepath) {
             $this->register[ pathinfo($filepath, PATHINFO_FILENAME) ] = true;
             $this->addIncludePath(pathinfo($filepath, PATHINFO_DIRNAME));
