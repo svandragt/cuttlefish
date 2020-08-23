@@ -69,10 +69,10 @@ class File
         return $this;
     }
 
-	public function render(): void
-	{
-		$mime = $this->mime;
-		header("Content-Type: $mime");
-		readfile($this->path);
-	}
+    public function render(): void
+    {
+        $mime = $this->mime;
+        header("Content-Type: $mime");
+        readfile($this->path);
+    }
 }

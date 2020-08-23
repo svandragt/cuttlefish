@@ -10,5 +10,7 @@ B) Everyone contributes.
 
 # Decision Record
 
-- 001 Developers run Cuttlefish via the included PHP webserver. Supports simplicity.
-- 002 Support static and dynamic deployments. 
+Decision IDs are auto incremented. IDs not in the document no longer apply.
+
+- 003 Cuttlefish only generates static websites.
+- 004 A content project consists of content assets and a php configuration file. All other code is in this project.

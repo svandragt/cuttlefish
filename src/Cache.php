@@ -148,7 +148,6 @@ class Cache
      */
     public function clear()
     {
-        global $App;
         $dir    = $this->getCacheFolder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
         $Files  = new Files(array( 'path' => $dir ));
@@ -157,7 +156,7 @@ class Cache
         foreach ($dirs as $dir) {
             Filesystem::removeDirs(realpath($dir . '/.'));
         }
-        $App->Environment->writeHtaccess();
+        App::getInstance()->Environment->writeAccess();
 
         return (string) $output;
     }

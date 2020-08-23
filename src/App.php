@@ -10,6 +10,8 @@ class App
     public $Cache;
     public $Environment;
 
+    private static $instance = null;
+
     public function __construct()
     {
         $this->Cache = new Cache();
@@ -39,5 +41,21 @@ class App
         $this->Cache->start();
         new Router($routes);
         $this->Cache->end();
+    }
+
+
+    /**
+     * Singleton. The object is created from within the class itself
+     * only if the class has no instance.
+     *
+     * @return void
+     */
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new App();
+        }
+    
+        return self::$instance;
     }
 }

@@ -2,7 +2,8 @@
 
 namespace Cuttlefish;
 
-interface iPlugin {
+interface IPlugin
+{
     public function load($pluginConfiguration);
     public function run();
     public function unload();
