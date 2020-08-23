@@ -58,7 +58,5 @@ function theme_dir()
  */
 function isLoggedIn()
 {
-    global $App;
-
-    return $App->Security->isLoggedIn();
+    return Cuttlefish\App::getInstance()->Security->isLoggedIn();
 }
