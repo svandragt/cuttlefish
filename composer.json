@@ -29,9 +29,13 @@
         }
     },
     "scripts": {
+        "post-create-project-cmd": [
+            "@setup"
+        ],
         "setup": [
             "composer install --ansi",
             "phive install"
+            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\""
         ],
         "prep": [
             "phpcbf",
@@ -42,6 +46,9 @@
             "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "psalm --show-info=true; exit 0",
             "phpcs"
+        ],
+        "serve": [
+            "export $(cat .env | xargs) && php -S localhost:8080 -t src/"
         ]
     }
 }

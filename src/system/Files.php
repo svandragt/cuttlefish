@@ -8,12 +8,21 @@ class Files
 
     public function __construct($dir_or_path, $ext = null)
     {
+    	var_dump(get_call_stack());
+    	die();
+    	$dir_or_path = array_filter($dir_or_path);
         if (isset($dir_or_path['url'])) {
             $dir_or_path = Filesystem::convertUrlToPath($dir_or_path['url']);
         } elseif (isset($dir_or_path['path'])) {
             $dir_or_path = $dir_or_path['path'];
         }
-        $files = $this->collect($dir_or_path, $ext);
+
+        if (empty($dir_or_path)) {
+        	$this->files = null;
+        	return;
+        }
+
+        $files = $this->collect(realpath($dir_or_path), $ext);
         rsort($files);
         $this->files = $files;
     }
@@ -69,7 +78,7 @@ class Files
         foreach ($this->files as $file) {
             $file   = realpath($file);
             $output .= "Deleted: $file" . "<br>";
-            unlink($file);
+//            unlink($file);
         }
 
         return $output;

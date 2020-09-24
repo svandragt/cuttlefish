@@ -171,7 +171,7 @@ class Cache
         $content = Configuration::CONTENT_FOLDER;
         $ext     = Configuration::CONTENT_EXT;
         $Curl    = new Curl();
-        $Files   = new Files(array( 'path' => Filesystem::convertUrlToPath("/$content"), $ext ));
+        $Files   = new Files(array( 'path' =>$content, $ext ));
 
         $cache_urls = array();
 
