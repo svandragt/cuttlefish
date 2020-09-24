@@ -6,20 +6,22 @@ use Cuttlefish;
 
 class App extends Cuttlefish\App
 {
-    /**
-     * @return void
-     */
-    public function run(array $routes)
+	/**
+	 * @param array $routes Additional routes.
+	 *
+	 * @return void
+	 */
+    public function run(array $routes = [])
     {
         $default_routes = [
             'admin' => ControllerAdmin::class,
             'archive' => ControllerArchive::class,
-            'error' => ControllerError::class,
+            'errors' => ControllerError::class,
             'feed' => ControllerFeed::class,
             'home' => ControllerHome::class,
-            'image' => ControllerImage::class,
-            'page' => ControllerPage::class,
-            'post' => ControllerPost::class,
+            'images' => ControllerImage::class,
+            'pages' => ControllerPage::class,
+            'posts' => ControllerPost::class,
         ];
         $routes = array_merge($default_routes, $routes);
         $routes = array_filter($routes);
