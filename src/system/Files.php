@@ -8,8 +8,6 @@ class Files
 
     public function __construct($dir_or_path, $ext = null)
     {
-    	var_dump(get_call_stack());
-    	die();
     	$dir_or_path = array_filter($dir_or_path);
         if (isset($dir_or_path['url'])) {
             $dir_or_path = Filesystem::convertUrlToPath($dir_or_path['url']);
@@ -46,7 +44,7 @@ class Files
         // get files
         if ($handle = opendir($dir)) {
             while (false !== ( $file = readdir($handle) )) {
-                if ($file != "." && $file != "..") {
+                if ( $file !== "." && $file !== "..") {
                     $file_path = $dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($file_path)) {
                         $dir_files = $this->collect($file_path, $filter);
