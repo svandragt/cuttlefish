@@ -11,7 +11,7 @@ require '../Configuration.php';
 $App = new Blog\App();
 $App->run([
     // compatibility with theme
-    'feeds' => Blog\ControllerFeed::class,
+    'feed' => Blog\ControllerFeed::class,
     'pages' => Blog\ControllerPage::class,
     'posts' => Blog\ControllerPost::class,
     'errors' => Blog\ControllerError::class,
@@ -20,5 +20,4 @@ $App->run([
     'post' => null,
     'error' => null,
     'image' => null,
-    'feed' => null,
 ]);
