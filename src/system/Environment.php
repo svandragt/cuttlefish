@@ -10,8 +10,6 @@ class Environment
 
     public function __construct()
     {
-        $this->addIncludePath(Filesystem::convertUrlToPath('/' . Configuration::APPLICATION_FOLDER));
-
         if ($this->isNewInstall()) {
             $this->createSystemFolders();
             $this->writeHtaccess();
@@ -65,7 +63,7 @@ class Environment
 
     protected function registerExternals(): void
     {
-        $Files = new Files(array( 'url' => '/system/Ext' ), 'php');
+        $Files = new Files(array( 'path' => '/system/Ext' ), 'php');
         foreach ($Files->files() as $key => $filepath) {
             $this->register[ pathinfo($filepath, PATHINFO_FILENAME) ] = true;
             $this->addIncludePath(pathinfo($filepath, PATHINFO_DIRNAME));

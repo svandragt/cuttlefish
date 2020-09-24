@@ -53,7 +53,6 @@ class Model
         $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->model));
         $section_keys     = array_keys($this->model);
         $section_values   = array_values($this->model);
-
         try {
             if (count($section_keys) != count($content_sections)) {
                   throw new Exception(
