@@ -11,6 +11,7 @@ Desktop.ini
 Thumbs.db
 _cache/
 _logs/
-src/content/
+
 src/info.php
 vendor/
+/content/
