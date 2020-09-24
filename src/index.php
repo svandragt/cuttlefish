@@ -6,7 +6,7 @@ define('BASE_FILEPATH', rtrim(str_replace('index.php', '', $_SERVER['SCRIPT_FILE
 define('BASE_PATH', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 
 require '../vendor/autoload.php';
-require 'Configuration.php';
+require '../Configuration.php';
 
 $App = new Blog\App();
 $App->run([

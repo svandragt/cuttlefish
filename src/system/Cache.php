@@ -250,9 +250,8 @@ class Cache
      */
     protected function copyThemeFiles($file_types)
     {
-        include_once('view_functions.php');
 
-        $theme_dir = rtrim(theme_dir(), '/');
+        include_once( 'helpers.php' );
         $output    = 'Copying files from theme: <br><br>';
 
         foreach ($file_types as $file_type) {

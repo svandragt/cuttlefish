@@ -4,6 +4,10 @@ if (! defined('BASE_FILEPATH')) {
     exit('No direct script access allowed');
 }
 
+use function Cuttlefish\theme_dir;
+
+require('functions.php');
+
 $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP_SELF']));
 ?>
 <!DOCTYPE html>
@@ -12,7 +16,7 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
     <title><?= Configuration::SITE_TITLE ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
-    <link type="text/css" rel="stylesheet" href="<?= theme_dir() ?>styles/styles.css">
+    <link type="text/css" rel="stylesheet" href="<?= theme_dir('styles.css') ?>">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="<?= href('/feeds/posts') ?>">
 </head>
 <body id="body<?= $body_class ?>">

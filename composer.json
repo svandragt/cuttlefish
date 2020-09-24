@@ -19,7 +19,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Cuttlefish\\": "src"
+            "Cuttlefish\\": "src/system",
+            "Cuttlefish\\Blog\\": "src/application"
         }
     },
     "config": {
@@ -34,7 +35,7 @@
         ],
         "setup": [
             "composer install --ansi",
-            "phive install"
+            "phive install",
             "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\""
         ],
         "prep": [
