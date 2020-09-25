@@ -29,7 +29,7 @@ class Filesystem
     public static function convertUrlToPath(string $url): string
     {
         // takes /content/pages/index and returns path
-        $path = BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url), '/');
+        $path = realpath(BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url), '/'));
         Log::debug("$url converted to $path");
 
         return $path;

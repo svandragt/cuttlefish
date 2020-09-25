@@ -50,17 +50,20 @@ class Url
      */
     public function convertFileToURL($file_object): self
     {
-        $relative_url = str_replace(DIRECTORY_SEPARATOR, "/", $file_object->path);
-        $relative_url = '/' . ltrim($relative_url, '/');
-        Log::debug(__FUNCTION__ . " relative_url: $relative_url");
+        $url = str_replace(DIRECTORY_SEPARATOR, "/", $file_object->path);
+        $url = '/' . ltrim($url, '/');
 
+        // Content paths
         $content_folder = realpath(Configuration::CONTENT_FOLDER);
-        if (strrpos($relative_url, $content_folder) !== false) {
+        $relative_url = $url;
+        if (strrpos($url, $content_folder) !== false) {
             $relative_url = str_replace([
                 $content_folder,
                 '.' . Configuration::CONTENT_EXT,
-            ], '', $relative_url);
+            ], '', $url);
         }
+
+	    Log::debug(__FUNCTION__ . " relative_url: $relative_url");
         $this->setUrl($relative_url);
 
         return $this;
