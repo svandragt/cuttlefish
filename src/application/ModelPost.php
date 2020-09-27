@@ -6,10 +6,11 @@ use Cuttlefish\Model;
 
 class ModelPost extends Model
 {
+    public $required_fields = ['metadata' => ['published']];
 
     public $model = array(
         'metadatareader'    => 'metadata',
-        'markdown|html'     => 'content',
+        'markdown'     => 'content',
     );
 
     /**
@@ -17,7 +18,7 @@ class ModelPost extends Model
      */
     public function sortByPublished($a, $b)
     {
-        return strcmp($b->metadata->Published, $a->metadata->Published);
+        return strcmp($b->metadata->published, $a->metadata->published);
     }
 
     /**

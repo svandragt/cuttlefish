@@ -11,7 +11,7 @@ if (! defined('BASE_FILEPATH')) {
     <?php foreach ($this->contents as $post) :
         printf(
             "<dt>%s</dt><dd><a href='%s'>%s</a></h2></dd>",
-            $post->metadata->Published,
+            $post->metadata->published,
             $post->link,
             $post->content->title
         );

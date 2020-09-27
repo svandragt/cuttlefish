@@ -12,6 +12,6 @@ printf(
 	%s
 	</article>",
     $post->content->title,
-    $post->metadata->Published,
+    $post->metadata->published,
     $post->content->main
 );

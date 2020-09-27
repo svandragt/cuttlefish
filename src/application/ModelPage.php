@@ -9,7 +9,7 @@ class ModelPage extends Model
     // page model
 
     public $model = array(
-        'markdown|html' => 'content',
+        'markdown' => 'content',
     );
 
     /**
