@@ -7,6 +7,8 @@ class Filesystem
 
     public static function requireFolder(string $folder): ?bool
     {
+        $folder = realpath($folder);
+        
         if (! is_dir($folder)) {
             @mkdir($folder, 0777, true);
             if (! is_dir($folder)) {
