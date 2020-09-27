@@ -99,7 +99,7 @@ class Model
                 }
                 break;
             case 'markdown|html':
-                $md_sections    = preg_split('/=\R/', trim($content_section), 2);
+                $md_sections    = preg_split('/(\r\n|\n|\r)/', trim($content_section), 2);
                 $title_sections = preg_split('/\R/', trim($md_sections[0]), 2);
                 $Section->title = $title_sections[0];
 
