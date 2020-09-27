@@ -9,8 +9,9 @@ use Cuttlefish\MetadataReader;
 
 class Model
 {
-    public $contents = array();
-    public $model = array();
+    public $contents = [];
+    public $model = [];
+    public $required_fields = [];
 
     public function __construct($records)
     {
@@ -78,6 +79,8 @@ class Model
             $Content->$section_value = $this->section($content_section, $section_key);
         }
 
+        $this->validate($Content);
+
         return $Content;
     }
 
@@ -110,6 +113,21 @@ class Model
                 break;
         }
 
+
         return $Section;
+    }
+
+
+    public function validate($Content) {
+        foreach ($this->required_fields as $section => $fields) {
+            if (!property_exists($Content,  $section)) {
+                throw new Exception("Required section '$section' missing in content.");
+            }
+            foreach ($fields as $field) {
+                if (!property_exists($Content->$section, $field)) {
+                    throw new Exception("Required $section field '$field' missing in content.");
+                }
+            }
+        }
     }
 }
