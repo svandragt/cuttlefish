@@ -30,7 +30,7 @@ function pages()
     $output     = '';
     $pages_path = Configuration::CONTENT_FOLDER .'/pages';
 
-    $Files = new Cuttlefish\Files(array('path' => $pages_path), Configuration::CONTENT_EXT);
+    $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
 
     foreach ($Files->files() as $path) {
         $filename = pathinfo($path, PATHINFO_FILENAME);

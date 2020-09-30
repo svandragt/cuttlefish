@@ -8,8 +8,9 @@ _It should be considered work in progress._
 ## Aims
 
 * Easily understood.
-* Accommodatin defaults.
+* Accommodating defaults.
 * Adaptable to your needs.
+* Code over Configuration
 
 ![Cuttlefish screenshot](https://vandragt.com/file/d97a82559947ebc1f195213a751c52f0/Screenshot+from+2020-03-03+08-34-26.png)
 

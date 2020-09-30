@@ -8,7 +8,7 @@ class Filesystem
     public static function requireFolder(string $folder): ?bool
     {
         $folder = realpath($folder);
-        
+
         if (! is_dir($folder)) {
             @mkdir($folder, 0777, true);
             if (! is_dir($folder)) {
@@ -20,21 +20,6 @@ class Filesystem
             }
         }
         return true;
-    }
-
-	/**
-	 * FIXME: This is a pointless function
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-    public static function convertUrlToPath(string $url): string
-    {
-        // takes /content/pages/index and returns path
-        $path = realpath(BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url), '/'));
-        Log::debug("$url converted to $path");
-
-        return $path;
     }
 
     /**

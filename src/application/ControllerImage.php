@@ -16,7 +16,7 @@ class ControllerImage extends Controller
     public function records()
     {
         $content_dir = Configuration::CONTENT_FOLDER . '/images/';
-        $this->records = [ Filesystem::convertUrlToPath($content_dir . implode('/', $this->args)) ];
+        $this->records = [ $content_dir . implode('/', $this->args) ];
     }
 
     /**

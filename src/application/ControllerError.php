@@ -17,8 +17,8 @@ class ControllerError extends Controller
     public function records()
     {
         $content_dir = Configuration::CONTENT_FOLDER  . '/errors/';
-        $url = $content_dir . implode("/", $this->args) . '.' . $this->ext;
-        $this->records = [ Filesystem::convertUrlToPath($url) ];
+        $path = $content_dir . implode("/", $this->args) . '.' . $this->ext;
+        $this->records = [ $path ];
     }
 
     /**

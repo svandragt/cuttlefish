@@ -171,7 +171,7 @@ class Cache
         $content = Configuration::CONTENT_FOLDER;
         $ext     = Configuration::CONTENT_EXT;
         $Curl    = new Curl();
-        $Files   = new Files(array( 'path' =>$content, $ext ));
+        $Files   = new Files($content, $ext );
 
         $cache_urls = array();
 
@@ -219,7 +219,7 @@ class Cache
         global $App;
         $dir    = $this->getCacheFolder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
-        $Files  = new Files(array( 'path' => $dir ));
+        $Files  = new Files($dir );
         $output .= $Files->removeAll();
         $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
         foreach ($dirs as $dir) {
@@ -256,15 +256,15 @@ class Cache
 
         foreach ($file_types as $file_type) {
             $output .= "filetype: $file_type<br>";
-            $Files  = new Files(array( 'path' => Filesystem::convertUrlToPath("$theme_dir") ), $file_type);
-
-            $destination_files = array();
-            foreach ($Files->files() as $key => $source) {
-                $output              .= " - $key: $source<br>";
-                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
-                $destination_files[] = str_replace('src', $cache, $source);
-            }
-            Filesystem::copyFiles($Files->files(), $destination_files);
+//            $Files  = new Files($theme_dir , $file_type);
+//
+//            $destination_files = array();
+//            foreach ($Files->files() as $key => $source) {
+//                $output              .= " - $key: $source<br>";
+//                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
+//                $destination_files[] = str_replace('src', $cache, $source);
+//            }
+//            Filesystem::copyFiles($Files->files(), $destination_files);
         }
 
         return $output;

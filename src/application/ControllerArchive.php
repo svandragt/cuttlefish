@@ -15,7 +15,7 @@ class ControllerArchive extends Controller
     public function records()
     {
         $content_dir = Configuration::CONTENT_FOLDER  . '/posts';
-        $Files         = new Files(array( 'path' => $content_dir ), $this->ext);
+        $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->files();
     }
 

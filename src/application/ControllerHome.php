@@ -17,7 +17,7 @@ class ControllerHome extends Controller
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
         $content_dir = Configuration::CONTENT_FOLDER . '/posts';
-        $Files         = new Files(array( 'url' => $content_dir ), $this->ext);
+        $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->limit($limit + 5);
     }
 

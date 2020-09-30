@@ -8,13 +8,6 @@ class Files
 
     public function __construct($dir_or_path, $ext = null)
     {
-    	$dir_or_path = array_filter($dir_or_path);
-        if (isset($dir_or_path['url'])) {
-            $dir_or_path = Filesystem::convertUrlToPath($dir_or_path['url']);
-        } elseif (isset($dir_or_path['path'])) {
-            $dir_or_path = $dir_or_path['path'];
-        }
-
         if (empty($dir_or_path)) {
         	$this->files = null;
         	return;
