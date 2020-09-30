@@ -1,5 +1,5 @@
 # Cuttlefish
-Cuttlefish is a PHP based hackable blog framework. 
+Cuttlefish is a PHP based opinionated blog framework. 
 
 _It should be considered work in progress._
 
@@ -9,6 +9,7 @@ _It should be considered work in progress._
 
 * Easily understood.
 * Accommodatin defaults.
+* Adaptable to your needs.
 
 ![Cuttlefish screenshot](https://vandragt.com/file/d97a82559947ebc1f195213a751c52f0/Screenshot+from+2020-03-03+08-34-26.png)
 
