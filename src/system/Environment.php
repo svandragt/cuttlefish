@@ -35,7 +35,6 @@ class Environment
         $folders = array(
             Configuration::LOGS_FOLDER,
             Configuration::CACHE_FOLDER,
-            Configuration::THEMES_FOLDER,
             Configuration::CONTENT_FOLDER
         );
 
