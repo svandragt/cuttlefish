@@ -38,12 +38,9 @@ class Environment
             Configuration::THEMES_FOLDER,
             Configuration::CONTENT_FOLDER
         );
-        $ok = null;
+
         foreach ($folders as $folder) {
-            $ok[] = Filesystem::requireFolder($folder);
-        }
-        if (in_array(false, $ok)) {
-            trigger_error('Create the missing folders, then retry.', E_USER_ERROR);
+            Filesystem::requireFolder($folder);
         }
     }
 

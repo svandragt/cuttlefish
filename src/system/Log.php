@@ -6,11 +6,11 @@ use Configuration;
 
 class Log
 {
-    protected const FILENAME_TEMPLATE = '/cuttlefish.log';
+    protected const FILENAME_TEMPLATE = '/app.log';
 
     protected static function getUniqueFilename(): string
     {
-        return sprintf(self::FILENAME_TEMPLATE, date("Y-m-d_H-m-s"));
+        return self::FILENAME_TEMPLATE;
     }
 
     public static function error(string $message): void

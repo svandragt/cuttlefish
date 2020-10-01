@@ -7,19 +7,10 @@ class Filesystem
 
     public static function requireFolder(string $folder): ?bool
     {
-        $folder = realpath($folder);
-
-        if (! is_dir($folder)) {
-            @mkdir($folder, 0777, true);
-            if (! is_dir($folder)) {
-                Log::error("Please manually create <code>$folder</code>");
-                return false;
-            } else {
-                Log::info("Created $folder");
-                return true;
-            }
+        if ( ! mkdir( $folder, 0777, true ) && ! is_dir( $folder ) ) {
+	        Log::error("Please manually create '{$folder}'.");
+	        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', $folder ) );
         }
-        return true;
     }
 
     /**
