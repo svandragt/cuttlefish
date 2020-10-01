@@ -14,3 +14,7 @@ _logs/
 src/info.php
 vendor/
 /content/
+/.vagrant/bundler/
+/.vagrant/hostmanager/
+/.vagrant/machines/default/virtualbox/
+/.vagrant/rgloader/
