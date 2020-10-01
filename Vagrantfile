@@ -4,6 +4,7 @@
 Vagrant.configure("2") do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
+  config.vbguest.auto_update = false
 
   config.vm.box = "bento/ubuntu-20.04"
 

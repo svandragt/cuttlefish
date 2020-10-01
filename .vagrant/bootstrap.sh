@@ -2,11 +2,10 @@
 export DEBIAN_FRONTEND=noninteractive
 
 add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:nginx/stable
 
 apt-get -y update
 apt-get -y install nginx zip
-apt-get -y install php7.3-cli php7.3-fpm php7.3-xdebug php7.3-curl
+apt-get -y install php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl
 
 apt-get clean && apt-get -y autoremove &
 
