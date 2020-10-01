@@ -10,8 +10,6 @@ class Environment
 
     public function __construct()
     {
-        $this->addIncludePath(Filesystem::convertUrlToPath('/' . Configuration::APPLICATION_FOLDER));
-
         if ($this->isNewInstall()) {
             $this->createSystemFolders();
             $this->writeHtaccess();
@@ -34,15 +32,11 @@ class Environment
 
     protected function createSystemFolders(): void
     {
-        $cfg_content_folder = Configuration::CONTENT_FOLDER;
-
         $folders = array(
             Configuration::LOGS_FOLDER,
             Configuration::CACHE_FOLDER,
-            $cfg_content_folder . '/pages',
-            $cfg_content_folder . '/posts',
-            $cfg_content_folder . '/errors',
             Configuration::THEMES_FOLDER,
+            Configuration::CONTENT_FOLDER
         );
         $ok = null;
         foreach ($folders as $folder) {
@@ -65,7 +59,7 @@ class Environment
 
     protected function registerPlugins(): void
     {
-        $Files = new Files(array( 'url' => '/plugins' ), 'php');
+        $Files = new Files('/plugins', 'php');
         foreach ($Files->files() as $key => $filepath) {
             $this->register[ pathinfo($filepath, PATHINFO_FILENAME) ] = true;
             $this->addIncludePath(pathinfo($filepath, PATHINFO_DIRNAME));

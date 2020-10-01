@@ -14,8 +14,6 @@ class Url
         if (is_string($path)) {
             $this->setUrl($path);
         }
-
-        return $this;
     }
 
     protected function setUrl(string $path): void
@@ -33,7 +31,7 @@ class Url
     protected function protocol(): string
     {
         $protocol = 'http://';
-        if (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+        if ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) || $_SERVER['SERVER_PORT'] === 443) {
             $protocol = 'https://';
         }
 
@@ -44,28 +42,29 @@ class Url
      * Converts a file to an url.
      * make sure to call Url->url_absolute after.
      *
-     * @param object $file_object File object
+     * @param File $file_object File object
      *
      * @return self url object
      */
-    public function convertFileToURL($file_object): self
+    public static function fromFile(File $file_object): self
     {
-        $file_object = $file_object->relative();
+        $url = str_replace(DIRECTORY_SEPARATOR, "/", $file_object->path);
+        $url = '/' . ltrim($url, '/');
 
-        $relative_url = str_replace(DIRECTORY_SEPARATOR, "/", $file_object->path);
-        $relative_url = '/' . ltrim($relative_url, '/');
-        Log::debug(__FUNCTION__ . " relative_url: $relative_url");
-
-        $content_folder = Configuration::CONTENT_FOLDER;
-
-        if (! strrpos($relative_url, $content_folder) === false) {
+        // Content paths
+        $content_folder = realpath(Configuration::CONTENT_FOLDER);
+        $relative_url = $url;
+        if (strrpos($url, $content_folder) !== false) {
             $relative_url = str_replace([
-                $content_folder . '/',
+                $content_folder,
                 '.' . Configuration::CONTENT_EXT,
-            ], '', $relative_url);
+            ], '', $url);
         }
-        $this->setUrl($relative_url);
 
-        return $this;
+        Log::debug(__FUNCTION__ . " relative_url: $relative_url");
+        $Url = new Url();
+        $Url->setUrl($relative_url);
+
+        return $Url;
     }
 }

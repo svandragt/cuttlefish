@@ -8,12 +8,12 @@ class Files
 
     public function __construct($dir_or_path, $ext = null)
     {
-        if (isset($dir_or_path['url'])) {
-            $dir_or_path = Filesystem::convertUrlToPath($dir_or_path['url']);
-        } elseif (isset($dir_or_path['path'])) {
-            $dir_or_path = $dir_or_path['path'];
+        if (empty($dir_or_path)) {
+            $this->files = null;
+            return;
         }
-        $files = $this->collect($dir_or_path, $ext);
+
+        $files = $this->collect(realpath($dir_or_path), $ext);
         rsort($files);
         $this->files = $files;
     }
@@ -37,14 +37,14 @@ class Files
         // get files
         if ($handle = opendir($dir)) {
             while (false !== ( $file = readdir($handle) )) {
-                if ($file != "." && $file != "..") {
+                if ($file !== "." && $file !== "..") {
                     $file_path = $dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($file_path)) {
                         $dir_files = $this->collect($file_path, $filter);
                         foreach ($dir_files as $ai) {
                             $files[] = $ai;
                         }
-                    } elseif (( $filter === null ) || pathinfo($file_path, PATHINFO_EXTENSION) == $filter) {
+                    } elseif (( $filter === null ) || pathinfo($file_path, PATHINFO_EXTENSION) === $filter) {
                         $files[] = $file_path;
                     }
                 }
@@ -69,7 +69,7 @@ class Files
         foreach ($this->files as $file) {
             $file   = realpath($file);
             $output .= "Deleted: $file" . "<br>";
-            unlink($file);
+//            unlink($file);
         }
 
         return $output;

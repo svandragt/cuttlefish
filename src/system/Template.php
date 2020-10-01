@@ -22,7 +22,7 @@ class Template
 
     public function render(): void
     {
-        $path = BASE_FILEPATH . trim(theme_dir(), '/') . "/views" . DIRECTORY_SEPARATOR . $this->file;
+        $path = BASE_FILEPATH . trim(theme_dir(), '/') . DIRECTORY_SEPARATOR . $this->file;
         require $path;
     }
 }

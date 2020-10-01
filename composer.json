@@ -19,8 +19,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Cuttlefish\\": "src",
-            "Cuttlefish\\Blog\\": "src/blog"
+            "Cuttlefish\\": "src/system",
+            "Cuttlefish\\Blog\\": "src/application"
         }
     },
     "config": {
@@ -30,19 +30,26 @@
         }
     },
     "scripts": {
+        "post-create-project-cmd": [
+            "@setup"
+        ],
         "setup": [
             "composer install --ansi",
-            "phive install"
+            "phive install",
+            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\""
         ],
         "prep": [
             "phpcbf",
-            "psalm --alter",
+            "psalm --alter --issues=all",
             "@lint"
         ],
         "lint": [
             "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "psalm --show-info=true; exit 0",
             "phpcs"
+        ],
+        "serve": [
+            "export $(cat .env | xargs) && php -S localhost:8080 -t src/"
         ]
     }
 }

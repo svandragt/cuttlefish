@@ -72,7 +72,7 @@ class Cache
         $path    = $this->convertUrlpathToFilepath($url_relative);
         $dirname = pathinfo($path, PATHINFO_DIRNAME);
 
-        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
+        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
         $fp = fopen($path, 'wb');
@@ -116,6 +116,18 @@ class Cache
     }
 
     /**
+     * Abort caching
+     *
+     * @return void
+     */
+    public function abort(): void
+    {
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+    }
+
+    /**
      * Start caching
      *
      * @return void
@@ -142,6 +154,61 @@ class Cache
     }
 
     /**
+     * Generate a static version of the complete site
+     *
+     * @return string list of output messages detailing the generated files
+     */
+    public function generateSite(): string
+    {
+        $output = '';
+
+        if (Configuration::INDEX_PAGE !== '') {
+            die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
+        }
+        $output .= $this->clear();
+
+        $output  .= "<br>Generating site:<br>" . PHP_EOL;
+        $content = Configuration::CONTENT_FOLDER;
+        $ext     = Configuration::CONTENT_EXT;
+        $Curl    = new Curl();
+        $Files   = new Files($content, $ext);
+
+        $cache_urls = array();
+
+        foreach ($Files->files() as $index => $file_path) {
+            $File         = new File($file_path);
+            $cache_urls[] = Url::fromFile($File);
+        }
+
+        $urls = array(
+            '/',
+            '/feeds/post',
+            '/archive',
+        );
+        foreach ($urls as $path) {
+            $cache_urls[] = new Url($path);
+        }
+
+        foreach ($cache_urls as $Url) {
+            $contents = $Curl->getURLContents($Url->url_absolute);
+
+            if (empty($contents)) {
+                die("ERROR: no contents for {$Url->url_absolute}");
+            }
+
+            if (Configuration::CACHE_ENABLED === false) {
+                $path   = $this->writeToDisk($contents, $Url->url_relative);
+                $output .= "Written: $path<br>" . PHP_EOL;
+            }
+        }
+        $Curl->close();
+
+        $output .= $this->copyThemeFiles(array( 'css', 'js', 'png', 'gif', 'jpg' ));
+
+        return $output;
+    }
+
+    /**
      * Completely clear the site cache
      *
      * @return string list of output messages detailing the removed cachefiles
@@ -150,7 +217,7 @@ class Cache
     {
         $dir    = $this->getCacheFolder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
-        $Files  = new Files(array( 'path' => $dir ));
+        $Files  = new Files($dir);
         $output .= $Files->removeAll();
         $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
         foreach ($dirs as $dir) {
@@ -181,22 +248,21 @@ class Cache
      */
     protected function copyThemeFiles($file_types)
     {
-        include_once('view_functions.php');
 
-        $theme_dir = rtrim(theme_dir(), '/');
+        include_once('helpers.php');
         $output    = 'Copying files from theme: <br><br>';
 
         foreach ($file_types as $file_type) {
             $output .= "filetype: $file_type<br>";
-            $Files  = new Files(array( 'path' => Filesystem::convertUrlToPath("$theme_dir") ), $file_type);
-
-            $destination_files = array();
-            foreach ($Files->files() as $key => $source) {
-                $output              .= " - $key: $source<br>";
-                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
-                $destination_files[] = str_replace('src', $cache, $source);
-            }
-            Filesystem::copyFiles($Files->files(), $destination_files);
+//            $Files  = new Files($theme_dir , $file_type);
+//
+//            $destination_files = array();
+//            foreach ($Files->files() as $key => $source) {
+//                $output              .= " - $key: $source<br>";
+//                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
+//                $destination_files[] = str_replace('src', $cache, $source);
+//            }
+//            Filesystem::copyFiles($Files->files(), $destination_files);
         }
 
         return $output;

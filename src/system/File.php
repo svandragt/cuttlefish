@@ -61,7 +61,7 @@ class File
     public function relative(): self
     {
         if (! $this->is_relative) {
-            $root_path         = Filesystem::convertUrlToPath('/');
+            $root_path         = '/';
             $this->path        = str_replace($root_path, "", $this->path);
             $this->is_relative = true;
         }

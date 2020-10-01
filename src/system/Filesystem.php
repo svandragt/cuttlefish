@@ -2,39 +2,24 @@
 
 namespace Cuttlefish;
 
-use RuntimeException;
-
 class Filesystem
 {
 
-    /**
-     * @return true
-     */
-    public static function requireFolder(string $folder): bool
+    public static function requireFolder(string $folder): ?bool
     {
+        $folder = realpath($folder);
+
         if (! is_dir($folder)) {
-            if (! mkdir($folder, 0777, true) && ! is_dir($folder)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $folder));
+            @mkdir($folder, 0777, true);
+            if (! is_dir($folder)) {
+                Log::error("Please manually create <code>$folder</code>");
+                return false;
+            } else {
+                Log::info("Created $folder");
+                return true;
             }
-            Log::info("Created $folder");
         }
         return true;
-    }
-
-    /**
-     * FIXME: This is a pointless function
-     *
-     * @param string $url
-     *
-     * @return string
-     */
-    public static function convertUrlToPath(string $url): string
-    {
-        // takes /content/pages/index and returns path
-        $path = BASE_FILEPATH . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $url), '/');
-        Log::debug("$url converted to $path");
-
-        return $path;
     }
 
     /**

@@ -15,15 +15,11 @@ class Router
 {
     protected $Controller;
 
-    public function __construct($routes)
+    public function __construct()
     {
-
         // Route to controller
         $args                 = explode("/", $this->pathInfo());
-        $controller_class = null;
-        if (isset($routes[$args[1]])) {
-            $controller_class     =  $routes[$args[1]];
-        }
+        $controller_class     =  'Cuttlefish\Blog\Controller' . ucfirst($args[1]);
 
         $controller_arguments = array_slice($args, 2);
         if (class_exists($controller_class, true)) {

@@ -9,8 +9,8 @@ use Cuttlefish\MetadataReader;
 
 class Model
 {
-    public $contents = array();
-    public $model = array();
+    public $contents = [];
+    public $model = [];
 
     public function __construct($records)
     {
@@ -47,13 +47,11 @@ class Model
     {
         $Content = new StdClass();
 
-        $Url  = new Url();
         $File = new File($record);
 
         $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->model));
         $section_keys     = array_keys($this->model);
         $section_values   = array_values($this->model);
-
         try {
             if (count($section_keys) != count($content_sections)) {
                   throw new Exception(
@@ -70,7 +68,7 @@ class Model
             exit();
         }
 
-        $Content->link = $Url->convertFileToURL($File)->url_absolute;
+        $Content->link = Url::fromFile($File)->url_absolute;
 
         for ($i = 0, $len = count($this->model); $i < $len; $i++) {
             $content_section         = $content_sections[ $i ];
@@ -99,18 +97,17 @@ class Model
                     $Section->$key = $value;
                 }
                 break;
-            case 'markdown|html':
-                $md_sections    = preg_split('/=\R/', trim($content_section), 2);
-                $title_sections = preg_split('/\R/', trim($md_sections[0]), 2);
-                $Section->title = $title_sections[0];
-
-                $Section->main = Markdown::defaultTransform($md_sections[1]);
-
+            case 'markdown':
+                $markdown    = Markdown::defaultTransform($content_section);
+                $sections = preg_split('/(\r\n|\n|\r)/', trim($markdown), 2);
+                $Section->title = strip_tags(array_shift($sections));
+                $Section->main = implode(PHP_EOL,$sections);
                 break;
 
             default:
                 break;
         }
+
 
         return $Section;
     }
