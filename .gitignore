@@ -5,7 +5,6 @@
 .phpcs-cache
 .phpdox/
 .phpintel/
-.vagrant
 Configuration.php
 Desktop.ini
 Thumbs.db

@@ -26,7 +26,7 @@
     "config": {
         "process-timeout": 0,
         "platform": {
-            "php": "7.4"
+            "php": "7.3"
         }
     },
     "scripts": {
@@ -36,7 +36,8 @@
         "setup": [
             "composer install --ansi",
             "phive install",
-            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\""
+            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\"",
+            "vagrant plugin install vagrant-hostmanager"
         ],
         "prep": [
             "phpcbf",
