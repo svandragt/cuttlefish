@@ -101,7 +101,7 @@ class Model
                 $markdown    = Markdown::defaultTransform($content_section);
                 $sections = preg_split('/(\r\n|\n|\r)/', trim($markdown), 2);
                 $Section->title = strip_tags(array_shift($sections));
-                $Section->main = implode(PHP_EOL,$sections);
+                $Section->main = implode(PHP_EOL, $sections);
                 break;
 
             default:
