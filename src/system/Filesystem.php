@@ -7,9 +7,8 @@ class Filesystem
 
     public static function requireFolder(string $folder): ?bool
     {
-        if ( ! mkdir( $folder, 0777, true ) && ! is_dir( $folder ) ) {
-	        Log::error("Please manually create '{$folder}'.");
-	        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', $folder ) );
+        if (! mkdir($folder, 0777, true) && ! is_dir($folder)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $folder));
         }
     }
 
@@ -25,8 +24,8 @@ class Filesystem
             $destination_file = $destination_files[ $i ];
 
             $dirname = pathinfo($destination_file, PATHINFO_DIRNAME);
-            if (! is_dir($dirname)) {
-                mkdir($dirname, 0777, true);
+            if (! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $dirname));
             }
             copy($value, $destination_file);
             $i++;
