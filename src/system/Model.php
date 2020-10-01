@@ -98,11 +98,10 @@ class Model
                 }
                 break;
             case 'markdown':
-                $md_sections    = preg_split('/(\r\n|\n|\r)/', trim($content_section), 2);
-                $title_sections = preg_split('/\R/', trim($md_sections[0]), 2);
-                $Section->title = $title_sections[0];
-                $Section->main = Markdown::defaultTransform($md_sections[1]);
-
+                $markdown    = Markdown::defaultTransform($content_section);
+                $sections = preg_split('/(\r\n|\n|\r)/', trim($markdown), 2);
+                $Section->title = strip_tags(array_shift($sections));
+                $Section->main = implode(PHP_EOL,$sections);
                 break;
 
             default:
