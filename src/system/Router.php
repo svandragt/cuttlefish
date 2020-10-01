@@ -68,6 +68,9 @@ class Router
     {
         $Url         = new Url('/errors/404');
         $log_message = "Not callable '$controller_class' or missing parameter.";
+        if (empty($controller_class)) {
+            $log_message  = "Missing route";
+        }
         $this->redirect($Url, $log_message);
     }
 
@@ -81,16 +84,7 @@ class Router
      */
     protected function redirect($Url, string $log_message): void
     {
-        echo( "Location: " . $Url->url_absolute );
+        echo( "Location: " . $Url->url_absolute . PHP_EOL );
         exit($log_message);
-    }
-
-    protected function matchRoute($pattern, $routes)
-    {
-            $keys = array_flip($routes);
-            $matches =  preg_grep($pattern, $keys);
-        if ($matches) {
-            return array_shift($matches);
-        }
     }
 }
