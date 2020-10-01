@@ -12,7 +12,7 @@ class App
 
     private static $instance = null;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->Cache = new Cache();
         if ($this->Cache->hasExistingCachefile()) {
@@ -45,14 +45,14 @@ class App
      * Singleton. The object is created from within the class itself
      * only if the class has no instance.
      *
-     * @return void
+     * @return App
      */
     public static function getInstance()
     {
         if (self::$instance == null) {
             self::$instance = new App();
         }
-    
+
         return self::$instance;
     }
 }

@@ -8,5 +8,5 @@ define('BASE_PATH', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 require '../vendor/autoload.php';
 require '../Configuration.php';
 
-$App = new Cuttlefish\App();
+$App = Cuttlefish\App::getInstance();
 $App->run();
