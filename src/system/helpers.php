@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Put functions specific to your application here. You can call these from the view templates.
+ */
 namespace Cuttlefish;
 
 use Configuration;
@@ -11,6 +13,8 @@ if (! defined('BASE_FILEPATH')) {
 /**
  * Returns theme directory
  *
+ * @param string $filename Optional filename.
+ *
  * @return string link to theme directory
  */
 function theme_dir($filename = '')
@@ -20,5 +24,3 @@ function theme_dir($filename = '')
     return BASE_PATH . str_replace("\\", "/", $theme_folder) . $filename;
 }
 
-// put functions specific to your application here. You can call these from the view templates.
-// Todo is this actually working?

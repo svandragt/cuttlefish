@@ -7,12 +7,12 @@ class Html
     /**
      * Html constructor.
      * This code requires the following theme files:
-     * content.php, layout.php
+     * content.php, $shared['layout'] eg. layout.php
      *
      * @param array $contents Array of content items
      * @param array $shared Array of shared data available to add templates
      */
-    public function __construct($contents, $shared)
+    public function __construct(array $contents, array $shared)
     {
         $Template = new Template(
             $shared['layout'],

@@ -2,13 +2,15 @@
 
 namespace Cuttlefish;
 
+use RuntimeException;
+
 class Filesystem
 {
 
     public static function requireFolder(string $folder): ?bool
     {
         if (! mkdir($folder, 0777, true) && ! is_dir($folder)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $folder));
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $folder));
         }
     }
 
@@ -25,7 +27,7 @@ class Filesystem
 
             $dirname = pathinfo($destination_file, PATHINFO_DIRNAME);
             if (! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $dirname));
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
             }
             copy($value, $destination_file);
             $i++;
