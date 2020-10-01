@@ -1,7 +1,9 @@
 <?php
+
 /**
  * Put functions specific to your application here. You can call these from the view templates.
  */
+
 namespace Cuttlefish;
 
 use Configuration;
@@ -23,4 +25,3 @@ function theme_dir($filename = '')
 
     return BASE_PATH . str_replace("\\", "/", $theme_folder) . $filename;
 }
-
