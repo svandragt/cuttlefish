@@ -16,7 +16,7 @@ class ControllerFeed extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = Configuration::CONTENT_FOLDER . '/posts';
+        $content_dir = Configuration::CONTENT_FOLDER . '/post';
         $Records       = new Files($content_dir, $this->ext);
         $this->records = $Records->limit($limit + 5);
     }

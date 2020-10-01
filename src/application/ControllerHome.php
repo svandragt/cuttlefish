@@ -16,7 +16,7 @@ class ControllerHome extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = Configuration::CONTENT_FOLDER . '/posts';
+        $content_dir = Configuration::CONTENT_FOLDER . '/post';
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->limit($limit + 5);
     }

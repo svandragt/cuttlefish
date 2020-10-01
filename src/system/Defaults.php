@@ -4,7 +4,6 @@ namespace Cuttlefish;
 
 class Defaults
 {
-
     public const SITE_MOTTO = 'Something clever for the internets';
     public const SITE_TITLE = 'Your site';
     public const THEME = 'basic';

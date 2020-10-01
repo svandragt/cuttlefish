@@ -9,8 +9,8 @@ class Files
     public function __construct($dir_or_path, $ext = null)
     {
         if (empty($dir_or_path)) {
-        	$this->files = null;
-        	return;
+            $this->files = null;
+            return;
         }
 
         $files = $this->collect(realpath($dir_or_path), $ext);
@@ -37,7 +37,7 @@ class Files
         // get files
         if ($handle = opendir($dir)) {
             while (false !== ( $file = readdir($handle) )) {
-                if ( $file !== "." && $file !== "..") {
+                if ($file !== "." && $file !== "..") {
                     $file_path = $dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($file_path)) {
                         $dir_files = $this->collect($file_path, $filter);

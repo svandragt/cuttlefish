@@ -26,7 +26,7 @@ class App
         $this->Security    = new Security();
     }
 
-    public function run(array $routes)
+    public function run()
     {
         if ($this->Cache->is_cached) {
             return;
@@ -34,7 +34,7 @@ class App
 
         // Process request if not statically cached.
         $this->Cache->start();
-        new Router($routes);
+        new Router();
         $this->Cache->end();
     }
 }

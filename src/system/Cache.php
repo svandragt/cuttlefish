@@ -171,7 +171,7 @@ class Cache
         $content = Configuration::CONTENT_FOLDER;
         $ext     = Configuration::CONTENT_EXT;
         $Curl    = new Curl();
-        $Files   = new Files($content, $ext );
+        $Files   = new Files($content, $ext);
 
         $cache_urls = array();
 
@@ -183,7 +183,7 @@ class Cache
 
         $urls = array(
             '/',
-            '/feeds/posts',
+            '/feeds/post',
             '/archive',
         );
         foreach ($urls as $path) {
@@ -219,7 +219,7 @@ class Cache
         global $App;
         $dir    = $this->getCacheFolder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
-        $Files  = new Files($dir );
+        $Files  = new Files($dir);
         $output .= $Files->removeAll();
         $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
         foreach ($dirs as $dir) {
@@ -251,7 +251,7 @@ class Cache
     protected function copyThemeFiles($file_types)
     {
 
-        include_once( 'helpers.php' );
+        include_once('helpers.php');
         $output    = 'Copying files from theme: <br><br>';
 
         foreach ($file_types as $file_type) {

@@ -32,15 +32,11 @@ class Environment
 
     protected function createSystemFolders(): void
     {
-        $cfg_content_folder = Configuration::CONTENT_FOLDER;
-
         $folders = array(
             Configuration::LOGS_FOLDER,
             Configuration::CACHE_FOLDER,
-            $cfg_content_folder . '/pages',
-            $cfg_content_folder . '/posts',
-            $cfg_content_folder . '/errors',
             Configuration::THEMES_FOLDER,
+            Configuration::CONTENT_FOLDER
         );
         $ok = null;
         foreach ($folders as $folder) {

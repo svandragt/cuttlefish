@@ -56,6 +56,6 @@ class Controller
      */
     public function view()
     {
-        include_once( 'helpers.php' );
+        include_once('helpers.php');
     }
 }

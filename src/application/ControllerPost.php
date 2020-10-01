@@ -15,7 +15,7 @@ class ControllerPost extends Controller
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER . '/posts/';
+        $content_dir = Configuration::CONTENT_FOLDER . '/post/';
         $path = $content_dir . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
@@ -37,7 +37,7 @@ class ControllerPost extends Controller
 
         $this->View = new Html($this->Model->contents, array(
             'layout'     => 'layout.php',
-            'controller' => 'posts',
+            'controller' => 'post',
             'model'      => 'post',
         ));
     }

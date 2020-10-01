@@ -28,14 +28,14 @@ function href($internal_url)
 function pages()
 {
     $output     = '';
-    $pages_path = Configuration::CONTENT_FOLDER .'/pages';
+    $pages_path = Configuration::CONTENT_FOLDER . '/page';
 
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
 
     foreach ($Files->files() as $path) {
         $filename = pathinfo($path, PATHINFO_FILENAME);
         $title    = ucwords(str_replace("-", " ", $filename));
-        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/pages/$filename"), $title);
+        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/page/$filename"), $title);
     }
 
     return $output;

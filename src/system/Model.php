@@ -118,9 +118,10 @@ class Model
     }
 
 
-    public function validate($Content) {
+    public function validate($Content)
+    {
         foreach ($this->required_fields as $section => $fields) {
-            if (!property_exists($Content,  $section)) {
+            if (!property_exists($Content, $section)) {
                 throw new Exception("Required section '$section' missing in content.");
             }
             foreach ($fields as $field) {
