@@ -5,7 +5,7 @@ add-apt-repository -y ppa:ondrej/php
 
 apt-get -y update
 apt-get -y install nginx zip
-apt-get -y install php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl
+apt-get -y install php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl php7.4-xml
 
 apt-get clean && apt-get -y autoremove &
 

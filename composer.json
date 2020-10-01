@@ -12,7 +12,8 @@
     "minimum-stability": "stable",
     "require": {
         "michelf/php-markdown": "^1.9",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
