@@ -48,7 +48,6 @@ class Model
     {
         $Content = new StdClass();
 
-        $Url  = new Url();
         $File = new File($record);
 
         $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->model));
@@ -70,7 +69,7 @@ class Model
             exit();
         }
 
-        $Content->link = $Url->convertFileToURL($File)->url_absolute;
+        $Content->link = Url::fromFile($File)->url_absolute;
 
         for ($i = 0, $len = count($this->model); $i < $len; $i++) {
             $content_section         = $content_sections[ $i ];

@@ -177,8 +177,7 @@ class Cache
 
         foreach ($Files->files() as $index => $file_path) {
             $File         = new File($file_path);
-            $Url          = new Url();
-            $cache_urls[] = $Url->convertFileToURL($File);
+            $cache_urls[] = Url::fromFile($File);
         }
 
         $urls = array(
