@@ -1,29 +1,42 @@
 <?php
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
 
-class ControllerArchive extends Cuttlefish\Controller {
+namespace Cuttlefish\Blog;
 
-	// list of recent posts
+use Configuration;
+use Cuttlefish\Controller;
+use Cuttlefish\Files;
+use Cuttlefish\Html;
 
-	function records() {
-		$Files         = new Cuttlefish\Files( array( 'url' => '/content/posts' ), $this->ext );
-		$this->records = $Files->files();
-	}
+class ControllerArchive extends Controller
+{
+    /**
+     * @return void
+     */
+    public function records()
+    {
+        $content_dir = Configuration::CONTENT_FOLDER  . '/post';
+        $Files         = new Files($content_dir, $this->ext);
+        $this->records = $Files->files();
+    }
 
-	function model() {
-		$Model       = new ModelPost( $this->records );
-		$this->Model = $Model;
-	}
+    /**
+     * @return void
+     */
+    public function model()
+    {
+        $this->Model = new ModelPost($this->records);
+    }
 
-	function view() {
-		parent::view();
-		$this->View = new Cuttlefish\Html( $this->Model->contents, array(
-			'layout'     => 'layout.php',
-			'controller' => 'archive',
-			'model'      => 'post',
-		) );
-	}
-
+    /**
+     * @return void
+     */
+    public function view()
+    {
+        parent::view();
+        $this->View = new Html($this->Model->contents, array(
+            'layout'     => 'layout.php',
+            'controller' => 'archive',
+            'model'      => 'post',
+        ));
+    }
 }

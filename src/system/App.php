@@ -2,29 +2,57 @@
 
 namespace Cuttlefish;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+use Cuttlefish\Defaults;
 
-class App {
-	public $Security;
-	public $Cache;
-	public $Environment;
+class App
+{
+    public $Security;
+    public $Cache;
+    public $Environment;
 
-	public function __construct() {
-		// Prime a new cache and start caching
-		$this->Cache = new Cache();
-		if ( $this->Cache->has_existing_cachefile() ) {
-			exit( readfile( $this->Cache->generate_cache_file_from_url() ) );
-		}
-		// Setup environment
-		$this->Environment = new Environment();
-		$this->Security    = new Security();
-	}
+    private static $instance = null;
 
-	public function __destruct() {
-		$this->Cache->start();
-		new Request();
-		$this->Cache->end();
-	}
+    public function __construct()
+    {
+        $this->Cache = new Cache();
+        if ($this->Cache->hasExistingCachefile()) {
+             $bytes = readfile($this->Cache->convertUrlpathToFilepath());
+            if ($bytes !== false) {
+                $this->Cache->is_cached = true;
+                return;
+            }
+        }
+
+        // Setup environment
+        $this->Environment = new Environment();
+        $this->Security    = new Security();
+    }
+
+    public function run()
+    {
+        if ($this->Cache->is_cached) {
+            return;
+        }
+
+        // Process request if not statically cached.
+        $this->Cache->start();
+        new Router();
+        $this->Cache->end();
+    }
+
+
+    /**
+     * Singleton. The object is created from within the class itself
+     * only if the class has no instance.
+     *
+     * @return void
+     */
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new App();
+        }
+    
+        return self::$instance;
+    }
 }

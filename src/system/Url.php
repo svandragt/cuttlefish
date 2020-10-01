@@ -4,65 +4,67 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+class Url
+{
+    public $url_relative = '';
+    public $url_absolute = '';
 
-class Url {
-	public $url_relative;
-	public $url_absolute;
+    public function __construct($path = null)
+    {
+        if (is_string($path)) {
+            $this->setUrl($path);
+        }
+    }
 
-	function __construct( $path = null ) {
-		if ( is_string( $path ) ) {
-			$this->setUrl( $path );
-		}
+    protected function setUrl(string $path): void
+    {
+        $this->url_relative = Configuration::INDEX_PAGE . $path;
+        $this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
+    }
 
-		return $this;
+    /**
+     * Returns protocol part of an internal url
+     * Source: http://stackoverflow.com/questions/4503135/php-get-site-url-protocol-http-vs-https
+     *
+     * @return string correct protocol dependent url
+     */
+    protected function protocol(): string
+    {
+        $protocol = 'http://';
+        if ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) || $_SERVER['SERVER_PORT'] === 443) {
+            $protocol = 'https://';
+        }
 
-	}
+        return (string) $protocol;
+    }
 
-	function setUrl( $path ) {
-		$this->url_relative = Configuration::INDEX_PAGE . $path;
-		$this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
-	}
+    /**
+     * Converts a file to an url.
+     * make sure to call Url->url_absolute after.
+     *
+     * @param File $file_object File object
+     *
+     * @return self url object
+     */
+    public static function fromFile(File $file_object): self
+    {
+        $url = str_replace(DIRECTORY_SEPARATOR, "/", $file_object->path);
+        $url = '/' . ltrim($url, '/');
 
-	/**
-	 * Returns protocol part of an internal url
-	 * Source: http://stackoverflow.com/questions/4503135/php-get-site-url-protocol-http-vs-https
-	 *
-	 * @return string correct protocol dependent url
-	 */
-	function protocol() {
-		$protocol = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 ) ? "https://" : "http://";
+        // Content paths
+        $content_folder = realpath(Configuration::CONTENT_FOLDER);
+        $relative_url = $url;
+        if (strrpos($url, $content_folder) !== false) {
+            $relative_url = str_replace([
+                $content_folder,
+                '.' . Configuration::CONTENT_EXT,
+            ], '', $url);
+        }
 
-		return (string) $protocol;
-	}
+        Log::debug(__FUNCTION__ . " relative_url: $relative_url");
+        $Url = new Url();
+        $Url->setUrl($relative_url);
 
-	/**
-	 * Converts a file to an url.
-	 * make sure to call Url->url_absolute after.
-	 *
-	 * @param  object $file_object File object
-	 *
-	 * @return object              url object
-	 */
-	function file_to_url( $file_object ) {
-		$file_object = $file_object->relative();
-
-		$relative_url = str_replace( DIRECTORY_SEPARATOR, "/", $file_object->path );
-		$relative_url = '/' . ltrim( $relative_url, '/' );
-		Log::debug( __FUNCTION__ . " relative_url: $relative_url" );
-
-		$content_folder = Configuration::CONTENT_FOLDER;
-
-		if ( ! strrpos( $relative_url, $content_folder ) === false ) {
-			$relative_url = str_replace( [
-				$content_folder . '/',
-				'.' . Configuration::CONTENT_EXT,
-			], '', $relative_url );
-		}
-		$this->setUrl( $relative_url );
-
-		return $this;
-	}
+        return $Url;
+    }
 }

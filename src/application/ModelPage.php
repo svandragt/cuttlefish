@@ -1,25 +1,24 @@
 <?php
 
-use Michelf\MarkdownExtra;
+namespace Cuttlefish\Blog;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+use Cuttlefish\Model;
 
-class ModelPage extends Cuttlefish\Model {
-	// page model
+class ModelPage extends Model
+{
+    // page model
 
-	public $model = array(
-		'markdown|html' => 'content',
-	);
+    public $model = array(
+        'markdown' => 'content',
+    );
 
-	function contents( $records ) {
-		$loaded_classes = array(
-			'mdep' => new MarkdownExtra(),
-		);
-
-		foreach ( $records as $record ) {
-			$this->contents[] = $this->list_contents( $record, $loaded_classes );
-		}
-	}
+    /**
+     * @return void
+     */
+    public function contents($records)
+    {
+        foreach ($records as $record) {
+            $this->contents[] = $this->listContents($record);
+        }
+    }
 }

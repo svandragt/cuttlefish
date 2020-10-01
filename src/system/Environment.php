@@ -4,72 +4,65 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+class Environment
+{
+    protected $register;
 
-class Environment {
-	protected $register;
+    public function __construct()
+    {
+        if ($this->isNewInstall()) {
+            $this->createSystemFolders();
+            $this->writeHtaccess();
+        }
 
-	public function __construct() {
+        // Externals environment
+        $this->registerPlugins();
+        session_start();
+    }
 
+    protected function addIncludePath(string $path): void
+    {
+        set_include_path(get_include_path() . PATH_SEPARATOR . realpath($path));
+    }
 
-		$this->add_include_path( Filesystem::url_to_path( '/' . Configuration::APPLICATION_FOLDER ) );
+    protected function isNewInstall(): bool
+    {
+        return ! ( is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER) );
+    }
 
-		if ( $this->new_install() ) {
-			$this->new_install_setup();
-		}
+    protected function createSystemFolders(): void
+    {
+        $folders = array(
+            Configuration::LOGS_FOLDER,
+            Configuration::CACHE_FOLDER,
+            Configuration::THEMES_FOLDER,
+            Configuration::CONTENT_FOLDER
+        );
+        $ok = null;
+        foreach ($folders as $folder) {
+            $ok[] = Filesystem::requireFolder($folder);
+        }
+        if (in_array(false, $ok)) {
+            trigger_error('Create the missing folders, then retry.', E_USER_ERROR);
+        }
+    }
 
-		// Externals environment
-		$this->register_externals();
-		session_start();
-	}
+    public function writeHtaccess(): void
+    {
+        $directory_index = "index.html index.xml";
+        $path            = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
+        $fp              = fopen($path, 'w');
+        fwrite($fp, "DirectoryIndex  $directory_index\n");
+        fwrite($fp, "ErrorDocument 404 /errors/404/\n");
+        fclose($fp);
+    }
 
-	function add_include_path( $path ) {
-
-		set_include_path( get_include_path() . PATH_SEPARATOR . realpath( $path ) );
-	}
-
-	private function new_install() {
-		return ! ( is_dir( Configuration::CACHE_FOLDER ) && is_dir( Configuration::CONTENT_FOLDER ) );
-	}
-
-	private function new_install_setup() {
-		$cfg_content_folder = Configuration::CONTENT_FOLDER;
-
-		$folders = array(
-			Configuration::LOGS_FOLDER,
-			Configuration::CACHE_FOLDER,
-			$cfg_content_folder . '/pages',
-			$cfg_content_folder . '/posts',
-			$cfg_content_folder . '/errors',
-			Configuration::THEMES_FOLDER,
-		);
-		foreach ( $folders as $folder ) {
-			$ok[] = Filesystem::ensure_folder_exists( $folder );
-
-		}
-		if ( in_array(false, $ok)) {
-			trigger_error('Create the missing folders, then retry.', E_USER_ERROR);
-		}
-		$this->server_setup();
-	}
-
-	public function server_setup() {
-
-		$directory_index = "index.html index.xml";
-		$path            = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
-		$fp              = fopen( $path, 'w' );
-		fwrite( $fp, "DirectoryIndex  $directory_index\n" );
-		fwrite( $fp, "ErrorDocument 404 /errors/404/\n" );
-		fclose( $fp );
-	}
-
-	private function register_externals() {
-		$Files = new Files( array( 'url' => '/system/Ext' ), 'php' );
-		foreach ( $Files->files() as $key => $filepath ) {
-			$this->register[ pathinfo( $filepath, PATHINFO_FILENAME ) ] = true;
-			$this->add_include_path( pathinfo( $filepath, PATHINFO_DIRNAME ) );
-		}
-	}
+    protected function registerPlugins(): void
+    {
+        $Files = new Files('/plugins', 'php');
+        foreach ($Files->files() as $key => $filepath) {
+            $this->register[ pathinfo($filepath, PATHINFO_FILENAME) ] = true;
+            $this->addIncludePath(pathinfo($filepath, PATHINFO_DIRNAME));
+        }
+    }
 }

@@ -1,32 +1,36 @@
 <?php
 
-use Michelf\MarkdownExtra;
+namespace Cuttlefish\Blog;
 
-if ( ! defined( 'BASE_FILEPATH' ) ) {
-	exit( 'No direct script access allowed' );
-}
+use Cuttlefish\Model;
 
-class ModelPost extends Cuttlefish\Model {
+class ModelPost extends Model
+{
+    public $required_fields = ['metadata' => ['published']];
 
-	public $model = array(
-		'yaml'          => 'metadata',
-		'markdown|html' => 'content',
-	);
+    public $model = array(
+        'metadatareader'    => 'metadata',
+        'markdown'     => 'content',
+    );
 
-	public function sortByPublished( $a, $b ) {
-		return strcmp( $b->metadata->Published, $a->metadata->Published );
-	}
+    /**
+     * @return int
+     */
+    public function sortByPublished($a, $b)
+    {
+        return strcmp($b->metadata->published, $a->metadata->published);
+    }
 
-	function contents( $records ) {
-		$loaded_classes = array(
-			'mdep' => new MarkdownExtra(),
-			'spyc' => new Spyc(),
-		);
-		foreach ( $records as $record ) {
-			$this->contents[] = $this->list_contents( $record, $loaded_classes );
-		}
-		usort( $this->contents, array( $this, 'sortByPublished' ) );
+    /**
+     * @return self
+     */
+    public function contents($records)
+    {
+        foreach ($records as $record) {
+            $this->contents[] = $this->listContents($record);
+        }
+        usort($this->contents, array( $this, 'sortByPublished' ));
 
-		return $this;
-	}
+        return $this;
+    }
 }
