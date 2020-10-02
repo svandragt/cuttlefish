@@ -11,7 +11,7 @@ require('functions.php');
 $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP_SELF']));
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title><?= Configuration::SITE_TITLE ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,21 +21,22 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
 </head>
 <body id="body<?= $body_class ?>">
 
-<div id="header">
+<header id="header">
     <h1 class="float-left"><a href="<?= href('/') ?>"><?= Configuration::SITE_TITLE ?></a></h1>
     <p class="float-right"><?= Configuration::SITE_MOTTO ?></p>
-</div>
+</header>
 
 <div id="blank"></div>
 
-<div id="content" class="float-left two-thirds"><?= $this->content->render() ?></div>
+<main id="content" class="float-left two-thirds"><?= $this->content->render() ?></main>
 
-<div id="sidebar" class="float-right one-third">
+<aside id="sidebar" class="float-right one-third">
     <h3>Sidebar</h3>
     <ul><?= pages() ?></ul>
-</div>
+</aside>
 
-<div id="footer">
+<footer id="footer">
+	<h3 class="hide">Footer Menu</h3>
     <ul>
         <li><a href="<?php echo href('/') ?>">Home</a></li>
         <li><a href="<?php echo href('/archive') ?>">Archive</a></li>
@@ -44,7 +45,7 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
             <li><a href="<?php echo href('/admin') ?>">Admin</a></li>
         <?php endif; ?>
     </ul>
-</div>
+</footer>
 
 </body>
 </html>
