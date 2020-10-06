@@ -69,7 +69,7 @@ class Files
         foreach ($this->files as $file) {
             $file   = realpath($file);
             $output .= "Deleted: $file" . "<br>";
-//            unlink($file);
+            unlink($file);
         }
 
         return $output;

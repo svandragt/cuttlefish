@@ -16,10 +16,10 @@ class App
     protected function __construct()
     {
         $this->Cache = new Cache();
-	    $file_path = $this->Cache->convertUrlpathToFilepath( '' );
-        if (Configuration::CACHE_ENABLED && is_readable( $file_path ) ) {
-	        header('X-Cuttlefish-Cached: true');
-	        $bytes                       = readfile($file_path);
+        $file_path = $this->Cache->convertUrlpathToFilepath('');
+        if (Configuration::CACHE_ENABLED && is_readable($file_path)) {
+            header('X-Cuttlefish-Cached: true');
+            $bytes                       = readfile($file_path);
             if ($bytes !== false) {
                 exit();
             }

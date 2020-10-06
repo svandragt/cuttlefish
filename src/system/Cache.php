@@ -70,7 +70,7 @@ class Cache
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
         $fp = fopen($path, 'wb');
-        fwrite($fp, $contents );
+        fwrite($fp, $contents);
         fclose($fp);
         return $path;
     }
@@ -82,7 +82,8 @@ class Cache
      *
      * @return string            path to cache file
      */
-    public function convertUrlpathToFilepath( string $path_info): string {
+    public function convertUrlpathToFilepath(string $path_info): string
+    {
 
         $path_info = $this->sanitizePathinfo($path_info);
 
@@ -209,10 +210,7 @@ class Cache
      */
     protected function getCacheFolder()
     {
-        if (! isset($GLOBALS['BASE_FILEPATH'])) {
-            return null;
-        }
-        return realpath($GLOBALS['BASE_FILEPATH'] . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
+        return realpath(BASE_DIR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
     }
 
     /**
