@@ -3,7 +3,7 @@
 namespace Cuttlefish;
 
 use Configuration;
-use Cuttlefish\Defaults;
+use Dotenv\Dotenv;
 
 class App
 {
@@ -48,6 +48,8 @@ class App
     public static function getInstance()
     {
         if (self::$instance == null) {
+            $dotenv = Dotenv::createImmutable(dirname(BASE_DIR));
+            $dotenv->load();
             self::$instance = new App();
         }
 
