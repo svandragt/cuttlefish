@@ -16,10 +16,11 @@ class App
     {
         $this->Cache = new Cache();
         if ($this->Cache->hasExistingCachefile()) {
-             $bytes = readfile($this->Cache->convertUrlpathToFilepath());
+            $filepath = $this->Cache->convertUrlpathToFilepath('');
+            $bytes                       = readfile($filepath);
             if ($bytes !== false) {
-                $this->Cache->is_cached = true;
-                return;
+                $this->Cache->is_cached = ($bytes !== false);
+                exit();
             }
         }
 
@@ -30,10 +31,6 @@ class App
 
     public function run()
     {
-        if ($this->Cache->is_cached) {
-            return;
-        }
-
         // Process request if not statically cached.
         $this->Cache->start();
         new Router();

@@ -34,7 +34,7 @@ class Cache
         // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
         chdir($this->cwd);
         if ($this->canCache()) {
-            $this->writeToDisk(ob_get_flush(), null);
+            $this->writeToDisk(ob_get_flush(), '');
             exit;
         }
     }
@@ -67,16 +67,16 @@ class Cache
      *
      * @return string           path to the cache file
      */
-    protected function writeToDisk($contents, $url_relative = '')
+    protected function writeToDisk(string $contents, string $url_relative = '')
     {
         $path    = $this->convertUrlpathToFilepath($url_relative);
         $dirname = pathinfo($path, PATHINFO_DIRNAME);
 
-        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true)) {
+        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
         $fp = fopen($path, 'wb');
-        fwrite($fp, $contents);
+        fwrite($fp, $contents . sprintf('<!-- Cached %s -->', date(DATE_RFC2822)));
         fclose($fp);
 
         return $path;
@@ -89,7 +89,7 @@ class Cache
      *
      * @return string            path to cache file
      */
-    public function convertUrlpathToFilepath($path_info = '')
+    public function convertUrlpathToFilepath($path_info)
     {
 
         $path_info = $this->sanitizePathinfo($path_info);
@@ -148,9 +148,9 @@ class Cache
         if (! $wants_caching) {
             return false;
         }
-        $cache_file = $this->convertUrlpathToFilepath();
+        $cache_file = $this->convertUrlpathToFilepath('');
 
-        return file_exists($cache_file);
+        return is_readable($cache_file);
     }
 
     /**
@@ -278,8 +278,8 @@ class Cache
         if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
             $path_info = substr($_SERVER['PATH_INFO'], 1);
         }
-        $path_info = ltrim($path_info, '/');
+        $new_path_info = ltrim($path_info, '/');
 
-        return (string) $path_info;
+        return (string) $new_path_info;
     }
 }
