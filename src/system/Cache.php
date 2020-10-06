@@ -199,7 +199,7 @@ class Cache
         foreach ($dirs as $dir) {
             Filesystem::removeDirs(realpath($dir . '/.'));
         }
-        App::getInstance()->Environment->writeAccess();
+        App::getInstance()->Environment->writeHtaccess();
 
         return (string) $output;
     }
