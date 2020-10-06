@@ -13,7 +13,8 @@
     "require": {
         "michelf/php-markdown": "^1.9",
         "ext-curl": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "vlucas/phpdotenv": "^5"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"

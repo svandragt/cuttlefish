@@ -87,7 +87,7 @@ class ControllerAdmin extends Controller
     {
         parent::view();
 
-        $this->View = new Html($this->contents, array(
+        $this->View = new Html([$this->contents], array(
             'layout'     => 'layout.php',
             'controller' => 'admin',
             'model'      => 'page',

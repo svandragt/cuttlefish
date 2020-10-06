@@ -2,8 +2,7 @@
 
 use Cuttlefish\Blog;
 
-define('BASE_FILEPATH', rtrim(str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']), '/') . '/');
-define('BASE_PATH', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
+define('BASE_DIR', dirname($_SERVER['SCRIPT_FILENAME']) . '/');
 
 require '../vendor/autoload.php';
 require '../Configuration.php';
