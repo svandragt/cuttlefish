@@ -13,12 +13,6 @@ class Cache
      */
     protected $cwd = '';
 
-    /**
-     * Is the request already cached?
-     * @var boolean
-     */
-    public $is_cached = false;
-
     public function __construct()
     {
         $this->cwd = getcwd(); // set current working directory
@@ -76,9 +70,8 @@ class Cache
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
         $fp = fopen($path, 'wb');
-        fwrite($fp, $contents . sprintf('<!-- Cached %s -->', date(DATE_RFC2822)));
+        fwrite($fp, $contents );
         fclose($fp);
-
         return $path;
     }
 
@@ -89,8 +82,7 @@ class Cache
      *
      * @return string            path to cache file
      */
-    public function convertUrlpathToFilepath($path_info)
-    {
+    public function convertUrlpathToFilepath( string $path_info): string {
 
         $path_info = $this->sanitizePathinfo($path_info);
 
@@ -135,22 +127,6 @@ class Cache
     public function start(): void
     {
         ob_start();
-    }
-
-    /**
-     * Returns whether page is already cached
-     *
-     * @return boolean page has existing cachefile
-     */
-    public function hasExistingCachefile()
-    {
-        $wants_caching = Configuration::CACHE_ENABLED;
-        if (! $wants_caching) {
-            return false;
-        }
-        $cache_file = $this->convertUrlpathToFilepath('');
-
-        return is_readable($cache_file);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Cuttlefish;
 
+use Configuration;
 use Cuttlefish\Defaults;
 
 class App
@@ -15,11 +16,11 @@ class App
     protected function __construct()
     {
         $this->Cache = new Cache();
-        if ($this->Cache->hasExistingCachefile()) {
-            $filepath = $this->Cache->convertUrlpathToFilepath('');
-            $bytes                       = readfile($filepath);
+	    $file_path = $this->Cache->convertUrlpathToFilepath( '' );
+        if (Configuration::CACHE_ENABLED && is_readable( $file_path ) ) {
+	        header('X-Cuttlefish-Cached: true');
+	        $bytes                       = readfile($file_path);
             if ($bytes !== false) {
-                $this->Cache->is_cached = ($bytes !== false);
                 exit();
             }
         }
