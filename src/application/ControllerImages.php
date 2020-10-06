@@ -5,10 +5,9 @@ namespace Cuttlefish\Blog;
 use Configuration;
 use Cuttlefish\Controller;
 use Cuttlefish\File;
-use Cuttlefish\Filesystem;
 
 // single image
-class ControllerImage extends Controller
+class ControllerImages extends Controller
 {
     /**
      * @return void
