@@ -2,7 +2,8 @@
 
 namespace Cuttlefish;
 
-use Cuttlefish\Defaults;
+use Configuration;
+use Dotenv\Dotenv;
 
 class App
 {
@@ -15,11 +16,12 @@ class App
     protected function __construct()
     {
         $this->Cache = new Cache();
-        if ($this->Cache->hasExistingCachefile()) {
-             $bytes = readfile($this->Cache->convertUrlpathToFilepath());
+        $file_path = $this->Cache->convertUrlpathToFilepath('');
+        if (Configuration::CACHE_ENABLED && is_readable($file_path)) {
+            header('X-Cuttlefish-Cached: true');
+            $bytes                       = readfile($file_path);
             if ($bytes !== false) {
-                $this->Cache->is_cached = true;
-                return;
+                exit();
             }
         }
 
@@ -30,10 +32,6 @@ class App
 
     public function run()
     {
-        if ($this->Cache->is_cached) {
-            return;
-        }
-
         // Process request if not statically cached.
         $this->Cache->start();
         new Router();
@@ -50,6 +48,8 @@ class App
     public static function getInstance()
     {
         if (self::$instance == null) {
+            $dotenv = Dotenv::createImmutable(dirname(BASE_DIR));
+            $dotenv->load();
             self::$instance = new App();
         }
 

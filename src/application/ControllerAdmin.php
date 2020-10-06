@@ -50,7 +50,7 @@ class ControllerAdmin extends Controller
         global $App;
         $App->Security->maybeLoginRedirect();
 
-        return $App->Cache->clear();
+        return sprintf('<pre>%s</pre>', $App->Cache->clear());
     }
 
     protected function generateSite(): void
@@ -87,7 +87,7 @@ class ControllerAdmin extends Controller
     {
         parent::view();
 
-        $this->View = new Html($this->contents, array(
+        $this->View = new Html([$this->contents], array(
             'layout'     => 'layout.php',
             'controller' => 'admin',
             'model'      => 'page',

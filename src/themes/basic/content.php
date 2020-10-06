@@ -1,6 +1,6 @@
 <?php
 
-if (! defined('BASE_FILEPATH')) {
+if (! defined('BASE_DIR')) {
     exit('No direct script access allowed');
 }
 printf("<div class='%s %s'>", $this->controller, $this->model);

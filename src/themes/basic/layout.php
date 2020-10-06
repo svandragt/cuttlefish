@@ -1,6 +1,6 @@
 <?php
 
-if (! defined('BASE_FILEPATH')) {
+if (! defined('BASE_DIR')) {
     exit('No direct script access allowed');
 }
 
@@ -36,7 +36,7 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
 </aside>
 
 <footer id="footer">
-	<h3 class="hide">Footer Menu</h3>
+    <h3 class="hide">Footer Menu</h3>
     <ul>
         <li><a href="<?php echo href('/') ?>">Home</a></li>
         <li><a href="<?php echo href('/archive') ?>">Archive</a></li>

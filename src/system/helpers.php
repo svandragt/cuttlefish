@@ -8,7 +8,7 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if (! defined('BASE_FILEPATH')) {
+if (! defined('BASE_DIR')) {
     exit('No direct script access allowed');
 }
 
@@ -22,6 +22,6 @@ if (! defined('BASE_FILEPATH')) {
 function theme_dir($filename = '')
 {
     $theme_folder = Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR;
-
-    return BASE_PATH . str_replace("\\", "/", $theme_folder) . $filename;
+    $base_url = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
+    return $base_url . str_replace("\\", "/", $theme_folder) . $filename;
 }

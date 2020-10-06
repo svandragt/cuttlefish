@@ -13,12 +13,6 @@ class Cache
      */
     protected $cwd = '';
 
-    /**
-     * Is the request already cached?
-     * @var boolean
-     */
-    public $is_cached = false;
-
     public function __construct()
     {
         $this->cwd = getcwd(); // set current working directory
@@ -34,7 +28,7 @@ class Cache
         // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
         chdir($this->cwd);
         if ($this->canCache()) {
-            $this->writeToDisk(ob_get_flush(), null);
+            $this->writeToDisk(ob_get_flush(), '');
             exit;
         }
     }
@@ -67,18 +61,17 @@ class Cache
      *
      * @return string           path to the cache file
      */
-    protected function writeToDisk($contents, $url_relative = '')
+    protected function writeToDisk(string $contents, string $url_relative = '')
     {
         $path    = $this->convertUrlpathToFilepath($url_relative);
         $dirname = pathinfo($path, PATHINFO_DIRNAME);
 
-        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true)) {
+        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
         $fp = fopen($path, 'wb');
         fwrite($fp, $contents);
         fclose($fp);
-
         return $path;
     }
 
@@ -89,7 +82,7 @@ class Cache
      *
      * @return string            path to cache file
      */
-    public function convertUrlpathToFilepath($path_info = '')
+    public function convertUrlpathToFilepath(string $path_info): string
     {
 
         $path_info = $this->sanitizePathinfo($path_info);
@@ -135,22 +128,6 @@ class Cache
     public function start(): void
     {
         ob_start();
-    }
-
-    /**
-     * Returns whether page is already cached
-     *
-     * @return boolean page has existing cachefile
-     */
-    public function hasExistingCachefile()
-    {
-        $wants_caching = Configuration::CACHE_ENABLED;
-        if (! $wants_caching) {
-            return false;
-        }
-        $cache_file = $this->convertUrlpathToFilepath();
-
-        return file_exists($cache_file);
     }
 
     /**
@@ -223,7 +200,7 @@ class Cache
         foreach ($dirs as $dir) {
             Filesystem::removeDirs(realpath($dir . '/.'));
         }
-        App::getInstance()->Environment->writeAccess();
+        App::getInstance()->Environment->writeHtaccess();
 
         return (string) $output;
     }
@@ -233,10 +210,7 @@ class Cache
      */
     protected function getCacheFolder()
     {
-        if (! isset($GLOBALS['BASE_FILEPATH'])) {
-            return null;
-        }
-        return realpath($GLOBALS['BASE_FILEPATH'] . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
+        return realpath(BASE_DIR . str_replace("/", DIRECTORY_SEPARATOR, Configuration::CACHE_FOLDER));
     }
 
     /**
@@ -278,8 +252,8 @@ class Cache
         if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
             $path_info = substr($_SERVER['PATH_INFO'], 1);
         }
-        $path_info = ltrim($path_info, '/');
+        $new_path_info = ltrim($path_info, '/');
 
-        return (string) $path_info;
+        return (string) $new_path_info;
     }
 }
