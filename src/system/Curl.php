@@ -2,6 +2,8 @@
 
 namespace Cuttlefish;
 
+use http\Exception\RuntimeException;
+
 class Curl
 {
     protected $c;
@@ -15,13 +17,17 @@ class Curl
     }
 
     /**
+     * @param string $url
+     * @param null $query_data
+     * @param string $requestMethod
+     *
      * @return bool|string
      */
-    public function getURLContents(string $url, $query_data = null, $requestMethod = 'GET')
+    public function getURLContents(string $url, $query_data = null, string $requestMethod = 'GET')
     {
-        // return the contens of an url with POST params and authentication based on setings;
+        // return the contents of an url with POST params and authentication based on settings;
         if ($requestMethod !== 'GET') {
-            die(sprintf("%s method not implemented yet.", $requestMethod));
+            throw new RuntimeException(sprintf("%s method not implemented yet.", $requestMethod));
         }
 
         $query_string = '';
@@ -30,16 +36,15 @@ class Curl
         }
 
         curl_setopt($this->c, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->c, CURLOPT_VERBOSE, true);
+        curl_setopt($this->c, CURLOPT_VERBOSE, false);
         curl_setopt($this->c, CURLOPT_URL, $url . $query_string);
 
         $contents = curl_exec($this->c);
 
         if ($contents) {
             return $contents;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public function close(): void

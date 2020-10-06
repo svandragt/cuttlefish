@@ -45,7 +45,7 @@ class ControllerAdmin extends Controller
         return $App->Security->login();
     }
 
-    protected function clearCache()
+    protected function clearCache(): string
     {
         global $App;
         $App->Security->maybeLoginRedirect();
@@ -53,12 +53,12 @@ class ControllerAdmin extends Controller
         return sprintf('<pre>%s</pre>', $App->Cache->clear());
     }
 
-    protected function generateSite(): void
+    protected function generateSite(): string
     {
         global $App;
 
         $App->Security->maybeLoginRedirect();
-        echo $App->Cache->generateSite();
+        return sprintf('<pre>%s</pre>', $App->Cache->generateSite());
     }
 
 
