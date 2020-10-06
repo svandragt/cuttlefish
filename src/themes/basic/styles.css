@@ -59,7 +59,6 @@ h2 a {
 blockquote {
     font-style: italic;
     border: 1px solid #eee;
-    border-width: 1px 0;
 }
 
 #blank {
@@ -179,5 +178,7 @@ a:hover {
     color: #888;
 }
 
-
+.hide {
+	display: none;
+}
 
