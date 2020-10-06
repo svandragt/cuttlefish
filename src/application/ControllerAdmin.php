@@ -50,7 +50,7 @@ class ControllerAdmin extends Controller
         global $App;
         $App->Security->maybeLoginRedirect();
 
-        return $App->Cache->clear();
+        return sprintf('<pre>%s</pre>', $App->Cache->clear());
     }
 
     protected function generateSite(): void
