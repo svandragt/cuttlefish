@@ -170,7 +170,7 @@ class Cache
             $contents = $Curl->getURLContents($Url->url_absolute);
 
             if (empty($contents)) {
-                die("ERROR: no contents for {$Url->url_absolute}");
+                throw new RuntimeException("ERROR: no contents for {$Url->url_absolute}");
             }
 
             if (Configuration::CACHE_ENABLED === false) {
@@ -228,15 +228,15 @@ class Cache
 
         foreach ($file_types as $file_type) {
             $output .= "filetype: $file_type<br>";
-//            $Files  = new Files($theme_dir , $file_type);
-//
-//            $destination_files = array();
-//            foreach ($Files->files() as $key => $source) {
-//                $output              .= " - $key: $source<br>";
-//                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
-//                $destination_files[] = str_replace('src', $cache, $source);
-//            }
-//            Filesystem::copyFiles($Files->files(), $destination_files);
+            $Files  = new Files(BASE_DIR . theme_path(), $file_type);
+
+            $destination_files = array();
+            foreach ($Files->files() as $key => $source) {
+                $output              .= " - $key: $source<br>";
+                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
+                $destination_files[] = str_replace('src', $cache, $source);
+            }
+            Filesystem::copyFiles($Files->files(), $destination_files);
         }
 
         return $output;

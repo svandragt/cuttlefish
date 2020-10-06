@@ -6,14 +6,14 @@ class Files
 {
     protected $files = [];
 
-    public function __construct($dir_or_path, $ext = null)
+    public function __construct($path, $ext = null)
     {
-        if (empty($dir_or_path)) {
+        if (empty($path)) {
             $this->files = null;
             return;
         }
 
-        $files = $this->collect(realpath($dir_or_path), $ext);
+        $files = $this->collect(realpath($path), $ext);
         rsort($files);
         $this->files = $files;
     }

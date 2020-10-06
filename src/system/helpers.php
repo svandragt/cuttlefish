@@ -19,9 +19,8 @@ if (! defined('BASE_DIR')) {
  *
  * @return string link to theme directory
  */
-function theme_dir($filename = '')
+function theme_path($filename = '')
 {
     $theme_folder = Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR;
-    $base_url = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
-    return $base_url . str_replace("\\", "/", $theme_folder) . $filename;
+    return  str_replace("\\", "/", $theme_folder) . $filename;
 }

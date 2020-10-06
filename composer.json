@@ -12,9 +12,9 @@
     "minimum-stability": "stable",
     "require": {
         "michelf/php-markdown": "^1.9",
+        "vlucas/phpdotenv": "^5",
         "ext-curl": "*",
-        "ext-simplexml": "*",
-        "vlucas/phpdotenv": "^5"
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
