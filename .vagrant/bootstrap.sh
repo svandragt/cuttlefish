@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 export DEBIAN_FRONTEND=noninteractive
 
-echo "🛠  Installing environment..."
-
 # Requirements
 if ! [ -x "$(command -v php)" ]
 then
   echo "📦  Installing packages..."
+  echo 'Dpkg::Use-Pty "0";' > /etc/apt/apt.conf.d/00usepty
   add-apt-repository -y ppa:ondrej/php
-  apt-get -y update
-  apt-get -y install nginx zip
-  apt-get -y install php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl php7.4-xml php7.4-mbstring
-  apt-get clean && apt-get -y autoremove &
+  apt-get -qq -y update
+  apt-get -qq -y install nginx zip php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl php7.4-xml php7.4-mbstring
+  apt-get -qq clean && apt-get -qq -y autoremove &
 fi
 
 

@@ -33,7 +33,7 @@
     },
     "scripts": {
         "guest:setup": [
-            "composer install --ansi",
+            "composer install --ansi --no-progress",
             "phive --no-progress install --trust-gpg-keys 31C7E470E2138192,8A03EA3B385DBAA1",
             "php -r \"copy('Configuration.php.dist', 'Configuration.php');\""
         ],
