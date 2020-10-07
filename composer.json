@@ -32,14 +32,14 @@
         }
     },
     "scripts": {
-        "post-create-project-cmd": [
-            "@setup"
+
+        "host-setup": [
+            "vagrant plugin install vagrant-hostmanager"
         ],
-        "setup": [
+        "guest-setup": [
             "composer install --ansi",
             "phive install",
-            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\"",
-            "vagrant plugin install vagrant-hostmanager"
+            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\""
         ],
         "prep": [
             "phpcbf",
