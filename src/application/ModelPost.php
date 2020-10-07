@@ -6,9 +6,14 @@ use Cuttlefish\Model;
 
 class ModelPost extends Model
 {
-    public $required_fields = ['metadata' => ['published']];
 
-    public $model = array(
+
+    /**
+     * @var string[]
+     *
+     * @psalm-var array{metadatareader: string, markdown: string}
+     */
+    public array $model = array(
         'metadatareader'    => 'metadata',
         'markdown'     => 'content',
     );

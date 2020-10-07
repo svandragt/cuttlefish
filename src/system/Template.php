@@ -19,7 +19,6 @@ class Template
     {
         return $this->args[ $name ];
     }
-
     public function render(): void
     {
         $path = BASE_DIR . trim(theme_path(), '/') . DIRECTORY_SEPARATOR . $this->file;

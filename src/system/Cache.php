@@ -55,9 +55,8 @@ class Cache
     /**
      * Writes the collected cache to disk
      *
-     * @param  string $contents contents of the cache
-     *
-     * @param null|string $url_relative Relative URL
+     * @param string $contents contents of the cache
+     * @param string $url_relative
      *
      * @return string           path to the cache file
      */
@@ -206,7 +205,7 @@ class Cache
     }
 
     /**
-     * @return false|null|string
+     * @return false|string
      */
     protected function getCacheFolder()
     {

@@ -6,6 +6,9 @@ use http\Exception\RuntimeException;
 
 class Curl
 {
+    /**
+     * @var false|resource
+     */
     protected $c;
 
     public function __construct()

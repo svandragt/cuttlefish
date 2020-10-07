@@ -6,12 +6,16 @@ use Configuration;
 
 class Controller
 {
-    protected $ext;
+    protected string $ext;
     protected $args;
-    protected $records = [];
+
+    /**
+     * @var array
+     */
+    protected array $records = [];
     protected $Model;
     protected $View;
-    protected $content;
+    protected string $content;
 
     public function __construct($parent, $args)
     {

@@ -7,7 +7,7 @@ use SimpleXMLElement;
 
 class Feed
 {
-    protected $xml;
+    protected SimpleXMLElement $xml;
 
     /**
      * Feed constructor.
