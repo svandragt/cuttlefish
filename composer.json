@@ -32,10 +32,6 @@
         }
     },
     "scripts": {
-
-        "host-setup": [
-            "vagrant plugin install vagrant-hostmanager"
-        ],
         "guest-setup": [
             "composer install --ansi",
             "phive install",
