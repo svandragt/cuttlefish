@@ -7,11 +7,11 @@ use Dotenv\Dotenv;
 
 class App
 {
-    public Security $Security;
-    public Cache $Cache;
-    public Environment $Environment;
+    public $Security;
+    public $Cache;
+    public $Environment;
 
-    private static ?self $instance = null;
+    private static $instance = null;
 
     protected function __construct()
     {
@@ -30,7 +30,7 @@ class App
         $this->Security    = new Security();
     }
 
-    public function run(): void
+    public function run()
     {
         // Process request if not statically cached.
         $this->Cache->start();

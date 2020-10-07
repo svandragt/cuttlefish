@@ -13,9 +13,6 @@ if (! defined('BASE_DIR')) {
  */
 class Router
 {
-    /**
-     * @var null|object
-     */
     protected $Controller;
 
     public function __construct()

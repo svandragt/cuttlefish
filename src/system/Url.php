@@ -6,8 +6,8 @@ use Configuration;
 
 class Url
 {
-    public string $url_relative = '';
-    public string $url_absolute = '';
+    public $url_relative = '';
+    public $url_absolute = '';
 
     public function __construct($path = null)
     {

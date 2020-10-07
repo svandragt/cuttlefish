@@ -4,7 +4,7 @@ namespace Cuttlefish;
 
 class Files
 {
-    protected ?array $files = [];
+    protected $files = [];
 
     public function __construct($path, $ext = null)
     {

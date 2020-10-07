@@ -8,12 +8,7 @@ class ModelPage extends Model
 {
     // page model
 
-    /**
-     * @var string[]
-     *
-     * @psalm-var array{markdown: string}
-     */
-    public array $model = array(
+    public $model = array(
         'markdown' => 'content',
     );
 

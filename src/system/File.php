@@ -6,21 +6,10 @@ use Exception;
 
 class File
 {
-    /**
-     * @var string
-     */
     protected $ext;
-
-    /**
-     * @var false|string
-     */
     protected $mime;
-
-    /**
-     * @var null|true
-     */
     public $is_relative;
-    public string $path;
+    public $path;
 
     public function __construct(string $file_path)
     {
@@ -67,6 +56,17 @@ class File
         }
 
         return false;
+    }
+
+    public function relative(): self
+    {
+        if (! $this->is_relative) {
+            $root_path         = '/';
+            $this->path        = str_replace($root_path, "", $this->path);
+            $this->is_relative = true;
+        }
+
+        return $this;
     }
 
     public function render(): void

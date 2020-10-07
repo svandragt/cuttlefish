@@ -9,12 +9,8 @@ use Cuttlefish\MetadataReader;
 
 class Model
 {
-    public array $contents = [];
-
-    /**
-     * @var array
-     */
-    public array $model = [];
+    public $contents = [];
+    public $model = [];
 
     public function __construct($records)
     {
