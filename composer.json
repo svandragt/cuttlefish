@@ -32,23 +32,17 @@
         }
     },
     "scripts": {
-        "post-create-project-cmd": [
-            "@setup"
-        ],
-        "setup": [
-            "composer install --ansi",
-            "phive install",
-            "php -r \"copy('src/Configuration.php.dist', 'src/Configuration.php');\"",
-            "vagrant plugin install vagrant-hostmanager"
+        "guest:setup": [
+            "composer install --ansi --no-progress",
+            "phive --no-progress install --trust-gpg-keys 31C7E470E2138192,8A03EA3B385DBAA1",
+            "php -r \"copy('Configuration.php.dist', 'Configuration.php');\""
         ],
         "prep": [
             "phpcbf",
-            "psalm --alter --issues=all",
             "@lint"
         ],
         "lint": [
             "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
-            "psalm --show-info=true; exit 0",
             "phpcs"
         ],
         "serve": [
