@@ -7,7 +7,7 @@ use Cuttlefish\Controller;
 use Cuttlefish\Files;
 use Cuttlefish\Html;
 
-class ControllerArchives extends Controller
+class ControllerArchive extends Controller
 {
 	public static $name = 'archive';
     /**

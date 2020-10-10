@@ -31,13 +31,13 @@ function pages()
 {
     $output     = '';
     $pages_path = ControllerPages::get_content_path( ControllerPages::$name);
-
+	$sub = explode( '/', $pages_path)[2];
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
 
     foreach ($Files->files() as $path) {
         $filename = pathinfo($path, PATHINFO_FILENAME);
         $title    = ucwords(str_replace("-", " ", $filename));
-        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/page/$filename"), $title);
+        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/$sub/$filename"), $title);
     }
 
     return $output;

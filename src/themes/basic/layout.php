@@ -39,7 +39,7 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
     <h3 class="hide">Footer Menu</h3>
     <ul>
         <li><a href="<?php echo href('/') ?>">Home</a></li>
-        <li><a href="<?php echo href('/archives') ?>">Archive</a></li>
+        <li><a href="<?php echo href('/archive') ?>">Archive</a></li>
         <?php echo pages() ?>
         <?php if (isLoggedIn()) : ?>
             <li><a href="<?php echo href('/admin') ?>">Admin</a></li>
