@@ -16,5 +16,5 @@ vendor/
 /content/
 /.vagrant/bundler/
 /.vagrant/hostmanager/
-/.vagrant/machines/default/virtualbox/
+/.vagrant/machines/
 /.vagrant/rgloader/
