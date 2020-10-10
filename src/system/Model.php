@@ -4,6 +4,7 @@ namespace Cuttlefish;
 
 use Exception;
 use Michelf\Markdown;
+use RuntimeException;
 use StdClass;
 use Cuttlefish\MetadataReader;
 
@@ -16,9 +17,9 @@ class Model
     {
         try {
             if (array_unique($this->model) !== $this->model) {
-                throw new Exception('Array values not unique for model');
+                throw new RuntimeException('Array values not unique for model');
             }
-        } catch (Exception $e) {
+        } catch (RuntimeException $e) {
             Log::error($e->getMessage());
         }
         $this->contents($records);
@@ -75,25 +76,26 @@ class Model
         return $Content;
     }
 
-    /**
-     * @param array-key $section_key
-     *
-     * @return StdClass
-     */
-    public function section(string $content_section, $section_key): StdClass
+	/**
+	 * @param string $text
+	 * @param string $transform
+	 *
+	 * @return StdClass
+	 */
+    public function section(string $text, string $transform): StdClass
     {
         $Section = new StdClass();
-        switch ($section_key) {
+        switch ($transform) {
             case 'metadatareader':
                 $reader = new MetadataReader();
-                $data = $reader->loadString($content_section);
+                $data = $reader->loadString($text);
 
                 foreach ($data as $key => $value) {
                     $Section->$key = $value;
                 }
                 break;
             case 'markdown':
-                $markdown    = Markdown::defaultTransform($content_section);
+                $markdown    = Markdown::defaultTransform($text);
                 $sections = preg_split('/(\r\n|\n|\r)/', trim($markdown), 2);
                 $Section->title = strip_tags(array_shift($sections));
                 $Section->main = implode(PHP_EOL, $sections);
@@ -102,7 +104,6 @@ class Model
             default:
                 break;
         }
-
 
         return $Section;
     }
