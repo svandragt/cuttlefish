@@ -8,6 +8,7 @@ class ModelPost extends Model
 {
     public $required_fields = ['metadata' => ['published']];
 
+    /* class => field */
     public $model = array(
         'metadatareader'    => 'metadata',
         'markdown'     => 'content',

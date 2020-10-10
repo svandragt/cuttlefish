@@ -45,36 +45,31 @@ class Model
      */
     protected function listContents($record): StdClass
     {
-        $Content = new StdClass();
-
         $File = new File($record);
-
         $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->model));
-        $section_keys     = array_keys($this->model);
-        $section_values   = array_values($this->model);
+        $transforms     = array_keys($this->model);
+        $fields   = array_values($this->model);
+
         try {
-            if (count($section_keys) != count($content_sections)) {
-                  throw new Exception(
-                      sprintf(
-                          'Model (%s) definition (%s) does not match number of content sections (%s).',
-                          get_class($this),
-                          count($section_keys),
-                          count($content_sections)
-                      )
-                  );
+            if (count($transforms) !== count($content_sections)) {
+                  throw new Exception( sprintf(
+                      'Model (%s) definition (%s) does not match number of content sections (%s).',
+                      get_class($this),
+                      count($transforms),
+                      count($content_sections)
+                  ));
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
             exit();
         }
 
-        $Content->link = Url::fromFile($File)->url_absolute;
+	    $Content = new StdClass();
+	    $Content->link = Url::fromFile($File)->url_absolute;
 
         for ($i = 0, $len = count($this->model); $i < $len; $i++) {
-            $content_section         = $content_sections[ $i ];
-            $section_key             = $section_keys[ $i ];
-            $section_value           = $section_values[ $i ];
-            $Content->$section_value = $this->section($content_section, $section_key);
+	        $field           = $fields[ $i ];
+            $Content->$field = $this->section( $content_sections[ $i ], $transforms[ $i ] );
         }
 
         return $Content;
