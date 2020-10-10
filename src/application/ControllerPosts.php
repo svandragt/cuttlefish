@@ -17,7 +17,7 @@ class ControllerPosts extends Controller
      */
     public function records()
     {
-        $path = $this->get_content_path(self::$name) . implode('/', $this->args) . '.' . $this->ext;
+        $path = $this->get_content_path(self::class) . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 

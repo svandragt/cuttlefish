@@ -3,6 +3,7 @@
 namespace Cuttlefish\Blog;
 
 use Configuration;
+use Cuttlefish\App;
 use Cuttlefish\Controller;
 use Cuttlefish\Feed;
 use Cuttlefish\Files;
@@ -16,7 +17,7 @@ class ControllerFeeds extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = self::get_content_path($this->args[0]);
+        $content_dir = $this->get_content_path(App::getInstance()->Router->routes[$this->args[2]]);
         $Records       = new Files($content_dir, $this->ext);
         $this->records = $Records->limit($limit + 5);
     }

@@ -11,13 +11,14 @@ class ControllerHome extends Controller
 {
 	public static $name = 'home';
     // list of recent posts
+
     /**
      * @return void
      */
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = $this->get_content_path(ControllerPosts::$name);
+        $content_dir = $this->get_content_path(ControllerPosts::class);
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->limit($limit + 5);
     }

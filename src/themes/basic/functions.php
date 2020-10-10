@@ -1,5 +1,6 @@
 <?php
 
+use Cuttlefish\App;
 use Cuttlefish\Blog\ControllerPages;
 
 if (! defined('BASE_DIR')) {
@@ -30,7 +31,7 @@ function href($internal_url)
 function pages()
 {
     $output     = '';
-    $pages_path = ControllerPages::get_content_path( ControllerPages::$name);
+    $pages_path = App::getInstance()->Router->Controller->get_content_path(ControllerPages::class );
 	$sub = explode( '/', $pages_path)[2];
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
 

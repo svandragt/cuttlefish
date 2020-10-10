@@ -13,20 +13,34 @@ if (! defined('BASE_DIR')) {
  */
 class Router
 {
-    protected $Controller;
+    public Controller $Controller;
 
-    public function __construct()
+    public $routes = [];
+    public $args;
+
+    public function __construct(array $routes)
     {
+    	$this->routes = $routes;
         // Route to controller
-        $args                 = explode("/", $this->pathInfo());
-        $controller_class     =  'Cuttlefish\Blog\Controller' . ucfirst($args[1]);
+        $this->args                 = explode("/", $this->pathInfo());
+    }
 
-        $controller_arguments = array_slice($args, 2);
-        if (class_exists($controller_class, true)) {
-            $this->Controller = new $controller_class($this, $controller_arguments);
-        } else {
-            $this->classNotCallable($controller_class);
-        }
+    public function loadController() {
+	    $controller_class     =  $this->routes[$this->args[1]];
+
+	    $controller_arguments = array_slice($this->args, 2);
+	    if (class_exists($controller_class, true)) {
+		    $this->Controller = new $controller_class($controller_arguments);
+		    $this->Controller->init();
+	    } else {
+		    $this->classNotCallable($controller_class);
+	    }
+
+    }
+
+    public function routeFromClass($class) {
+    	$classes = array_flip($this->routes);
+    	return $classes[$class];
     }
 
     /**

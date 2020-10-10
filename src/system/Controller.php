@@ -13,11 +13,10 @@ class Controller
     protected $Model;
     protected $View;
 
-    public function __construct($parent, $args)
+    public function __construct($args = [])
     {
         $this->ext     = Configuration::CONTENT_EXT;
         $this->args    = $args;
-        $this->init();
     }
 
     /**
@@ -58,10 +57,11 @@ class Controller
         include_once('helpers.php');
     }
 
-    public static function get_content_path($name = '') {
-    	if (empty($name)) {
-    		$name = self::$name;
+    public function get_content_path(string $class = ''): string {
+    	if (empty($class)) {
+    		$class = self::class;
 	    }
-    	return Configuration::CONTENT_FOLDER . '/' . $name . 's/';
+    	$route = App::getInstance()->Router->routeFromClass($class);
+     	return Configuration::CONTENT_FOLDER . '/' . $route . '/';
     }
 }
