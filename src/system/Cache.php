@@ -40,27 +40,25 @@ class Cache
      */
     protected function canCache()
     {
-        $cache_enabled = Configuration::CACHE_ENABLED;
-        if ($cache_enabled === false) {
+	    if ( Configuration::CACHE_ENABLED === false) {
             return false;
         }
-        $is_caching = ob_get_level() > 0;
-        if ($is_caching === false) {
+	    if ( ob_get_level() === 0 ) {
             return false;
         }
 
         return error_get_last() === null;
     }
 
-    /**
-     * Writes the collected cache to disk
-     *
-     * @param  string $contents contents of the cache
-     *
-     * @param null|string $url_relative Relative URL
-     *
-     * @return string           path to the cache file
-     */
+	/**
+	 * Writes the collected cache to disk
+	 *
+	 * @param string $contents contents of the cache
+	 *
+	 * @param string $url_relative Relative URL
+	 *
+	 * @return string           path to the cache file
+	 */
     protected function writeToDisk(string $contents, string $url_relative = '')
     {
         $path    = $this->convertUrlpathToFilepath($url_relative);
@@ -142,6 +140,7 @@ class Cache
         if (Configuration::INDEX_PAGE !== '') {
             die('Currently, generating a site requires enabling Pretty Urls (see readme.md for instructions).');
         }
+        // TODO: only clear existing cache when forced.
         $output .= $this->clear();
 
         $output  .= "<br>Generating site:<br>" . PHP_EOL;
