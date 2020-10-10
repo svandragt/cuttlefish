@@ -40,3 +40,10 @@ pushd /vagrant || exit
   echo "🐡  Setup Cuttlefish..."
   sudo -u vagrant -H composer guest:setup
 popd || exit
+
+if ! grep -q "cd /vagrant" /home/vagrant/.bashrc ; then
+    echo "cd /vagrant" >> /home/vagrant/.bashrc
+fi
+if ! grep -q "cd /vagrant" /home/vagrant/.profile ; then
+    echo "cd /vagrant" >> /home/vagrant/.profile
+fi
