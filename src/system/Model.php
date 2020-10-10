@@ -47,8 +47,8 @@ class Model
     {
         $File = new File($record);
         $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->model));
-        $transforms     = array_keys($this->model);
-        $fields   = array_values($this->model);
+        $fields     = array_keys($this->model);
+        $transforms   = array_values($this->model);
 
         try {
             if (count($transforms) !== count($content_sections)) {
