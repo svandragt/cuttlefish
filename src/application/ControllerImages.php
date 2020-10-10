@@ -9,7 +9,7 @@ use Cuttlefish\File;
 // single image
 class ControllerImages extends Controller
 {
-	protected static $name = 'image';
+	public static $name = 'image';
 
     /**
      * @return void

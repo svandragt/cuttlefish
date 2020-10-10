@@ -7,9 +7,9 @@ use Cuttlefish\Controller;
 use Cuttlefish\Files;
 use Cuttlefish\Html;
 
-class ControllerHome extends ControllerPosts
+class ControllerHome extends Controller
 {
-	protected static $name = 'home';
+	public static $name = 'home';
     // list of recent posts
     /**
      * @return void
@@ -17,7 +17,7 @@ class ControllerHome extends ControllerPosts
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = $this->get_content_path(parent::$name);
+        $content_dir = $this->get_content_path(ControllerPosts::$name);
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->limit($limit + 5);
     }

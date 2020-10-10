@@ -1,5 +1,7 @@
 <?php
 
+use Cuttlefish\Blog\ControllerPages;
+
 if (! defined('BASE_DIR')) {
     exit('No direct script access allowed');
 }
@@ -28,7 +30,7 @@ function href($internal_url)
 function pages()
 {
     $output     = '';
-    $pages_path = Configuration::CONTENT_FOLDER . '/page';
+    $pages_path = ControllerPages::get_content_path( ControllerPages::$name);
 
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
 

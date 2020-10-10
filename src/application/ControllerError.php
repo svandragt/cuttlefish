@@ -9,7 +9,7 @@ use Cuttlefish\Html;
 
 class ControllerError extends Controller
 {
-	protected static $name = 'error';
+	public static $name = 'error';
     // single errors page
 
     /**

@@ -8,7 +8,7 @@ class Controller
 {
     protected $ext;
     protected $args;
-	protected static $name;
+	public static $name;
 	protected $records = [];
     protected $Model;
     protected $View;

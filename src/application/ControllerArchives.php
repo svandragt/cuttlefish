@@ -7,15 +7,15 @@ use Cuttlefish\Controller;
 use Cuttlefish\Files;
 use Cuttlefish\Html;
 
-class ControllerArchives extends ControllerPosts
+class ControllerArchives extends Controller
 {
-	protected static $name = 'archive';
+	public static $name = 'archive';
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = parent::get_content_path(parent::$name);
+        $content_dir = parent::get_content_path(ControllerPosts::$name);
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->files();
     }
