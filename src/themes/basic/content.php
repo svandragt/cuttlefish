@@ -9,10 +9,9 @@ switch (count((array)$this->contents)) {
     case 0:
         // no content - new installation
         printf(
-            "<p> Please <a href='%s'>add content</a> to <code>%s/%s</code>.</p>",
+            "<p> Please <a href='%s'>add content</a> to <code>%s</code>.</p>",
             href('/admin/new'),
-            realpath(Configuration::CONTENT_FOLDER),
-            $this->model
+            'whatever'
         );
         break;
 

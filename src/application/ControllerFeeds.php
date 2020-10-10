@@ -7,7 +7,7 @@ use Cuttlefish\Controller;
 use Cuttlefish\Feed;
 use Cuttlefish\Files;
 
-class ControllerFeed extends Controller
+class ControllerFeeds extends ControllerPosts
 {
     // single feed
     /**
@@ -16,7 +16,7 @@ class ControllerFeed extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = Configuration::CONTENT_FOLDER . '/post';
+        $content_dir = parent::get_content_path();
         $Records       = new Files($content_dir, $this->ext);
         $this->records = $Records->limit($limit + 5);
     }

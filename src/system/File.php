@@ -15,7 +15,7 @@ class File
     {
         try {
             if (! file_exists($file_path)) {
-                throw new Exception("'$file_path' not found");
+                throw new Exception("'$file_path' not found :(");
             }
             if (! is_readable($file_path)) {
                 throw new Exception("'$file_path' is unreadable!");

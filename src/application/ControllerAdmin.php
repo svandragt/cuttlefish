@@ -8,6 +8,8 @@ use Cuttlefish\Url;
 
 class ControllerAdmin extends Controller
 {
+	protected static $name = 'admin';
+
     public array $allowed_methods = array(
         'index'        => 'Overview',
         'clearCache'   => 'Clear cache',
@@ -89,8 +91,8 @@ class ControllerAdmin extends Controller
 
         $this->View = new Html([$this->contents], array(
             'layout'     => 'layout.php',
-            'controller' => 'admin',
-            'model'      => 'page',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 

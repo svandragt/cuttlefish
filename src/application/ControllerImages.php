@@ -9,13 +9,14 @@ use Cuttlefish\File;
 // single image
 class ControllerImages extends Controller
 {
+	protected static $name = 'image';
+
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER . '/images/';
-        $this->records = [ $content_dir . implode('/', $this->args) ];
+        $this->records = [$this->get_content_path() . implode('/', $this->args) ];
     }
 
     /**

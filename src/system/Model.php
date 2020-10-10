@@ -12,6 +12,7 @@ class Model
 {
     public $contents = [];
     public $model = [];
+    public $name;
 
     public function __construct($records)
     {

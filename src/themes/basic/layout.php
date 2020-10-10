@@ -17,7 +17,7 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
     <link type="text/css" rel="stylesheet" href="/<?= theme_path('styles.css') ?>">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?= href('/feeds/post') ?>">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?= href('/feeds/posts') ?>">
 </head>
 <body id="body<?= $body_class ?>">
 
@@ -39,7 +39,7 @@ $body_class = preg_replace("/[^\w]/", "-", str_replace('.php', '', $_SERVER['PHP
     <h3 class="hide">Footer Menu</h3>
     <ul>
         <li><a href="<?php echo href('/') ?>">Home</a></li>
-        <li><a href="<?php echo href('/archive') ?>">Archive</a></li>
+        <li><a href="<?php echo href('/archives') ?>">Archive</a></li>
         <?php echo pages() ?>
         <?php if (isLoggedIn()) : ?>
             <li><a href="<?php echo href('/admin') ?>">Admin</a></li>

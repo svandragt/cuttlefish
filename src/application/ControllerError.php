@@ -9,6 +9,7 @@ use Cuttlefish\Html;
 
 class ControllerError extends Controller
 {
+	protected static $name = 'error';
     // single errors page
 
     /**
@@ -16,8 +17,7 @@ class ControllerError extends Controller
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER  . '/errors/';
-        $path = $content_dir . implode("/", $this->args) . '.' . $this->ext;
+        $path = $this->get_content_path() . implode("/", $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
@@ -38,8 +38,8 @@ class ControllerError extends Controller
 
         $this->View = new Html($this->Model->contents, array(
             'layout'     => 'layout.php',
-            'controller' => 'errors',
-            'model'      => 'page',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 }

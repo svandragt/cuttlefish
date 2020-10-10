@@ -6,7 +6,7 @@ use Cuttlefish\Model;
 
 class ModelPost extends Model
 {
-    public $required_fields = ['metadata' => ['published']];
+    public $name = 'post';
 
     /* field => transform */
     public $model = array(

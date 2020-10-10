@@ -8,14 +8,13 @@ class Controller
 {
     protected $ext;
     protected $args;
-    protected $records = [];
+	protected static $name;
+	protected $records = [];
     protected $Model;
     protected $View;
-    protected $content;
 
     public function __construct($parent, $args)
     {
-        $this->content = Configuration::CONTENT_FOLDER;
         $this->ext     = Configuration::CONTENT_EXT;
         $this->args    = $args;
         $this->init();
@@ -57,5 +56,12 @@ class Controller
     public function view()
     {
         include_once('helpers.php');
+    }
+
+    public static function get_content_path($name = '') {
+    	if (empty($name)) {
+    		$name = self::$name;
+	    }
+    	return Configuration::CONTENT_FOLDER . '/' . $name . 's/';
     }
 }
