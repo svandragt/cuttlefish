@@ -55,10 +55,11 @@ class Model
         try {
             if (count($transforms) !== count($content_sections)) {
                   throw new Exception( sprintf(
-                      'Model (%s) definition (%s) does not match number of content sections (%s).',
+                      'Model (%s) definition (%s) does not match number of content sections (%s) in file (%s).',
                       get_class($this),
                       count($transforms),
-                      count($content_sections)
+                      count($content_sections),
+	                  $record
                   ));
             }
         } catch (Exception $e) {
