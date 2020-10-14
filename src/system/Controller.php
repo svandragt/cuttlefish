@@ -8,10 +8,11 @@ class Controller
 {
     protected $ext;
     protected $args;
-	public static $name;
-	protected $records = [];
-    protected $Model;
-    protected $View;
+
+	public static string $name;
+	protected array $records = [];
+    protected Model $Model;
+    protected Html $View;
 
     public function __construct($args = [])
     {

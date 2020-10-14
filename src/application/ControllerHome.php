@@ -9,7 +9,7 @@ use Cuttlefish\Html;
 
 class ControllerHome extends Controller
 {
-	public static $name = 'home';
+	public static string $name = 'home';
     // list of recent posts
 
     /**

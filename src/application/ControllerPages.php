@@ -9,7 +9,7 @@ use Cuttlefish\Html;
 // single page
 class ControllerPages extends Controller
 {
-	public static $name = 'page';
+	public static string $name = 'page';
     /**
      * @return void
      */

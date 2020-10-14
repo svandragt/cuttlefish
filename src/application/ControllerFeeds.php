@@ -10,6 +10,7 @@ use Cuttlefish\Files;
 
 class ControllerFeeds extends Controller
 {
+	public static string $name = 'feed';
     // single feed
     /**
      * @return void

@@ -10,7 +10,7 @@ use Cuttlefish\Html;
 // single post
 class ControllerPosts extends Controller
 {
-	public static $name = 'post';
+	public static string $name = 'post';
 
 	/**
      * @return void
