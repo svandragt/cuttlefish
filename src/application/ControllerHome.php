@@ -18,7 +18,8 @@ class ControllerHome extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = $this->get_content_path(ControllerPosts::class);
+        // TODO Path depends on model but the model isn't defined yet.
+        $content_dir = $this->get_content_path();
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->limit($limit + 5);
     }

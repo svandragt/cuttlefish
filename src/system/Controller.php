@@ -58,10 +58,9 @@ class Controller
         include_once('helpers.php');
     }
 
-    public function get_content_path(string $class = ''): string {
-    	if (empty($class)) {
-    		$class = self::class;
-	    }
+    public function get_content_path(): string {
+    	// TODO should be based on model not controller
+        $class = get_class(self::model());
     	$route = App::getInstance()->Router->routeFromClass($class);
      	return Configuration::CONTENT_FOLDER . '/' . $route . '/';
     }
