@@ -26,7 +26,8 @@ class Router
     }
 
     public function loadController() {
-	    $controller_class     =  $this->routes[$this->args[1]];
+        var_dump( $this->args );
+	    $controller_class = $this->routes[ $this->args[1] ];
 
 	    $controller_arguments = array_slice($this->args, 2);
 	    if (class_exists($controller_class, true)) {
@@ -39,8 +40,10 @@ class Router
     }
 
     public function routeFromClass($class) {
-    	$classes = array_flip($this->routes);
-    	return $classes[$class];
+	    $classes = array_flip( $this->routes );
+	    $route   = $classes[ $class ];
+
+	    return $route;
     }
 
     /**
@@ -48,26 +51,30 @@ class Router
      *
      * @return string Returns information about a file path
      */
-    protected function pathInfo()
-    {
-        $path_info = '';
-        if (isset($_SERVER['PATH_INFO'])) {
-            $path_info = $_SERVER['PATH_INFO'];
-        }
+    protected function pathInfo() {
+	    $path_info = '';
+	    if ( isset( $_SERVER['PATH_INFO'] ) ) {
+		    $path_info = $_SERVER['PATH_INFO'];
+	    }
 
-        $no_specified_path = empty($path_info) || $path_info === '/';
-	    $path_info = Configuration::HOME_PAGE;
-        if (! $no_specified_path) {
-            $ends_with_slash = ! substr(strrchr($path_info, "/"), 1);
-            if ($ends_with_slash) {
-                $slashless_request = substr($path_info, 0, - 1);
-                $Url               = new Url($slashless_request);
-                header('Location: ' . $Url->url_absolute);
-                exit();
-            }
-        }
+	    var_dump( $path_info );
 
-        return (string) $path_info;
+	    $no_specified_path = empty( $path_info ) || $path_info === '/';
+	    if ( ! $no_specified_path ) {
+		    $ends_with_slash = ! substr( strrchr( $path_info, "/" ), 1 );
+		    if ( $ends_with_slash ) {
+			    $slashless_request = substr( $path_info, 0, - 1 );
+			    $Url               = new Url( $slashless_request );
+			    header( 'Location: ' . $Url->url_absolute );
+			    exit();
+		    }
+	    }
+
+	    if ( empty( $path_info ) ) {
+		    $path_info = Configuration::HOME_PAGE;
+	    }
+
+	    return (string) $path_info;
     }
 
     /**

@@ -60,8 +60,8 @@ class Controller
 
     public function get_content_path(): string {
     	// TODO should be based on model not controller
-        $class = get_class(self::model());
-    	$route = App::getInstance()->Router->routeFromClass($class);
+        $class = get_class( $this );
+	    $route = App::getInstance()->Router->routeFromClass( $class );
      	return Configuration::CONTENT_FOLDER . '/' . $route . '/';
     }
 }
