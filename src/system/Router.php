@@ -15,8 +15,8 @@ class Router
 {
     public Controller $Controller;
 
-    public $routes = [];
-    public $args;
+	public array $routes = [];
+    public array $args;
 
     public function __construct(array $routes)
     {
@@ -55,10 +55,9 @@ class Router
             $path_info = $_SERVER['PATH_INFO'];
         }
 
-        $no_specified_path = empty($path_info) || $path_info == '/';
-        if ($no_specified_path) {
-            $path_info = Configuration::HOME_PAGE;
-        } else {
+        $no_specified_path = empty($path_info) || $path_info === '/';
+	    $path_info = Configuration::HOME_PAGE;
+        if (! $no_specified_path) {
             $ends_with_slash = ! substr(strrchr($path_info, "/"), 1);
             if ($ends_with_slash) {
                 $slashless_request = substr($path_info, 0, - 1);
