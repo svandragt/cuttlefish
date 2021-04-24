@@ -6,7 +6,6 @@ use Exception;
 use Michelf\Markdown;
 use RuntimeException;
 use StdClass;
-use Cuttlefish\MetadataReader;
 
 class Model
 {

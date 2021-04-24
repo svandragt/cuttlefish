@@ -9,7 +9,6 @@ use Cuttlefish\Html;
 class ControllerPosts extends Controller
 {
     public static string $name = 'post';
-    public static string $modelClass = ModelPost::class;
     public static string $contentPath = 'posts';
 
     /**
@@ -26,7 +25,7 @@ class ControllerPosts extends Controller
      */
     public function model()
     {
-        $this->Model = new self::$modelClass($this->records);
+        $this->Model = new ModelPost($this->records);
     }
 
     /**

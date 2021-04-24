@@ -2,15 +2,12 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
-use Cuttlefish\Filesystem;
 use Cuttlefish\Html;
 
 class ControllerError extends Controller
 {
     public static string $name = 'error';
-    public static string $modelClass = ModelPage::class;
     public static string $contentPath = 'errors';
 
     /**
@@ -27,7 +24,7 @@ class ControllerError extends Controller
      */
     public function model()
     {
-        $this->Model = new self::$modelClass($this->records);
+        $this->Model = new ModelPage($this->records);
     }
 
     /**

@@ -10,7 +10,6 @@ use Cuttlefish\Html;
 class ControllerHome extends Controller
 {
     public static string $name = 'home';
-    public static string $modelClass = ModelPost::class;
     public static string $contentPath = 'posts';
 
     /**
@@ -29,7 +28,7 @@ class ControllerHome extends Controller
      */
     public function model()
     {
-        $Model       = new self::$modelClass($this->records);
+        $Model       = new ModelPost($this->records);
         $this->Model = $Model->limit(Configuration::POSTS_HOMEPAGE);
     }
 

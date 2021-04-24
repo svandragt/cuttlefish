@@ -9,7 +9,6 @@ use Cuttlefish\File;
 class ControllerImages extends Controller
 {
     public static string $name = 'image';
-    public static string $modelClass = ModelFile::class;
     public static string $contentPath = 'images';
 
     /**
@@ -25,7 +24,7 @@ class ControllerImages extends Controller
      */
     public function model()
     {
-        $this->Model = new self::$modelClass($this->records);
+        $this->Model = new ModelFile($this->records);
     }
 
     /**
