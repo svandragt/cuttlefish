@@ -15,7 +15,7 @@ switch (count((array)$this->contents)) {
         printf(
             "<p> Please <a href='%s'>add content</a> to <code>%s</code>.</p>",
             href('/admin/new'),
-	        $Controller->get_content_path()
+            $Controller->get_content_path()
         );
         break;
 

@@ -14,36 +14,36 @@ if (! defined('BASE_DIR')) {
 class Router
 {
     public Controller $Controller;
-
-	public array $routes = [];
+    public array $routes = [];
     public array $args;
 
     public function __construct(array $routes)
     {
-    	$this->routes = $routes;
+        $this->routes = $routes;
         // Route to controller
-        $this->args                 = explode("/", $this->pathInfo());
+        $this->args = explode("/", $this->pathInfo());
     }
 
-    public function loadController() {
-        var_dump( $this->args );
-	    $controller_class = $this->routes[ $this->args[1] ];
+    public function loadController()
+    {
+        var_dump($this->args);
+        $controller_class = $this->routes[ $this->args[1] ];
 
-	    $controller_arguments = array_slice($this->args, 2);
-	    if (class_exists($controller_class, true)) {
-		    $this->Controller = new $controller_class($controller_arguments);
-		    $this->Controller->init();
-	    } else {
-		    $this->classNotCallable($controller_class);
-	    }
-
+        $controller_arguments = array_slice($this->args, 2);
+        if (class_exists($controller_class, true)) {
+            $this->Controller = new $controller_class($controller_arguments);
+            $this->Controller->init();
+        } else {
+            $this->classNotCallable($controller_class);
+        }
     }
 
-    public function routeFromClass($class) {
-	    $classes = array_flip( $this->routes );
-	    $route   = $classes[ $class ];
+    public function routeFromClass($class)
+    {
+        $classes = array_flip($this->routes);
+        $route   = $classes[ $class ];
 
-	    return $route;
+        return $route;
     }
 
     /**
@@ -51,30 +51,31 @@ class Router
      *
      * @return string Returns information about a file path
      */
-    protected function pathInfo() {
-	    $path_info = '';
-	    if ( isset( $_SERVER['PATH_INFO'] ) ) {
-		    $path_info = $_SERVER['PATH_INFO'];
-	    }
+    protected function pathInfo()
+    {
+        $path_info = '';
+        if (isset($_SERVER['PATH_INFO'])) {
+            $path_info = $_SERVER['PATH_INFO'];
+        }
 
-	    var_dump( $path_info );
+        var_dump($path_info);
 
-	    $no_specified_path = empty( $path_info ) || $path_info === '/';
-	    if ( ! $no_specified_path ) {
-		    $ends_with_slash = ! substr( strrchr( $path_info, "/" ), 1 );
-		    if ( $ends_with_slash ) {
-			    $slashless_request = substr( $path_info, 0, - 1 );
-			    $Url               = new Url( $slashless_request );
-			    header( 'Location: ' . $Url->url_absolute );
-			    exit();
-		    }
-	    }
+        $no_specified_path = empty($path_info) || $path_info === '/';
+        if (! $no_specified_path) {
+            $ends_with_slash = ! substr(strrchr($path_info, "/"), 1);
+            if ($ends_with_slash) {
+                $slashless_request = substr($path_info, 0, - 1);
+                $Url               = new Url($slashless_request);
+                header('Location: ' . $Url->url_absolute);
+                exit();
+            }
+        }
 
-	    if ( empty( $path_info ) ) {
-		    $path_info = Configuration::HOME_PAGE;
-	    }
+        if (empty($path_info)) {
+            $path_info = Configuration::HOME_PAGE;
+        }
 
-	    return (string) $path_info;
+        return (string) $path_info;
     }
 
     /**

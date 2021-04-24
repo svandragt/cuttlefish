@@ -9,14 +9,14 @@ use Cuttlefish\Html;
 
 class ControllerArchive extends Controller
 {
-	public static string $name = 'archive';
+    public static string $name = 'archive';
 
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = $this->get_content_path(ControllerPosts::class);
+        $content_dir   = $this->getContentPath(ControllerPosts::class);
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->files();
     }

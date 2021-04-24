@@ -18,7 +18,7 @@ class App
     public Security $Security;
     public Cache $Cache;
     public Environment $Environment;
-	public Router $Router;
+    public Router $Router;
 
     private static $instance = null;
 
@@ -44,15 +44,15 @@ class App
         // Process request if not statically cached.
         $this->Cache->start();
         $this->Router = new Router([
-        	'admin' => ControllerAdmin::class,
-        	'archive' => ControllerArchive::class,
-        	'errors' => ControllerError::class,
-	        'feeds' => ControllerFeeds::class,
-	        'home' => ControllerHome::class,
-        	'images' => ControllerImages::class,
-        	'pages' => ControllerPages::class,
-        	'posts' => ControllerPosts::class,
-        	...$routes
+            'admin'   => ControllerAdmin::class,
+            'archive' => ControllerArchive::class,
+            'errors'  => ControllerError::class,
+            'feeds'   => ControllerFeeds::class,
+            'home'    => ControllerHome::class,
+            'images'  => ControllerImages::class,
+            'pages'   => ControllerPages::class,
+            'posts'   => ControllerPosts::class,
+            ...$routes,
         ]);
         $this->Router->loadController();
         $this->Cache->end();
@@ -68,10 +68,10 @@ class App
     public static function getInstance()
     {
         if (self::$instance === null) {
-        	if (is_readable(dirname(BASE_DIR) . '/.env')) {
-		        $dotenv = Dotenv::createImmutable(dirname(BASE_DIR));
-		        $dotenv->load();
-	        }
+            if (is_readable(dirname(BASE_DIR) . '/.env')) {
+                $dotenv = Dotenv::createImmutable(dirname(BASE_DIR));
+                $dotenv->load();
+            }
             self::$instance = new App();
         }
 

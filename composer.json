@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "php": ">=7.4",
         "michelf/php-markdown": "^1.9",
         "vlucas/phpdotenv": "^5",
         "ext-curl": "*",
@@ -29,7 +30,8 @@
         "process-timeout": 0,
         "platform": {
             "php": "7.4"
-        }
+        },
+        "sort-packages": true
     },
     "scripts": {
         "guest:setup": [
@@ -37,12 +39,12 @@
             "phive --no-progress install --trust-gpg-keys 31C7E470E2138192,8A03EA3B385DBAA1",
             "php -r \"copy('Configuration.php.dist', 'Configuration.php');\""
         ],
-        "prep": [
+        "prep-commit": [
             "phpcbf",
             "@lint"
         ],
         "lint": [
-            "find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
+            "find . -type f -name 'src/*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "phpcs"
         ],
         "serve": [

@@ -10,7 +10,7 @@ use Cuttlefish\Files;
 
 class ControllerFeeds extends Controller
 {
-	public static string $name = 'feed';
+    public static string $name = 'feed';
     // single feed
     /**
      * @return void
@@ -18,7 +18,7 @@ class ControllerFeeds extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
-        $content_dir = $this->get_content_path(App::getInstance()->Router->routes[$this->args[2]]);
+        $content_dir   = $this->getContentPath(App::getInstance()->Router->routes[ $this->args[2] ]);
         $Records       = new Files($content_dir, $this->ext);
         $this->records = $Records->limit($limit + 5);
     }

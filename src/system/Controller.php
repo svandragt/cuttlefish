@@ -8,16 +8,15 @@ class Controller
 {
     protected $ext;
     protected $args;
-
-	public static string $name;
-	protected array $records = [];
+    public static string $name;
+    protected array $records = [];
     protected Model $Model;
     protected Html $View;
 
     public function __construct($args = [])
     {
-        $this->ext     = Configuration::CONTENT_EXT;
-        $this->args    = $args;
+        $this->ext  = Configuration::CONTENT_EXT;
+        $this->args = $args;
     }
 
     /**
@@ -58,10 +57,12 @@ class Controller
         include_once('helpers.php');
     }
 
-    public function get_content_path(): string {
-    	// TODO should be based on model not controller
-        $class = get_class( $this );
-	    $route = App::getInstance()->Router->routeFromClass( $class );
-     	return Configuration::CONTENT_FOLDER . '/' . $route . '/';
+    public function getContentPath(): string
+    {
+        // TODO should be based on model not controller
+        $class = get_class($this);
+        $route = App::getInstance()->Router->routeFromClass($class);
+
+        return Configuration::CONTENT_FOLDER . '/' . $route . '/';
     }
 }

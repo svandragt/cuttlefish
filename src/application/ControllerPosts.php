@@ -10,14 +10,14 @@ use Cuttlefish\Html;
 // single post
 class ControllerPosts extends Controller
 {
-	public static string $name = 'post';
+    public static string $name = 'post';
 
-	/**
+    /**
      * @return void
      */
     public function records()
     {
-        $path = $this->get_content_path(self::class) . implode('/', $this->args) . '.' . $this->ext;
+        $path          = $this->getContentPath(self::class) . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 

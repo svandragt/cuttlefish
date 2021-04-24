@@ -9,7 +9,7 @@ use Cuttlefish\Html;
 
 class ControllerHome extends Controller
 {
-	public static string $name = 'home';
+    public static string $name = 'home';
     // list of recent posts
 
     /**
@@ -19,7 +19,7 @@ class ControllerHome extends Controller
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
         // TODO Path depends on model but the model isn't defined yet.
-        $content_dir = $this->get_content_path();
+        $content_dir   = $this->getContentPath();
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->limit($limit + 5);
     }

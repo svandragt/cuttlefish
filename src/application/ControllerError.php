@@ -9,7 +9,7 @@ use Cuttlefish\Html;
 
 class ControllerError extends Controller
 {
-	public static string $name = 'error';
+    public static string $name = 'error';
 
     /**
      * @return void

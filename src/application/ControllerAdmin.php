@@ -8,7 +8,7 @@ use Cuttlefish\Url;
 
 class ControllerAdmin extends Controller
 {
-	public static string $name = 'admin';
+    public static string $name = 'admin';
 
     public array $allowed_methods = array(
         'index'        => 'Overview',

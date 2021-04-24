@@ -9,14 +9,14 @@ use Cuttlefish\File;
 // single image
 class ControllerImages extends Controller
 {
-	public static string $name = 'image';
+    public static string $name = 'image';
 
     /**
      * @return void
      */
     public function records()
     {
-        $this->records = [$this->get_content_path() . implode('/', $this->args) ];
+        $this->records = [ $this->getContentPath() . implode('/', $this->args) ];
     }
 
     /**

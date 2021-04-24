@@ -9,13 +9,13 @@ use Cuttlefish\Html;
 // single page
 class ControllerPages extends Controller
 {
-	public static string $name = 'page';
+    public static string $name = 'page';
     /**
      * @return void
      */
     public function records()
     {
-        $path = $this->get_content_path(self::class) . implode('/', $this->args) . '.' . $this->ext;
+        $path          = $this->getContentPath(self::class) . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 

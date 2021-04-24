@@ -6,7 +6,7 @@ use Cuttlefish\Model;
 
 class ModelPage extends Model
 {
-	public $name = 'page';
+    public $name = 'page';
     // page model
 
     public $model = array(

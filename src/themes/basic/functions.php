@@ -31,15 +31,15 @@ function href($internal_url)
 function pages()
 {
     $output     = '';
-    $Router = App::getInstance()->Router;
-    $pages_path = $Router->Controller->get_content_path(ControllerPages::class );
+    $Router     = App::getInstance()->Router;
+    $pages_path = $Router->Controller->get_content_path(ControllerPages::class);
 
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
-	$route = $Router->routeFromClass(ControllerPages::class);
-	foreach ($Files->files() as $path) {
-        $filename = pathinfo($path, PATHINFO_FILENAME);
-        $fake_title    = ucwords(str_replace("-", " ", $filename));
-        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/$route/$filename"), $fake_title);
+    $route = $Router->routeFromClass(ControllerPages::class);
+    foreach ($Files->files() as $path) {
+        $filename   = pathinfo($path, PATHINFO_FILENAME);
+        $fake_title = ucwords(str_replace("-", " ", $filename));
+        $output     .= sprintf("<li><a href='%s'>%s</a></li>", href("/$route/$filename"), $fake_title);
     }
 
     return $output;
