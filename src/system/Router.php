@@ -57,8 +57,6 @@ class Router
             $path_info = $_SERVER['PATH_INFO'];
         }
 
-        var_dump($path_info);
-
         $no_specified_path = empty($path_info) || $path_info === '/';
         if (! $no_specified_path) {
             $ends_with_slash = ! substr(strrchr($path_info, "/"), 1);
