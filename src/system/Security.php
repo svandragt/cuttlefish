@@ -25,7 +25,7 @@ class Security
         $admin_password = $_ENV['CUTTLEFISH_ADMIN_PASSWORD'];
         if ($admin_password) {
             $password = Http::post('password');
-            if ($password == $admin_password) {
+            if ($password === $admin_password) {
                 Http::setSession(array(
                     'admin' => true,
                 ));

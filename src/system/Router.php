@@ -13,20 +13,36 @@ if (! defined('BASE_DIR')) {
  */
 class Router
 {
-    protected $Controller;
+    public Controller $Controller;
+    public array $routes = [];
+    public array $args;
 
-    public function __construct()
+    public function __construct(array $routes)
     {
+        $this->routes = $routes;
         // Route to controller
-        $args                 = explode("/", $this->pathInfo());
-        $controller_class     =  'Cuttlefish\Blog\Controller' . ucfirst($args[1]);
+        $this->args = explode("/", $this->pathInfo());
+    }
 
-        $controller_arguments = array_slice($args, 2);
+    public function loadController()
+    {
+        $controller_class = $this->routes[ $this->args[1] ];
+
+        $controller_arguments = array_slice($this->args, 2);
         if (class_exists($controller_class, true)) {
-            $this->Controller = new $controller_class($this, $controller_arguments);
+            $this->Controller = new $controller_class($controller_arguments);
+            $this->Controller->init();
         } else {
             $this->classNotCallable($controller_class);
         }
+    }
+
+    public function routeFromClass($class)
+    {
+        $classes = array_flip($this->routes);
+        $route   = $classes[ $class ];
+
+        return $route;
     }
 
     /**
@@ -41,10 +57,8 @@ class Router
             $path_info = $_SERVER['PATH_INFO'];
         }
 
-        $no_specified_path = empty($path_info) || $path_info == '/';
-        if ($no_specified_path) {
-            $path_info = Configuration::HOME_PAGE;
-        } else {
+        $no_specified_path = empty($path_info) || $path_info === '/';
+        if (! $no_specified_path) {
             $ends_with_slash = ! substr(strrchr($path_info, "/"), 1);
             if ($ends_with_slash) {
                 $slashless_request = substr($path_info, 0, - 1);
@@ -52,6 +66,10 @@ class Router
                 header('Location: ' . $Url->url_absolute);
                 exit();
             }
+        }
+
+        if (empty($path_info)) {
+            $path_info = Configuration::HOME_PAGE;
         }
 
         return (string) $path_info;

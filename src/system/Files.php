@@ -9,13 +9,13 @@ class Files
     public function __construct($path, $ext = null)
     {
         if (empty($path)) {
-            $this->files = null;
+            $this->files = [];
             return;
         }
 
         $files = $this->collect(realpath($path), $ext);
         rsort($files);
-        $this->files = $files;
+        $this->files = (array)$files;
     }
 
 

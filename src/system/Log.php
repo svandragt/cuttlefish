@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection ForgottenDebugOutputInspection */
+
 namespace Cuttlefish;
 
 use Configuration;

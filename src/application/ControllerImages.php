@@ -2,20 +2,21 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
 use Cuttlefish\File;
 
 // single image
 class ControllerImages extends Controller
 {
+    public static string $name = 'image';
+    public static string $contentPath = 'images';
+
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER . '/images/';
-        $this->records = [ $content_dir . implode('/', $this->args) ];
+        $this->records = [ $this->getContentPath() . implode('/', $this->args) ];
     }
 
     /**

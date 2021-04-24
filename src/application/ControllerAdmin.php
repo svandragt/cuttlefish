@@ -8,6 +8,8 @@ use Cuttlefish\Url;
 
 class ControllerAdmin extends Controller
 {
+    public static string $name = 'admin';
+
     public array $allowed_methods = array(
         'index'        => 'Overview',
         'clearCache'   => 'Clear cache',
@@ -68,6 +70,7 @@ class ControllerAdmin extends Controller
     public function init()
     {
         global $App;
+        // TODO replace with context comment
         $App->Cache->abort();
 
         $action = ( isset($this->args[0]) ) ? $this->args[0] : 'index';
@@ -89,8 +92,8 @@ class ControllerAdmin extends Controller
 
         $this->View = new Html([$this->contents], array(
             'layout'     => 'layout.php',
-            'controller' => 'admin',
-            'model'      => 'page',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 

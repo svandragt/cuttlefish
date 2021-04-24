@@ -6,32 +6,23 @@ use Cuttlefish\Model;
 
 class ModelPost extends Model
 {
-    public $required_fields = ['metadata' => ['published']];
-
     /* field => transform */
-    public $model = array(
-        'metadata'    => 'metadatareader',
-        'content'     => 'markdown',
-    );
+    public array $fields = [
+        'metadata' => 'metadatareader',
+        'content'  => 'markdown',
+    ];
+    public string $name = 'post';
 
-    /**
-     * @return int
-     */
-    public function sortByPublished($a, $b)
+    public function sortByPublished($a, $b): int
     {
         return strcmp($b->metadata->published, $a->metadata->published);
     }
 
-    /**
-     * @return self
-     */
-    public function contents($records)
+    public function contents($records): void
     {
         foreach ($records as $record) {
             $this->contents[] = $this->listContents($record);
         }
-        usort($this->contents, array( $this, 'sortByPublished' ));
-
-        return $this;
+        usort($this->contents, [ $this, 'sortByPublished' ]);
     }
 }

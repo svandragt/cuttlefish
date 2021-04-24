@@ -7,7 +7,7 @@ use RuntimeException;
 class Filesystem
 {
 
-    public static function requireFolder(string $folder): ?bool
+    public static function requireFolder(string $folder): void
     {
         if (! mkdir($folder, 0777, true) && ! is_dir($folder)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $folder));
@@ -22,14 +22,14 @@ class Filesystem
     public static function copyFiles(array $source_files, array $destination_files): void
     {
         $i = 0;
-        foreach ($source_files as $key => $value) {
+        foreach (array_values($source_files) as $source_file) {
             $destination_file = $destination_files[ $i ];
 
             $dirname = pathinfo($destination_file, PATHINFO_DIRNAME);
             if (! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
             }
-            copy($value, $destination_file);
+            copy($source_file, $destination_file);
             $i++;
         }
     }

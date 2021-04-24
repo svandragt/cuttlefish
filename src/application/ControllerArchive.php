@@ -2,19 +2,22 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
 use Cuttlefish\Files;
 use Cuttlefish\Html;
 
 class ControllerArchive extends Controller
 {
+    public static string $name = 'archive';
+    public static string $modelClass = ModelPost::class;
+    public static string $contentPath = 'posts';
+
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER  . '/post';
+        $content_dir   = $this->getContentPath();
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->files();
     }
@@ -24,7 +27,7 @@ class ControllerArchive extends Controller
      */
     public function model()
     {
-        $this->Model = new ModelPost($this->records);
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**
@@ -35,8 +38,8 @@ class ControllerArchive extends Controller
         parent::view();
         $this->View = new Html($this->Model->contents, array(
             'layout'     => 'layout.php',
-            'controller' => 'archive',
-            'model'      => 'post',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 }

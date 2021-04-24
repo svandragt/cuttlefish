@@ -2,21 +2,21 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
-use Cuttlefish\Filesystem;
 use Cuttlefish\Html;
 
 // single post
-class ControllerPost extends Controller
+class ControllerPosts extends Controller
 {
+    public static string $name = 'post';
+    public static string $contentPath = 'posts';
+
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER . '/post/';
-        $path = $content_dir . implode('/', $this->args) . '.' . $this->ext;
+        $path          = $this->getContentPath() . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
@@ -37,8 +37,8 @@ class ControllerPost extends Controller
 
         $this->View = new Html($this->Model->contents, array(
             'layout'     => 'layout.php',
-            'controller' => 'post',
-            'model'      => 'post',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 }

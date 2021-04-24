@@ -2,22 +2,20 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
-use Cuttlefish\Filesystem;
 use Cuttlefish\Html;
 
 class ControllerError extends Controller
 {
-    // single errors page
+    public static string $name = 'error';
+    public static string $contentPath = 'errors';
 
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER  . '/errors/';
-        $path = $content_dir . implode("/", $this->args) . '.' . $this->ext;
+        $path = $this->getContentPath() . implode("/", $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
@@ -38,8 +36,8 @@ class ControllerError extends Controller
 
         $this->View = new Html($this->Model->contents, array(
             'layout'     => 'layout.php',
-            'controller' => 'errors',
-            'model'      => 'page',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 }

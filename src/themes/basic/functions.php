@@ -1,5 +1,8 @@
 <?php
 
+use Cuttlefish\App;
+use Cuttlefish\Blog\ControllerPages;
+
 if (! defined('BASE_DIR')) {
     exit('No direct script access allowed');
 }
@@ -28,14 +31,15 @@ function href($internal_url)
 function pages()
 {
     $output     = '';
-    $pages_path = Configuration::CONTENT_FOLDER . '/page';
+    $Router     = App::getInstance()->Router;
+    $pages_path = $Router->Controller->getContentPath(ControllerPages::class);
 
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
-
+    $route = $Router->routeFromClass(ControllerPages::class);
     foreach ($Files->files() as $path) {
-        $filename = pathinfo($path, PATHINFO_FILENAME);
-        $title    = ucwords(str_replace("-", " ", $filename));
-        $output   .= sprintf("<li><a href='%s'>%s</a></li>", href("/page/$filename"), $title);
+        $filename   = pathinfo($path, PATHINFO_FILENAME);
+        $fake_title = ucwords(str_replace("-", " ", $filename));
+        $output     .= sprintf("<li><a href='%s'>%s</a></li>", href("/$route/$filename"), $fake_title);
     }
 
     return $output;

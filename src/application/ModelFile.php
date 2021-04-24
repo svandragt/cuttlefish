@@ -6,15 +6,15 @@ use Cuttlefish\Model;
 
 class ModelFile extends Model
 {
+    public string $name = 'file';
 
     // File model
-
-    public $model = array();
+    public array $fields = [];
 
     /**
      * @return void
      */
-    public function contents($records)
+    public function contents($records): void
     {
         $this->contents = $records;
     }

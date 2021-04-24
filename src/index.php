@@ -1,7 +1,5 @@
 <?php
 
-use Cuttlefish\Blog;
-
 define('BASE_DIR', dirname($_SERVER['SCRIPT_FILENAME']) . '/');
 
 require '../vendor/autoload.php';

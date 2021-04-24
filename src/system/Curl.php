@@ -2,7 +2,7 @@
 
 namespace Cuttlefish;
 
-use http\Exception\RuntimeException;
+use RuntimeException;
 
 class Curl
 {

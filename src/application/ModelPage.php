@@ -6,16 +6,12 @@ use Cuttlefish\Model;
 
 class ModelPage extends Model
 {
-    // page model
-
-    public $model = array(
+    public array $fields = [
         'content' => 'markdown',
-    );
+    ];
+    public string $name = 'page';
 
-    /**
-     * @return void
-     */
-    public function contents($records)
+    public function contents($records): void
     {
         foreach ($records as $record) {
             $this->contents[] = $this->listContents($record);

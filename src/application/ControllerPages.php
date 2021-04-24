@@ -2,20 +2,21 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
 use Cuttlefish\Html;
 
 // single page
-class ControllerPage extends Controller
+class ControllerPages extends Controller
 {
+    public static string $name = 'page';
+    public static string $contentPath = 'pages';
+
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir = Configuration::CONTENT_FOLDER . '/page/';
-        $path = $content_dir . implode('/', $this->args) . '.' . $this->ext;
+        $path          = $this->getContentPath() . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
@@ -36,8 +37,8 @@ class ControllerPage extends Controller
 
         $this->View = new Html($this->Model->contents, array(
             'layout'     => 'layout.php',
-            'controller' => 'page',
-            'model'      => 'page',
+            'controller' => self::$name,
+            'model'      => $this->Model->name,
         ));
     }
 }

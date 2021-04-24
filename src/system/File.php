@@ -15,7 +15,7 @@ class File
     {
         try {
             if (! file_exists($file_path)) {
-                throw new Exception("'$file_path' not found");
+                throw new Exception("'$file_path' not found :(");
             }
             if (! is_readable($file_path)) {
                 throw new Exception("'$file_path' is unreadable!");
@@ -38,11 +38,9 @@ class File
         switch ($this->ext) {
             case 'css': // php cannot detect css
                 return "text/css";
-                break;
 
             default:
                 return $this->getMimetypeFromFile($this->path);
-                break;
         }
     }
 
@@ -51,7 +49,7 @@ class File
      */
     protected function getMimetypeFromFile(string $filename)
     {
-        if (is_resource($filename) === true) {
+        if (is_file($filename)) {
             return mime_content_type($filename);
         }
 

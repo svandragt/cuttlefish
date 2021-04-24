@@ -6,19 +6,18 @@ use Configuration;
 
 class Controller
 {
-    protected $ext;
-    protected $args;
-    protected $records = [];
-    protected $Model;
-    protected $View;
-    protected $content;
+    protected string $ext;
+    protected array $args;
+    public static string $name;
+    public static string $contentPath;
+    protected array $records = [];
+    protected Model $Model;
+    protected Html $View;
 
-    public function __construct($parent, $args)
+    public function __construct($args = [])
     {
-        $this->content = Configuration::CONTENT_FOLDER;
-        $this->ext     = Configuration::CONTENT_EXT;
-        $this->args    = $args;
-        $this->init();
+        $this->ext  = Configuration::CONTENT_EXT;
+        $this->args = $args;
     }
 
     /**
@@ -57,5 +56,15 @@ class Controller
     public function view()
     {
         include_once('helpers.php');
+    }
+
+    public function getContentPath($controllerClass = null): string
+    {
+        if (is_null($controllerClass)) {
+            $controllerClass = get_class($this);
+        }
+
+        $route = $controllerClass::$contentPath;
+        return Configuration::CONTENT_FOLDER . '/' . $route . '/';
     }
 }
