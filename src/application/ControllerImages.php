@@ -2,7 +2,6 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
 use Cuttlefish\File;
 
@@ -10,6 +9,8 @@ use Cuttlefish\File;
 class ControllerImages extends Controller
 {
     public static string $name = 'image';
+    public static string $modelClass = ModelFile::class;
+    public static string $contentPath = 'images';
 
     /**
      * @return void
@@ -24,7 +25,7 @@ class ControllerImages extends Controller
      */
     public function model()
     {
-        $this->Model = new ModelFile($this->records);
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**

@@ -70,6 +70,7 @@ class ControllerAdmin extends Controller
     public function init()
     {
         global $App;
+        // TODO replace with context comment
         $App->Cache->abort();
 
         $action = ( isset($this->args[0]) ) ? $this->args[0] : 'index';

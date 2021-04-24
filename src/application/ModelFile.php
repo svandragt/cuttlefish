@@ -9,7 +9,7 @@ class ModelFile extends Model
     public $name = 'file';
 
     // File model
-    public $model = array();
+    public $fields = [];
 
     /**
      * @return void

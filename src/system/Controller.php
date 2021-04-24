@@ -9,6 +9,8 @@ class Controller
     protected $ext;
     protected $args;
     public static string $name;
+    public static string $modelClass;
+    public static string $contentPath;
     protected array $records = [];
     protected Model $Model;
     protected Html $View;
@@ -57,14 +59,13 @@ class Controller
         include_once('helpers.php');
     }
 
-    public function getContentPath($class): string
+    public function getContentPath($controllerClass = null): string
     {
-        if (empty($class)) {
-            // TODO should be based on model not controller
-            $class = get_class($this);
+        if (is_null($controllerClass)) {
+            $controllerClass = get_class($this);
         }
-        $route = App::getInstance()->Router->routeFromClass($class);
 
+        $route = $controllerClass::$contentPath;
         return Configuration::CONTENT_FOLDER . '/' . $route . '/';
     }
 }

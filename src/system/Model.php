@@ -10,14 +10,13 @@ use Cuttlefish\MetadataReader;
 
 class Model
 {
-    public $contents = [];
-    public $model = [];
-    public $name;
+    public array $contents = [];
+    public array $fields = [];
 
     public function __construct($records)
     {
         try {
-            if (array_unique($this->model) !== $this->model) {
+            if (array_unique($this->fields) !== $this->fields) {
                 throw new RuntimeException('Array values not unique for model');
             }
         } catch (RuntimeException $e) {
@@ -26,10 +25,7 @@ class Model
         $this->contents($records);
     }
 
-    /**
-     * @return void
-     */
-    public function contents($records)
+    public function contents($records): void
     {
         // implement $this->contents in your controller
     }
@@ -47,20 +43,20 @@ class Model
      */
     protected function listContents($record): StdClass
     {
-        $File = new File($record);
-        $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->model));
-        $fields     = array_keys($this->model);
-        $transforms   = array_values($this->model);
+        $File             = new File($record);
+        $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->fields));
+        $fields           = array_keys($this->fields);
+        $transforms       = array_values($this->fields);
 
         try {
             if (count($transforms) !== count($content_sections)) {
-                  throw new Exception(sprintf(
-                      'Model (%s) definition (%s) does not match number of content sections (%s) in file (%s).',
-                      get_class($this),
-                      count($transforms),
-                      count($content_sections),
-                      $record
-                  ));
+                throw new Exception(sprintf(
+                    'Model (%s) definition (%s) does not match number of content sections (%s) in file (%s).',
+                    get_class($this),
+                    count($transforms),
+                    count($content_sections),
+                    $record
+                ));
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -70,7 +66,7 @@ class Model
         $Content       = new StdClass();
         $Content->link = Url::fromFile($File)->url_absolute;
 
-        for ($i = 0, $len = count($this->model); $i < $len; $i++) {
+        for ($i = 0, $len = count($this->fields); $i < $len; $i++) {
             $field           = $fields[ $i ];
             $Content->$field = $this->section($content_sections[ $i ], $transforms[ $i ]);
         }

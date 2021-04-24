@@ -10,13 +10,15 @@ use Cuttlefish\Html;
 class ControllerArchive extends Controller
 {
     public static string $name = 'archive';
+    public static string $modelClass = ModelPost::class;
+    public static string $contentPath = 'posts';
 
     /**
      * @return void
      */
     public function records()
     {
-        $content_dir   = $this->getContentPath(ControllerPosts::class);
+        $content_dir   = $this->getContentPath();
         $Files         = new Files($content_dir, $this->ext);
         $this->records = $Files->files();
     }
@@ -26,7 +28,7 @@ class ControllerArchive extends Controller
      */
     public function model()
     {
-        $this->Model = new ModelPost($this->records);
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**

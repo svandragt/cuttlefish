@@ -2,22 +2,22 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
-use Cuttlefish\Filesystem;
 use Cuttlefish\Html;
 
 // single post
 class ControllerPosts extends Controller
 {
     public static string $name = 'post';
+    public static string $modelClass = ModelPost::class;
+    public static string $contentPath = 'posts';
 
     /**
      * @return void
      */
     public function records()
     {
-        $path          = $this->getContentPath(self::class) . implode('/', $this->args) . '.' . $this->ext;
+        $path          = $this->getContentPath() . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
@@ -26,7 +26,7 @@ class ControllerPosts extends Controller
      */
     public function model()
     {
-        $this->Model = new ModelPost($this->records);
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**

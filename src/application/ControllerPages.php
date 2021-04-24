@@ -10,12 +10,15 @@ use Cuttlefish\Html;
 class ControllerPages extends Controller
 {
     public static string $name = 'page';
+    public static string $modelClass = ModelPage::class;
+    public static string $contentPath = 'pages';
+
     /**
      * @return void
      */
     public function records()
     {
-        $path          = $this->getContentPath(self::class) . implode('/', $this->args) . '.' . $this->ext;
+        $path          = $this->getContentPath() . implode('/', $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
@@ -24,7 +27,7 @@ class ControllerPages extends Controller
      */
     public function model()
     {
-        $this->Model = new ModelPage($this->records);
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**

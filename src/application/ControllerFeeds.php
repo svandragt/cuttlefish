@@ -11,6 +11,7 @@ use Cuttlefish\Files;
 class ControllerFeeds extends Controller
 {
     public static string $name = 'feed';
+    public static string $contentPath = 'posts';
     // single feed
     /**
      * @return void
@@ -18,6 +19,7 @@ class ControllerFeeds extends Controller
     public function records()
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
+        // TODO can we use the routing table to get the model of the matching controller here
         $content_dir   = $this->getContentPath(App::getInstance()->Router->routes[ $this->args[2] ]);
         $Records       = new Files($content_dir, $this->ext);
         $this->records = $Records->limit($limit + 5);
@@ -28,6 +30,7 @@ class ControllerFeeds extends Controller
      */
     public function model()
     {
+        // TODO replace with the model
         $Model       = new ModelPost($this->records);
         $this->Model = $Model->limit(10);
     }

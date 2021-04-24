@@ -6,13 +6,11 @@ use Cuttlefish\Model;
 
 class ModelPost extends Model
 {
-    public $name = 'post';
-
     /* field => transform */
-    public $model = array(
-        'metadata'    => 'metadatareader',
-        'content'     => 'markdown',
-    );
+    public array $fields = [
+        'metadata' => 'metadatareader',
+        'content'  => 'markdown',
+    ];
 
     /**
      * @return int
@@ -22,16 +20,11 @@ class ModelPost extends Model
         return strcmp($b->metadata->published, $a->metadata->published);
     }
 
-    /**
-     * @return self
-     */
-    public function contents($records)
+    public function contents($records): void
     {
         foreach ($records as $record) {
             $this->contents[] = $this->listContents($record);
         }
-        usort($this->contents, array( $this, 'sortByPublished' ));
-
-        return $this;
+        usort($this->contents, [ $this, 'sortByPublished' ]);
     }
 }

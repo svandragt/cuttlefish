@@ -10,6 +10,8 @@ use Cuttlefish\Html;
 class ControllerError extends Controller
 {
     public static string $name = 'error';
+    public static string $modelClass = ModelPage::class;
+    public static string $contentPath = 'errors';
 
     /**
      * @return void
@@ -25,7 +27,7 @@ class ControllerError extends Controller
      */
     public function model()
     {
-        $this->Model = new ModelPage($this->records);
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**
