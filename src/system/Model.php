@@ -53,7 +53,7 @@ class Model
 
         try {
             if (count($transforms) !== count($content_sections)) {
-                  throw new Exception( sprintf(
+                  throw new Exception(sprintf(
                       'Model (%s) definition (%s) does not match number of content sections (%s).',
                       get_class($this),
                       count($transforms),
@@ -65,23 +65,23 @@ class Model
             exit();
         }
 
-	    $Content = new StdClass();
-	    $Content->link = Url::fromFile($File)->url_absolute;
+        $Content = new StdClass();
+        $Content->link = Url::fromFile($File)->url_absolute;
 
         for ($i = 0, $len = count($this->model); $i < $len; $i++) {
-	        $field           = $fields[ $i ];
-            $Content->$field = $this->section( $content_sections[ $i ], $transforms[ $i ] );
+            $field           = $fields[ $i ];
+            $Content->$field = $this->section($content_sections[ $i ], $transforms[ $i ]);
         }
 
         return $Content;
     }
 
-	/**
-	 * @param string $text
-	 * @param string $transform
-	 *
-	 * @return StdClass
-	 */
+    /**
+     * @param string $text
+     * @param string $transform
+     *
+     * @return StdClass
+     */
     public function section(string $text, string $transform): StdClass
     {
         $Section = new StdClass();

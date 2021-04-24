@@ -48,10 +48,10 @@ class App
     public static function getInstance()
     {
         if (self::$instance === null) {
-        	if (is_readable(dirname(BASE_DIR) . '/.env')) {
-		        $dotenv = Dotenv::createImmutable(dirname(BASE_DIR));
-		        $dotenv->load();
-	        }
+            if (is_readable(dirname(BASE_DIR) . '/.env')) {
+                $dotenv = Dotenv::createImmutable(dirname(BASE_DIR));
+                $dotenv->load();
+            }
             self::$instance = new App();
         }
 

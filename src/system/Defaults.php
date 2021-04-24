@@ -20,6 +20,4 @@ class Defaults
     public const CONTENT_FOLDER = '../content';
     public const LOGS_FOLDER = '../_logs';
     public const THEMES_FOLDER = 'themes';
-
-    const routes = [];
 }
