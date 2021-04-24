@@ -9,13 +9,12 @@ class ModelFile extends Model
     public $name = 'file';
 
     // File model
-    public $fields = [];
+    public array $fields = [];
 
     /**
      * @return void
      */
-    public function contents($records)
-    {
-        $this->contents = $records;
-    }
+	public function contents( $records ) : void {
+		$this->contents = $records;
+	}
 }

@@ -38,11 +38,9 @@ class File
         switch ($this->ext) {
             case 'css': // php cannot detect css
                 return "text/css";
-                break;
 
             default:
                 return $this->getMimetypeFromFile($this->path);
-                break;
         }
     }
 
@@ -51,8 +49,8 @@ class File
      */
     protected function getMimetypeFromFile(string $filename)
     {
-        if (is_resource($filename) === true) {
-            return mime_content_type($filename);
+        if ( is_file( $filename ) ) {
+	        return mime_content_type( $filename );
         }
 
         return false;

@@ -7,20 +7,19 @@ use Michelf\Markdown;
 use RuntimeException;
 use StdClass;
 
-class Model
-{
-    public array $contents = [];
-    public array $fields = [];
+class Model {
+	public array $contents = [];
+	public array $fields = [];
+	public string $name;
 
-    public function __construct($records)
-    {
-        try {
-            if (array_unique($this->fields) !== $this->fields) {
-                throw new RuntimeException('Array values not unique for model');
-            }
-        } catch (RuntimeException $e) {
-            Log::error($e->getMessage());
-        }
+	public function __construct( $records ) {
+		try {
+			if ( array_unique( $this->fields ) !== $this->fields ) {
+				throw new RuntimeException( 'Array values not unique for model' );
+			}
+		} catch ( RuntimeException $e ) {
+			Log::error( $e->getMessage() );
+		}
         $this->contents($records);
     }
 

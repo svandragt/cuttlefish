@@ -35,7 +35,7 @@ class Url
             $protocol = 'https://';
         }
 
-        return (string) $protocol;
+        return $protocol;
     }
 
     /**

@@ -169,7 +169,8 @@ class Cache
             $contents = $Curl->getURLContents($Url->url_absolute);
 
             if (empty($contents)) {
-                throw new RuntimeException("ERROR: no contents for {$Url->url_absolute}");
+	            $url_absolute = $Url->url_absolute;
+	            throw new RuntimeException( "ERROR: no contents for $url_absolute" );
             }
 
             if (Configuration::CACHE_ENABLED === false) {
@@ -189,19 +190,18 @@ class Cache
      *
      * @return string list of output messages detailing the removed cachefiles
      */
-    public function clear()
-    {
-        $dir    = $this->getCacheFolder();
-        $output = sprintf('Removing  all files in %s<br>', $dir);
-        $Files  = new Files($dir);
-        $output .= $Files->removeAll();
-        $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
-        foreach ($dirs as $dir) {
-            Filesystem::removeDirs(realpath($dir . '/.'));
-        }
-        App::getInstance()->Environment->writeHtaccess();
+	public function clear() : string {
+		$dir    = $this->getCacheFolder();
+		$output = sprintf( 'Removing  all files in %s<br>', $dir );
+		$Files  = new Files( $dir );
+		$output .= $Files->removeAll();
+		$dirs   = Filesystem::subdirs( realpath( $dir . '/.' ), false );
+		foreach ( $dirs as $dir ) {
+			Filesystem::removeDirs( realpath( $dir . '/.' ) );
+		}
+		App::getInstance()->Environment->writeHtaccess();
 
-        return (string) $output;
+		return $output;
     }
 
     /**
@@ -246,13 +246,11 @@ class Cache
      *
      * @return string
      */
-    protected function sanitizePathinfo(string $path_info)
-    {
-        if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
-            $path_info = substr($_SERVER['PATH_INFO'], 1);
-        }
-        $new_path_info = ltrim($path_info, '/');
+	protected function sanitizePathinfo( string $path_info ) : string {
+		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
+			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
+		}
 
-        return (string) $new_path_info;
-    }
+		return ltrim( $path_info, '/' );
+	}
 }

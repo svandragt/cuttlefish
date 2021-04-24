@@ -2,7 +2,6 @@
 
 namespace Cuttlefish\Blog;
 
-use Configuration;
 use Cuttlefish\Controller;
 use Cuttlefish\Html;
 
