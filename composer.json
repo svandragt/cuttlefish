@@ -11,8 +11,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "michelf/php-markdown": "*",
-        "ext-curl": "*"
+        "php": ">=7.4",
+        "ext-curl": "*",
+        "michelf/php-markdown": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
@@ -35,7 +36,7 @@
             "composer install --ansi",
             "phive install"
         ],
-        "prep": [
+        "prep-commit": [
             "phpcbf",
             "@lint"
         ],
