@@ -40,25 +40,25 @@ class Cache
      */
     protected function canCache()
     {
-	    if ( Configuration::CACHE_ENABLED === false) {
+        if (Configuration::CACHE_ENABLED === false) {
             return false;
         }
-	    if ( ob_get_level() === 0 ) {
+        if (ob_get_level() === 0) {
             return false;
         }
 
         return error_get_last() === null;
     }
 
-	/**
-	 * Writes the collected cache to disk
-	 *
-	 * @param string $contents contents of the cache
-	 *
-	 * @param string $url_relative Relative URL
-	 *
-	 * @return string           path to the cache file
-	 */
+    /**
+     * Writes the collected cache to disk
+     *
+     * @param string $contents contents of the cache
+     *
+     * @param string $url_relative Relative URL
+     *
+     * @return string           path to the cache file
+     */
     protected function writeToDisk(string $contents, string $url_relative = '')
     {
         $path    = $this->convertUrlpathToFilepath($url_relative);
