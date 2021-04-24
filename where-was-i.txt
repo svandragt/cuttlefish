@@ -1,0 +1,10 @@
+- homepage isn't loading
+- archive isn't
+
+looking for content in content/home and content/archive respectfully.
+
+next steps:
+see where the content path comes from and trace that back to a bug.
+
+unclear:
+how to get a model from a controller.
