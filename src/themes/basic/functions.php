@@ -32,7 +32,7 @@ function pages()
 {
     $output     = '';
     $Router     = App::getInstance()->Router;
-    $pages_path = $Router->Controller->get_content_path(ControllerPages::class);
+    $pages_path = $Router->Controller->getContentPath(ControllerPages::class);
 
     $Files = new Cuttlefish\Files($pages_path, Configuration::CONTENT_EXT);
     $route = $Router->routeFromClass(ControllerPages::class);

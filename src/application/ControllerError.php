@@ -16,7 +16,7 @@ class ControllerError extends Controller
      */
     public function records()
     {
-        $path = $this->get_content_path() . implode("/", $this->args) . '.' . $this->ext;
+        $path = $this->getContentPath() . implode("/", $this->args) . '.' . $this->ext;
         $this->records = [ $path ];
     }
 
