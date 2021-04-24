@@ -2,21 +2,18 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # Requirements
-if ! [ -x "$(command -v php)" ]
-then
+if ! [ -x "$(command -v php)" ]; then
   echo "📦  Installing packages..."
-  echo 'Dpkg::Use-Pty "0";' > /etc/apt/apt.conf.d/00usepty
+  echo 'Dpkg::Use-Pty "0";' >/etc/apt/apt.conf.d/00usepty
   add-apt-repository -y ppa:ondrej/php
   apt-get -qq -y update
   apt-get -qq -y install nginx zip php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl php7.4-xml php7.4-mbstring
   apt-get -qq clean && apt-get -qq -y autoremove &
 fi
 
-
 # Composer
 FILE=/usr/bin/composer
-if [[ ! -f $FILE ]]
-then
+if [[ ! -f $FILE ]]; then
   echo "🎼  Installing Composer..."
   curl -Ss https://getcomposer.org/installer | php
   mv composer.phar $FILE
@@ -24,8 +21,7 @@ fi
 
 # Phive
 FILE=/usr/local/bin/phive
-if [[ ! -f $FILE ]]
-then
+if [[ ! -f $FILE ]]; then
   echo "🐝  Installing Phive..."
   wget -qO phive.phar "https://phar.io/releases/phive.phar"
   wget -qO phive.phar.asc "https://phar.io/releases/phive.phar.asc"
@@ -36,14 +32,21 @@ then
   mv phive.phar $FILE
 fi
 
+# Node 15
+FILE=/usr/bin/node
+if [[ ! -f $FILE ]]; then
+  curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+fi
+
 pushd /vagrant || exit
-  echo "🐡  Setup Cuttlefish..."
-  sudo -u vagrant -H composer guest:setup
+echo "🐡  Setup Cuttlefish..."
+sudo -u vagrant -H composer guest:setup
 popd || exit
 
-if ! grep -q "cd /vagrant" /home/vagrant/.bashrc ; then
-    echo "cd /vagrant" >> /home/vagrant/.bashrc
+if ! grep -q "cd /vagrant" /home/vagrant/.bashrc; then
+  echo "cd /vagrant" >>/home/vagrant/.bashrc
 fi
-if ! grep -q "cd /vagrant" /home/vagrant/.profile ; then
-    echo "cd /vagrant" >> /home/vagrant/.profile
+if ! grep -q "cd /vagrant" /home/vagrant/.profile; then
+  echo "cd /vagrant" >>/home/vagrant/.profile
 fi
