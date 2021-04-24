@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "php": ">=7.4",
         "michelf/php-markdown": "^1.9",
         "vlucas/phpdotenv": "^5",
         "ext-curl": "*",
@@ -38,7 +39,7 @@
             "phive --no-progress install --trust-gpg-keys 31C7E470E2138192,8A03EA3B385DBAA1",
             "php -r \"copy('Configuration.php.dist', 'Configuration.php');\""
         ],
-        "prep": [
+        "prep-commit": [
             "phpcbf",
             "@lint"
         ],
