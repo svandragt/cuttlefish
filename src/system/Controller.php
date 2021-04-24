@@ -57,10 +57,12 @@ class Controller
         include_once('helpers.php');
     }
 
-    public function getContentPath(): string
+    public function getContentPath($class): string
     {
-        // TODO should be based on model not controller
-        $class = get_class($this);
+        if (empty($class)) {
+            // TODO should be based on model not controller
+            $class = get_class($this);
+        }
         $route = App::getInstance()->Router->routeFromClass($class);
 
         return Configuration::CONTENT_FOLDER . '/' . $route . '/';

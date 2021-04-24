@@ -26,7 +26,6 @@ class Router
 
     public function loadController()
     {
-        var_dump($this->args);
         $controller_class = $this->routes[ $this->args[1] ];
 
         $controller_arguments = array_slice($this->args, 2);
