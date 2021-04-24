@@ -17,7 +17,9 @@ class Feed
     public function __construct($posts)
     {
         $PageUrl = new Url($_SERVER['PATH_INFO']);
-        $Xml     = new SimpleXMLElement('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
+        $Xml     = new SimpleXMLElement('<!--suppress HtmlUnknownTag -->
+<!--suppress HtmlUnknownTag -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
         $Channel = $Xml->addChild('channel');
 
         $Channel->addChild('title', Configuration::SITE_TITLE);

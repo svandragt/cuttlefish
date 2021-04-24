@@ -6,7 +6,7 @@ use Cuttlefish\Model;
 
 class ModelFile extends Model
 {
-    public $name = 'file';
+    public string $name = 'file';
 
     // File model
     public array $fields = [];
@@ -14,7 +14,8 @@ class ModelFile extends Model
     /**
      * @return void
      */
-	public function contents( $records ) : void {
-		$this->contents = $records;
-	}
+    public function contents($records): void
+    {
+        $this->contents = $records;
+    }
 }

@@ -151,7 +151,7 @@ class Cache
 
         $cache_urls = array();
 
-        foreach ($Files->files() as $index => $file_path) {
+        foreach (array_values($Files->files()) as $file_path) {
             $File         = new File($file_path);
             $cache_urls[] = Url::fromFile($File);
         }
@@ -169,8 +169,8 @@ class Cache
             $contents = $Curl->getURLContents($Url->url_absolute);
 
             if (empty($contents)) {
-	            $url_absolute = $Url->url_absolute;
-	            throw new RuntimeException( "ERROR: no contents for $url_absolute" );
+                $url_absolute = $Url->url_absolute;
+                throw new RuntimeException("ERROR: no contents for $url_absolute");
             }
 
             if (Configuration::CACHE_ENABLED === false) {
@@ -190,18 +190,19 @@ class Cache
      *
      * @return string list of output messages detailing the removed cachefiles
      */
-	public function clear() : string {
-		$dir    = $this->getCacheFolder();
-		$output = sprintf( 'Removing  all files in %s<br>', $dir );
-		$Files  = new Files( $dir );
-		$output .= $Files->removeAll();
-		$dirs   = Filesystem::subdirs( realpath( $dir . '/.' ), false );
-		foreach ( $dirs as $dir ) {
-			Filesystem::removeDirs( realpath( $dir . '/.' ) );
-		}
-		App::getInstance()->Environment->writeHtaccess();
+    public function clear(): string
+    {
+        $dir    = $this->getCacheFolder();
+        $output = sprintf('Removing  all files in %s<br>', $dir);
+        $Files  = new Files($dir);
+        $output .= $Files->removeAll();
+        $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
+        foreach ($dirs as $dir) {
+            Filesystem::removeDirs(realpath($dir . '/.'));
+        }
+        App::getInstance()->Environment->writeHtaccess();
 
-		return $output;
+        return $output;
     }
 
     /**
@@ -246,11 +247,12 @@ class Cache
      *
      * @return string
      */
-	protected function sanitizePathinfo( string $path_info ) : string {
-		if ( isset( $_SERVER['PATH_INFO'] ) && empty( $path_info ) ) {
-			$path_info = substr( $_SERVER['PATH_INFO'], 1 );
-		}
+    protected function sanitizePathinfo(string $path_info): string
+    {
+        if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
+            $path_info = substr($_SERVER['PATH_INFO'], 1);
+        }
 
-		return ltrim( $path_info, '/' );
-	}
+        return ltrim($path_info, '/');
+    }
 }

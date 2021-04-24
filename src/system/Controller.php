@@ -4,18 +4,20 @@ namespace Cuttlefish;
 
 use Configuration;
 
-class Controller {
-	protected string $ext;
-	protected array $args;
-	public static string $name;
-	public static string $contentPath;
-	protected array $records = [];
-	protected Model $Model;
-	protected Html $View;
+class Controller
+{
+    protected string $ext;
+    protected array $args;
+    public static string $name;
+    public static string $contentPath;
+    protected array $records = [];
+    protected Model $Model;
+    protected Html $View;
 
-	public function __construct( $args = [] ) {
-		$this->ext  = Configuration::CONTENT_EXT;
-		$this->args = $args;
+    public function __construct($args = [])
+    {
+        $this->ext  = Configuration::CONTENT_EXT;
+        $this->args = $args;
     }
 
     /**

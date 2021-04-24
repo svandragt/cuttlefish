@@ -1,13 +1,16 @@
-<?php /** @noinspection ForgottenDebugOutputInspection */
+<?php
+
+/** @noinspection ForgottenDebugOutputInspection */
 
 namespace Cuttlefish;
 
 use Configuration;
 
-class Log {
-	protected const FILENAME_TEMPLATE = '/app.log';
+class Log
+{
+    protected const FILENAME_TEMPLATE = '/app.log';
 
-	protected static function getUniqueFilename() : string
+    protected static function getUniqueFilename(): string
     {
         return self::FILENAME_TEMPLATE;
     }

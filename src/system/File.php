@@ -49,8 +49,8 @@ class File
      */
     protected function getMimetypeFromFile(string $filename)
     {
-        if ( is_file( $filename ) ) {
-	        return mime_content_type( $filename );
+        if (is_file($filename)) {
+            return mime_content_type($filename);
         }
 
         return false;
