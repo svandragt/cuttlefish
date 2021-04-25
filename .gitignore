@@ -1,6 +1,8 @@
 *.log
 *.phar
 .DS_Store
+.env
+.envrc
 .idea/
 .phpcs-cache
 .phpdox/
@@ -14,6 +16,7 @@ data/_logs/
 Configuration.php
 content/
 Desktop.ini
+node_modules/
 src/content/
 src/info.php
 Thumbs.db
