@@ -2,7 +2,6 @@
 *.phar
 .DS_Store
 .env
-.envrc
 .idea/
 .phpcs-cache
 .phpdox/
