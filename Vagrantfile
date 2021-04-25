@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
 
 
   # Enable writing to the logs and cache folder through permissions
-  config.vm.synced_folder ".", "/srv/app", owner: "www-data", group: "www-data"
-  config.vm.synced_folder ".", "/vagrant"
+  config.vm.synced_folder ".", "/srv/app"
+  config.vm.synced_folder "src/", "/srv/app/src", owner: "www-data", group: "www-data"
+  config.vm.synced_folder "data/", "/srv/app/data", owner: "www-data", group: "www-data"
 end
