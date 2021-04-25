@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.box = "bento/ubuntu-20.04"
+  config.vm.define :cuttlefish
   config.vm.hostname = "cuttlefish.test"
   config.vm.network :private_network, ip: "192.168.4.3"
 
