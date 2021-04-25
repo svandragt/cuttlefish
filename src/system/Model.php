@@ -9,14 +9,18 @@ use StdClass;
 
 class Model
 {
-    public array $contents = [];
-    public array $fields = [];
+    public array $items = [];
+	/**
+	 * Array of field => transformation pairs
+	 * @var array
+	 */
+	public array $structure = [];
     public string $name;
 
     public function __construct($records)
     {
         try {
-            if (array_unique($this->fields) !== $this->fields) {
+            if ( array_unique($this->structure) !== $this->structure) {
                 throw new RuntimeException('Array values not unique for model');
             }
         } catch (RuntimeException $e) {
@@ -32,7 +36,7 @@ class Model
 
     public function limit(int $max): self
     {
-        $this->contents = array_slice($this->contents, 0, $max);
+        $this->items = array_slice($this->items, 0, $max);
 
         return $this;
     }
@@ -41,12 +45,12 @@ class Model
      *
      * @return StdClass
      */
-    protected function listContents($record): StdClass
+    protected function getContent($record): StdClass
     {
         $File             = new File($record);
-        $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->fields));
-        $fields           = array_keys($this->fields);
-        $transforms       = array_values($this->fields);
+        $content_sections = preg_split('/\R\R\R/', trim(file_get_contents($File->path)), count($this->structure));
+        $fields           = array_keys($this->structure);
+        $transforms       = array_values($this->structure);
 
         try {
             if (count($transforms) !== count($content_sections)) {
@@ -66,9 +70,9 @@ class Model
         $Content       = new StdClass();
         $Content->link = Url::fromFile($File)->url_absolute;
 
-        for ($i = 0, $len = count($this->fields); $i < $len; $i++) {
+        for ($i = 0, $len = count($this->structure); $i < $len; $i++) {
             $field           = $fields[ $i ];
-            $Content->$field = $this->section($content_sections[ $i ], $transforms[ $i ]);
+            $Content->$field = $this->transform($content_sections[ $i ], $transforms[ $i ]);
         }
 
         return $Content;
@@ -80,7 +84,7 @@ class Model
      *
      * @return StdClass
      */
-    public function section(string $text, string $transform): StdClass
+    public function transform(string $text, string $transform): StdClass
     {
         $Section = new StdClass();
         switch ($transform) {

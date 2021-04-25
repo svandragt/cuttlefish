@@ -34,7 +34,7 @@ class ControllerError extends Controller
     {
         parent::view();
 
-        $this->View = new Html($this->Model->contents, array(
+        $this->View = new Html($this->Model->items, array(
             'layout'     => 'layout.php',
             'controller' => self::$name,
             'model'      => $this->Model->name,
