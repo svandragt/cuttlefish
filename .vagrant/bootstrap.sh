@@ -39,14 +39,11 @@ if [[ ! -f $FILE ]]; then
   sudo apt-get install -y nodejs
 fi
 
-pushd /vagrant || exit
+pushd /srv/app || exit
 echo "🐡  Setup Cuttlefish..."
 sudo -u vagrant -H composer guest:setup
 popd || exit
 
-if ! grep -q "cd /vagrant" /home/vagrant/.bashrc; then
-  echo "cd /vagrant" >>/home/vagrant/.bashrc
-fi
-if ! grep -q "cd /vagrant" /home/vagrant/.profile; then
-  echo "cd /vagrant" >>/home/vagrant/.profile
+if ! grep -q "cd /srv/app" /home/vagrant/.bashrc; then
+  echo "cd /srv/app" >>/home/vagrant/.bashrc
 fi

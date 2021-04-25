@@ -9,8 +9,8 @@
 Configuration.php
 Desktop.ini
 Thumbs.db
-_cache/
-_logs/
+data/_cache/
+data/_logs/
 Configuration.php
 content/
 Desktop.ini

@@ -16,8 +16,8 @@ class Defaults
 
     public const HOME_PAGE = '/home';
     public const APPLICATION_FOLDER = 'application';
-    public const CACHE_FOLDER = '../_cache';
+    public const CACHE_FOLDER = '../data/_cache';
     public const CONTENT_FOLDER = '../content';
-    public const LOGS_FOLDER = '../_logs';
+    public const LOGS_FOLDER = '../data/_logs';
     public const THEMES_FOLDER = 'themes';
 }
