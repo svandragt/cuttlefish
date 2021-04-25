@@ -7,7 +7,7 @@ if ! [ -x "$(command -v php)" ]; then
   echo 'Dpkg::Use-Pty "0";' >/etc/apt/apt.conf.d/00usepty
   add-apt-repository -y ppa:ondrej/php
   apt-get -qq -y update
-  apt-get -qq -y install nginx zip php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl php7.4-xml php7.4-mbstring
+  apt-get -qq -y install nginx zip php7.4-cli php7.4-fpm php7.4-xdebug php7.4-curl php7.4-xml php7.4-mbstring direnv
   apt-get -qq clean && apt-get -qq -y autoremove &
 fi
 
