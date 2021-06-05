@@ -22,8 +22,8 @@ class Security
         Log::info(sprintf("Login attempt from %s", $_SERVER['REMOTE_ADDR']));
 
         $output = "";
-        $admin_password = $_ENV['CUTTLEFISH_ADMIN_PASSWORD'];
-        if ($admin_password) {
+        if (isset($_ENV['CUTTLEFISH_ADMIN_PASSWORD'])) {
+            $admin_password = $_ENV['CUTTLEFISH_ADMIN_PASSWORD'];
             $password = Http::post('password');
             if ($password === $admin_password) {
                 Http::setSession(array(
