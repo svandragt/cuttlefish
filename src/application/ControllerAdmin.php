@@ -9,6 +9,7 @@ use Cuttlefish\Url;
 class ControllerAdmin extends Controller
 {
     public static string $name = 'admin';
+    public static string $modelClass = ModelPage::class;
 
     public array $allowed_methods = array(
         'index'        => 'Overview',
@@ -81,6 +82,11 @@ class ControllerAdmin extends Controller
         }
 
         parent::init();
+    }
+
+    public function model()
+    {
+        $this->Model = new self::$modelClass($this->records);
     }
 
     /**
