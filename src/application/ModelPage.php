@@ -6,7 +6,7 @@ use Cuttlefish\Model;
 
 class ModelPage extends Model
 {
-    public array $fields = [
+    public array $structure = [
         'content' => 'markdown',
     ];
     public string $name = 'page';
@@ -14,7 +14,7 @@ class ModelPage extends Model
     public function contents($records): void
     {
         foreach ($records as $record) {
-            $this->contents[] = $this->listContents($record);
+            $this->items[] = $this->getContent($record);
         }
     }
 }

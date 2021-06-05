@@ -33,7 +33,7 @@ class ControllerImages extends Controller
     public function view()
     {
         parent::view();
-        $this->View = new File($this->Model->contents[0]);
+        $this->View = new File($this->Model->items[0]);
         $this->View->render();
     }
 }

@@ -6,8 +6,7 @@ use Cuttlefish\Model;
 
 class ModelPost extends Model
 {
-    /* field => transform */
-    public array $fields = [
+    public array $structure = [
         'metadata' => 'metadatareader',
         'content'  => 'markdown',
     ];
@@ -21,8 +20,8 @@ class ModelPost extends Model
     public function contents($records): void
     {
         foreach ($records as $record) {
-            $this->contents[] = $this->listContents($record);
+            $this->items[] = $this->getContent($record);
         }
-        usort($this->contents, [ $this, 'sortByPublished' ]);
+        usort($this->items, [ $this, 'sortByPublished' ]);
     }
 }
