@@ -38,7 +38,10 @@ class Security
                     Log::warn("Login attempt unsuccessful.");
                     $output .= "Nope.<br>";
                 }
-                $output .= "<form method='post'><input type='password' name='password'><input type='submit'></form>";
+                $output .= "<form method='post'>
+                    <input type='password' name='password'>
+                    <input type='submit' value='Login'>
+                </form>";
             }
         } else {
             $output .= <<< MSG
