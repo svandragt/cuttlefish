@@ -32,11 +32,11 @@ if [[ ! -f $FILE ]]; then
   mv phive.phar $FILE
 fi
 
-# Node 15
+# Node 14 LTS
 FILE=/usr/bin/node
 if [[ ! -f $FILE ]]; then
-  curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
-  sudo apt-get install -y nodejs
+  curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  apt-get install -y nodejs
 fi
 
 pushd /srv/app || exit
