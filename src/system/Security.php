@@ -42,8 +42,13 @@ class Security
             }
         } else {
             $output .= <<< MSG
-            To login, create an environment variable called
-            CUTTLEFISH_ADMIN_PASSWORD and a password as the value . <br />
+            <p>To login, create an environment variable called
+            <code>CUTTLEFISH_ADMIN_PASSWORD</code> with a password as the value in a file named <code>.env</code>
+             in the root of the project.
+             
+             <ul>
+                <li><a href="https://github.com/vlucas/phpdotenv#usage">More usage information</a></li>
+             </ul>
 MSG;
         }
 
