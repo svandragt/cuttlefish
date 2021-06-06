@@ -6,7 +6,6 @@
 .phpcs-cache
 .phpdox/
 .phpintel/
-.vagrant
 Configuration.php
 Desktop.ini
 Thumbs.db
@@ -21,7 +20,3 @@ src/info.php
 Thumbs.db
 vendor/
 /content/
-/.vagrant/bundler/
-/.vagrant/hostmanager/
-/.vagrant/machines/
-/.vagrant/rgloader/
