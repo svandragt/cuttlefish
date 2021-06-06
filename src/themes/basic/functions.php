@@ -44,13 +44,3 @@ function pages()
 
     return $output;
 }
-
-/**
- * Is the user logged in
- *
- * @return boolean logged in status
- */
-function isLoggedIn()
-{
-    return Cuttlefish\App::getInstance()->Security->isLoggedIn();
-}

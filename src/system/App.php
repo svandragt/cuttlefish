@@ -3,7 +3,6 @@
 namespace Cuttlefish;
 
 use Configuration;
-use Cuttlefish\Blog\ControllerAdmin;
 use Cuttlefish\Blog\ControllerArchive;
 use Cuttlefish\Blog\ControllerError;
 use Cuttlefish\Blog\ControllerFeeds;
@@ -15,7 +14,6 @@ use Dotenv\Dotenv;
 
 class App
 {
-    public Security $Security;
     public Cache $Cache;
     public Environment $Environment;
     public Router $Router;
@@ -36,7 +34,6 @@ class App
 
         // Setup environment
         $this->Environment = new Environment();
-        $this->Security    = new Security();
     }
 
     public function run(array $routes = [])
@@ -44,7 +41,6 @@ class App
         // Process request if not statically cached.
         $this->Cache->start();
         $this->Router = new Router([
-            'admin'   => ControllerAdmin::class,
             'archive' => ControllerArchive::class,
             'errors'  => ControllerError::class,
             'feeds'   => ControllerFeeds::class,

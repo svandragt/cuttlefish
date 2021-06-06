@@ -1,19 +1,20 @@
 # Cuttlefish
-Cuttlefish is a PHP based opinionated blog framework. 
+Cuttlefish simplifies creating and deploying PHP websites.
 
 _It should be considered work in progress._
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/svandragt/cuttlefish/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/svandragt/cuttlefish/?branch=master)
 
-## Aims
+## Philosophy
 
-* Easily understood.
+* Short learning curve.
 * Accommodating defaults.
 * Adaptable to your needs.
-* Code over Configuration
 
-![Cuttlefish screenshot](https://vandragt.com/file/d97a82559947ebc1f195213a751c52f0/Screenshot+from+2020-03-03+08-34-26.png)
+## Goals
 
+- [ ] Deploy a Cuttlefish site by coping the files.
+- [ ] 
 
 ## Next step
 
@@ -21,3 +22,5 @@ _It should be considered work in progress._
 instructions are found on the wiki.
 
 [Contributions are welcomed](https://github.com/svandragt/cuttlefish/issues). 
+
+## Deployment story

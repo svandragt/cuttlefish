@@ -13,8 +13,7 @@ switch (count((array)$this->contents)) {
     case 0:
         // no content - new installation
         printf(
-            "<p> Please <a href='%s'>add content</a> to <code>%s</code>.</p>",
-            href('/admin/new'),
+            "<p> Please add content to <code>%s</code>.</p>",
             $Controller->getContentPath()
         );
         break;
