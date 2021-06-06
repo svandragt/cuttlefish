@@ -1,12 +1,12 @@
 <?php
-if (!defined('BASE_DIR'))
-{
-	exit('No direct script access allowed');
+
+if (!defined('BASE_DIR')) {
+    exit('No direct script access allowed');
 }
 
 class Configuration extends Cuttlefish\Defaults
 {
-	const SITE_TITLE = 'Your site';
-	const SITE_MOTTO = 'Example theme of <a href="https://vandragt.com/tag/cuttlefish/">Cuttlefish</a>, the hackable web framework.';
-	const CACHE_ENABLED = FALSE;
+    public const SITE_TITLE = 'Your site';
+    public const SITE_MOTTO = 'Example theme of Cuttlefish.';
+    public const CACHE_ENABLED = false;
 }

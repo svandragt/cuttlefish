@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-mkdir -p {content/posts,content/pages,data}
+mkdir -p site/{content/{posts,pages},data}
