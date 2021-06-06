@@ -13,8 +13,7 @@ _It should be considered work in progress._
 
 ## Goals
 
-- [ ] Deploy a Cuttlefish site by coping the files.
-- [ ] 
+- [ ] Web authors: Deploy a Cuttlefish site simply by uploading files.
 
 ## Installation
 
@@ -32,10 +31,12 @@ Prerequisites:
 - Composer 2 - [Website](https://getcomposer.org/)
 - DirEnv (optionally) - Recommended if you have other projects with different requirements - [HomeBrew](https://formulae.brew.sh/formula/direnv#default) <br> so the right PHP and Composer version are used.
 
-- git clone
-- composer setup
-- composer serve
-
+Setup:
+```
+git clone
+composer setup
+composer serve
+```
 
 ## Next step
 
