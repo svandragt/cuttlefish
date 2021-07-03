@@ -9,7 +9,6 @@ Desktop.ini
 Thumbs.db
 
 #app
-site/content/
-site/data/
 Configuration.php
 vendor/
+/.php-cs-fixer.cache
