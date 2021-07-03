@@ -18,7 +18,7 @@ class Log
     public static function error(string $message): void
     {
         error_log($message, 0);
-        echo( $message . "<br>" );
+        echo($message . "<br>");
     }
 
     public static function debug(string $message): void

@@ -27,7 +27,7 @@ class Environment
 
     protected function isNewInstall(): bool
     {
-        return ! ( is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER) );
+        return ! (is_dir(Configuration::CACHE_FOLDER) && is_dir(Configuration::CONTENT_FOLDER));
     }
 
     protected function createSystemFolders(): void

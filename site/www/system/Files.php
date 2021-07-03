@@ -26,7 +26,6 @@ class Files
      */
     protected function collect(string $dir = ".", $filter = null): array
     {
-
         $files = array();
 
         // dir must exist
@@ -36,7 +35,7 @@ class Files
 
         // get files
         if ($handle = opendir($dir)) {
-            while (false !== ( $file = readdir($handle) )) {
+            while (false !== ($file = readdir($handle))) {
                 if ($file !== "." && $file !== "..") {
                     $file_path = $dir . DIRECTORY_SEPARATOR . $file;
                     if (is_dir($file_path)) {
@@ -44,7 +43,7 @@ class Files
                         foreach ($dir_files as $ai) {
                             $files[] = $ai;
                         }
-                    } elseif (( $filter === null ) || pathinfo($file_path, PATHINFO_EXTENSION) === $filter) {
+                    } elseif (($filter === null) || pathinfo($file_path, PATHINFO_EXTENSION) === $filter) {
                         $files[] = $file_path;
                     }
                 }

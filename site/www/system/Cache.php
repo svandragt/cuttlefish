@@ -82,7 +82,6 @@ class Cache
      */
     public function convertUrlpathToFilepath(string $path_info): string
     {
-
         $path_info = $this->sanitizePathinfo($path_info);
 
         $file_path = pathinfo($path_info, PATHINFO_DIRNAME) . '/' . pathinfo($path_info, PATHINFO_FILENAME);
@@ -222,7 +221,6 @@ class Cache
      */
     protected function copyThemeFiles($file_types)
     {
-
         include_once('helpers.php');
         $output    = 'Copying files from theme: <br><br>';
 

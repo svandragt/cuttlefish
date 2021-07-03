@@ -6,7 +6,6 @@ use RuntimeException;
 
 class Filesystem
 {
-
     public static function requireFolder(string $folder): void
     {
         if (! mkdir($folder, 0777, true) && ! is_dir($folder)) {

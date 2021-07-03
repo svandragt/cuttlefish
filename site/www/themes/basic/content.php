@@ -24,4 +24,4 @@ switch (count((array)$this->contents)) {
         break;
 }
 
-print( "</div>" );
+print("</div>");
