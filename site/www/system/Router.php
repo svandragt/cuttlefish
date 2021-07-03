@@ -26,7 +26,11 @@ class Router
 
     public function loadController()
     {
-        $controller_class = $this->routes[ $this->args[1] ];
+        $route = $this->args[1];
+        if (! isset($this->routes[ $route ])) {
+            $this->classNotCallable($route);
+        }
+        $controller_class = $this->routes[ $route ];
 
         $controller_arguments = array_slice($this->args, 2);
         if (class_exists($controller_class, true)) {
@@ -89,6 +93,7 @@ class Router
         if (empty($controller_class)) {
             $log_message  = "Missing route";
         }
+        http_response_code(404);
         $this->redirect($Url, $log_message);
     }
 
@@ -102,7 +107,7 @@ class Router
      */
     protected function redirect($Url, string $log_message): void
     {
-        echo( "Location: " . $Url->url_absolute . PHP_EOL );
+        echo("Location: " . $Url->url_absolute . PHP_EOL);
         exit($log_message);
     }
 }
