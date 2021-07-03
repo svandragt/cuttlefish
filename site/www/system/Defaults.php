@@ -15,7 +15,6 @@ class Defaults
     public const POSTS_HOMEPAGE = 10;
 
     public const HOME_PAGE = '/home';
-    public const APPLICATION_FOLDER = 'application';
     public const CACHE_FOLDER = '../data/_cache';
     public const CONTENT_FOLDER = '../content';
     public const LOGS_FOLDER = '../data/_logs';
