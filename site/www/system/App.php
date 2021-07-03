@@ -18,7 +18,7 @@ class App
     public Environment $Environment;
     public Router $Router;
 
-    private static $instance = null;
+    private static ?App $instance = null;
 
     protected function __construct()
     {
@@ -36,7 +36,7 @@ class App
         $this->Environment = new Environment();
     }
 
-    public function run(array $routes = [])
+    public function run(array $routes = []): void
     {
         // Process request if not statically cached.
         $this->Cache->start();
@@ -61,7 +61,7 @@ class App
      *
      * @return App
      */
-    public static function getInstance()
+    public static function getInstance(): ?App
     {
         if (self::$instance === null) {
             if (is_readable(dirname(BASE_DIR) . '/.env')) {

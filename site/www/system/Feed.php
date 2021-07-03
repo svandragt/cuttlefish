@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection XmlUnusedNamespaceDeclaration */
+
 namespace Cuttlefish;
 
 use Configuration;
@@ -7,19 +9,17 @@ use SimpleXMLElement;
 
 class Feed
 {
-    protected $xml;
+    protected SimpleXMLElement $xml;
 
     /**
      * Feed constructor.
      *
-     * @param $posts
+     * @param array $posts
      */
-    public function __construct($posts)
+    public function __construct(array $posts)
     {
         $PageUrl = new Url($_SERVER['PATH_INFO']);
-        $Xml     = new SimpleXMLElement('<!--suppress HtmlUnknownTag -->
-<!--suppress HtmlUnknownTag -->
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
+        $Xml = new SimpleXMLElement('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
         $Channel = $Xml->addChild('channel');
 
         $Channel->addChild('title', Configuration::SITE_TITLE);
@@ -39,7 +39,7 @@ class Feed
             $Item->addChild('link', $post->link);
             $Item->addChild('guid', $post->link);
             $Item->addChild('description', $post->content->main);
-            $Item->addChild('pubDate', date(DATE_RSS, strtotime($post->metadata->Published)));
+            $Item->addChild('pubDate', date(DATE_RSS, strtotime($post->metadata->published)));
         }
         $this->xml = $Xml;
         $this->render();
