@@ -6,8 +6,8 @@ use Configuration;
 
 class Url
 {
-    public $url_relative = '';
-    public $url_absolute = '';
+    public string $url_relative = '';
+    public string $url_absolute = '';
 
     public function __construct($path = null)
     {
@@ -31,7 +31,7 @@ class Url
     protected function protocol(): string
     {
         $protocol = 'http://';
-        if (( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ) || $_SERVER['SERVER_PORT'] === 443) {
+        if ((! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] === 443) {
             $protocol = 'https://';
         }
 
