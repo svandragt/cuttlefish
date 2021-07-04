@@ -23,12 +23,12 @@ class App
     protected function __construct()
     {
         $this->Cache = new Cache();
-        $file_path = $this->Cache->convertUrlpathToFilepath('');
-        if (Configuration::CACHE_ENABLED && is_readable($file_path)) {
+        $filePath = $this->Cache->convertUrlpathToFilepath('');
+        if (Configuration::CACHE_ENABLED && is_readable($filePath)) {
             header('X-Cuttlefish-Cached: true');
-            $bytes                       = readfile($file_path);
+            $bytes = readfile($filePath);
             if ($bytes !== false) {
-                exit();
+                die($bytes);
             }
         }
 
