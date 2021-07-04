@@ -3,13 +3,6 @@
 namespace Cuttlefish;
 
 use Configuration;
-use Cuttlefish\Blog\ControllerArchive;
-use Cuttlefish\Blog\ControllerError;
-use Cuttlefish\Blog\ControllerFeeds;
-use Cuttlefish\Blog\ControllerHome;
-use Cuttlefish\Blog\ControllerImages;
-use Cuttlefish\Blog\ControllerPages;
-use Cuttlefish\Blog\ControllerPosts;
 use Dotenv\Dotenv;
 
 class App
@@ -19,6 +12,15 @@ class App
     public Router $Router;
 
     private static ?App $instance = null;
+    private array $routes = [];
+
+    /**
+     * @param array $routes
+     */
+    public function registerRouteControllers(array $routes): void
+    {
+        $this->routes = array_merge($this->routes, $routes);
+    }
 
     protected function __construct()
     {
@@ -36,20 +38,11 @@ class App
         $this->Environment = new Environment();
     }
 
-    public function run(array $routes = []): void
+    public function run(): void
     {
         // Process request if not statically cached.
         $this->Cache->start();
-        $this->Router = new Router([
-            'archive' => ControllerArchive::class,
-            'errors'  => ControllerError::class,
-            'feeds'   => ControllerFeeds::class,
-            'home'    => ControllerHome::class,
-            'images'  => ControllerImages::class,
-            'pages'   => ControllerPages::class,
-            'posts'   => ControllerPosts::class,
-            ...$routes,
-        ]);
+        $this->Router = new Router($this->routes);
         $this->Router->loadController();
         $this->Cache->end();
     }
