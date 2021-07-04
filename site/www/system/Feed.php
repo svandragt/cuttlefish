@@ -23,7 +23,7 @@ class Feed
         $Channel = $Xml->addChild('channel');
 
         $Channel->addChild('title', Configuration::SITE_TITLE);
-        $Channel->addChild('link', $PageUrl->url_absolute);
+        $Channel->addChild('link', $PageUrl->urlAbsolute);
         $Channel->addChild('description', strip_tags(Configuration::SITE_MOTTO));
 
         $Channel->addChild('pubDate', date(DATE_RSS));

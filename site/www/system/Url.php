@@ -7,7 +7,7 @@ use Configuration;
 class Url
 {
     public string $url_relative = '';
-    public string $url_absolute = '';
+    public string $urlAbsolute = '';
 
     public function __construct($path = null)
     {
@@ -19,7 +19,7 @@ class Url
     protected function setUrl(string $path): void
     {
         $this->url_relative = Configuration::INDEX_PAGE . $path;
-        $this->url_absolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
+        $this->urlAbsolute = $this->protocol() . $_SERVER['HTTP_HOST'] . $this->url_relative;
     }
 
     /**

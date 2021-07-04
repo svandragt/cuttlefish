@@ -12,14 +12,14 @@ class App
     public Router $Router;
 
     private static ?App $instance = null;
-    private array $routes = [];
+    private array $routeControllers = [];
 
     /**
      * @param array $routes
      */
     public function registerRouteControllers(array $routes): void
     {
-        $this->routes = array_merge($this->routes, $routes);
+        $this->routeControllers = array_merge($this->routeControllers, $routes);
     }
 
     protected function __construct()
@@ -42,7 +42,7 @@ class App
     {
         // Process request if not statically cached.
         $this->Cache->start();
-        $this->Router = new Router($this->routes);
+        $this->Router = new Router($this->routeControllers);
         $this->Router->loadController();
         $this->Cache->end();
     }

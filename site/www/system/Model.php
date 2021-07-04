@@ -63,8 +63,8 @@ class Model
             exit();
         }
 
-        $Content       = new StdClass();
-        $Content->link = Url::fromFile($File)->url_absolute;
+        $Content = new StdClass();
+        $Content->link = Url::fromFile($File)->urlAbsolute;
 
         for ($i = 0, $len = count($this->fields); $i < $len; $i++) {
             $field           = $fields[ $i ];

@@ -153,10 +153,10 @@ class Cache
         }
 
         foreach ($cacheUrls as $url) {
-            $contents = $curl->getURLContents($url->url_absolute);
+            $contents = $curl->getURLContents($url->urlAbsolute);
 
             if (empty($contents)) {
-                $urlAbsolute = $url->url_absolute;
+                $urlAbsolute = $url->urlAbsolute;
                 throw new RuntimeException("ERROR: no contents for $urlAbsolute");
             }
 

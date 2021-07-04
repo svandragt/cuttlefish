@@ -20,8 +20,8 @@ class ControllerFeeds extends Controller
     {
         $limit         = Configuration::POSTS_HOMEPAGE;
         // TODO can we use the routing table to get the model of the matching controller here
-        $content_dir   = $this->getContentPath(App::getInstance()->Router->routes[ $this->args[2] ]);
-        $Records       = new Files($content_dir, $this->ext);
+        $content_dir = $this->getContentPath(App::getInstance()->Router->routeControllers[$this->args[2]]);
+        $Records = new Files($content_dir, $this->ext);
         $this->records = $Records->limit($limit + 5);
     }
 

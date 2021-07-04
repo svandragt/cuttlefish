@@ -4,33 +4,29 @@ namespace Cuttlefish;
 
 use Configuration;
 
-if (! defined('BASE_DIR')) {
-    exit('No direct script access allowed');
-}
-
 /**
  * @property  controller
  */
 class Router
 {
     public Controller $Controller;
-    public array $routes = [];
+    public array $routeControllers = [];
     public array $args;
 
     public function __construct(array $routes)
     {
-        $this->routes = $routes;
+        $this->routeControllers = $routes;
         // Route to controller
         $this->args = explode("/", $this->pathInfo());
     }
 
-    public function loadController()
+    public function loadController(): void
     {
         $route = $this->args[1];
-        if (! isset($this->routes[ $route ])) {
+        if (!isset($this->routeControllers[$route])) {
             $this->classNotCallable($route);
         }
-        $controller_class = $this->routes[ $route ];
+        $controller_class = $this->routeControllers[$route];
 
         $controller_arguments = array_slice($this->args, 2);
         if (class_exists($controller_class, true)) {
@@ -43,10 +39,8 @@ class Router
 
     public function routeFromClass($class)
     {
-        $classes = array_flip($this->routes);
-        $route   = $classes[ $class ];
-
-        return $route;
+        $classes = array_flip($this->routeControllers);
+        return $classes[$class];
     }
 
     /**
@@ -54,60 +48,57 @@ class Router
      *
      * @return string Returns information about a file path
      */
-    protected function pathInfo()
+    protected function pathInfo(): string
     {
-        $path_info = '';
-        if (isset($_SERVER['PATH_INFO'])) {
-            $path_info = $_SERVER['PATH_INFO'];
-        }
+        $pathInfo = $_SERVER['PATH_INFO'] ?? '';
 
-        $no_specified_path = empty($path_info) || $path_info === '/';
-        if (! $no_specified_path) {
-            $ends_with_slash = ! substr(strrchr($path_info, "/"), 1);
-            if ($ends_with_slash) {
-                $slashless_request = substr($path_info, 0, - 1);
-                $Url               = new Url($slashless_request);
-                header('Location: ' . $Url->url_absolute);
+        $unspecifiedPath = empty($pathInfo) || $pathInfo === '/';
+        if (!$unspecifiedPath) {
+            $endsWithSlash = !substr(strrchr($pathInfo, "/"), 1);
+            if ($endsWithSlash) {
+                $slashlessRequest = substr($pathInfo, 0, -1);
+                $Url = new Url($slashlessRequest);
+                header('Location: ' . $Url->urlAbsolute);
                 exit();
             }
         }
 
-        if (empty($path_info)) {
-            $path_info = Configuration::HOME_PAGE;
+        if (empty($pathInfo)) {
+            $pathInfo = Configuration::HOME_PAGE;
         }
 
-        return (string) $path_info;
+        return (string)$pathInfo;
     }
 
     /**
      * Requesting urls without controller
      *
-     * @param string $controller_class name of controller
+     * @param string $controllerClassName name of controller
      *
      * @return void
      */
-    protected function classNotCallable($controller_class): void
+    protected function classNotCallable(string $controllerClassName): void
     {
-        $Url         = new Url('/errors/404');
-        $log_message = "Not callable '$controller_class' or missing parameter.";
-        if (empty($controller_class)) {
-            $log_message  = "Missing route";
+        $url = new Url('/errors/404');
+        $logMessage = "Not callable '$controllerClassName' or missing parameter.";
+        if (empty($controllerClassName)) {
+            $logMessage = "Missing route";
         }
         http_response_code(404);
-        $this->redirect($Url, $log_message);
+        $this->redirect($url, $logMessage);
     }
 
     /**
      * Redirect to new url
      *
-     * @param Url $Url URL to redirect to
-     * @param $log_message
+     * @param Url $url URL to redirect to
+     * @param string $logMessage
      *
      * @return void
      */
-    protected function redirect($Url, string $log_message): void
+    protected function redirect(Url $url, string $logMessage): void
     {
-        echo("Location: " . $Url->url_absolute . PHP_EOL);
-        exit($log_message);
+        echo("Location: " . $url->urlAbsolute . PHP_EOL);
+        exit($logMessage);
     }
 }
