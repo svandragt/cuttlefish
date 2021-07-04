@@ -28,7 +28,7 @@ class App
             header('X-Cuttlefish-Cached: true');
             $bytes = readfile($filePath);
             if ($bytes !== false) {
-                die($bytes);
+                exit(0);
             }
         }
 
