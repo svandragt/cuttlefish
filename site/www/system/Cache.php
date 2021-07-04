@@ -28,7 +28,7 @@ class Cache
         // Not a bug (LOL): https://bugs.php.net/bug.php?id=30210
         chdir($this->cwd);
         if ($this->canCache()) {
-            $this->writeToDisk(ob_get_flush(), '');
+            $this->writeToDisk(ob_get_flush());
             exit;
         }
     }
@@ -38,7 +38,7 @@ class Cache
      *
      * @return boolean whether caching is possible
      */
-    protected function canCache()
+    protected function canCache(): bool
     {
         if (Configuration::CACHE_ENABLED === false) {
             return false;
@@ -55,66 +55,54 @@ class Cache
      *
      * @param string $contents contents of the cache
      *
-     * @param string $url_relative Relative URL
+     * @param string $urlRelative Relative URL
      *
      * @return string           path to the cache file
      */
-    protected function writeToDisk(string $contents, string $url_relative = '')
+    protected function writeToDisk(string $contents, string $urlRelative = ''): string
     {
-        $path    = $this->convertUrlpathToFilepath($url_relative);
+        $path = $this->convertUrlpathToFilepath($urlRelative);
         $dirname = pathinfo($path, PATHINFO_DIRNAME);
 
-        if (! is_dir($dirname) && ! mkdir($dirname, 0777, true) && ! is_dir($dirname)) {
+        if (!is_dir($dirname) && !mkdir($dirname, 0777, true) && !is_dir($dirname)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $dirname));
         }
-        $fp = fopen($path, 'wb');
-        fwrite($fp, $contents);
-        fclose($fp);
+        $pointer = fopen($path, 'wb');
+        fwrite($pointer, $contents);
+        fclose($pointer);
         return $path;
     }
 
     /**
      * Returns path to cache file based on url path.
      *
-     * @param  string $path_info path to current request
+     * @param string $pathInfo path to current request
      *
      * @return string            path to cache file
      */
-    public function convertUrlpathToFilepath(string $path_info): string
+    public function convertUrlpathToFilepath(string $pathInfo): string
     {
-        $path_info = $this->sanitizePathinfo($path_info);
+        $pathInfo = $this->sanitizePathinfo($pathInfo);
 
-        $file_path = pathinfo($path_info, PATHINFO_DIRNAME) . '/' . pathinfo($path_info, PATHINFO_FILENAME);
-        $file_path = ltrim($file_path, '.');
+        $filePath = pathinfo($pathInfo, PATHINFO_DIRNAME) . '/' . pathinfo($pathInfo, PATHINFO_FILENAME);
+        $filePath = ltrim($filePath, '.');
 
-        $ext = pathinfo($path_info, PATHINFO_EXTENSION);
-        if (strrpos($path_info, '.') === false) {
+        $ext = pathinfo($pathInfo, PATHINFO_EXTENSION);
+        if (strrpos($pathInfo, '.') === false) {
             // Convert html request into a folder
-            $file_path = rtrim($file_path, '/') . '/index';
-            $ext       = 'html';
+            $filePath = rtrim($filePath, '/') . '/index';
+            $ext = 'html';
 
             // FIXME: If filename has the word feed in it it's xml (lol)
-            if (! strrpos($file_path, 'feed/') === false) {
+            if (!strrpos($filePath, 'feed/') === false) {
                 $ext = 'xml';
             }
         }
 
-        $cache_file = sprintf('%s/%s.%s', Configuration::CACHE_FOLDER, ltrim($file_path, '/'), $ext);
-        $cache_file = str_replace('/', DIRECTORY_SEPARATOR, $cache_file);
+        $cacheFile = sprintf('%s/%s.%s', Configuration::CACHE_FOLDER, ltrim($filePath, '/'), $ext);
+        $cacheFile = str_replace('/', DIRECTORY_SEPARATOR, $cacheFile);
 
-        return (string) $cache_file;
-    }
-
-    /**
-     * Abort caching
-     *
-     * @return void
-     */
-    public function abort(): void
-    {
-        while (ob_get_level() > 0) {
-            ob_end_clean();
-        }
+        return (string)$cacheFile;
     }
 
     /**
@@ -142,17 +130,17 @@ class Cache
         // TODO: only clear existing cache when forced.
         $output .= $this->clear();
 
-        $output  .= "<br>Generating site:<br>" . PHP_EOL;
+        $output .= "<br>Generating site:<br>" . PHP_EOL;
         $content = Configuration::CONTENT_FOLDER;
-        $ext     = Configuration::CONTENT_EXT;
-        $Curl    = new Curl();
-        $Files   = new Files($content, $ext);
+        $ext = Configuration::CONTENT_EXT;
+        $curl = new Curl();
+        $files = new Files($content, $ext);
 
-        $cache_urls = array();
+        $cacheUrls = array();
 
-        foreach (array_values($Files->files()) as $file_path) {
-            $File         = new File($file_path);
-            $cache_urls[] = Url::fromFile($File);
+        foreach (array_values($files->files()) as $filePath) {
+            $file = new File($filePath);
+            $cacheUrls[] = Url::fromFile($file);
         }
 
         $urls = array(
@@ -161,23 +149,23 @@ class Cache
             '/archive',
         );
         foreach ($urls as $path) {
-            $cache_urls[] = new Url($path);
+            $cacheUrls[] = new Url($path);
         }
 
-        foreach ($cache_urls as $Url) {
-            $contents = $Curl->getURLContents($Url->url_absolute);
+        foreach ($cacheUrls as $url) {
+            $contents = $curl->getURLContents($url->url_absolute);
 
             if (empty($contents)) {
-                $url_absolute = $Url->url_absolute;
-                throw new RuntimeException("ERROR: no contents for $url_absolute");
+                $urlAbsolute = $url->url_absolute;
+                throw new RuntimeException("ERROR: no contents for $urlAbsolute");
             }
 
             if (Configuration::CACHE_ENABLED === false) {
-                $path   = $this->writeToDisk($contents, $Url->url_relative);
+                $path = $this->writeToDisk($contents, $url->url_relative);
                 $output .= "Written: $path<br>" . PHP_EOL;
             }
         }
-        $Curl->close();
+        $curl->close();
 
         $output .= $this->copyThemeFiles(array( 'css', 'js', 'png', 'gif', 'jpg' ));
 
@@ -191,11 +179,11 @@ class Cache
      */
     public function clear(): string
     {
-        $dir    = $this->getCacheFolder();
+        $dir = $this->getCacheFolder();
         $output = sprintf('Removing  all files in %s<br>', $dir);
-        $Files  = new Files($dir);
-        $output .= $Files->removeAll();
-        $dirs   = Filesystem::subdirs(realpath($dir . '/.'), false);
+        $files = new Files($dir);
+        $output .= $files->removeAll();
+        $dirs = Filesystem::subdirs(realpath($dir . '/.'));
         foreach ($dirs as $dir) {
             Filesystem::removeDirs(realpath($dir . '/.'));
         }
@@ -215,42 +203,42 @@ class Cache
     /**
      * Copying of the theme files to the static site output folder
      *
-     * @param  array $file_types list of filetypes to process
+     * @param array $fileTypes list of filetypes to process
      *
      * @return string             messages detailing the process
      */
-    protected function copyThemeFiles($file_types)
+    protected function copyThemeFiles(array $fileTypes): string
     {
         include_once('helpers.php');
-        $output    = 'Copying files from theme: <br><br>';
+        $output = 'Copying files from theme: <br><br>';
 
-        foreach ($file_types as $file_type) {
-            $output .= "filetype: $file_type<br>";
-            $Files  = new Files(BASE_DIR . theme_path(), $file_type);
+        foreach ($fileTypes as $fileType) {
+            $output .= "filetype: $fileType<br>";
+            $files = new Files(BASE_DIR . theme_path(), $fileType);
 
-            $destination_files = array();
-            foreach ($Files->files() as $key => $source) {
-                $output              .= " - $key: $source<br>";
-                $cache               = ltrim(Configuration::CACHE_FOLDER, "./");
-                $destination_files[] = str_replace('src', $cache, $source);
+            $destinationFiles = array();
+            foreach ($files->files() as $key => $source) {
+                $output .= " - $key: $source<br>";
+                $cache = ltrim(Configuration::CACHE_FOLDER, "./");
+                $destinationFiles[] = str_replace('src', $cache, $source);
             }
-            Filesystem::copyFiles($Files->files(), $destination_files);
+            Filesystem::copyFiles($files->files(), $destinationFiles);
         }
 
         return $output;
     }
 
     /**
-     * @param $path_info
+     * @param string $pathInfo
      *
      * @return string
      */
-    protected function sanitizePathinfo(string $path_info): string
+    protected function sanitizePathinfo(string $pathInfo): string
     {
-        if (isset($_SERVER['PATH_INFO']) && empty($path_info)) {
-            $path_info = substr($_SERVER['PATH_INFO'], 1);
+        if (isset($_SERVER['PATH_INFO']) && empty($pathInfo)) {
+            $pathInfo = substr($_SERVER['PATH_INFO'], 1);
         }
 
-        return ltrim($path_info, '/');
+        return ltrim($pathInfo, '/');
     }
 }
