@@ -9,6 +9,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: /tmp/composer-cache
+        key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
     - name: Validate composer.json and composer.lock
       run: composer validate
@@ -17,7 +23,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Lint PHP
-      run: find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
+      run: composer lint
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
