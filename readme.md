@@ -3,8 +3,6 @@ Cuttlefish simplifies creating and deploying PHP websites.
 
 _It should be considered work in progress._
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/svandragt/cuttlefish/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/svandragt/cuttlefish/?branch=master)
-
 ## Philosophy
 
 * Short learning curve, basic PHP and markdown knowledge is required.
