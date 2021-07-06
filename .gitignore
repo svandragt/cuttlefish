@@ -9,6 +9,7 @@ Desktop.ini
 Thumbs.db
 
 #app
-Configuration.php
+Configuration.*
 vendor/
-/.php-cs-fixer.cache
+*.cache
+composer.lock
