@@ -14,5 +14,9 @@ _It should be considered work in progress._
 [Installation, configuration, and content management](https://github.com/svandragt/cuttlefish/wiki)
 instructions are found on the wiki.
 
+# Cuttlefish apps
+
+* [Blog application](https://github.com/svandragt/cuttlefish-blog)
+
 [Contributions are welcomed](https://github.com/svandragt/cuttlefish/issues). 
 
