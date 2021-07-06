@@ -1,3 +1,4 @@
+*.cache
 *.log
 *.phar
 .DS_Store
@@ -7,8 +8,5 @@
 .phpintel/
 Desktop.ini
 Thumbs.db
-
-#app
-Configuration.php
+composer.lock
 vendor/
-/.php-cs-fixer.cache
