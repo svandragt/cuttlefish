@@ -1,6 +1,6 @@
 <?php
 
-namespace Cuttlefish;
+namespace src;
 
 use RuntimeException;
 
@@ -10,7 +10,7 @@ class Curl
 
     public function __construct()
     {
-        if (! function_exists('curl_version')) {
+        if (!function_exists('curl_version')) {
             die('Please install the curl php extension to generate a static site.');
         }
         $this->c = curl_init();

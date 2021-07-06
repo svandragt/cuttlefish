@@ -1,6 +1,6 @@
 <?php
 
-namespace Cuttlefish;
+namespace src;
 
 use RuntimeException;
 
@@ -8,7 +8,7 @@ class Filesystem
 {
     public static function requireFolder(string $folder): void
     {
-        if (! mkdir($folder, 0777, true) && ! is_dir($folder)) {
+        if (!mkdir($folder, 0777, true) && !is_dir($folder)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $folder));
         }
     }

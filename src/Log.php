@@ -2,7 +2,7 @@
 
 /** @noinspection ForgottenDebugOutputInspection */
 
-namespace Cuttlefish;
+namespace src;
 
 use Configuration;
 

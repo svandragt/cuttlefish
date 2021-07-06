@@ -1,6 +1,6 @@
 <?php
 
-namespace Cuttlefish;
+namespace src;
 
 use Exception;
 

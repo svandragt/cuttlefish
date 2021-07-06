@@ -1,12 +1,12 @@
 <?php
 
-namespace Cuttlefish;
+namespace src;
 
 class Http
 {
     public static function post(string $key): ?string
     {
-        return (isset($_POST[ $key ])) ? htmlspecialchars($_POST[ $key ]) : null;
+        return (isset($_POST[$key])) ? htmlspecialchars($_POST[$key]) : null;
     }
 
     public static function session(string $key): ?string

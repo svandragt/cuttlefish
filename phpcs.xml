@@ -2,10 +2,10 @@
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
     <description>The coding standard for PHP_CodeSniffer itself.</description>
 
-    <file>site/www</file>
+    <file>src</file>
     <exclude-pattern>vendor/</exclude-pattern>
 
-    <arg name="basepath" value="site/www/"/>
+    <arg name="basepath" value="src/"/>
     <arg name="colors"/>
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="parallel" value="75"/>

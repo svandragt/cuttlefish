@@ -23,8 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cuttlefish\\": "site/www/system",
-            "Cuttlefish\\Blog\\": "site/www/application"
+            "Cuttlefish\\": "src"
         }
     },
     "config": {
@@ -32,14 +31,12 @@
         "platform": {
             "php": "7.4"
         },
-        "sort-packages": true,
-        "vendor-dir": "site/www/vendor"
+        "sort-packages": true
     },
     "scripts": {
         "setup": [
-            "rm -rf site/www/vendor; composer install --ansi --no-progress --prefer-source",
+            "find . -name vendor -type d -exec rm -rf {} \\;; composer install --ansi --no-progress --prefer-source",
             "npm ci --no-progress",
-            "php -r \"copy('Configuration.php.dist', 'site/www/Configuration.php');\"",
             "command -v phive && phive --no-progress install --trust-gpg-keys 31C7E470E2138192,8A03EA3B385DBAA1"
         ],
         "prepare-commit": [
@@ -47,11 +44,8 @@
             "@lint"
         ],
         "lint": [
-            "find site/www -type f -name '*.php' -not -path 'site/www/vendor/*' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
+            "find src -type f -name '*.php' -not -path 'vendor/*' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "phpcs"
-        ],
-        "serve": [
-            "php -S localhost:8080 -t site/www/"
         ]
     }
 }

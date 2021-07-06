@@ -4,11 +4,11 @@
  * Put functions specific to your application here. You can call these from the view templates.
  */
 
-namespace Cuttlefish;
+namespace src;
 
 use Configuration;
 
-if (! defined('BASE_DIR')) {
+if (!defined('BASE_DIR')) {
     exit('No direct script access allowed');
 }
 
