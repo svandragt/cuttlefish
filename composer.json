@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cuttlefish\\": "src"
+            "Cuttlefish\\": "src/"
         }
     },
     "config": {
