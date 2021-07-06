@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace Cuttlefish;
 
 class Html
 {

@@ -2,7 +2,7 @@
 
 /** @noinspection XmlUnusedNamespaceDeclaration */
 
-namespace src;
+namespace Cuttlefish;
 
 use Configuration;
 use SimpleXMLElement;

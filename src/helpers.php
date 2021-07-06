@@ -4,7 +4,7 @@
  * Put functions specific to your application here. You can call these from the view templates.
  */
 
-namespace src;
+namespace Cuttlefish;
 
 use Configuration;
 

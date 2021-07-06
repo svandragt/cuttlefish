@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace Cuttlefish;
 
 use Configuration;
 use Dotenv\Dotenv;

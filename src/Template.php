@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace Cuttlefish;
 
 // @link http://stackoverflow.com/questions/62617/whats-the-best-way-to-separate-php-code-and-html
 class Template
