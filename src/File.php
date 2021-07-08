@@ -15,9 +15,11 @@ class File
     {
         try {
             if (! file_exists($file_path)) {
+                http_response_code(404);
                 throw new Exception("'$file_path' not found :(");
             }
             if (! is_readable($file_path)) {
+                http_response_code(404);
                 throw new Exception("'$file_path' is unreadable!");
             }
         } catch (Exception $e) {

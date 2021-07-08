@@ -19,8 +19,8 @@ if (!defined('BASE_DIR')) {
  *
  * @return string link to theme directory
  */
-function theme_path($filename = '')
+function theme_path(string $filename = ''): string
 {
     $theme_folder = Configuration::THEMES_FOLDER . DIRECTORY_SEPARATOR . Configuration::THEME . DIRECTORY_SEPARATOR;
-    return  str_replace("\\", "/", $theme_folder) . $filename;
+    return str_replace("\\", "/", $theme_folder) . $filename;
 }
