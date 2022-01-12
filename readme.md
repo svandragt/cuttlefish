@@ -1,22 +1,20 @@
 # Cuttlefish
-Cuttlefish simplifies creating and deploying PHP websites.
+Cuttlefish is a simple opinionated web-app framework, for quickly building PHP web-apps.
 
 _It should be considered work in progress._
 
 ## Philosophy
 
-* Short learning curve, basic PHP and markdown knowledge is required.
-* Accommodating defaults.
-* Adaptable to your needs.
+* Thin layer on top of PHP focused on convenience and developer productivity.
+* Opinionated, minimal abstractions for CRUD projects.
+
+## It is not
+- Making static websites
+
 
 ## Installation
 
-[Installation, configuration, and content management](https://github.com/svandragt/cuttlefish/wiki)
-instructions are found on the wiki.
-
-# Cuttlefish apps
-
-* [Blog application](https://github.com/svandragt/cuttlefish-blog)
+_WIP_
 
 [Contributions are welcomed](https://github.com/svandragt/cuttlefish/issues). 
 
