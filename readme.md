@@ -1,15 +1,15 @@
 # Cuttlefish
-Cuttlefish is a simple opinionated web-app framework, for quickly building PHP web-apps.
+Cuttlefish is a opinionated minimal web-app abstraction layer for PHP.
 
 _It should be considered work in progress._
 
 ## Philosophy
 
-* Thin layer on top of PHP focused on convenience and developer productivity.
-* Opinionated, minimal abstractions for CRUD projects.
+* As simple as possible, not not simpler.
+* Opinionated, for backend developers.
 
 ## It is not
-- Making static websites
+- Making static websites.
 
 
 ## Installation
