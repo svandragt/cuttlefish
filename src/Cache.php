@@ -212,6 +212,7 @@ class Cache
         include_once('helpers.php');
         $output = 'Copying files from theme: <br><br>';
 
+
         foreach ($fileTypes as $fileType) {
             $output .= "filetype: $fileType<br>";
             $files = new Files(BASE_DIR . theme_path(), $fileType);

@@ -80,25 +80,13 @@ class Router
     protected function classNotCallable(string $controllerClassName): void
     {
         $url = new Url('/errors/404');
-        $logMessage = "Not callable '$controllerClassName' or missing parameter.";
+        $logMessage = "Not callable '$controllerClassName' or missing parameter!";
         if (empty($controllerClassName)) {
-            $logMessage = "Missing route";
+            $logMessage = "Missing route!";
         }
         http_response_code(404);
-        $this->redirect($url, $logMessage);
-    }
-
-    /**
-     * Redirect to new url
-     *
-     * @param Url $url URL to redirect to
-     * @param string $logMessage
-     *
-     * @return void
-     */
-    protected function redirect(Url $url, string $logMessage): void
-    {
-        echo("Location: " . $url->urlAbsolute . PHP_EOL);
-        exit($logMessage);
+        header("Location: " . $url->urlAbsolute . PHP_EOL);
+        echo($logMessage);
+        exit(0);
     }
 }
