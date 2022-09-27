@@ -12,7 +12,7 @@
     "minimum-stability": "stable",
     "require": {
       "php": ">=7.4",
-      "michelf/php-markdown": "^1.9",
+      "michelf/php-markdown": "^1.9 || ^2.0",
       "vlucas/phpdotenv": "^5",
       "ext-curl": "*",
       "ext-simplexml": "*",
