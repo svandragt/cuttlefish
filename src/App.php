@@ -54,7 +54,7 @@ class App
      *
      * @return App
      */
-    public static function getInstance(): ?App
+    public static function getInstance(): App
     {
         if (self::$instance === null) {
             if (is_readable(dirname(BASE_DIR) . '/.env')) {
