@@ -10,7 +10,6 @@ class Environment
 
     public function __construct()
     {
-
         if ($this->isNewInstall()) {
             $this->createSystemFolders();
             $this->writeHtaccess();
@@ -47,8 +46,8 @@ class Environment
     public function writeHtaccess(): void
     {
         $directory_index = "index.html index.xml";
-        $path = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
-        $fp = fopen($path, 'w');
+        $path            = Configuration::CACHE_FOLDER . DIRECTORY_SEPARATOR . ".htaccess";
+        $fp              = fopen($path, 'w');
         fwrite($fp, "DirectoryIndex  $directory_index\n");
         fwrite($fp, "ErrorDocument 404 /errors/404/\n");
         fclose($fp);

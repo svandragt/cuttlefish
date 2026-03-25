@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-      "php": ">=7.4",
+      "php": ">=8.3",
       "michelf/php-markdown": "^1.9",
       "vlucas/phpdotenv": "^5",
       "ext-curl": "*",
@@ -19,7 +19,8 @@
       "ext-fileinfo": "*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +30,7 @@
     "config": {
         "process-timeout": 0,
         "platform": {
-            "php": "7.4"
+            "php": "8.3"
         },
         "sort-packages": true
     },
@@ -46,6 +47,9 @@
         "lint": [
             "find src -type f -name '*.php' -not -path 'vendor/*' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v 'No syntax errors detected' )",
             "phpcs"
+        ],
+        "serve": [
+            "php -S localhost:5333"
         ]
     }
 }

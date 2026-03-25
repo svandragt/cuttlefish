@@ -23,7 +23,7 @@ class Controller
     /**
      * @return void
      */
-    public function init(): void
+    public function init()
     {
         $this->records();
         $this->model();
@@ -35,7 +35,7 @@ class Controller
      *
      * @return void
      */
-    public function records(): void
+    public function records()
     {
     }
 
@@ -44,7 +44,7 @@ class Controller
      *
      * @return void
      */
-    public function model(): void
+    public function model()
     {
     }
 
@@ -53,7 +53,7 @@ class Controller
      *
      * @return void
      */
-    public function view(): void
+    public function view()
     {
         include_once('helpers.php');
     }
