@@ -1,6 +1,6 @@
 # Cuttlefish
 
-Minimal PHP web-app framework. Current branch: `refocus`.
+Minimal PHP web-app framework.
 
 ## Requirements
 
