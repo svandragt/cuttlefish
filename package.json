@@ -1,7 +1,7 @@
 {
   "name": "cuttlefish",
   "devDependencies": {
-    "husky": "^6.0.0"
+    "husky": "^9.1.7"
   },
   "scripts": {
     "prepare": "husky install"
